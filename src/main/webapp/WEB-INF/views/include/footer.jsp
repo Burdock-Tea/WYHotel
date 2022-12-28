@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-6">
                     <div class="logo-img">
-                        <img src="./img/em_logo.svg" width="150">
+                        <img src="${pageContext.request.contextPath}/img/em_logo.svg" width="150">
                     </div>
                 </div>
             </div>

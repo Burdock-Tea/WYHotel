@@ -21,14 +21,14 @@
         <!-- swiper -->
         <!-- Link Swiper's CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
-        <link rel="stylesheet" href="./css/main.css"/>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css"/>
     </head>
     <body>    
         <header> <!-- start header -->
             <div class="header-wrapper">
                 <div class="contatiner" style="text-align: center;">
                     <div class="img-wrapper">
-                        <img src="./img/em_logo.svg" width="150">
+                        <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/img/em_logo.svg" width="150"></a>
                     </div>
                 </div>
             </div>        
@@ -45,10 +45,10 @@
                                 호텔소개
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="./introduce_hotels.html">개요</a></li>
-                                <li><a class="dropdown-item" href="./introduce_hotels.html">WY호텔 서울</a></li>
-                                <li><a class="dropdown-item" href="./introduce_hotels.html">WY호텔 부산</a></li>
-                                <li><a class="dropdown-item" href="./introduce_hotels.html">WY호텔 제주</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce_hotels.html">개요</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce_hotels.html">WY호텔 서울</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce_hotels.html">WY호텔 부산</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce_hotels.html">WY호텔 제주</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -80,8 +80,8 @@
                                 계정관리
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="./member_login.html">로그인</a></li>
-                                <li><a class="dropdown-item" href="./member_join2.html">회원가입</a></li>                                
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/login">로그인</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/join">회원가입</a></li>                                
                             </ul>
                         </li>
                         <!-- 로그인시 띄워줄 드롭다운 메뉴 -->
@@ -90,9 +90,9 @@
                                 마이페이지
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="./member_login.html">맴버쉽</a></li>
-                                <li><a class="dropdown-item" href="./member_join2.html">회원정보수정</a></li>
-                                <li><a class="dropdown-item" href="./member_myPage.html">회원탈퇴</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/login">맴버쉽</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/modify">회원정보수정</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/delete">회원탈퇴</a></li>
                             </ul>
                         </li>
                     </ul>
