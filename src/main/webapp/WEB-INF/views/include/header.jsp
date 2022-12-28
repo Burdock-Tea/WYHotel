@@ -21,7 +21,7 @@
         <!-- swiper -->
         <!-- Link Swiper's CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
-        <link rel="stylesheet" href="./css/main.css"/>
+        <link rel="stylesheet" href="<c:url value='/css/main.css'/>"/>
     </head>
     <body>    
         <header> <!-- start header -->
