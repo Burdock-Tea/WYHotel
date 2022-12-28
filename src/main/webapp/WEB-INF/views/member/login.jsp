@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-    <%@ include file="../include/header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 
 <!-- 메인영역 각자 할꺼 여기서 부터 적으세용 -->
 <div class="container">

@@ -16,9 +16,9 @@
          <ul class="list-group col-12">
              <li class="list-group"><h4>마이페이지</h4></li>
              <hr>
-             <li class="list-group-item"> <a href="./member_modify.html" class="text-secondary">내정보 수정</a></li>
-             <li class="list-group-item"> <a href="./member_Pwmodify.html" class="text-secondary">비밀번호 수정</a></li>
-             <li class="list-group-item"> <a href="./member_delete.html" class="text-secondary">회원탈퇴</a></li>
+             <li class="list-group-item"> <a href="${pageContext.request.contextPath}/member/modify" class="text-secondary">내정보 수정</a></li>
+             <li class="list-group-item"> <a href="${pageContext.request.contextPath}/member/pwModify" class="text-secondary">비밀번호 수정</a></li>
+             <li class="list-group-item"> <a href="${pageContext.request.contextPath}/member/delete" class="text-secondary">회원탈퇴</a></li>
          </ul>
      </div>
          
@@ -30,11 +30,11 @@
                </div>
                <div class="form-group col-12">
                    <label for="inputPassword" class="form-label mt-4">변경 할 비밀번호</label>
-                   <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                   <input type="password" class="form-control" id="inputPassword" placeholder="New Password">
                </div>
                <div class="form-group col-12">
                    <label for="inputPassword" class="form-label mt-4">비밀번호 확인</label>
-                   <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                   <input type="password" class="form-control" id="inputPassword" placeholder="New Password Check">
                </div>
          
              <div class="joinButton col-12">
