@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">	
+	
+	<!-- 이메일 인증 관련 빈 등록 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${gmail.host}"/>
+		<property name="port" value="${gmail.port}"/>
+		<property name="username" value="${gmail.account2}"/>
+		<property name="password" value="${gmail.password2}"/>		
+		<property name="javaMailProperties">
+         <props>
+            <prop key="mail.smtp.starttls.enable">true</prop> <!-- GOOGLE -->
+            <!-- <prop key="mail.smtp.ssl.enable">true</prop> NAVER -->
+            <prop key="mail.smtp.auth">true</prop>
+            <prop key="mail.transport.protocol">smtp</prop>
+            <prop key="mail.debug">true</prop>
+            <prop key="mail.smtps.ssl.trust">*</prop>
+            <prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+         </props>
+      </property>
+      
+	</bean>
+
+
+</beans>
