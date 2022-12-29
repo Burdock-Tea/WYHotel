@@ -70,8 +70,8 @@
                                 예약관리
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">예약하기</a></li>
-                                <li><a class="dropdown-item" href="./reservations.html">내 예약</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/reservationPage">예약하기</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/myReservations">내 예약</a></li>
                             </ul>
                         </li>
                         <!-- 비로그인시 띄워줄 드롭다운 메뉴 -->
