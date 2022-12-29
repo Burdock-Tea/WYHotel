@@ -5,103 +5,6 @@
 
 
     <style>
-        /* 로고 이미지 */
-        #logo{width: 70px; height: 70px; margin-left: 20px;}
-
-        /* font setting */
-        *{ font-family: 'Noto Sans KR', sans-serif; font-weight: 300;}
-        .nav-link{ font-weight: 400;} /* font 활성화시 폰트 두께*/
-        .box-shodow{ box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);}
-
-        /* section : video */
-        .hero{
-            height: 40vh;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(to left,black,transparent);
-        }
-        /* using object-fit */
-        .hero video{
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .hero .heading{color: white;}
-              
-        /* content */
-        .intro{ padding: 80px 0;}
-        
-        /* footer */
-
-        @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
-
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        input, textarea, button, select {
-            border: none;
-        
-            -webkit-appearance: none;
-            -moz-appearance: none; 
-            appearance: none;   
-        }
-
-        ul, ol, dl, li {
-            list-style: none;
-        }
-        .btn {
-            border-radius: 0px;
-        }
-
-        .clearfix::after {
-            content: '';
-            display: block;
-            clear: both;
-        }
-
-        footer{
-            margin-top: 70px;
-            background: lightgray;
-            padding: 30px 0 15px;
-            position: relative;
-        }
-
-        footer .copyright {
-            font-size: 13px;
-            color: #000;
-            line-height: 20px;
-        }
-
-        footer .logo-img {
-            width: 10%;
-            float: right;
-        }
-
-        footer .footer-div {
-            width: 20%;
-            float: right;
-        }
-
-        footer .footer-menu li {
-            display: inline-block;
-            padding: 0 5px;
-        }
-
-        footer .footer-menu li a {
-            color: #000;
-            font-size: 10px;
-        }     
-
-
         /* reservations page css */
         a {
             color: inherit;
@@ -244,7 +147,13 @@
             width: 50%;
             display: block;
             margin: 10px auto;
-        }
+        }       
+        
+        footer {
+	        position: fixed;
+	    	bottom: 0;
+	    	width: 100%;
+		}
 
     </style>
 
@@ -381,15 +290,9 @@
 
 
     </section>
-
-
-
-
-
-
-    <%@ include file="./reservationModal.jsp" %>
-
-
+    
+    <%@ include file="./reservationModal.jsp" %>    
+    
     <script>
 
         $(document).ready(function(){
@@ -460,5 +363,6 @@
         });
         
     </script>
-
-<%@ include file="../include/footer.jsp" %>
+    
+    <%@ include file="../include/footer.jsp" %>
+    

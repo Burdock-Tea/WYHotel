@@ -3,6 +3,16 @@
 
     <%@ include file="../include/header.jsp" %>
 
+<style>
+
+	footer {
+        position: fixed;
+    	bottom: 0;
+    	width: 100%;
+	}
+
+</style>
+
  <!-- start member_delete -->
  <section>
     <div class="container"> 

@@ -34,10 +34,10 @@
 	<!-- MyBatis SQL 동작을 위한 핵심 객체 SqlSessionFactory 클래스 빈 등록 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="ds"/>
-		<property name="configLocation" value="WEB-INF/config/mybatis-config.xml"/>
-		<property name="mapperLocations" value="classpath:/mappers/*Mapper.xml" />
+		<property name="configLocation" value="WEB-INF/spring/config/mybatis-config.xml"/>
+		<!-- <property name="mapperLocations" value="classpath:/mapper/MemberMapper.xml" />  -->
 	</bean>
 	
-	<!-- <mybatis-spring:scan base-package="com.ictproject.wyhotel.***.mapper"/> -->
+	<!-- <mybatis-spring:scan base-package="com.ictproject.wyhotel.member.mapper"/>  -->
 		
 </beans>
