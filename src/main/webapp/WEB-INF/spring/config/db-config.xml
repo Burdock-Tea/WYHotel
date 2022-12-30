@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!--	
+		프로젝트를 구성하다 보면 자주 변경되지 않는 설정 파일들이나, 공통 정보들에 대한
+		내용이 존재하게 되고, 그 내용들은 한 번 지정되면 잘 바뀌지 않습니다.
+		또한 외부로 노출되었을 시 심각한 문제가 발생할 수도 있는(계정 정보 등) 자료들은
+		.properties라는 파일을 사용하여 텍스트 형식으로 간단히 지정하고
+		필요할 때 불러와서 사용하는 방식을 많이 사용합니다.
+	 -->
+	 
+	<!-- 외부에 따로 설정한 설정 파일을 참조하는 곳에 사용하는 클래스 -->
+	<bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<property name="location" value="classpath:/db-config/Hikari.properties"/>
+	</bean>
+	
+	<!-- Hikari CP 빈 등록 -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="${ds.driverClassName}"/>
+		<property name="jdbcUrl" value="${ds.url}"/>
+		<property name="username" value="${ds.username}"/>
+		<property name="password" value="${ds.password}"/>
+	</bean>
+	
+	<!-- Hikari DataSource 빈 등록 -->
+	<bean id="ds" class="com.zaxxer.hikari.HikariDataSource">
+		<constructor-arg ref="hikariConfig"/>
+	</bean>
+	
+	<!-- MyBatis SQL 동작을 위한 핵심 객체 SqlSessionFactory 클래스 빈 등록 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds"/>
+		<property name="configLocation" value="WEB-INF/spring/config/mybatis-config.xml"/>
+		<!-- <property name="mapperLocations" value="classpath:/mapper/MemberMapper.xml" />  -->
+	</bean>
+	
+	<!-- <mybatis-spring:scan base-package="com.ictproject.wyhotel.member.mapper"/>  -->
+		
+</beans>
