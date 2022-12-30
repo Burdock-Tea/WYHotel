@@ -19,5 +19,4 @@ public class DiningVO {
 	
 	// 남은 테이블 수 
 	private int remainTables;
-	
 }

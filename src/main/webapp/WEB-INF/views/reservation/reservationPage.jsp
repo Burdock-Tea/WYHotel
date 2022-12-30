@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
     <%@ include file="../include/header.jsp" %>
     <style>
 
@@ -89,12 +91,15 @@
     <section class="main"> <!-- start main -->
         <div class="container wrapper"> <!-- start fastreservations -->
             <h3 class="reservation-title">호텔 / 다이닝 예약</h3>
+
             <form method="post" id="reservForm">
+
                 <table class="reservation-table table">
                     <thead>
                         <tr>
                             <td>
                                 <select class="form-select" aria-label="Default select example" name="category">
+
                                     <option ${reservation.category == null ? 'selected' : '' }>호텔 / 다이닝 선택</option>
                                     <option value="hotels" ${reservation.category == 'hotels' ? 'selected' : ''}>호텔</option>
                                     <option value="dinings" ${reservation.category == 'dinings' ? 'selected' : ''}>다이닝</option>
@@ -282,7 +287,6 @@
             $('#reservBtn').click(function(){
                 $('#reservForm').submit();
             });
-
 
         }); // jQuery 종료
 

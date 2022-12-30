@@ -11,7 +11,6 @@
     }
 </style>
 
-
 <section class="main"> <!-- start main -->
 	<div class="wrapper"> <!-- start video -->
 		<section class="hero">
@@ -33,6 +32,7 @@
 						<td>
 							<select class="form-select" aria-label="Default select example" name="category">
 								<option>호텔 / 다이닝 선택</option>
+
 								<option value="hotels">호텔</option>
 								<option value="dinings">다이닝</option>
 							</select>
@@ -66,6 +66,7 @@
 						</td>
 						<td>
 							<button type="button" class="btn btn-dark" id="reservBtn">검색</button>
+
 						</td>
 					</tr>
 				</thead>
@@ -192,6 +193,7 @@
             prevEl: ".swiper-button-prev",
             },
         });
+
 
                 // jQuery 시작
 				$(function() {

@@ -39,5 +39,6 @@
 	</bean>
 	
 	<mybatis-spring:scan base-package="com.ictproject.wyhotel.***.mapper"/>
+
 		
 </beans>
