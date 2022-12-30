@@ -147,13 +147,7 @@
             width: 50%;
             display: block;
             margin: 10px auto;
-        }       
-        
-        footer {
-	        position: fixed;
-	    	bottom: 0;
-	    	width: 100%;
-		}
+        }
 
     </style>
 
@@ -290,9 +284,15 @@
 
 
     </section>
-    
-    <%@ include file="./reservationModal.jsp" %>    
-    
+
+
+
+
+
+
+    <%@ include file="./reservationModal.jsp" %>
+
+
     <script>
 
         $(document).ready(function(){
@@ -363,6 +363,5 @@
         });
         
     </script>
-    
-    <%@ include file="../include/footer.jsp" %>
-    
+
+<%@ include file="../include/footer.jsp" %>

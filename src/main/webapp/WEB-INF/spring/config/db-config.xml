@@ -35,9 +35,9 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="ds"/>
 		<property name="configLocation" value="WEB-INF/spring/config/mybatis-config.xml"/>
-		<!-- <property name="mapperLocations" value="classpath:/mapper/MemberMapper.xml" />  -->
+		<property name="mapperLocations" value="classpath:/mapper/*Mapper.xml" />
 	</bean>
 	
-	<!-- <mybatis-spring:scan base-package="com.ictproject.wyhotel.member.mapper"/>  -->
+	<mybatis-spring:scan base-package="com.ictproject.wyhotel.***.mapper"/>
 		
 </beans>

@@ -21,7 +21,11 @@
  	</settings>
  	
  	<typeAliases>
- 		<!--<typeAlias type="com.ictproject.wyhotel.command.memberVO" alias="member"/> --> 		
+ 		<typeAlias type="com.ictproject.wyhotel.command.MemberVO" alias="member"/> 		
+ 		<typeAlias type="com.ictproject.wyhotel.command.RoomReservationVO" alias="roomReserv"/> 		
+ 		<typeAlias type="com.ictproject.wyhotel.command.DiningReservationVO" alias="diningReserv"/> 		
+ 		<typeAlias type="com.ictproject.wyhotel.command.RoomVO" alias="room"/>
+ 		<typeAlias type="com.ictproject.wyhotel.command.DiningVO" alias="dining"/>
  	</typeAliases>
  	
  	<!--

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ include file="../include/header.jsp" %>
     <style>
 
@@ -89,46 +89,46 @@
     <section class="main"> <!-- start main -->
         <div class="container wrapper"> <!-- start fastreservations -->
             <h3 class="reservation-title">호텔 / 다이닝 예약</h3>
-            <form>
+            <form method="post" id="reservForm">
                 <table class="reservation-table table">
                     <thead>
                         <tr>
                             <td>
                                 <select class="form-select" aria-label="Default select example" name="category">
-                                    <option>호텔 / 다이닝 선택</option>
-                                    <option value="hotel">호텔</option>
-                                    <option value="dining">다이닝</option>
+                                    <option ${reservation.category == null ? 'selected' : '' }>호텔 / 다이닝 선택</option>
+                                    <option value="hotels" ${reservation.category == 'hotels' ? 'selected' : ''}>호텔</option>
+                                    <option value="dinings" ${reservation.category == 'dinings' ? 'selected' : ''}>다이닝</option>
                                 </select>
                             </td>
                             <td>
-                                <select class="form-select" aria-label="Default select example" name="hotel">
-                                    <option>지점선택</option>
-                                    <option value="seoul">서울WY호텔</option>
-                                    <option value="busan">부산WY호텔</option>
-                                    <option value="jeju">제주WY호텔</option>
+                                <select class="form-select" aria-label="Default select example" name="hotelCode">
+                                    <option ${hotelCode == null ? 'selected' : ''}>지점선택</option>
+                                    <option value="10" ${reservation.hotelCode == '10' ? 'selected' : ''}>서울WY호텔</option>
+                                    <option value="20" ${reservation.hotelCode == '20' ? 'selected' : ''}>부산WY호텔</option>
+                                    <option value="30" ${reservation.hotelCode == '30' ? 'selected' : ''}>제주WY호텔</option>
                                 </select>
                             </td>
                             <td>
                                 <select class="form-select" aria-label="Default select example" name="capacity">
                                     <option>인원수</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
+                                    <option value="1" ${reservation.capacity == '1' ? 'selected' : ''}>1</option>
+                                    <option value="2" ${reservation.capacity == '2' ? 'selected' : ''}>2</option>
+                                    <option value="3" ${reservation.capacity == '3' ? 'selected' : ''}>3</option>
+                                    <option value="4" ${reservation.capacity == '4' ? 'selected' : ''}>4</option>
                                 </select>
                             </td>
                             <td>
                                 <select class="form-select" aria-label="Default select example" name="age">
                                     <option>연령대</option>
-                                    <option value="adult">성인</option>
-                                    <option value="notadult">미성년</option>
+                                    <option value="adult" ${reservation.age == 'adult' ? 'selected' : ''}>성인</option>
+                                    <option value="notadult" ${reservation.age == 'nonadult' ? 'selected' : ''}>미성년</option>
                                 </select>
                             </td>
                             <td>
-                                <input type="text" name="daterange" value="카테고리를 먼저 선택하세요" class="form-control" />
+                                <input type="text" name="daterange" value="${reservation.daterange == null ? '카테고리를 먼저 선택하세요' : reservation.daterange}" class="form-control" />
                             </td>
                             <td>
-                                <button type="button" class="btn btn-dark">검색</button>
+                                <button type="button" class="btn btn-dark" id="reservBtn">검색</button>
                             </td>
                         </tr>
                     </thead>
@@ -136,40 +136,32 @@
             </form> <!-- end form tag-->
         </div><!-- end fastreservations -->
         <div class="result-wrapper">
-            <table id="resultTable" class="container">
+            <table id="resultTable" class="container table">
                 <tbody>
+                    
+                    <c:forEach var="result" items="${resultList}">
                     <tr class="row" id="resultRow">
                         <td class="col-sm-12 col-md-4"><div class="img-container"><img src="${pageContext.request.contextPath}/img/bedroom-g34b59e527_1920.jpg" alt=""></div></td>
                         <td class="col-sm-12 col-md-8 position-relative" id="resultDetail">
                             <p id="room">
-                                Suite
+                                ${param.category == 'hotels' ? result.roomGrade : result.resName}
                             </p>
                             <p id="showDetails">
-                                bed: Double(king) only <br>
-                                <a href="#">객실 상세정보&ensp;&ensp;<span class="badge bg-dark">+</span></a>
+                                ${param.category == 'hotels' ? result.roomInfo : result.resInfo}<br>
+                                <c:if test="${param.category == 'hotels'}">
+                                	<a href="#">객실 상세정보&ensp;&ensp;<span class="badge bg-dark">+</span></a>
+                                </c:if>
                             </p>
                             <p id="price">
-                                670,000 won
+                                ${param.category == 'hotels' ? result.roomPrice : ''}
+                                <c:if test="${param.category == 'hotels'}">
+                                	 won
+                                </c:if>
                             </p>
                             <button type="button" class="btn btn-dark">예약하기</button>
                         </td>
                     </tr>
-                    <tr class="row" id="resultRow">
-                        <td class="col-sm-12 col-md-4"><div class="img-container"><img src="${pageContext.request.contextPath}/img/bedroom-g34b59e527_1920.jpg" alt=""></div></td>
-                        <td class="col-sm-12 col-md-8 position-relative" id="resultDetail">
-                            <p id="room">
-                                Business Delux
-                            </p>
-                            <p id="showDetails">
-                                bed: Double(king) only <br>
-                                <a href="#">객실 상세정보&ensp;&ensp;<span class="badge bg-dark">+</span></a>
-                            </p>
-                            <p id="price">
-                                570,000 won
-                            </p>
-                            <button type="button" class="btn btn-dark">예약하기</button>
-                        </td>
-                    </tr>
+                    </c:forEach>
                 </tbody>
             </table>
         </div>
@@ -180,27 +172,30 @@
     
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script>
-        var swiper = new Swiper(".mySwiper", {
-            slidesPerView: 3,
-            spaceBetween: 30,
-            slidesPerGroup: 3,
-            loop: true,
-            loopFillGroupWithBlank: true,
-            pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-            },
-            navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-            },
-        });
+        
+        console.log('${param.category}');
 
         // jQuery 시작
         $(function() {
-            
             // 처음 daterange를 readonly로
-            $('input[name="daterange"]').attr('readonly', 'true');
+            if ('${reservation.category}' === '') {
+                $('input[name="daterange"]').attr('readonly', 'true');
+            } else if ('${param.category}' === 'hotels') {
+                $('input[name="daterange"]').daterangepicker({
+                    opens: 'left'
+                }, function(start, end, label) {
+                    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+                });
+            } else if ('${param.category}' === 'dinings') {
+            	$('input[name="daterange"]').daterangepicker({
+                    singleDatePicker: true,
+                    showDropdowns: true,
+                    minYear: today.getFullYear(),
+                    maxYear: today.getFullYear() + 1
+                }, function(start, end, label) {
+                    console.log("Picked date is " + start.format('YYYY-MM-DD'));
+                });
+            }
 
             // hotel/dining select event begin
             $('select[name="category"]').change(function(){
@@ -257,7 +252,7 @@
 
 
                 // 선언한 변수로 데이터레인지피커 밸류 수정
-                if ($(this).val() === 'dining') {
+                if ($(this).val() === 'dinings') {
                     $('input[name="daterange"]').attr('readonly', false);
                     $('input[name="daterange"]').val(endMonth.toString() + '/' + endDay.toString() + '/' + endYear.toString());
                     $('input[name="daterange"]').daterangepicker({
@@ -268,7 +263,7 @@
                     }, function(start, end, label) {
                         console.log("Picked date is " + start.format('YYYY-MM-DD'));
                     });
-                } else if($(this).val() === 'hotel') {
+                } else if($(this).val() === 'hotels') {
                     $('input[name="daterange"]').attr('readonly', false);
                     $('input[name="daterange"]').val(month.toString() + '/' + day.toString() + '/' + year.toString() + ' - ' + endMonth.toString() + '/' + endDay.toString() + '/' + endYear.toString());
                     $('input[name="daterange"]').daterangepicker({
@@ -281,6 +276,12 @@
                     $('input[name="daterange"]').val('카테고리를 먼저 선택하세요');
                 }
             }); // hotel/dining select event end
+
+
+            // reservBtn 클릭 이벤트
+            $('#reservBtn').click(function(){
+                $('#reservForm').submit();
+            });
 
 
         }); // jQuery 종료

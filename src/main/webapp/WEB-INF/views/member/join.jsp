@@ -102,31 +102,31 @@
             <label class="form-check-label" for="flexSwitchCheckChecked"> 약관동의 </label>
             </div>   
             <!-- 로그인 시작 -->
-            <form id="loginForm">
+            <form id="loginForm" method="post">
                   <div class="form-group">
                     <label for="inputEmail" class="form-label mt-4">이메일을 입력하세요</label>
-                    <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="example@gmail.com">
+                    <input type="email" name="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="example@gmail.com">
                 </div>
                 <div class="form-group">
                   <label for="inputPassword" class="form-label mt-4">Password</label>
-                  <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                  <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
                 </div>
                 <div class="form-group">
                     <label for="inputName" class="form-label mt-4">이름</label>
-                    <input type="text" class="form-control" id="inputName" placeholder="이름을 입력해주세요.">
+                    <input type="text" name="name" class="form-control" id="inputName" placeholder="이름을 입력해주세요.">
                 </div>
                
                   <!-- https://juein.tistory.com/43 << 이런 방식도 있던데 이건 어때요? -->
                 <label class="col-form-label mt-4" for="inputDefault">전화번호</label>
                 <div class="form-group">
                     <div class="d-inline-flex">
-                        <select class="form-select select">
+                        <select name="tel" class="form-select select">
                             <option>010</option>
                             <option>011</option>
                             <option>018</option>
                         </select>
-                       - <input type="number" class="form-control" size="6" placeholder="0000" id="inputDefault">
-                       - <input type="number" class="form-control" size="6" placeholder="0000" id="inputDefault">
+                       - <input type="number" name="tel2" class="form-control" size="6" placeholder="0000" id="inputDefault">
+                       - <input type="number" name="tel3" class="form-control" size="6" placeholder="0000" id="inputDefault">
                     </div>
 
                 </div>    
@@ -134,7 +134,7 @@
                 <div class="form-group">
                     <label for="inputPhoneNumber" class="form-label mt-4">주소</label>
                     <div class="input-group" id="addrForm">
-                        <input type="text" name="addrZipNum" class="form-control" id="addrZipNum" placeholder="우편번호" readonly>
+                        <input type="text" name="zipCode" class="form-control" id="addrZipNum" placeholder="우편번호" readonly>
                         <div class="input-group-addon">
                             <button type="button" class="btn btn-primary">주소찾기</button>
                         </div>
@@ -146,17 +146,30 @@
                 <div class="form-group">
                     <input type="text" name="addrDetail" class="form-control" id="addrDetail" placeholder="상세주소">
                 </div>
+                <input type="hidden" name="memberCode" value="dummy">
                       
                     
-            </form>
+            
                 <div class="joinButton">
                     <button type="button" class="btn btn-light">취소</button> &nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-dark">회원가입</button>
+                    <button type="submit" class="btn btn-dark">회원가입</button>
                 </div>
+            </form>
             </div>
         </div>
             </div>
          </div>   
     </section>
+
+    <script>
+
+        // jQuery 시작
+        $(document).ready(function(){
+
+
+            
+        }); // end jQuery
+
+    </script>
 
     <%@ include file="../include/footer.jsp" %>
