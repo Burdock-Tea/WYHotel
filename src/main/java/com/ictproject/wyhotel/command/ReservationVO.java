@@ -12,7 +12,9 @@ public class ReservationVO {
 	private String category;
 	private String hotelCode;
 	private int capacity;
-	private String age;
+	// 연령대 삭제 22/12/30
+	// 시간대 추가
+	private String reservationTime;
 	private String daterange;
 
 }

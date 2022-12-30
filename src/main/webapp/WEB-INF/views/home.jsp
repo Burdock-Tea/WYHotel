@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 
 	<%@ include file="./include/header.jsp" %>
 
@@ -53,13 +52,27 @@
 								<option value="4">4</option>
 							</select>
 						</td>
-						<td>
-							<select class="form-select" aria-label="Default select example" name="age">
-								<option>연령대</option>
-								<option value="adult">성인</option>
-								<option value="notadult">미성년</option>
-							</select>
-						</td>
+						<!-- 연령대 삭제, 다이닝 예약 선택시 시간대로 변경  22/12/30 -->
+                        <td class="" id="time">
+                            <select class="form-select" aria-label="Default select example" name="reservationTime">
+                                <option>시간선택</option>
+                                <optgroup label="Lunch">
+                                    <option ${reservation.reservationTime == '11:30' ? 'selected' : ''}>11:30</option>
+                                    <option ${reservation.reservationTime == '12:00' ? 'selected' : ''}>12:00</option>
+                                    <option ${reservation.reservationTime == '12:30' ? 'selected' : ''}>12:30</option>
+                                    <option ${reservation.reservationTime == '13:00' ? 'selected' : ''}>13:00</option>
+                                    <option ${reservation.reservationTime == '13:30' ? 'selected' : ''}>13:30</option>
+                                </optgroup>
+                                <optgroup label="Dinner">
+                                    <option ${reservation.reservationTime == '17:30' ? 'selected' : ''}>17:30</option>
+                                    <option ${reservation.reservationTime == '18:00' ? 'selected' : ''}>18:00</option>
+                                    <option ${reservation.reservationTime == '18:30' ? 'selected' : ''}>18:30</option>
+                                    <option ${reservation.reservationTime == '19:00' ? 'selected' : ''}>19:00</option>
+                                    <option ${reservation.reservationTime == '19:30' ? 'selected' : ''}>19:30</option>
+                                    <option ${reservation.reservationTime == '20:00' ? 'selected' : ''}>20:00</option>
+                                </optgroup>
+                            </select>
+                        </td>
 						<td>
 							<input type="text" name="daterange" value="카테고리를 먼저 선택하세요" class="form-control"/>
 						</td>
@@ -192,18 +205,40 @@
             },
         });
 
-                // jQuery 시작
-		$(function() {
-            
+     	// jQuery 시작
+        $(function() {
+
+            const today = new Date();
+            let month = today.getMonth() + 1;
+            let day = today.getDate();
+            let year = today.getFullYear();
+
             // 처음 daterange를 readonly로
-            $('input[name="daterange"]').attr('readonly', 'true');
+            if ('${reservation.category}' === '') {
+                $('input[name="daterange"]').attr('readonly', 'true');
+                $('#time').addClass('visually-hidden');
+            } else if ('${param.category}' === 'hotels') {
+                $('input[name="daterange"]').daterangepicker({
+                    opens: 'left'
+                }, function(start, end, label) {
+                    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+                });
+                $('#time').addClass('visually-hidden');
+            } else if ('${param.category}' === 'dinings') {
+            	$('input[name="daterange"]').daterangepicker({
+                    singleDatePicker: true,
+                    showDropdowns: true,
+                    minYear: today.getFullYear(),
+                    maxYear: today.getFullYear() + 1
+                }, function(start, end, label) {
+                    console.log("Picked date is " + start.format('YYYY-MM-DD'));
+                });
+                $('#time').removeClass('visually-hidden');
+            }
 
             // hotel/dining select event begin
             $('select[name="category"]').change(function(){
-                const today = new Date();
-                let month = today.getMonth() + 1;
-                let day = today.getDate();
-                let year = today.getFullYear();
+
 
                 let endDay;
                 let endMoth;
@@ -264,6 +299,7 @@
                     }, function(start, end, label) {
                         console.log("Picked date is " + start.format('YYYY-MM-DD'));
                     });
+                    $('#time').removeClass('visually-hidden');
                 } else if($(this).val() === 'hotels') {
                     $('input[name="daterange"]').attr('readonly', false);
                     $('input[name="daterange"]').val(month.toString() + '/' + day.toString() + '/' + year.toString() + ' - ' + endMonth.toString() + '/' + endDay.toString() + '/' + endYear.toString());
@@ -272,16 +308,18 @@
                     }, function(start, end, label) {
                         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
                     });
+                    $('#time').addClass('visually-hidden');
                 } else {
                     $('input[name="daterange"]').attr('readonly', true);
                     $('input[name="daterange"]').val('카테고리를 먼저 선택하세요');
+                    $('#time').addClass('visually-hidden');
                 }
             }); // hotel/dining select event end
-            
-            
-            // reservBtn 클릭
+
+
+            // reservBtn 클릭 이벤트
             $('#reservBtn').click(function(){
-            	$('#reservForm').submit();
+                $('#reservForm').submit();
             });
 
 
