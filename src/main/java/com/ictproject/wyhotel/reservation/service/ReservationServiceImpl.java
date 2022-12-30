@@ -67,6 +67,7 @@ public class ReservationServiceImpl implements IReservationService {
 		
 		DiningReservationVO diningReserv = new DiningReservationVO();
 		diningReserv.setReservationDate(reservationDate);
+		diningReserv.setReservationTime(reservation.getReservationTime());
 		diningReserv.setReservationAmount(reservation.getCapacity());
 		diningReserv.setHotelCode(reservation.getHotelCode());
 		
