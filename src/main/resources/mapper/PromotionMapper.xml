@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ictproject.wyhotel.promotion.mapper.IPromotionMapper">
+
+	<insert id="insert">
+		INSERT INTO
+    		promotion
+		VALUES
+    		( 'p' || promotion_code_seq.NEXTVAL, #{hotelCode}, #{roomCode}, #{promotionName}, #{startDate}, #{endDate}, #{promotionPrice}, #{promotionContent}, #{uploadPath}, #{fileLocation}, #{fileName}, #{fileRealName})
+	</insert>
+	
+	<select id="getList" resultType="promotion">
+		SELECT
+			*
+		FROM
+			promotion
+	</select>
+
+</mapper>

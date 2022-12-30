@@ -44,23 +44,23 @@
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 호텔소개
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce_hotels.html">개요</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce_hotels.html">WY호텔 서울</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce_hotels.html">WY호텔 부산</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce_hotels.html">WY호텔 제주</a></li>
+							<ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotels">개요</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotelsSinfo">WY호텔 서울</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotelsBinfo">WY호텔 부산</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotelsJinfo">WY호텔 제주</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">프로모션</a>
+                            <a class="nav-link" href="${ pageContext.request.contextPath }/promotion/list">프로모션</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 고객관리
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">QNA</a></li>
-                                <li><a class="dropdown-item" href="./reservations.html">문의하기</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/cscenter/faq">QNA</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/cscenter/customer">문의하기</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -95,6 +95,16 @@
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/delete">회원탈퇴</a></li>
                             </ul>
                         </li>
+                        <!-- 관리자 로그인 시 드롭다운 메뉴 -->
+	                    <li class="nav-item dropdown">
+	                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	                            관리자 페이지
+	                        </a>
+	                        <ul class="dropdown-menu">	                            
+	                            <li><a class="dropdown-item" href="#">예약관리</a></li>
+	                            <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/admin/member">회원관리</a></li>
+	                        </ul>
+	                    </li>
                     </ul>
                 </div>
             </div>
