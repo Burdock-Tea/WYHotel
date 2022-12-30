@@ -32,7 +32,6 @@
 						<td>
 							<select class="form-select" aria-label="Default select example" name="category">
 								<option>호텔 / 다이닝 선택</option>
-
 								<option value="hotels">호텔</option>
 								<option value="dinings">다이닝</option>
 							</select>
@@ -66,7 +65,6 @@
 						</td>
 						<td>
 							<button type="button" class="btn btn-dark" id="reservBtn">검색</button>
-
 						</td>
 					</tr>
 				</thead>
@@ -194,9 +192,8 @@
             },
         });
 
-
                 // jQuery 시작
-				$(function() {
+		$(function() {
             
             // 처음 daterange를 readonly로
             $('input[name="daterange"]').attr('readonly', 'true');

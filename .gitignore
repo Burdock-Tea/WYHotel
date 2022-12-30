@@ -9,7 +9,6 @@ MANIFEST.MF
 Email.properties
 Hikari.properties
 
-
 ### Eclipse ###
 .metadata
 bin/
@@ -52,7 +51,6 @@ local.properties
 
 # TeXlipse plugin
 .texlipse
-
 
 # STS (Spring Tool Suite)
 .springBeans
