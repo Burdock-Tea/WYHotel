@@ -148,6 +148,8 @@
             display: block;
             margin: 10px auto;
         }
+        
+        .btn { border-radius: 0;}
 
     </style>
 

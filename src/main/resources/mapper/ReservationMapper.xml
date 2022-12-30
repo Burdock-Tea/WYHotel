@@ -31,8 +31,12 @@
 	</select>
 	
 	<select id="getDiningList" resultType="dining">
-		SELECT * FROM
-		<include refid="locals" />
+		SELECT tbl.* FROM
+		(SELECT res.*, res.res_tables - (SELECT COUNT(*) FROM dining_reservation dr
+		WHERE dr.hotel_code = #{hotelCode} AND dr.res_code = res.res_code
+        AND dr.reservation_date = #{reservationDate} AND dr.reservation_time = #{reservationTime}) AS remain_tables FROM
+        <include refid="locals"/> res ) tbl
+        <![CDATA[WHERE remain_tables > 0]]>
 	</select>
 
 </mapper>
