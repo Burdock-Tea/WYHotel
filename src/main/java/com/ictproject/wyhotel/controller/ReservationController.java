@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ictproject.wyhotel.command.ReservationVO;
+import com.ictproject.wyhotel.command.RoomVO;
 import com.ictproject.wyhotel.reservation.service.IReservationService;
 
 @Controller
@@ -44,6 +46,31 @@ public class ReservationController {
 		
 		System.out.println(model.getAttribute("resultList"));
 		
+	}
+	
+	// 방 상세정보
+	@ResponseBody
+	@GetMapping("/roomDetail")
+	public RoomVO getRoomDetail(String roomCode) {
+		
+		return service.getRoomDetail(roomCode);
+	}
+	
+	// 결제페이지 이동
+	@PostMapping("/payment")
+	public void movePaymentPage(@ModelAttribute("reservation") ReservationVO reservation,
+								Model model) {
+		
+		String category = reservation.getCategory();
+		
+		if (category.equals("dinings")) {
+			model.addAttribute("list", service.getDiningList(reservation));
+			reservation = service.cleansingData(reservation);
+		} else {
+			model.addAttribute("list", service.getRoomList(reservation));
+			reservation = service.cleansingData(reservation);
+			System.out.println("daterange after cleansing: " + reservation.getDaterange());
+		}
 	}
 
 }

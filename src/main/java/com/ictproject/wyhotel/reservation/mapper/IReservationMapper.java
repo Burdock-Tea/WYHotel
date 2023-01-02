@@ -18,5 +18,8 @@ public interface IReservationMapper {
 	
 	// 다이닝 목록 뿌려주기
 	List<DiningVO> getDiningList(DiningReservationVO diningReserv);
-
+	
+	// 방 상세정보 가져오기
+	RoomVO getRoomDetail(String roomCode);
+	
 }
