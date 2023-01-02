@@ -55,7 +55,7 @@
                     <div class="mb-3">
                         <label for="file" class="form-label">이미지 파일 선택</label>
                         <div class="input-group">
-						  <input class="form-check-input" type="checkbox" value="" id="imageUpdate">
+						  <input class="form-check-input" type="checkbox" id="imageUpdate">
 						  <label class="form-check-label" for="imageUpdate">
 						     이미지 수정하기
 						  </label>
@@ -88,6 +88,8 @@
               } else {
                   $('.file-group').attr('hidden', 'true');
               }
+              
+              console.log($('#imageUpdate').val());              
           });
     	  
     	});

@@ -4,6 +4,19 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ictproject.wyhotel.promotion.mapper.IPromotionMapper">
 
+	<sql id="updateImage">
+		<choose>
+			<when test="condition == 'title'">
+				WHERE
+					title LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="condition == 'content'">
+				WHERE
+					content LIKE '%' || #{keyword} || '%'
+			</when>			
+		</choose>
+	</sql>
+
 	<insert id="insert">
 		INSERT INTO
     		promotion

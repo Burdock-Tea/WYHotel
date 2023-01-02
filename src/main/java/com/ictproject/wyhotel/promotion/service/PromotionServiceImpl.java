@@ -86,5 +86,69 @@ public class PromotionServiceImpl implements IPromotionService {
 	public PromotionVO getPromotion(String promotionCode) {		
 		return mapper.getPromotion(promotionCode);
 	}
+	
+	@Override
+	public void update(PromotionUploadVO upload, String imageUpdate) {
+		
+		/*
+		 *  기존 파일을 그냥 덮어 씌울지, 삭제를 하고 새로운 파일을 업데이트할지...
+		 * 
+			PromotionVO promotion = new PromotionVO();
+			// 변환 필요없는건 VO로 그냥 넣기
+			promotion.setHotelCode(upload.getHotelCode());
+			promotion.setRoomCode(upload.getRoomCode());
+			promotion.setPromotionName(upload.getPromotionName());
+			promotion.setPromotionPrice(upload.getPromotionPrice());
+			promotion.setPromotionContent(upload.getPromotionContent());
+			
+			// String을 TimeStamp로 변환 작업
+			Timestamp startDate = Timestamp.valueOf(upload.getStartDate() + " 00:00:00.0");
+			Timestamp endDate = Timestamp.valueOf(upload.getEndDate() + " 00:00:00.0");
+			
+			// TimeStamp 값 넣어주기
+			promotion.setStartDate(startDate);
+			promotion.setEndDate(endDate);	
+			
+			if(imageUpdate.equals("on")) {
+				try {
+					MultipartFile file = upload.getFile();
+					
+					String fileRealName = file.getOriginalFilename();
+					String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."), fileRealName.length());
+								
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+					
+					String folderName = sdf.format(new Date()); // 오늘날짜
+					String uploadFolder = "C:/test/upload/";
+					
+					File folder = new File(uploadFolder + folderName);
+					if(!folder.exists()) {
+						folder.mkdirs();
+					}
+					
+					UUID uuid = UUID.randomUUID();
+					String fileName = uuid.toString().replaceAll("-", "");
+					
+					File saveFile = new File(uploadFolder + folderName + "\\" + fileName + fileExtension);
+					file.transferTo(saveFile);
+					
+					promotion.setFileLocation(folderName);
+					promotion.setFileName(fileName + fileExtension);
+					promotion.setFileRealName(fileRealName);
+					promotion.setUploadPath(uploadFolder);
+					
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else { // 파일이 없어!
+				
+			}
+		
+		*/
+		
+		
+	}
 
 }

@@ -76,4 +76,12 @@ public class PromotionController {
 		
 		model.addAttribute("promotion", promotion);
 	}
+	
+	@PostMapping("/update")
+	public String update(PromotionUploadVO upload, String imageUpdate) {
+		
+		
+		
+		return "redirect:/promotion/list";
+	}
 }

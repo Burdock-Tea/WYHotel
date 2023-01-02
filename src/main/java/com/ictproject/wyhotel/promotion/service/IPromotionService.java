@@ -15,5 +15,5 @@ public interface IPromotionService {
 
 	public PromotionVO getPromotion(String promotionCode);
 	
-
+	public void update(PromotionUploadVO upload, String imageUpdate);
 }
