@@ -17,5 +17,11 @@ public interface IReservationService {
 	
 	// 다이닝 리스트 뿌려주기
 	List<DiningVO> getDiningList(ReservationVO reservation);
+	
+	// 방 상세정보 가져오기
+	RoomVO getRoomDetail(String roomCode);
+
+	// 예약 데이터 정제
+	ReservationVO cleansingData(ReservationVO reservation);
 
 }

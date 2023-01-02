@@ -26,7 +26,6 @@
             width: 80%;
             height: 200px;
             margin: 20px auto;
-            border-bottom: 1px solid black;
         }
 
         #resultRow td {
@@ -100,13 +99,44 @@
             right: 40px;
         }
         
+        .detail-imgs {
+        	margin-left: 25px;
+        }
+        
+        .detail-imgs a img,
+        .detail-imgs a,
+        .detail-imgs div {
+            padding: 0;
+            margin: 0;
+        }
+
+        .room-discription .btn {
+            display: block;
+            width: 100%;
+        }
+
+        .room-discription #modalRoomPrice {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        .room-discription #modalReservation {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+        
     </style>
 
     <!-- 예약페이지 시작 -->
     <section class="main"> <!-- start main -->
         <div class="container wrapper"> <!-- start fastreservations -->
             <h3 class="reservation-title">호텔 / 다이닝 예약</h3>
-            <form method="post" id="reservForm">
+            <form method="post" id="reservForm" name="reservForm">
                 <table class="reservation-table table">
                     <thead>
                         <tr>
@@ -161,7 +191,12 @@
                             <td>
                                 <button type="button" class="btn btn-dark" id="reservBtn">검색</button>
                             </td>
+                            <td>
+                            	<input type="hidden" name="code" id="code" value="">
+                            </td>
                         </tr>
+                        
+                        
                     </thead>
                 </table>
             </form> <!-- end form tag-->
@@ -189,7 +224,12 @@
                                 	 KRW
                                 </c:if>
                             </p>
-                            <button type="button" class="btn btn-dark ">예약하기</button>
+                            <c:if test="${param.category == 'hotels'}">
+                                <button type="button" class="btn btn-dark" id="reservationBtn" data-room-code="${result.roomCode}">예약하기</button>
+                            </c:if>
+                            <c:if test="${param.category == 'dinings'}">
+                                <button type="button" class="btn btn-dark" id="reservationBtn" data-res-code="${result.resCode}">예약하기</button>
+                            </c:if>
                         </td>
                     </tr>
                     </c:forEach>
@@ -330,10 +370,52 @@
                 e.preventDefault();
 
                 const roomCode = $(this).data('room-code');
+
+                $.getJSON(
+                    '${pageContext.request.contextPath}/reservation/roomDetail?roomCode=' + roomCode,
+                    function(roomDetail){
+                        $('#modalRoomGrade').text(roomDetail.roomGrade);
+                        $('#modalRoomInfo').text(roomDetail.roomInfo);
+                        $('#modalRoomPrice').text(roomDetail.roomPrice + ' KRW / night');
+                    }
+                );
                 
                 $('#roomDetailModal').modal('show');
 
             }); // 모달 열기 종료
+
+
+            // 예약 페이지 이동
+            $('#reservationBtn').click(function(){
+
+                if (document.reservForm.category.value === 'hotels')
+                    $('#code').val($(this).data('room-code'));
+                else if(document.reservForm.category.value === 'dinings')
+                    $('#code').val($(this).data('res-code'));
+                console.log($('#code').val());
+                console.log(document.reservForm.category.value);
+
+                // 입력값 검증
+                if (document.reservForm.category.value === '호텔 / 다이닝 선택') {
+                    alert('호텔 또는 다이닝을 선택해주세요');
+                    document.reservForm.category.focus();
+                } else if (document.reservForm.hotelCode.value === '지점선택') {
+                    alert('지점을 선택해주세요');
+                    document.reservForm.hotelCode.focus();
+                } else if (document.reservForm.capacity.value === '인원수') {
+                    alert('인원수를 선택해주세요');
+                    document.reservForm.capacity.focus();
+                } else if (document.reservForm.category.value === 'dinings' && document.reservForm.reservationTime.value === '시간선택') {
+                    alert('다이닝 예약시간을 선택해주세요');
+                    document.reservForm.reservationTime.focus();
+                } else {
+                    document.reservForm.setAttribute('action', '${pageContext.request.contextPath}/reservation/payment');
+                    document.reservForm.setAttribute('method', 'get');
+                    document.reservForm.submit();
+                }
+
+                
+            });
 
 
         }); // jQuery 종료

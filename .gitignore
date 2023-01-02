@@ -6,6 +6,8 @@ target
 pom.properties
 .classpath
 MANIFEST.MF
+Email.properties
+Hikari.properties
 
 ### Eclipse ###
 .metadata

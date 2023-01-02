@@ -16,5 +16,8 @@ public class ReservationVO {
 	// 시간대 추가
 	private String reservationTime;
 	private String daterange;
+	
+	// 예약을 위한 code 변수 추가(res or room)
+	private String code;
 
 }

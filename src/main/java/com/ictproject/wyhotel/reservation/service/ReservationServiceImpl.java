@@ -73,5 +73,42 @@ public class ReservationServiceImpl implements IReservationService {
 		
 		return mapper.getDiningList(diningReserv);
 	}
+	
+	@Override
+	public RoomVO getRoomDetail(String roomCode) {
+		
+		return mapper.getRoomDetail(roomCode);
+	}
+	
+	@Override
+	public ReservationVO cleansingData(ReservationVO reservation) {
+		
+		String daterange = reservation.getDaterange();
+		String category = reservation.getCategory();
+		
+		if (category.equals("dinings")) {
+			daterange = daterange.substring(daterange.lastIndexOf("/") + 1) + "-"
+					+ daterange.substring(0, daterange.indexOf("/")) + "-"
+					+ daterange.substring(daterange.indexOf("/") + 1,daterange.lastIndexOf("/"));
+			
+			reservation.setDaterange(daterange);
+		} else {
+			String cInDate = daterange.substring(0, daterange.indexOf("-") - 1);
+			String cOutDate = daterange.substring(daterange.indexOf("-") + 2);
+			
+			cInDate = cInDate.substring(cInDate.lastIndexOf("/") + 1) + "-"
+					+ cInDate.substring(0, cInDate.indexOf("/")) + "-"
+					+ cInDate.substring(cInDate.indexOf("/") + 1,cInDate.lastIndexOf("/"));
+			
+			cOutDate = cOutDate.substring(cOutDate.lastIndexOf("/") + 1) + "-"
+					+ cOutDate.substring(0, cOutDate.indexOf("/")) + "-"
+					+ cOutDate.substring(cOutDate.indexOf("/") + 1,cOutDate.lastIndexOf("/"));
+			
+			reservation.setDaterange(cInDate + " / " + cOutDate);
+		}
+
+		
+		return reservation;
+	}
 
 }
