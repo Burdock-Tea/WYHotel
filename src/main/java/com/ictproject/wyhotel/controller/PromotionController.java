@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ictproject.wyhotel.command.PromotionUploadVO;
+import com.ictproject.wyhotel.command.PromotionVO;
 import com.ictproject.wyhotel.promotion.service.IPromotionService;
 
 import lombok.extern.log4j.Log4j;
@@ -30,6 +31,7 @@ public class PromotionController {
 	 * 작 성 일 : 2022/12/30
 	 * 작 성 자 : 권 우 영
 	 * */
+	
 	@Autowired
 	private IPromotionService service;
 		
@@ -66,5 +68,12 @@ public class PromotionController {
 		service.insert(upload);				
 		
 		return "redirect:/promotion/list";
+	}
+	
+	@GetMapping("/update")
+	public void updatePage(String promotionCodeData, Model model) {
+		PromotionVO promotion = service.getPromotion(promotionCodeData);
+		
+		model.addAttribute("promotion", promotion);
 	}
 }

@@ -81,5 +81,10 @@ public class PromotionServiceImpl implements IPromotionService {
 	public List<PromotionVO> getList() {		
 		return mapper.getList();
 	}
+	
+	@Override
+	public PromotionVO getPromotion(String promotionCode) {		
+		return mapper.getPromotion(promotionCode);
+	}
 
 }

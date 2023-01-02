@@ -339,8 +339,7 @@
         }); // jQuery 종료
 
 
-        </script>
+        </script>    
     
-    <%@ include file="./roomDetailModal.jsp" %>
     <%@ include file="../include/footer.jsp" %>
     

@@ -16,6 +16,17 @@
 			*
 		FROM
 			promotion
+		ORDER BY
+			promotion_code DESC
+	</select>
+	
+	<select id="getPromotion" resultType="promotion">
+		SELECT
+			*
+		FROM
+			promotion
+		WHERE
+			promotion_code = #{promotionCode}
 	</select>
 
 </mapper>

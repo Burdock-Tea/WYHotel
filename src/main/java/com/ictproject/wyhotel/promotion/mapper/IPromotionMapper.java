@@ -10,4 +10,6 @@ public interface IPromotionMapper {
 
 	public List<PromotionVO> getList();
 
+	public PromotionVO getPromotion(String promotionCode);
+
 }

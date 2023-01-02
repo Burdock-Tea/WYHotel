@@ -13,4 +13,7 @@ public interface IPromotionService {
 	// 프로모션 목록 불러오기
 	public List<PromotionVO> getList();
 
+	public PromotionVO getPromotion(String promotionCode);
+	
+
 }
