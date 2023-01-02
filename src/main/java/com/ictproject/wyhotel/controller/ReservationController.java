@@ -57,10 +57,20 @@ public class ReservationController {
 	}
 	
 	// 결제페이지 이동
-	@GetMapping("/payment")
-	public void movePaymentPage(@ModelAttribute("reservation") ReservationVO reservation) {
+	@PostMapping("/payment")
+	public void movePaymentPage(@ModelAttribute("reservation") ReservationVO reservation,
+								Model model) {
 		
-		reservation = service.cleansingData(reservation);
+		String category = reservation.getCategory();
+		
+		if (category.equals("dinings")) {
+			model.addAttribute("list", service.getDiningList(reservation));
+			reservation = service.cleansingData(reservation);
+		} else {
+			model.addAttribute("list", service.getRoomList(reservation));
+			reservation = service.cleansingData(reservation);
+			System.out.println("daterange after cleansing: " + reservation.getDaterange());
+		}
 	}
 
 }

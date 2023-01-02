@@ -32,14 +32,12 @@
             padding-right: 0;
         }
 
+        #resultDetail {height: 100%;}
+
         #resultDetail .btn {
             display: block;
-            width: 20%;
+            width: 100%;
             height: 60px;
-
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
         }
 
         .img-container {
@@ -57,9 +55,10 @@
             margin-bottom: 40px;
         }
 
-        #showDetails {
+        #showDetails,
+        #showDetails p {
             position: absolute;
-            bottom: 0;
+            bottom: 0px;
             left: 10px;
         }
 
@@ -71,13 +70,12 @@
         }
 
         #price {
-            position: absolute;
-            bottom: 40%;
-            right: 10px;
-
+            height: 100%;
             font-size: 1.5rem;
             font-weight: 400;
             font-style: italic;
+            line-height: 3rem;
+            text-align: right;
         }
         .btn { border-radius: 0;}
 
@@ -129,6 +127,8 @@
             bottom: 0;
             right: 0;
         }
+
+        #imgWrapper {width: 85%;}
         
     </style>
 
@@ -202,39 +202,54 @@
             </form> <!-- end form tag-->
         </div><!-- end fastreservations -->
         <div class="result-wrapper">
-            <table id="resultTable" class="container table">
-                <tbody>
-                    
-                    <c:forEach var="result" items="${resultList}">
-                    <tr class="row" id="resultRow">
-                        <td class="col-sm-12 col-md-4"><div class="img-container"><img src="${pageContext.request.contextPath}/img/bedroom-g34b59e527_1920.jpg" alt=""></div></td>
-                        <td class="col-sm-12 col-md-8 position-relative" id="resultDetail">
-                            <p id="room">
-                                ${param.category == 'hotels' ? result.roomGrade : result.resName}
-                            </p>
-                            <p id="showDetails">
-                                ${param.category == 'hotels' ? result.roomInfo : result.resInfo}<br>
-                                <c:if test="${param.category == 'hotels'}">
-                                	<a href="#" data-room-code="${result.roomCode}" >객실 상세정보&ensp;&ensp;<span class="badge bg-dark">+</span></a>
-                                </c:if>
-                            </p>
-                            <p id="price">
-                                ${param.category == 'hotels' ? result.roomPrice : ''}
-                                <c:if test="${param.category == 'hotels'}">
-                                	 KRW
-                                </c:if>
-                            </p>
-                            <c:if test="${param.category == 'hotels'}">
-                                <button type="button" class="btn btn-dark" id="reservationBtn" data-room-code="${result.roomCode}">예약하기</button>
-                            </c:if>
-                            <c:if test="${param.category == 'dinings'}">
-                                <button type="button" class="btn btn-dark" id="reservationBtn" data-res-code="${result.resCode}">예약하기</button>
-                            </c:if>
-                        </td>
-                    </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+
+            <div id="resultTable" class="container">
+                <c:forEach var="result" items="${resultList}">
+                <div class="row mt-5">
+                    <div class="col-md-4">
+                        <div class="my-0 mx-auto" id="imgWrapper">
+                            <img src="${pageContext.request.contextPath}/img/bedroom-g34b59e527_1920.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row position-relative" id="resultDetail">
+                            <h3 class="col-md-12" id="room">${param.category == 'hotels' ? result.roomGrade : result.resName}</h3>
+                            <div class="col-md-12">&ensp;</div>
+                            <div class="row" id="showDetails">
+                                <div class="col-md-8">
+                                    <p>
+                                        ${param.category == 'hotels' ? result.roomInfo : result.resInfo}<br>
+                                        <c:if test="${param.category == 'hotels'}">
+                                            <a href="#" data-room-code="${result.roomCode}" >객실 상세정보&ensp;&ensp;<span class="badge bg-dark">+</span></a>
+                                        </c:if>
+                                    </p>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12" id="price">
+                                            ${param.category == 'hotels' ? result.roomPrice : ''}
+                                            <c:if test="${param.category == 'hotels'}">
+                                            	 KRW <small> / night</small>
+                                            </c:if>
+                                        </div>
+                                        <div class="col-md-12 pt-3 position-relative">
+                                            <c:if test="${param.category == 'hotels'}">
+                                                <button type="button" class="btn btn-dark" id="reservationBtn" data-room-code="${result.roomCode}">예약하기</button>
+                                            </c:if>
+                                            <c:if test="${param.category == 'dinings'}">
+                                                <button type="button" class="btn btn-dark" id="reservationBtn" data-res-code="${result.resCode}">예약하기</button>
+                                            </c:if>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </c:forEach>
+            </div>
+
+
         </div>
 
         
@@ -386,7 +401,7 @@
 
 
             // 예약 페이지 이동
-            $('#reservationBtn').click(function(){
+            $('#resultTable').on('click', 'button', function(){
 
                 if (document.reservForm.category.value === 'hotels')
                     $('#code').val($(this).data('room-code'));
@@ -410,7 +425,6 @@
                     document.reservForm.reservationTime.focus();
                 } else {
                     document.reservForm.setAttribute('action', '${pageContext.request.contextPath}/reservation/payment');
-                    document.reservForm.setAttribute('method', 'get');
                     document.reservForm.submit();
                 }
 

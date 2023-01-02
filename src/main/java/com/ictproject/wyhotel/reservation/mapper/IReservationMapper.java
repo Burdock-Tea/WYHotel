@@ -21,5 +21,5 @@ public interface IReservationMapper {
 	
 	// 방 상세정보 가져오기
 	RoomVO getRoomDetail(String roomCode);
-
+	
 }
