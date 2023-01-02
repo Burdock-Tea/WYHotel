@@ -8,7 +8,7 @@
 	<section>
         <div class="container">
             <div class="w-50 p-3 mt-3" style="background-color: #eee; margin: 0 auto;">
-                <h2 class="mt-3 mb-3">프로모션 등록 (관리자 시점)</h2>
+                <h2 class="mt-3 mb-3">프로모션 수정 (관리자 시점)</h2>
                 <hr>
                 <form method="post" action="${ pageContext.request.contextPath }/promotion/update" enctype="multipart/form-data">
                     <div class="mb-3">
