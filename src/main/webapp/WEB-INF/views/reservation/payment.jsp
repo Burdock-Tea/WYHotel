@@ -167,10 +167,33 @@
         <!-- 버튼 -->
         <div class="col-md-5"></div>
         <div class="col-md-2 pt-3">
-            <button type="button" class="btn btn-dark form-control" id="modifyBtn">예약하기</button>
+            <c:if test="${param.category == 'hotels'}">
+                <button type="button" class="btn btn-dark form-control" id="modifyBtn">결제하기</button>
+            </c:if>
+            <c:if test="${param.category == 'dinings'}">
+                <button type="button" class="btn btn-dark form-control" id="modifyBtn">예약확정</button>
+            </c:if>
         </div>
         <div class="col-md-5"></div>
-        <!-- 6그룹 끝 -->
+        <!-- 버튼 끝-->
+
+
+        <!-- 결제방식 시작 -->
+        <div class="col-md-12 container visually-hidden">
+            <div class="row">
+                <div class="col-md-5"></div>
+                <div class="col-md-2 pt-3">
+                    <c:if test="${param.category == 'hotels'}">
+                        <button type="button" class="btn btn-dark form-control" id="modifyBtn">결제하기</button>
+                    </c:if>
+                    <c:if test="${param.category == 'dinings'}">
+                        <button type="button" class="btn btn-dark form-control" id="modifyBtn">예약확정</button>
+                    </c:if>
+                    <div class="col-md-5"></div>
+                </div>
+            </div>
+        </div>
+        <!-- 결제방식 끝-->
 
     </div>
     
