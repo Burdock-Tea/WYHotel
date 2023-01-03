@@ -2,8 +2,13 @@ package com.ictproject.wyhotel.reservation.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import com.ictproject.wyhotel.command.DiningReservationVO;
 import com.ictproject.wyhotel.command.DiningVO;
+import com.ictproject.wyhotel.command.NotMemberVO;
 import com.ictproject.wyhotel.command.ReservationVO;
+import com.ictproject.wyhotel.command.RoomReservationVO;
 import com.ictproject.wyhotel.command.RoomVO;
 
 public interface IReservationService {
@@ -23,5 +28,20 @@ public interface IReservationService {
 
 	// 예약 데이터 정제
 	ReservationVO cleansingData(ReservationVO reservation);
+
+	// 비회원 코드 생성 및 리턴
+	String createNmemCode(NotMemberVO nmember);
+
+	// 다이닝 예약
+	void reservDining(DiningReservationVO diningReserv, String strDate);
+
+	// 비회원 로그인(예약조회)
+	boolean nMemLogin(String reservationCode, String email);
+
+	// 호텔 예약내역 리스트
+	List<RoomReservationVO> getReservRoomList(HttpSession session);
+	
+	// 다이닝 예약내역 리스트
+	List<DiningReservationVO> getReservDiningList(HttpSession session);
 
 }
