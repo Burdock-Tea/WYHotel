@@ -1,6 +1,7 @@
 package com.ictproject.wyhotel.controller;
 
 import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,7 @@ import org.springframework.web.util.WebUtils;
 
 import com.ictproject.wyhotel.command.MemberVO;
 import com.ictproject.wyhotel.member.service.IMemberService;
-import com.ictproject.wyhotel.utill.MailSendService;
+import com.ictproject.wyhotel.util.MailSendService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -38,33 +40,78 @@ public class MemberController {
 	
 	// 로그인 페이지 이동
 	@GetMapping("/login")
-	public void loginPage(){
+	public void loginPage(){}
+	
+	/**
+	 * 작성일 : 22/12/29
+	 * 작성자 : 임영준
+	 */
+	//이메일 중복 체크
+	@ResponseBody
+	@PostMapping("/idCheck")
+	public String idCheck(@RequestBody MemberVO vo) {
+		
+		System.out.println("이메일 들어옴!");
+		int result = service.idcheck(vo.getEmail());
+		
+		if(result == 1) {
+			return "duplicated";
+		}else {
+			return "ok";
+		}
+			
 		
 	}
 	
+	// 회원가입 페이지 이동
+	@GetMapping("/join")
+	public void joinPage(){}
+	
+	// 회원가입
+	@PostMapping("/join")
+	public String join(MemberVO vo, String tel2, String tel3, RedirectAttributes ra) {
+		System.out.println("vo 들어옴 " + vo);
+		String tel = vo.getTel() + "-" + tel2+ "-" + tel3;
+				vo.setTel(tel);
+		service.join(vo);
+		ra.addFlashAttribute("msg" , "joinSuccess");
+		return "redirect:/member/login";
+	}
+	
+	//이메일 인증(비동기)
+	@PostMapping("/mailCheck")
+	@ResponseBody
+	public String mailCheck(@RequestBody String email) {
+		return mailService.joinEmail(email);
+	} //이메일 인증 끝
+	
+	/**
+	 * 작성일 : 22/12/29
+	 * 작성자 : 이준희
+	 */
+	
 	// 로그인 처리
 	@PostMapping("/login")
-	public void userLogin(String email, String password, Model model, MemberVO vo, 
-						HttpSession session, HttpServletResponse response, boolean autoLogin) {
-		model.addAttribute("user", service.login(email, password));
+	public String userLogin(HttpSession session, RedirectAttributes ra, 
+				HttpServletResponse response, MemberVO vo) {
 		
-		/*
-		MemberVO dbData = service.login(email, password);
-		if(autoLogin == true) {
-			
-			if(dbData != null) {
-				if(vo.getPassword().equals(dbData.getPassword())) {
-					//로그인 성공 회원을 대상으로 세션 정보를 생성
-					session.setAttribute("login", dbData);
-					
-					long limitTime = 60 * 60 * 24 * 90;
-					
+		MemberVO dbData = service.login(vo.getEmail());
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		if(dbData != null) {
+			if(encoder.matches(vo.getPassword(), dbData.getPassword())) {
+				//로그인 성공 회원을 대상으로 세션 정보를 생성
+				session.setAttribute("member", dbData.getMemberCode());
+				System.out.println(session.getId());
+				long limitTime = 60 * 60 * 24 * 90;
+				
 					//자동 로그인 체크 시 처리해야할 내용
 					if(vo.isAutoLogin()) {
 						//쿠키를 이용하여 자동 로그인 정보를 저장
 						System.out.println("자동로그인 쿠키 생성중");
 						//세션 아이디를 가지고 와서 쿠키에 저장(고유한 값)
 						Cookie loginCookie = new Cookie("loginCookie", session.getId());
+						
 						//쿠키수명 설정
 						loginCookie.setMaxAge((int) limitTime);
 						//쿠키가 동작할 수 있는 유효한 url
@@ -77,38 +124,47 @@ public class MemberController {
 						Date limitDate = new Date(expireDate);
 						
 						service.keepLogin(session.getId(), limitDate, vo.getEmail());
-						
-						}
+					
 					}
+				
+					return "redirect:/";
+				} else {
+					ra.addFlashAttribute("msg", "loginFail");
+					
+					return "redirect:/member/login";
 				}
+			
+			} else {
+				ra.addFlashAttribute("msg", "loginFail");
+				
+				return "redirect:/member/login";
 			}
-			*/
+		
 		
 	}
 	
 	// 로그아웃 처리
 	@GetMapping("/logout")
-	public String logout(HttpSession session, 
+	public ModelAndView logout(HttpSession session, RedirectAttributes ra, 
 					HttpServletRequest request, HttpServletResponse response) {
 		
-		MemberVO member = (MemberVO)session.getAttribute("login");
+		String memeCode = (String) session.getAttribute("member");
 		session.removeAttribute("member");
-		
 		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+		
 		
 		if(loginCookie != null) {
 			loginCookie.setMaxAge(0);
 			loginCookie.setPath("/");
 			response.addCookie(loginCookie);
-			service.keepLogin("none", new Date(), member.getEmail());
+			service.keepLogin("none", new Date(), service.getEmail(memeCode));
 		}
 		
-		return "redirect:/";
+		ra.addFlashAttribute("msg", "logout");
+		
+		return new ModelAndView("redirect:/");
 	}
 	
-	// 회원가입 페이지 이동
-	@GetMapping("/join")
-	public void joinPage(){}
 	
 	// 회원정보 수정 페이지 이동
 	@GetMapping("/modify")
@@ -138,9 +194,11 @@ public class MemberController {
 	//비밀번호 수정 처리
 	@PostMapping("/pwModify")
 	public String pwModify(MemberVO vo, HttpSession session, String newPw) {
+		
 		vo.setPassword(newPw);
 		service.pwModify(vo);
 		session.removeAttribute("member");
+		
 		return "redirect:/member/login";
 	}
 	
@@ -177,13 +235,18 @@ public class MemberController {
 	//비밀번호 확인
 	@PostMapping("/pwChk") 
 	@ResponseBody
-	public String pwChk(@RequestBody String email) {
+	public String pwChk(@RequestBody Map<String, Object> data) {
+		String email = (String) data.get("email");
+		String password = (String) data.get("password");
 		
-		if(service.pwChk(email) != 1) {
-			return "fail";
-		} else {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		if(encoder.matches(password, service.pwChk(email))) {
 			return "success";
+		} else {
+			return "fail";
 		}
+		
 		
 	}
 	
@@ -194,8 +257,15 @@ public class MemberController {
 	//아이디 찾기 처리
 	@PostMapping("/searchId")
 	public String searchId(String name, Model model,  String tel, String tel2, String tel3, RedirectAttributes ra) {
-		String phoneNum = tel + "-" + tel2 + "-" + tel3;		
-		ra.addFlashAttribute("email", service.searchId(name, phoneNum));
+		String phoneNum = tel + "-" + tel2 + "-" + tel3;
+		if(service.searchId(name, phoneNum) == null) {
+			ra.addFlashAttribute("msg", "fail");
+		} else {
+			ra.addFlashAttribute("msg", "success");
+			ra.addFlashAttribute("email", service.searchId(name, phoneNum));
+		}
+				
+		
 		
 		return "redirect:/member/searchId";
 	}
@@ -212,12 +282,6 @@ public class MemberController {
 		return "redirect:/member/login";
 	}
 	
-	//이메일 인증(비동기)
-	@GetMapping("/mailCheck")
-	@ResponseBody
-	public String mailCheck(String email) {
-		return mailService.joinEmail(email);
-	} //이메일 인증 끝
 	
 }
 

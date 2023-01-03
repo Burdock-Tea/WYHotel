@@ -32,14 +32,9 @@
                         <div class="mb-3">
                             <input type="password" class="form-control" id="pwInput" name="password" placeholder="비밀번호">
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              아이디 저장
-                            </label>
-                          </div>  &nbsp;&nbsp;
+                        
                         <div class="form-check auto-login clearfix">
-                            <input class="form-check-input" type="checkbox" value="" id="auto-login" name="autoLogin">
+                            <input class="form-check-input" type="checkbox" id="auto-login" name="autoLogin">
                             <label class="form-check-label" for="flexCheckChecked">
                                 자동 로그인
                             </label> 
@@ -96,6 +91,7 @@
 		alert('아이디, 비밀번호를 확인 해주세요.');
 	}
 	
+	
 	//로그인
 	function login() {
 		if($('#emailInput').val() === '') {
@@ -128,8 +124,6 @@
 		$('#joinBtn').click(function() {
 			location.href="${pageContext.request.contextPath}/member/join";
 		});
-		
-		//자동 로그인 처리
 		
 	});
 	

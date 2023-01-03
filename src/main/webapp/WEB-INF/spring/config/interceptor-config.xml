@@ -9,25 +9,29 @@
 	Namespaces 탭에서 mvc 기능 추가
 	web.xml에 초기 설정 파일로 이 파일을 추가 
 	-->
-
-	<bean id="memberLoginSuccessHandler" class="com.ictproject.wyhotel.utill.interceptor.MemberLoginSuccessHandler" />
-	<bean id="autoLogin" class="com.ictproject.wyhotel.member.commons.AutoLoginInterceptor" />
+	
+	<bean id="MemberAutoLogin" class="com.ictproject.wyhotel.member.commons.AutoLoginInterceptor"></bean>
+	
+	<mvc:interceptors>
+		
+		<!-- 자동 로그인 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/member/login"/>
+			<ref bean="MemberAutoLogin" />		
+		</mvc:interceptor>
+		
+	</mvc:interceptors>
+	
+	<!-- <bean id="memberLoginSuccessHandler" class="com.ictproject.wyhotel.utill.interceptor.MemberLoginSuccessHandler" />
 	
 	<mvc:interceptors>
 	
-		<!-- 로그인 이후에 실행되는 postHandler -->
+		로그인 이후에 실행되는 postHandler, 자동로그인 preHandeler
 		<mvc:interceptor>
 			<mvc:mapping path="/member/login"/>
 			<ref bean="memberLoginSuccessHandler" />
 		</mvc:interceptor>
-		
-		<!-- 자동 로그인 인터셉터 -->
-		<mvc:interceptor>
-			<mvc:mapping path="/member/login"/>
-			<ref bean="autoLogin" />
-		</mvc:interceptor>
-		
-			
-	</mvc:interceptors>
+
+	</mvc:interceptors> -->
 	
 </beans>

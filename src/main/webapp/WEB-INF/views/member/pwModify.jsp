@@ -29,11 +29,6 @@
 				<div class="col-lg-1"></div>
 				<form id="pwForm" action="${pageContext.request.contextPath}/member/pwModify" method="post" class="col-lg-6">
 					<div class="form-group col-12">
-						<label for="inputPassword" class="form-label mt-4">현재 비밀번호</label>
-						<input type="password" class="form-control" id="inputPassword"
-							placeholder="Password" value="${member.password}" readonly="readonly">
-					</div>
-					<div class="form-group col-12">
 						<label for="inputPassword" class="form-label mt-4">변경 할
 							비밀번호</label> <input type="password" class="form-control"
 							id="newPw" placeholder="New Password" name="newPw">
@@ -43,9 +38,11 @@
 						<input type="password" class="form-control" id="newPwChk"
 							placeholder="New Password Check">
 					<input type="hidden" value="${member.memberCode}" name="memberCode">
+					<input type="hidden" value="${member.email}" name="email">
+					<input type="hidden" value="${member.password}" name="password">
 					<span id="msgId"></span>
 					</div>
-
+					
 					<div class="joinButton col-12">
 						<button type="button" class="btn btn-light col-6" onclick="location.href='${pageContext.request.contextPath}/'"
 							style="float: left">취소</button>

@@ -26,9 +26,9 @@ public class AutoLoginInterceptor implements HandlerInterceptor {
 		//login Cookie의 존재 유무를 확인
 		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 		
-		//자동 로그인을 신청한 싸람이라면 로그인 유지를 위해 세션 데이터를 만들어 준다.
+		//자동 로그인을 신청한 사람이라면 로그인 유지를 위해 세션 데이터를 만들어 준다.
 		HttpSession session = request.getSession();
-		
+
 		//자동 로그인을 이전에 신청한 사람
 		if(loginCookie != null) {
 			

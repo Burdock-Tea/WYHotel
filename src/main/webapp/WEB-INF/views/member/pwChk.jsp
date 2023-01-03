@@ -16,7 +16,7 @@
             <div class="col-lg-4"></div>
             <div class="col-lg-4">
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="formGroupExampleInput" name="email" value="${email}" readonly>
+                    <input type="text" class="form-control" id="emailInput" name="email" value="${email}" readonly>
                 </div>
                 <div class="mb-3">
                     <input type="password" class="form-control" id="pwInput" name="password" placeholder="비밀번호를 입력해 주세요.">
@@ -34,26 +34,31 @@
     		
     		$('#pwChkBtn').click(function() {
     			
-    			const password =  $('#pwInput').val();
+    			const email =  $('#emailInput').val();
+    			const password = $('#pwInput').val();
+    			
+    			const data = {
+    				'email': email,
+    				'password': password
+    			};
     			
     			if($('#pwInput').val() === '') {
     				alert('비밀번호를 입력해 주세요.');
     				return;
     			}
-    			console.log(password);
     			
     			//statr pwChk ajax
     			 $.ajax({
                  	type: 'post',
                      url: '${pageContext.request.contextPath}/member/pwChk',
                      contentType: 'application/json',
-                     data: password,
-                     success: function(data) {
- 						if(data === 'success') {
+                     data: JSON.stringify(data),
+                     success: function(result) {
+ 						if(result === 'success') {
  							if(confirm('정보 수정 페이지로 이동 하시겠습니까?')) {
  								location.href='${pageContext.request.contextPath}/member/modify';
  							}
- 						} else if(data === 'fail') {
+ 						} else if(result === 'fail') {
  							$('#msgId').html('비밀번호가 틀렸습니다.');
  							$('#msgId').css('color', 'red');
  						}

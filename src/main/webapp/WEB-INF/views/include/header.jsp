@@ -111,15 +111,7 @@
         
         <script>
         	
-        	$(function() {
-				
-        		//로그아웃 처리
-        		$('#logoutBtn').click(function() {
-					alert('로그아웃 됐습니다.');
-					location.href='${pageContext.request.contextPath}/member/logout';
-				});
-        		
-			});
+        	
         	
         </script>
         

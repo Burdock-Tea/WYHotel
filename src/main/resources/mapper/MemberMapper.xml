@@ -5,17 +5,29 @@
     
     <mapper namespace="com.ictproject.wyhotel.member.mapper.IMemberMapper">
     	
+    	<!-- 회원가입 -->
+   		<insert id="join">
+	  		INSERT INTO members
+	  		VALUES (mem_code_seq.NEXTVAL,#{email},#{password},#{name},#{tel},
+	  		#{zipCode},#{addrBasic},#{addrDetail}, default, default, default, sysdate, default)
+  		</insert>
+  	
+  		<!-- 이메일 중복 체크 -->
+  		<select id="idcheck" resultType="int">
+		  	SELECT COUNT(*) FROM members
+			WHERE email = #{email} 
+	  	</select>
+    	
     	<!-- 로그인 처리 -->
     	<select id="login" resultType="member">
     		SELECT * FROM members
     		WHERE email = #{email}
-    		AND password = #{password}
     	</select>
     	
     	<!-- 비밀번호 확인 처리 -->
-    	<select id="pwChk" resultType="int">
-    		SELECT COUNT(*) FROM members
-    		WHERE password = #{password}
+    	<select id="pwChk" resultType="String">
+    		SELECT password FROM members
+    		WHERE email = #{email}
     	</select>
     	
     	<!-- 이메일 가져오기 -->

@@ -169,6 +169,12 @@
 
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script>
+    
+    	const msg = '${msg}';
+    	if(msg === 'logout') {
+    		alert('로그아웃 성공');
+    	}
+    
         var swiper = new Swiper(".mySwiper", {
             slidesPerView: 3,
             spaceBetween: 30,

@@ -110,81 +110,92 @@
 			<div class="row">
 				<div class="checkbox">
 					<input class="form-check-input" type="checkbox"
-						id="flexSwitchCheckChecked"> <label
-						class="form-check-label" for="flexSwitchCheckChecked">
-						약관동의 </label>
+						id="flexSwitchCheckChecked"> 
+						<label class="form-check-label" for="flexSwitchCheckChecked"> 약관동의 </label>
 				</div>
 				<!-- 로그인 시작 -->
-				<form id="loginForm">
+				<form action="<c:url value='/member/join'/>" id="loginForm" method="post">
 					<div class="form-group">
 						<label for="inputEmail" class="form-label mt-4">이메일을 입력하세요</label>
 						<div class="input-group mb-3 w-50">
 							<input type="text" class="form-control" placeholder="이메일을 입력하세요."
 								aria-label="Recipient's username"
-								aria-describedby="button-addon2" name="email">
-							<button class="btn btn-dark" type="button"
-								id="button-addon2">인증</button>
+								aria-describedby="button-addon2" name="email" id="email">
+							<button class="btn btn-dark" type="button" id="emailCheckBtn" disabled>중복체크</button>
+							<button class="btn btn-dark" type="button" id="button-addon2">인증</button>
 						</div>
-						<input type="text" class="form-control"
-							id="addrZipNum" placeholder="인증번호를 입력해 주세요."
+						<span id="msgId"></span>
+						<input id="mail-check-input" type="text" class="form-control" 
+							placeholder="인증번호를 6자리를 입력해 주세요." 
 							style="display: inline-block; width: 300px;" readonly>
-						<button type="button" class="btn btn-dark">확인</button>
+						<button type="button" id="number-check" class="btn btn-dark">확인</button>
+						<span id="mail-check-warn"></span>
 					</div>
 					<span></span>
-					<div class="form-group">
-						<label for="inputPassword" class="form-label mt-4">Password</label>
-						<input type="password" class="form-control w-50"
-							id="inputPassword" placeholder="Password" name="password">
-					</div>
-					<div class="form-group">
+					<div class="hideForm">
+						<div class="form-group passwordForm"> 
+							<label for="inputPassword" class="form-label mt-4">Password</label>
+							<input type="password" class="form-control w-50"
+								id="inputPassword" placeholder="Password" name="password">
+						</div>
+						<div class="form-group passwordForm"> 
+							<label for="inputPassword" class="form-label mt-4">PasswordCheck</label>
+							<input type="password" class="form-control w-50"
+								id="inputPasswordChk" placeholder="PasswordCheck">
+						</div>
+						<span id="pwChkMsg" style="margin-top: 10px;"></span>
+					<div class="form-group nameForm">
 						<label for="inputName" class="form-label mt-4">이름</label> <input
 							type="text" class="form-control w-50" id="inputName"
 							placeholder="이름을 입력해주세요." name="name">
 					</div>
 
 					<!-- https://juein.tistory.com/43 << 이런 방식도 있던데 이건 어때요? -->
+					
 					<label class="col-form-label mt-4" for="inputDefault">전화번호</label>
 					<div class="form-group">
 						<div class="d-inline-flex">
-							<select class="form-select select" name="tel">
+							<select class="form-select select" name="tel" id="tel">
 								<option>010</option>
 								<option>011</option>
 								<option>018</option>
-							</select> <span style="padding: 5px"><strong> - </strong></span> 
-							<input type="text" class="form-control" size="6" placeholder="0000"
-								id="inputDefault" name="tel2"> 
-								<span style="padding: 5px"><strong>- </strong></span>
-								<input type="text" class="form-control" size="6" placeholder="0000" 
-								id="inputDefault" name="tel3">
+							</select> 
+							<span style="padding: 5px"><strong> - </strong></span> 
+								<input type="text" class="form-control" size="6" placeholder="0000" id="tel2" name="tel2"> 
+							<span style="padding: 5px"><strong>- </strong></span> 
+								<input type="text" class="form-control" size="6" placeholder="0000" id="tel3" name="tel3">
 						</div>
-
 					</div>
 
+					
+				<div class="addrForm">
 					<div class="form-group">
 						<label for="inputPhoneNumber" class="form-label mt-4">주소</label>
 						<div class="input-group" id="addrForm">
-							<input type="text" name="zipCode" class="form-control w-50"
-								id="addrZipNum" placeholder="우편번호" readonly>
+							<input type="text" name="zipCode" id="zipCode"
+								class="form-control w-50"  placeholder="우편번호"
+								 readonly>
 							<div class="input-group-addon">
-								<button type="button" class="btn btn-primary">주소찾기</button>
+								<button type="button" id="addrBtn" class="btn btn-primary" onclick="searchAddress()">주소찾기</button>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" name="addrBasic" class="form-control w-50"
-							id="addrBasic" placeholder="기본주소">
+						<input type="text" name="addrBasic" id="addrBasic"
+							class="form-control w-50" id="addrBasic" placeholder="기본주소">
 					</div>
 					<div class="form-group">
-						<input type="text" name="addrDetail" class="form-control w-50"
-							id="addrDetail" placeholder="상세주소">
+						<input type="text" name="addrDetail" id="addrDetail"
+							class="form-control w-50" id="addrDetail" placeholder="상세주소">
 					</div>
-
+				</div>
+			</div>
 
 				</form>
 				<div class="joinButton">
-					<button type="button" class="btn btn-light">취소</button>
+					<button type="button" id="cancleButton" class="btn btn-light">취소</button>
 					&nbsp;&nbsp;&nbsp;
-					<button type="button" class="btn btn-dark">회원가입</button>
+					<button type="button" id="joinButton" class="btn btn-dark">회원가입</button>
 				</div>
 			</div>
 		</div>
@@ -192,3 +203,252 @@
 </section>
 
 <%@ include file="../include/footer.jsp"%>
+
+<!-- 다음 api 주소 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	//취소 버튼 
+	$('#cancleButton').click(function() {
+		location.href='${pageContext.request.contextPath}/';	
+	});
+	
+	
+	// 약관동의시 로그인 폼 나오게 설정
+	$('#loginForm').hide();
+	$('.hideForm').hide();
+	$(document).ready(function(){
+	    $(".form-check-input").change(function(){
+	        if($(".form-check-input").is(":checked")){
+	           $('#loginForm').show();
+	        }else{
+			   $('#loginForm').hide();
+	        }
+	    });
+	});
+
+	//이메일 양식 유효성 검사.
+	var id = document.getElementById("email");
+	id.onkeyup = function() {
+		/*자바스크립트의 정규표현식 입니다*/
+		/*test메서드를 통해 비교하며, 매칭되면 true, 아니면 false반*/
+		var regex =/[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]$/i;
+		if (regex.test(document.getElementById("email").value)) {
+			document.getElementById("email").style.borderColor = "green";
+			$('#emailCheckBtn').attr('disabled', false);
+		} else {
+			document.getElementById("email").style.borderColor = "red";
+			$('#emailCheckBtn').attr('disabled', true);
+		}
+	}
+			
+	
+	
+	$(function() {
+		
+		//전역 변수 버튼 숨겨놓기
+		let code = '';
+		$('#button-addon2').hide();
+		$('#mail-check-input').hide();
+		$('#mail-check-input').next().hide();
+		//
+		
+		//아이디 중복 체크
+		$('#emailCheckBtn').click(function() {
+			
+			const email = $('#email').val();
+			console.log('email == ' + email);
+
+			if (email === '') {
+				alert('이메일은 필수값입니다');
+				return;
+			}
+			
+			$.ajax({
+				type : 'post',
+				url : '${pageContext.request.contextPath}/member/idCheck',
+				data : JSON.stringify({
+					'email' : email
+
+				}),
+				dataType : 'text',
+				contentType : 'application/json',
+				success : function(data) {
+					if (data === 'duplicated') {
+						$('#email').val('');
+						$('#email').focus();
+						$('#email').css('background', 'red');
+						$('#msgId').html('아이디가 중복되었습니다.');
+						$('#msgId').css('color', 'red');
+					} else {
+						$('#email').css('background', 'white');
+						$('#msgId').css('color', 'green');
+						$('#email').attr('readonly', true);
+						$('#emailCheckBtn').hide();
+						$('#button-addon2').show();
+						// $('#emailCheckBtn').attr('id', 'button-addon2');
+						$('#msgId').html('사용가능한 아이디 입니다.');
+					}
+				},
+				error : function() {
+					alert('등록에 실패했습니다.');
+				}
+			});
+		}); // 아이디 중복체크 끝
+
+		// 회원가입 창 유효성 검사.
+		$('#joinButton').click(function() {
+
+			if ($('#email').val()==='') {
+				alert('이메일 입력은 필수입니다.');
+				return;
+			} else if ($('#inputPassword').val() === '') {
+				alert('비밀번호를 작성하세요.');
+				return;
+			}else if($('#inputName').val() === ''){
+				alert('이름을 입력해 주세요.')
+				return;
+			}else if($('#tel2').val()==='' || $('#tel3').val()===''){
+				alert('전화번호를 입력해 주세요.')
+				return;
+			} else if ($('#addrDetail').val() === '') {
+				alert('주소를 입력해 주세요.')
+				return;
+			} else {
+				alert('회원가입을 진행합니다.');
+				$('#loginForm').submit();
+			}
+		}); // end joinQuery
+		
+		//인증번호 이메일 전송
+		$('#button-addon2').click(function() {
+			const email = $('#email').val();
+			openLoading();
+			console.log('완성된 이메일: ' + email);
+			$.ajax({
+				type : 'post',
+				url : '<c:url value="/member/mailCheck"/>',
+				contentType : 'application/json',
+				data : email,
+				success : function(data) {
+					$('#msgId').hide();
+					console.log('컨트롤러가 전달한 인증번호: ' + data);
+					$('#mail-check-input').attr('readonly', false); //비활성된 인증번호 입력창을 활성화.
+					code = data;
+					$('#mail-check-input').show();
+					$('#mail-check-input').next().show();
+					alert('인증번호가 전송되었습니다. 확인 후 입력란에 정확하게 입력하세요!');
+					closeLoading();
+				}
+			});
+			
+		}); //이메일 전송 끝.
+		
+		// 이메일 인증번호 확인
+		 $('#number-check').click(
+
+				function() {
+					const inputCode = $('#mail-check-input').val(); // 사용자가 입력한 인증번호
+					const $resultMsg = $('#mail-check-warn'); // span
+
+					if (inputCode === code) {
+						$resultMsg.html('인증번호가 일치합니다.');
+						$resultMsg.css('color', 'green');
+						$('#email').next().hide();
+						$(this).css('display', 'none');
+						$('#mail-check-input').hide();
+						$('#button-addon2').css('display', 'none');
+						$('.hideForm').show();
+						$('#email').attr('readonly', true);			
+						
+					} else { 
+						$resultMsg.html('인증번호를 다시 확인해 주세요.');
+						$resultMsg.css('color', 'red');
+						$(this).focus();
+					}
+					
+				}); //인증번호 이벤트 끝.	
+				
+				
+				
+		//비밀번호 확인 input키업 이벤트 시작
+		$('#inputPasswordChk').keyup(function() {
+			if($('#inputPassword').val() === $('#inputPasswordChk').val()) {
+				$('#pwChkMsg').html('비밀번호가 일치합니다.');
+				$('#pwChkMsg').css('color', 'green');
+			} else {
+				$('#pwChkMsg').html('비밀번호가 일치하지 않습니다.');
+				$('#pwChkMsg').css('color', 'red');
+			}
+		});
+				
+	}); //end Query
+	
+	//다음 주소 API 사용해 보기
+   function searchAddress() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분..
+                    var extraAddr = ''; // 참고항목 변수
+                    
+        	        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+
+					// 사용자가 선택한 값 해당 요소에 입력해주기.
+                    $('#addrBasic').val(data.roadAddress);
+					$('#zipCode').val(data.zonecode);
+					$('#addrDetail').focus();
+    				
+                }
+            }).open();
+        }
+	
+	// 로딩창 보여주는 함수
+	function openLoading() {
+		
+		const maskWidth = window.document.body.clientWidth;
+		const maskHeight = $(window).height();
+		
+		//mask 로딩창이 화면에 드러날 때 주변을 어둡게 지정하기 위한 틀 / 요소를 생성하고
+		// 간단한 디자인을 지정합니다.
+		
+		const mask = '<div id="mask" style="position: absolute; left:0; top: 0; z-index:99999;  background:#000000; display: none;"></div>'
+		
+		//로딩 이미지
+		let $loadingImg = '';
+		$loadingImg += '<div id="loadingImg" style="position: absolute; top: 50%; width: 100%; z-index: 99999; ">';
+		$loadingImg += `<img src="<c:url value='/img/loading.gif' />" style="position: relative; display: block; margin: 0 auto;" />`;
+		$loadingImg += '</div>';
+		
+		//위에 준비한 mask와 loading 이미지를 배치.
+		$('body').append(mask).append($loadingImg);
+		
+		//mask의 가로, 세로를 지정해주고, 투명도를 조절해 주겠습니다.
+		$('#mask').css({
+			'width' : maskWidth,
+			'height' : maskHeight,
+			'opacity' : '0.5'
+		}) ;
+		
+		// 마스크와 이미지를 화면에 표시
+		$('#mask').show();
+		$('#loadingImg').show();
+		
+	}
+	
+	//로딩창 숨겨주는 함수
+	function closeLoading() {
+			$('#mask, #loadingImg').remove();
+	}
+	
+</script>

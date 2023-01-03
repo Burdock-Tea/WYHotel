@@ -8,8 +8,22 @@ import com.ictproject.wyhotel.command.MemberVO;
 
 public interface IMemberService {
 	
+	/*
+	 * 작업일 2022.12.29 임영준
+	 */
+	
+	//아이디 중복 확인
+	int idcheck(String email);
+	
+	// 회원가입
+	void join(MemberVO vo);
+	
+	/*
+	 * 작업일 2022.12.29 이준희
+	 */
+	
 	//로그인
-	MemberVO login(@Param("email") String email, @Param("password") String password);
+	MemberVO login(String email);
 	
 	//정보 가져오기
 	MemberVO getInfo(String memberCode);
@@ -24,7 +38,7 @@ public interface IMemberService {
 	void delete(String memberCode);
 	
 	//비밀번호 확인
-	int pwChk(String email);
+	String pwChk(String email);
 	
 	//이메일 가져오기
 	String getEmail(String memberCode);
@@ -36,6 +50,6 @@ public interface IMemberService {
 	void newPw(@Param("email") String email, @Param("password") String password);
 	
 	//자동 로그인 쿠키값 DB 저장 처리
-	void keepLogin(String session, Date limitTime, String account);
+	void keepLogin(String session, Date limitTime, String email);
 	
 }
