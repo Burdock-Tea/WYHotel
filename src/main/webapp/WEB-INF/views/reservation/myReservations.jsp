@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
     <%@ include file="../include/header.jsp" %>
 
@@ -173,21 +175,7 @@
                     <div class="tab-content" id="pills-tabContent">
                         
                         <!--hotel toggle begin-->
-                        <div class="tab-pane fade show active" id="reservationsHotel" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">    
-                            <form action="#" method="post" id="resvCheck">
-                                <p class="date-search-form"> 
-                                    <b class="paragraph-strong">기간 검색</b> &ensp;&ensp; 
-                                    <input type="date" class="form-control date-inp" id="startDate"> &ensp; - &ensp; 
-                                    <input type="date" class="form-control date-inp" id="endDate"> &ensp;
-                                    <select name="hotel" class="form-control hotel-select" id="hotelSelect">
-                                        <option value="entire">전체</option>
-                                        <option value="seoul">WY호텔 서울</option>
-                                        <option value="busan">WY호텔 부산</option>
-                                        <option value="jeju">WY호텔 제주</option>
-                                    </select> &ensp;&ensp;
-                                    <button type="button" class="btn form-control">조회</button>
-                                </p>
-                            </form>
+                        <div class="tab-pane fade show active" id="reservationsHotel" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
 
                             <h4 class="reservation-title">내 호텔 예약정보</h4>
 
@@ -204,24 +192,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr data-resv-num="221220swsum1001">
-                                        <td>221220slsum1001</td>
-                                        <td>WY호텔 서울지점</td>
-                                        <td>Suite</td>
-                                        <td>1</td>
-                                        <td>2박</td>
-                                        <td>2022-12-23</td>
-                                        <td>2022-12-25</td>
-                                    </tr>
-                                    <tr data-resv-num="221200bnbdm1001">
-                                        <td>221220slsum1001</td>
-                                        <td>WY호텔 부산지점</td>
-                                        <td>Business Delux</td>
-                                        <td>1</td>
-                                        <td>2박</td>
-                                        <td>2022-12-26</td>
-                                        <td>2022-12-27</td>
-                                    </tr>
+                                	<c:if test="${roomList.size() > 0}">
+                                    <c:forEach var="reserv" items="${roomList}">
+                                        <tr data-resv-num="${reserv.reservationCode}">
+                                            <td>${reserv.reservationCode}</td>
+                                            <td>${reserv.hotelCode}</td>
+                                            <td>${reserv.roomCode}</td>
+                                            <td>${reserv.capacity}</td>
+                                            <td>${reserv.checkOutDate - reserv.checkInDate}박</td>
+                                            <td><fmt:formatDate value="${reserv.checkInDate}" pattern="yyyy-MM-dd" /></td>
+                                            <td><fmt:formatDate value="${reserv.checkOutDate}" pattern="yyyy-MM-dd" /></td>
+                                        </tr>
+                                    </c:forEach>
+                                    </c:if>
+                                    <c:if test="${roomList.size() == 0}">
+                                    	<tr>
+                                    		<td colspan="7">
+                                    			<h3 class="my-0 mx-auto text-center">검색 결과가 없습니다.</h3>
+                                    		</td>
+                                    	</tr>
+                                    </c:if>
                                 </tbody>
 
                             </table>
@@ -232,20 +222,6 @@
 
                         <!--dining toggle begin-->
                         <div class="tab-pane fade" id="reservationsDining" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-                            <form action="#" method="post" id="diningResvCheck">
-                                <p class="date-search-form"> 
-                                    <b class="paragraph-strong">기간 검색</b> &ensp;&ensp; 
-                                    <input type="date" class="form-control date-inp" id="startDate"> &ensp; - &ensp; 
-                                    <input type="date" class="form-control date-inp" id="endDate"> &ensp;
-                                    <select name="hotel" class="form-control hotel-select" id="hotelSelect">
-                                        <option value="entire">전체</option>
-                                        <option value="seoul">WY호텔 서울</option>
-                                        <option value="busan">WY호텔 부산</option>
-                                        <option value="jeju">WY호텔 제주</option>
-                                    </select> &ensp;&ensp;
-                                    <button type="button" class="btn form-control">조회</button>
-                                </p>
-                            </form>
 
                             <h4 class="reservation-title">내 다이닝 예약정보</h4>
 
@@ -260,13 +236,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                	<c:if test="${diningList.size() > 0}">
+                                    <c:forEach var="reserv" items="${diningList}">
                                     <tr data-resv-num="221220s3m1001">
-                                        <td>221220s3m1001</td>
-                                        <td>WY호텔 서울지점</td>
-                                        <td>존맛탱 다이닝</td>
-                                        <td>4</td>
-                                        <td>2022-12-25</td>
+                                        <td>${reserv.reservationCode}</td>
+                                        <td>${reserv.hotelCode}</td>
+                                        <td>${reserv.resCode}</td>
+                                        <td>${reserv.reservationAmount}</td>
+                                        <td><fmt:formatDate value="${reserv.reservationDate}" pattern="yyyy-MM-dd" /></td>
                                     </tr>
+                                    </c:forEach>
+                                    </c:if>
+                                    <c:if test="${diningList.size() == 0}">
+                                    	<tr>
+                                    		<td colspan="5">
+                                    			<h3 class="my-0 mx-auto text-center">검색 결과가 없습니다.</h3>
+                                    		</td>
+                                    	</tr>
+                                    </c:if>
                                     
                                 </tbody>
 

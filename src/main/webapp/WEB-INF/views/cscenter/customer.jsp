@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+    <%@ include file="../include/header.jsp" %>	
 <!-- 자동완성용 ajax 임포트 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <title>Insert title here</title>
@@ -17,10 +14,8 @@
 	    
 	    /**/
 	    #answer{ width: 200px;}
-    </style>   
-</head>
-<body>
-	<%@ include file="../include/header.jsp" %>	
+    </style>
+	
 	<!-- nav-->
 
     <!-- 메인영역 각자 할꺼 여기서 부터 적으세용 -->
@@ -206,8 +201,6 @@
 		
 	</script>
 
-</body>
 	<%@ include file="../include/footer.jsp" %>
-</html>
 
 

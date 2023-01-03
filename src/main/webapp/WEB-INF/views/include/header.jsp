@@ -22,6 +22,12 @@
         <!-- Link Swiper's CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css"/>
+
+        <!-- xeicon CDN-->
+	    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+
+
+        
     </head>
     <body>    
         <header> <!-- start header -->
@@ -45,10 +51,10 @@
                                 호텔소개
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce_hotels.html">개요</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce_hotels.html">WY호텔 서울</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce_hotels.html">WY호텔 부산</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce_hotels.html">WY호텔 제주</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotels">개요</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotelsSinfo">WY호텔 서울</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotelsBinfo">WY호텔 부산</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotelsJinfo">WY호텔 제주</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -59,8 +65,8 @@
                                 고객관리
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">QNA</a></li>
-                                <li><a class="dropdown-item" href="./reservations.html">문의하기</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/cscenter/faq">FAQ</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/cscenter/customer">문의하기</a></li>
                             </ul>
                         </li>
                     </ul>
