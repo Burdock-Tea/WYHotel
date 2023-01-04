@@ -25,29 +25,24 @@
             <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                 <!-- 회원 로그인 -->
                 <div>
-                    <form id=" login-form">
+                    <form id="login-form" action="${pageContext.request.contextPath}/member/login" method="post">
                         <div class="mb-3">
-                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="이메일">
+                            <input type="text" class="form-control" id="emailInput" name="email" placeholder="이메일">
                         </div>
                         <div class="mb-3">
-                            <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="비밀번호">
+                            <input type="password" class="form-control" id="pwInput" name="password" placeholder="비밀번호">
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              아이디 저장
-                            </label>
-                          </div>  &nbsp;&nbsp;
+                        
                         <div class="form-check auto-login clearfix">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                            <input class="form-check-input" type="checkbox" id="auto-login" name="autoLogin">
                             <label class="form-check-label" for="flexCheckChecked">
                                 자동 로그인
                             </label> 
                         </div>
-                        <a href="#" class="id-pw-search">아이디/비밀번호 찾기 ▶</a>
+                        <a href="${pageContext.request.contextPath}/member/searchId" class="id-pw-search">아이디/비밀번호 찾기 ▶</a>
                             <div class="d-grid gap-2 login-btn">
-                                <button type="button" class="btn btn-dark userLogin-btn"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">로그인</font></font></button>
-                                <button type="button" class="btn btn-secondary userLogin-btn"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">회원가입</font></font></button>
+                                <button type="button" id="loginBtn" class="btn btn-dark userLogin-btn"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">로그인</font></font></button>
+                                <button type="button" id="joinBtn" class="btn btn-secondary userLogin-btn"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">회원가입</font></font></button>
                         </div>
                     </form>
                 </div>
@@ -85,3 +80,53 @@
 </div>
 
 <%@ include file="../include/footer.jsp" %>
+
+
+<script>
+	
+	const msg = '${msg}';
+	
+	
+	if(msg === 'loginFail') {
+		alert('아이디, 비밀번호를 확인 해주세요.');
+	}
+	
+	
+	//로그인
+	function login() {
+		if($('#emailInput').val() === '') {
+			alert('아이디를 입력해 주세요.');
+			return;
+		}
+		if($('#pwInput').val() === '') {
+			alert('비밀번호를 입력해 주세요.');
+			return;
+		}
+		
+		$('#login-form').submit();
+	}
+	
+	$(function() {
+		
+		//로그인 버튼 클릭처리
+		$('#loginBtn').click(
+			login
+		);
+		
+		//엔터 이벤트 처리
+		$('#login-form').on('keyup', 'input', function(e) {
+			if(e.key === 'Enter') {
+				login()
+			}
+		});
+		
+		//회원가입 페이지
+		$('#joinBtn').click(function() {
+			location.href="${pageContext.request.contextPath}/member/join";
+		});
+		
+	});
+	
+	
+</script>
+

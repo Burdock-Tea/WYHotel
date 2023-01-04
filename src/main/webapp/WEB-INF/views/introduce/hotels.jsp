@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@ include file="../include/header.jsp" %>
 
     <style>
        /* font setting */
@@ -22,11 +19,7 @@
        .intrFont {text-align: justify; line-height: 1.8rem;}
 
     </style>
-
-</head>
-<body>
-
-	<%@ include file="../include/header.jsp" %>
+	
 	
 
     <!-- 오프 캔버스 메뉴 -->
@@ -91,6 +84,3 @@
     </div> 	
 	
 	<%@ include file="../include/footer.jsp" %>
-
-</body>
-</html>

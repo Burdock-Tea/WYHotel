@@ -42,8 +42,7 @@ public class ReservationController {
 		
 		if (reservation.getCategory().equals("hotels")) {
 			model.addAttribute("resultList", service.getRoomList(reservation));
-		} else {
-			
+		} else {			
 			model.addAttribute("resultList", service.getDiningList(reservation));
 		}
 		

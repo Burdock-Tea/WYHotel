@@ -1,5 +1,7 @@
 package com.ictproject.wyhotel.command;
 
+import java.sql.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,5 +26,11 @@ public class MemberVO {
 	private String grade;
 	private int point;
 	private boolean admin;
-
+	
+	private String sessionId;
+	private Timestamp limitDate;
+	
+	//자동 로그인 체크 여부
+	private boolean autoLogin;
+	
 }
