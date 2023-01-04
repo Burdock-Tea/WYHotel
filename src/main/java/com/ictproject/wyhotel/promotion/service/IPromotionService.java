@@ -11,9 +11,14 @@ public interface IPromotionService {
 	public void insert(PromotionUploadVO upload);
 
 	// 프로모션 목록 불러오기
-	public List<PromotionVO> getList();
+	public List<PromotionVO> getList(String hotelCode, String startDate, String endDate);
 
+	// 프로모션 상세보기
 	public PromotionVO getPromotion(String promotionCode);
 	
+	// 프로모션 수정
 	public void update(PromotionUploadVO upload, String imageUpdate);
+
+	// 프로모션 삭제
+	public void delete(String promotionCode);
 }

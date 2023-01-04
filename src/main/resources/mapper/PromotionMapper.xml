@@ -4,16 +4,35 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ictproject.wyhotel.promotion.mapper.IPromotionMapper">
 
-	<sql id="updateImage">
+	<sql id="imageUpdate">
 		<choose>
-			<when test="condition == 'title'">
-				WHERE
-					title LIKE '%' || #{keyword} || '%'
+			<when test="imageUpdate == 'on'">
+				,upload_path =    #{vo.uploadPath},
+				 file_location =  #{vo.fileLocation},
+				 file_name =      #{vo.fileName},
+				 file_real_name = #{vo.fileRealName}
 			</when>
-			<when test="condition == 'content'">
-				WHERE
-					content LIKE '%' || #{keyword} || '%'
+			<when test="imageUpdate == null">				
 			</when>			
+		</choose>
+	</sql>
+	
+	<sql id="hotelCode">
+		<choose>
+			<when test="hotelCode == '10'">
+				WHERE
+					hotel_code = '10'
+			</when>
+			<when test="hotelCode == '20'">
+				WHERE
+					hotel_code = '20'
+			</when>
+			<when test="hotelCode == '30'">
+				WHERE
+					hotel_code = '30'
+			</when>
+			<when test="hotelCode == 'none'">
+			</when>
 		</choose>
 	</sql>
 
@@ -29,6 +48,7 @@
 			*
 		FROM
 			promotion
+		<include refid="hotelCode"/>
 		ORDER BY
 			promotion_code DESC
 	</select>
@@ -41,5 +61,28 @@
 		WHERE
 			promotion_code = #{promotionCode}
 	</select>
+	
+	<update id="update">
+		UPDATE
+			promotion
+		SET
+			hotel_code =        #{vo.hotelCode},
+			room_code =         #{vo.roomCode},
+			promotion_name =    #{vo.promotionName},
+			start_date =        #{vo.startDate},
+			end_date =          #{vo.endDate},
+			promotion_price =   #{vo.promotionPrice},
+			promotion_content = #{vo.promotionContent}
+			<include refid="imageUpdate"/>
+		WHERE
+			promotion_code =    #{vo.promotionCode}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM
+			promotion
+		WHERE
+			promotion_code = #{promotionCodeData}
+	</delete>
 
 </mapper>

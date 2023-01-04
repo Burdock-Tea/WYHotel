@@ -34,12 +34,14 @@ public class PromotionController {
 	
 	@Autowired
 	private IPromotionService service;
-		
+	
+	// 프로모션 리스트 페이지로 이동
 	@GetMapping("/list")
-	public void listPage(Model model) {		
-		model.addAttribute("promotionList", service.getList());		
+	public void listPage(Model model, String hotelCode, String startDate, String endDate) {		
+		model.addAttribute("promotionList", service.getList(hotelCode, startDate, endDate));
 	}
 	
+	// 비동기 방식, img 태그의 src 속성에 요청을 보내 해당 이미지를 사용자한테 보여주기 위함
 	@GetMapping("/display")
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String fileLocation, String fileName) {
@@ -59,9 +61,11 @@ public class PromotionController {
 		return result;
 	}
 	
+	// 프로모션 등록 페이지로 이동
 	@GetMapping("/insert")
 	public void insertPage() {}
-
+	
+	// 프로모션 등록 처리
 	@PostMapping("/insert")
 	public String insert(PromotionUploadVO upload) {	
 		
@@ -70,6 +74,7 @@ public class PromotionController {
 		return "redirect:/promotion/list";
 	}
 	
+	// 프로모션 수정 페이지로 이동
 	@GetMapping("/update")
 	public void updatePage(String promotionCodeData, Model model) {
 		PromotionVO promotion = service.getPromotion(promotionCodeData);
@@ -77,10 +82,26 @@ public class PromotionController {
 		model.addAttribute("promotion", promotion);
 	}
 	
+	// 프로모션 수정 처리
 	@PostMapping("/update")
 	public String update(PromotionUploadVO upload, String imageUpdate) {
+		// imageUpdate는 html의 checkbox의 value 값
+		// checkbox가 check 되었을 경우 on이 들어오게 됨, check가 안되어 있을 시에는 null
+
+		log.info("getFile() : " + upload.getFile());
+		log.info("imageUpdate : " + imageUpdate);
+		
+		service.update(upload, imageUpdate);
 		
 		
+		return "redirect:/promotion/list";
+	}
+	
+	// 프로모션 삭제 처리
+	@PostMapping("/delete")
+	public String delete(String promotionCodeData) {
+		
+		service.delete(promotionCodeData);
 		
 		return "redirect:/promotion/list";
 	}

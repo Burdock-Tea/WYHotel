@@ -123,6 +123,18 @@
     			  return;
     		  }
     		  
+    		  if($('#file').val() === '') {
+    			  alert('이미지 파일을 등록해주세요!');
+    			  $('#file').focus();
+    			  return;
+    		  }
+    		  
+    		  if(confirm('해당 프로모션을 등록하시겠습니까?')) {
+    			  $('#insertForm').submit();
+    		  } else {
+    			  return;
+    		  }
+    		  
     	  });
     	  
     	  // 파일 업로드시 이미지만 업로드가 가능하게 하자

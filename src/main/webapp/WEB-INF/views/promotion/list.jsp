@@ -11,13 +11,25 @@
 }
 </style>
 	<section>
-        <div class="container">
-            <h2 class="text-center mb-2 mt-2">프로모션</h2>
-            <!-- 관리자로 로그인 했을때 보이게 하면 됩니다 -->
-            <button type="button" class="btn btn-secondary" onclick="location.href='${ pageContext.request.contextPath }/promotion/insert'">프로모션 등록</button>
-            <!-- 관리자로 로그인 했을때 보이게 하면 됩니다 -->
+        <div class="container clearfix">
+        	<hr>
+            <h2 class="text-center mb-2 mt-2">프로모션 리스트</h2>            
             <div class="promotion-wrap">
                 <hr>
+                <div class="input-group mb-3">
+				  <label class="input-group-text" for="hotelCode">지점선택</label>
+				  <select class="form-select" id="hotelCode" name="hotelCode">
+				    <option value="none" ${ param.hotelCode == "none" ? "selected" : "" }>전체</option>
+				    <option value="10" ${ param.hotelCode == "10" ? "selected" : "" }>서울</option>
+				    <option value="20" ${ param.hotelCode == "20" ? "selected" : "" }>부산</option>
+				    <option value="30" ${ param.hotelCode == "30" ? "selected" : "" }>제주</option>
+				  </select>
+				  <span class="input-group-text">시작날짜</span>
+                            <input type="date" aria-label="startDate" class="form-control" id="startDate" name="startDate">
+                            <span class="input-group-text">마침날짜</span>
+                            <input type="date" aria-label="endDate" class="form-control" id="endDate" name="endDate">
+				  <button id="listBtn" class="btn btn-outline-secondary" type="button">검색</button>
+				</div>
                 <!-- 프로모션 리스트 시작 지점 -->
                 <c:forEach items="${ promotionList }" var="list">
 	                <div id="${ list.promotionCode }" class="card mb-3" style="max-width: 800px;">
@@ -43,6 +55,9 @@
                 </c:forEach>
                 <!-- 프로모션 리스트 끝 지점 -->
             </div>
+            <!-- 관리자로 로그인 했을때 보이게 하면 됩니다 -->
+            <button type="button" class="btn btn-secondary float-end" onclick="location.href='${ pageContext.request.contextPath }/promotion/insert'">프로모션 등록</button>
+            <!-- 관리자로 로그인 했을때 보이게 하면 됩니다 -->
         </div>
     </section>
     
@@ -59,16 +74,16 @@
                         <form>
                             <div class="mb-3 clearfix">
                                 <div class="img-wrapper">
-                                    <img src="./img/to-travel-gb2e60ab1c_1920.jpg" class="img-fluid rounded-start" alt="...">                                
+                                    <img src="" class="img-fluid rounded-start" alt="...">                                
                                 </div>
-                                <span id="modalDate" class="float-start">2023-01-10 ~ 2023-01~17</span><span id="modalPrice" class="float-end">$200,000</span>
+                                <span id="modalDate" class="float-start">dummy</span><span id="modalPrice" class="float-end">dummy</span>
                             </div>
                             <hr>
                             <div class="mb-3">
-                                <strong id="modalName">프로모션 이름</strong>
+                                <strong id="modalName">dummy</strong>
                             </div>
                             <div class="mb-3">                                
-                                <textarea class="form-control" id="modalContent" rows="3" style="resize: none;" disabled>프로모션 내용</textarea>
+                                <textarea class="form-control" id="modalContent" rows="3" style="resize: none;" disabled>dummy</textarea>
                             </div>
                         </form>
                     </div>
@@ -107,13 +122,59 @@
     			
     		});
     		
-    		$('#updateBtn').click(function() {
-    			
+    		$('#updateBtn').click(function() {   			
     			const promotionCode = $('#promotionCodeData').val();
     			$(this).parent().attr('action', '${pageContext.request.contextPath}/promotion/update');
-    			$(this).parent().submit();
-    			
+    			$(this).parent().submit();    			
     		});
+    		
+    		$('#deleteBtn').click(function() {    			
+    			if(confirm('정말로 삭제하시겠습니까?')) {
+    				const promotionCode = $('#promotionCodeData').val();
+    				$(this).parent().attr('action', '${pageContext.request.contextPath}/promotion/delete');
+    				$(this).parent().attr('method', 'post');
+        			$(this).parent().submit();
+    			} else {
+    				return;
+    			}
+    			    			
+    		});
+    		
+    		$('#listBtn').click(function(){
+    			
+    			if(($('#startDate').val() === '') || ($('#endDate').val() === '')) {
+    				alert('날짜 선택을 전부 진행해주세요!');
+    				return;
+    			}
+    			
+    			location.href='${pageContext.request.contextPath}/promotion/list?hotelCode=' + $('#hotelCode').val() + '&startDate=' + $('#startDate').val() + '&endDate=' + $('#endDate').val();
+    		});
+    		
+    		$('#startDate').val(getDate(false));
+    		$('#endDate').val(getDate(true));
+    		
+    		// 시작 날짜를 오늘 날짜로 하기 위한 함수
+      	  	function getDate(isNextDay) {
+      		  	let date = new Date();
+      		  	
+      		  	if(isNextDay) {
+      		  		date.setDate(date.getDate() + 1);
+      		  	}
+      		  
+      		  	let year = String(date.getFullYear());
+                let month = String(date.getMonth() + 1);
+                let day = String(date.getDate());
+
+                if(month.length === 1) {
+                  month = '0' + month;
+                }
+
+                if(day.length === 1) {
+                  day = '0' + day;
+                }         
+                
+                return year + '-' + month + '-' + day;
+      	  }
     		
     	});
     	
