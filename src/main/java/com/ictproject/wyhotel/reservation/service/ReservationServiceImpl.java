@@ -220,5 +220,22 @@ public class ReservationServiceImpl implements IReservationService {
 		
 		return list;
 	}
+	
+	@Override
+	public DiningReservationVO getReservDetailDining(String resvNum, HttpSession session) {
+		
+		List<DiningReservationVO> list = getReservDiningList(session);
+		
+		DiningReservationVO vo = null;
+		
+		for (DiningReservationVO detail : list) {
+			if (detail.getReservationCode().equals(resvNum)) {
+				vo = detail;
+				break;
+			}
+		}
+		
+		return vo;
+	}
 
 }

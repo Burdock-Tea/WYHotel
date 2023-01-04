@@ -20,12 +20,8 @@
 	
 	<sql id="memberOrNot">
 		<choose>
-			<when test="isMem == 1">
+			<when test="isMem == 1 || isMem == 2">
 		        LEFT JOIN not_members nm ON r.member_code = nm.member_code
-				WHERE nm.email = (SELECT email FROM not_members nm2 WHERE nm2.member_code = #{memberCode})
-			</when>
-			<when test="isMem == 2">
-				LEFT JOIN not_members nm ON r.member_code = nm.member_code
 				WHERE nm.email = (SELECT email FROM not_members nm2 WHERE nm2.member_code = #{memberCode})
 			</when>
 			<otherwise>

@@ -239,7 +239,7 @@
                                 <tbody>
                                 	<c:if test="${diningList.size() > 0}">
                                     <c:forEach var="reserv" items="${diningList}">
-                                    <tr data-resv-num="221220s3m1001">
+                                    <tr data-resv-num="${reserv.reservationCode}">
                                         <td>${reserv.reservationCode}</td>
                                         <td>${reserv.hotelCode}</td>
                                         <td>${reserv.resCode}</td>
@@ -294,6 +294,9 @@
                 const resvNum = $(this).data('resvNum');
                 console.log(resvNum);
                 
+
+
+
                 $('.reservation-modal-title').text('호텔 예약 상세');
                 $('.hotelForm #reservationCode').val(resvNum);
                 $('.hotelForm').attr('hidden', false);
@@ -307,13 +310,33 @@
             */
             $('.dining-reservations tbody').on('click', 'tr', function(e){
                 const resvNum = $(this).data('resvNum');
-                console.log(resvNum);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '${pageContext.request.contextPath}/reservation/getReservDetailDining',
+                    contentType: 'application/JSON',
+                    data: JSON.stringify(resvNum),
+                    success: function(detail){
+                        $('.reservation-modal-title').text('다이닝 예약 상세');
+                        $('.diningForm #reservationCode').val(resvNum);
+                        $('.diningForm #hotelCode').val(detail.hotelCode);
+                        $('.diningForm #resCode').val(detail.resCode);
+                        $('.diningForm #reservationAmount').val(detail.reservationAmount);
+                        
+                        const resvDate = new Date(detail.reservationDate);
+                        const resvString = resvDate.getFullYear() + '-' + 
+                                            (String(resvDate.getMonth() + 1).length === 1 ? '0' + String(resvDate.getMonth() + 1) : String(resvDate.getMonth() + 1)) + '-' + 
+                                            (String(resvDate.getDate()).length === 1 ? '0' + String(resvDate.getDate()) : String(resvDate.getDate()));
+                        $('.diningForm #reservationDate').val(resvString);
+                        $('.diningForm #reservationTime').val(detail.reservationTime);
+
+                        $('.hotelForm').attr('hidden', true);
+                        $('.diningForm').attr('hidden', false);
+                        $('#reservationModal').modal('show');    
+                    }
+                });
                 
-                $('.reservation-modal-title').text('다이닝 예약 상세');
-                $('.diningForm #reservationCode').val(resvNum);
-                $('.hotelForm').attr('hidden', true);
-                $('.diningForm').attr('hidden', false);
-                $('#reservationModal').modal('show');
+                
 
             });// 다이닝 예약확인 버튼처리 끝
 

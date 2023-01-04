@@ -44,4 +44,7 @@ public interface IReservationService {
 	// 다이닝 예약내역 리스트
 	List<DiningReservationVO> getReservDiningList(HttpSession session);
 
+	// 다이닝 예약 상세내역 가져오기
+	DiningReservationVO getReservDetailDining(String resvNum, HttpSession session);
+
 }
