@@ -32,7 +32,7 @@
                         <div class="form-group col-8">
                             <label for="inputName" class="form-label mt-4">이름</label>
                             <input type="text" class="form-control col-lg-6" name="name" id="inputName" placeholder="이름을 입력해주세요.">
-
+							<span id="nameMsg"></span>
                         </div>
                         
                         <label class="col-form-label mt-4" for="inputDefault">전화번호</label>
@@ -91,6 +91,20 @@
     
     <script>
     
+	    const getNameCheck = RegExp(/^[가-힣]+$/);
+		// 이름 입력값 검증
+		$('#inputName').keyup(function() {
+			//이름값 유효성 검사
+			if(getNameCheck.test($(this).val())) {
+				$(this).css('borderColor', 'green');
+				$('#nameMsg').html('');
+			} else {
+				$(this).css('borderColor', 'red');
+				$('#nameMsg').html('이름은 한글로만 작성하세요.');
+				$('#nameMsg').css('color', 'red');
+			}
+		}); //이름 입력 검증 끝
+    
     	$(function() {
 			
     		//아이디 찾기 이벤트 처리
@@ -104,6 +118,11 @@
 				if($('#inputTel').val() === '') {
 					alert('전화번호를 입력해 주세요.');
 					$('#inputTel').focus();
+					return;
+				}
+				if($('#nameMsg').html() === '이름은 한글로만 작성하세요.') {
+					alert('이름을 확인해 주세요.');
+					$('#inputName').focus();
 					return;
 				}
 				
