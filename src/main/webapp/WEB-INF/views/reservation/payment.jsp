@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../include/header.jsp" %>
-
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style>
     #reservTitleSpan {font-weight: 500;}
 
@@ -203,6 +203,20 @@
             </div>
             <div class="col-md-2"></div>
             <!-- 6그룹 끝 -->
+            <!-- 7그룹 -->
+            <div class="col-md-2"></div>
+            <div class="col-md-3">결제방식</div>
+            <div class="col-md-5">
+                <select class="form-select" aria-label="Default select example" name="paymentMethod" id="paymentMethod">
+                    <option value="none">선택</option>
+                    <option value="practiceKakao">카카오페이</option>
+                    <option value="naver">네이버페이</option>
+                    <option value="payco">PAYCO</option>
+                    <option value="practiceToss">Toss</option>
+                </select>
+            </div>
+            <div class="col-md-2"></div>
+            <!-- 7그룹 끝 -->
 
         </c:if>
 
@@ -210,7 +224,7 @@
         <div class="col-md-5"></div>
         <div class="col-md-2 pt-3">
             <c:if test="${param.category == 'hotels'}">
-                <button type="button" class="btn btn-dark form-control" id="paymentsBtn">결제방식선택</button>
+                <button type="button" class="btn btn-dark form-control" id="paymentsBtn">결제 및 예약확정</button>
             </c:if>
             <c:if test="${param.category == 'dinings'}">
                 <button type="button" class="btn btn-dark form-control" id="diningReservBtn">예약확정</button>
@@ -218,24 +232,6 @@
         </div>
         <div class="col-md-5"></div>
         <!-- 버튼 끝-->
-
-
-        <!-- 결제방식 시작 -->
-        <div class="col-md-12 container visually-hidden">
-            <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-4 pt-3">
-                    <c:if test="${param.category == 'hotels'}">
-                        <button type="button" class="btn btn-dark form-control" id="modifyBtn">결제하기</button>
-                    </c:if>
-                    <c:if test="${param.category == 'dinings'}">
-                        <button type="button" class="btn btn-dark form-control" id="modifyBtn">예약확정</button>
-                    </c:if>
-                    <div class="col-md-4"></div>
-                </div>
-            </div>
-        </div>
-        <!-- 결제방식 끝-->
 
     </div>
     
@@ -267,6 +263,29 @@
         const daterange = '${reservation.daterange}';
         document.reservForm.strDate.value = daterange;
     }
+
+    // iamport (결제) 함수 생성
+    function iamport(selectedMethod, membercode, mPrice, mEmail, mName, mTel){
+		//가맹점 식별코드
+		IMP.init('imp23063478');
+		IMP.request_pay({
+		    pg : 'kcp.A52CY',
+		    pay_method : selectedMethod,
+		    merchant_uid : membercode + '-' + new Date().getTime(),
+		    amount : price, //실제 결제되는 가격
+		    buyer_email : mEmail,
+		    buyer_name : mName,
+		    buyer_tel : mTel,
+            m_redirect_url: '${pageContext.request.contextPath}/'
+		}, function(rsp) {
+			console.log(rsp);
+		    if ( !rsp.success ) {
+		    	var msg = '결제에 실패하였습니다.';
+		        msg += '\r\n에러내용 : ' + rsp.error_msg;
+		    }
+		    alert(msg);
+		});
+	}
 
     $(document).ready(function(){
 
@@ -342,6 +361,17 @@
 
             
         }); // 다이닝 예약확정 종료
+
+        // 결제방식 선택 버튼 클릭이벤트 시작
+        $('#paymentsBtn').click(function(){
+            if ($('#paymentMethod').val() === 'none') {
+                alert('결제방식을 선택하세요');
+                $('#paymentMethod').focus();
+                return;
+            } else {
+
+            }
+        }); // 결제방식 선택 버튼 클릭이벤트 끝
         
     });
     

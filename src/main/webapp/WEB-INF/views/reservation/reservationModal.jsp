@@ -89,53 +89,24 @@
                             </tr>
                             <tr class="hotelCode">
                                 <td class="col-md-5"><strong>예약지점</strong></td>
-                                <td class="col-md-7">
-                                    <select type="text" value="" name="hotelCode" id="hotelCode" class="form-control"
-                                    onFocus="this.initialSelect = this.selectedIndex;" onChange="this.selectedIndex = this.initialSelect;" readonly>
-                                        <option value="entire">전체</option>
-                                        <option value="sl" selected>WY호텔 서울</option>
-                                        <option value="bn">WY호텔 부산</option>
-                                        <option value="jj">WY호텔 제주</option>
-                                    </select>
-                                </td>
+                                <td class="col-md-7"><input type="text" value="" name="hotelCode" id="hotelCode" readonly></td>
+                            </tr>
+                            <tr class="resCode">
+                                <td class="col-md-5"><strong>다이닝 선택</strong></td>
+                                <td class="col-md-7"><input type="text" value="" name="resCode" id="resCode" readonly></td>
                             </tr>
                             <!--dining reservation-->
                             <tr class="reservationAmount">
                                 <td class="col-md-5"><strong>인원</strong></td>
-                                <td class="col-md-7">
-                                    <select name="reservationAmount" id="reservationAmount" class="form-control"
-                                    onFocus="this.initialSelect = this.selectedIndex;" onChange="this.selectedIndex = this.initialSelect;" readonly>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option selected>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr class="resCode">
-                                <td class="col-md-5"><strong>다이닝 선택</strong></td>
-                                <td class="col-md-7">
-                                    <select name="resCode" id="resCode" class="form-control"
-                                    onFocus="this.initialSelect = this.selectedIndex;" onChange="this.selectedIndex = this.initialSelect;" readonly>
-                                        <option value="s1">별론데 비싼 다이닝</option>
-                                        <option value="s2">적당히 맛있고 싼 다이닝</option>
-                                        <option value="s3" selected>죤맛탱 다이닝</option>
-                                        <option value="s4">뭐넣지 블라블라 다이닝</option>
-                                        <option value="s5">다이닝쓰</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr class="reservationTime">
-                                <td class="col-md-5"><strong>예약시간</strong></td>
-                                <td class="col-md-7"><input type="text" value="17:30" name="reservationTime" id="reservationTime" class="form-control" readonly></td>
+                                <td class="col-md-7"><input type="text" value="" name="reservationAmount" id="reservationAmount" readonly></td>
                             </tr>
                             <tr class="reservationDate">
                                 <td class="col-md-5"><strong>예약일</strong></td>
-                                <td class="col-md-7"><input type="date" value="2022-12-25" name="reservationDate" id="reservationDate" class="form-control" readonly></td>
+                                <td class="col-md-7"><input type="date" value="" name="reservationDate" id="reservationDate" class="form-control" readonly></td>
+                            </tr>
+                            <tr class="reservationTime">
+                                <td class="col-md-5"><strong>예약시간</strong></td>
+                                <td class="col-md-7"><input type="text" value="" name="reservationTime" id="reservationTime" class="form-control" readonly></td>
                             </tr>
 
 
@@ -143,7 +114,7 @@
 
                     </table>
                     
-                    <button type="button" class="btn bnt-modify btn-dark form-control" id="modifyBtn">예약 변경하기</button>
+                    <button type="button" class="btn bnt-modify btn-dark form-control" id="modifyBtn">예약취소</button>
                     
                 </form>
 

@@ -122,5 +122,13 @@ public class ReservationController {
 		System.out.println(service.getReservDiningList(session));
 		
 	}
+	
+	// reservation detail (dining)
+	@ResponseBody
+	@PostMapping("/getReservDetailDining")
+	public DiningReservationVO getReservDetailDining(@RequestBody String resvNum, HttpSession session) {
+		
+		return service.getReservDetailDining(resvNum, session);
+	}
 
 }

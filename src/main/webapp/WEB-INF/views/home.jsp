@@ -10,7 +10,6 @@
     }
 </style>
 
-
 <section class="main"> <!-- start main -->
 	<div class="wrapper"> <!-- start video -->
 		<section class="hero">
