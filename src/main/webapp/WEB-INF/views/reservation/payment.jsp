@@ -3,12 +3,54 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../include/header.jsp" %>
 
+<style>
+    #reservTitleSpan {font-weight: 500;}
+
+</style>
+
 <section class="container posi">
 
-<h2 id="reservTitle" class="text-center">예약하기</h2>
+<h2 id="reservTitle" class="text-center"><span id="reservTitleSpan"></span><small id="isMember"></small></h2>
 <form action="#" method="post" id="reservForm" name="reservForm" class="hotelForm">
     
     <div class="row">
+        
+        <!-- 예약자 정보 -->
+        <c:if test="${member == null}">
+            <div class="col-md-2"></div>
+            <div class="col-md-3">이메일</div>
+            <div class="col-md-5">
+                <input type="text" id="email" class="form-control" name="email" placeholder="example@example.com">
+            </div>
+            <div class="col-md-2"></div>
+
+            <div class="col-md-2"></div>
+            <div class="col-md-3">이름</div>
+            <div class="col-md-5">
+                <input type="text" id="name" class="form-control" name="name" placeholder="홍길동">
+            </div>
+            <div class="col-md-2"></div>
+
+            <div class="col-md-2"></div>
+            <div class="col-md-3">전화번호</div>
+            <div class="col-md-5">
+                <div class="d-inline-flex">
+                    <select id="phone1" class="form-select" name="phone1">
+                        <option>010</option>
+                        <option>011</option>
+                        <option>018</option>
+                    </select>
+                    <span class="mt-2 px-2"> - </span>
+                    <input type="tel" id="phone2" class="form-control" name="phone2" maxlength="4" placeholder="0000" id="inputDefault"> 
+                    <span class="mt-2 px-2"> - </span>
+                    <input type="tel" id="phone3" class="form-control" name="phone3" maxlength="4" placeholder="0000" id="inputDefault"> 
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </c:if>
+
+        <input type="hidden" id="memberCode" name="memberCode" value="">
+
         <!-- 1그룹 -->
         <div class="col-md-2"></div>
         <div class="col-md-3">예약지점</div>
@@ -28,7 +70,7 @@
         <c:if test="${param.category == 'hotels'}">
             <div class="col-md-3">객실</div>
             <div class="col-md-5">
-                <select class="form-select" aria-label="Default select example" name="hotelCode">
+                <select class="form-select" aria-label="Default select example" name="roomCode">
                     <option ${hotelCode == null ? 'selected' : ''}>객실선택</option>
                     <c:forEach var="room" items="${list}">
                         <option value="${room.roomCode}" ${reservation.code == room.roomCode ? 'selected' : ''}>${room.roomGrade}</option>
@@ -43,7 +85,7 @@
         <c:if test="${param.category == 'dinings'}">
             <div class="col-md-3">다이닝선택</div>
             <div class="col-md-5">
-                <select class="form-select" aria-label="Default select example" name="hotelCode">
+                <select class="form-select" aria-label="Default select example" name="resCode">
                     <option ${hotelCode == null ? 'selected' : ''}>다이닝 선택</option>
                     <c:forEach var="dining" items="${list}">
                         <option value="${dining.resCode}" ${reservation.code == dining.resCode ? 'selected' : ''}>${dining.resName}</option>
@@ -95,7 +137,7 @@
         <c:if test="${param.category == 'dinings'}">
             <div class="col-md-3">예약일</div>
             <div class="col-md-5">
-                <input type="date" value="" class="form-control" name="reservationDate">
+                <input type="date" value="" class="form-control" name="strDate">
             </div>
         </c:if>
         <div class="col-md-2"></div>
@@ -167,10 +209,33 @@
         <!-- 버튼 -->
         <div class="col-md-5"></div>
         <div class="col-md-2 pt-3">
-            <button type="button" class="btn btn-dark form-control" id="modifyBtn">예약하기</button>
+            <c:if test="${param.category == 'hotels'}">
+                <button type="button" class="btn btn-dark form-control" id="paymentsBtn">결제방식선택</button>
+            </c:if>
+            <c:if test="${param.category == 'dinings'}">
+                <button type="button" class="btn btn-dark form-control" id="diningReservBtn">예약확정</button>
+            </c:if>
         </div>
         <div class="col-md-5"></div>
-        <!-- 6그룹 끝 -->
+        <!-- 버튼 끝-->
+
+
+        <!-- 결제방식 시작 -->
+        <div class="col-md-12 container visually-hidden">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 pt-3">
+                    <c:if test="${param.category == 'hotels'}">
+                        <button type="button" class="btn btn-dark form-control" id="modifyBtn">결제하기</button>
+                    </c:if>
+                    <c:if test="${param.category == 'dinings'}">
+                        <button type="button" class="btn btn-dark form-control" id="modifyBtn">예약확정</button>
+                    </c:if>
+                    <div class="col-md-4"></div>
+                </div>
+            </div>
+        </div>
+        <!-- 결제방식 끝-->
 
     </div>
     
@@ -181,7 +246,10 @@
 
 <script>
 
-    $('#reservTitle').text(('${reservation.category}' === 'dinings' ? '다이닝 예약 선택사항 확인' : '호텔 예약 선택사항 확인'));
+    let memCode = '';
+
+    $('#reservTitleSpan').text(('${reservation.category}' === 'dinings' ? '다이닝 예약 선택사항 확인' : '호텔 예약 선택사항 확인'));
+    $('#isMember').text(('${member}' === '' ? '(비회원 예약)' : '(회원 예약)'));
 
     if ('${reservation.category}' === 'hotels') {
         const daterange = '${reservation.daterange}';
@@ -197,8 +265,85 @@
 
     } else {
         const daterange = '${reservation.daterange}';
-        document.reservForm.reservationDate.value = daterange;
+        document.reservForm.strDate.value = daterange;
     }
+
+    $(document).ready(function(){
+
+        
+
+        //다이닝 예약확정 버튼 클릭(비회원)
+        $('#diningReservBtn').click(function(){
+
+            
+            if (memCode === ''){
+                if ('${member}' === '') {
+
+                    if ($('#email').val().trim() === '') {
+                        alert('이메일을 입력하세요');
+                        $('#email').val('');
+                        $('#email').focus();
+                        return;
+                    } else if ($('#name').val().trim() === '') {
+                        alert('이름을 입력하세요');
+                        $('#name').val('');
+                        $('#name').focus();
+                        return;
+                    } else if ($('#phone2').val().trim() === '') {
+                        alert('전화번호를 입력하세요');
+                        $('#phone2').val('');
+                        $('#phone2').focus();
+                        return;
+                    } else if ($('#phone3').val().trim() === '') {
+                        alert('전화번호를 입력하세요');
+                        $('#phone3').val('');
+                        $('#phone3').focus();
+                        return;
+                    }
+                    const email = $('#email').val();
+                    const name = $('#name').val();
+                    const tel = $('#phone1').val() + '-' + $('#phone2').val() + '-' + $('#phone3').val();
+
+                    const data = {
+                        'email' : email,
+                        'name' : name,
+                        'tel' : tel
+                    };
+
+                    $.ajax({
+                        type: 'POST',
+                        url : '${pageContext.request.contextPath}/reservation/createNmemCode',
+                        contentType: 'application/JSON',
+                        data: JSON.stringify(data),
+                        success: function(result) {
+                            memCode = result;
+                            console.log(memCode);
+                            console.log($('#memberCode'));
+                            $('#memberCode').val(memCode);
+                            if (confirm('위의 내용대로 예약하시겠습니까?')){
+                                $('#reservForm').attr('action', '${pageContext.request.contextPath}/reservation/diningReserv');
+                                $('#reservForm').submit();
+                            }
+                        } 
+                    });
+                    
+                } else {
+                    memCode = '${member}';
+                    console.log(memCode);
+                    $('#memberCode').val(memCode);
+                    if (confirm('위의 내용대로 예약하시겠습니까?')){
+                        $('#reservForm').attr('action', '${pageContext.request.contextPath}/reservation/diningReserv');
+                        $('#reservForm').submit();
+                    }
+                }
+
+
+            }
+
+            
+        }); // 다이닝 예약확정 종료
+        
+    });
     
 </script>
 

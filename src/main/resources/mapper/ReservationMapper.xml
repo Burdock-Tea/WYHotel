@@ -17,6 +17,24 @@
 			</otherwise>
 		</choose>
 	</sql>
+	
+	<sql id="memberOrNot">
+		<choose>
+			<when test="isMem == 1">
+		        LEFT JOIN not_members nm ON r.member_code = nm.member_code
+				WHERE nm.email = (SELECT email FROM not_members nm2 WHERE nm2.member_code = #{memberCode})
+			</when>
+			<when test="isMem == 2">
+				LEFT JOIN not_members nm ON r.member_code = nm.member_code
+				WHERE nm.email = (SELECT email FROM not_members nm2 WHERE nm2.member_code = #{memberCode})
+			</when>
+			<otherwise>
+				WHERE member_code = #{memberCode}
+			</otherwise>
+		</choose>
+	</sql>
+	
+	
 	<select id="getRoomList" resultType="room">
 		<![CDATA[
 		SELECT tbl.* FROM
@@ -42,6 +60,61 @@
 	<select id="getRoomDetail" resultType="room">
 		SELECT * FROM rooms
 		WHERE room_code = #{roomCode}
+	</select>
+	
+	<insert id="createNmemCode">
+		INSERT INTO not_members
+		VALUES (nmem_code_seq.NEXTVAL, #{email}, #{name}, #{tel})
+	</insert>
+	
+	<select id="selectNmemCode" resultType="String">
+		SELECT tbl2.member_code FROM
+		(SELECT ROWNUM AS rn, tbl.member_code FROM
+		(SELECT member_code FROM not_members
+		WHERE email = #{email} AND name = #{name} AND tel = #{tel}
+		ORDER BY member_code DESC) tbl ) tbl2
+		WHERE rn = 1
+	</select>
+	
+	<insert id="reservDining">
+		INSERT INTO dining_reservation
+		VALUES (#{reservationCode}, #{hotelCode}, #{resCode}, #{memberCode}
+		, #{reservationDate}, #{reservationTime}, #{reservationAmount}, #{reservationRequest})
+	</insert>
+	
+	<select id="nMemLogin" resultType="int">
+		SELECT 
+		((SELECT COUNT(*) AS dining
+		FROM dining_reservation dr
+		LEFT JOIN not_members nm ON dr.member_code = nm.member_code
+		WHERE dr.reservation_code = #{reservationCode}
+		AND nm.email = #{email})+(SELECT COUNT(*) AS room
+		FROM room_reservation rr
+		LEFT JOIN not_members nm2 ON rr.member_code = nm2.member_code
+		WHERE rr.reservation_code = #{reservationCode}
+		AND nm2.email = #{email})) AS cnt
+		FROM dual
+	</select>
+	
+	<select id="getReservRoomList" resultType="roomReserv">
+		SELECT r.* FROM
+		room_reservation r
+		<include refid="memberOrNot" />
+	</select>
+	
+	<select id="getReservDiningList" resultType="diningReserv">
+		SELECT r.* FROM
+		dining_reservation r
+		<include refid="memberOrNot" />
+	</select>
+	
+	<select id="getDinings" resultType="String">
+		SELECT res_name FROM
+		<include refid="locals" />
+	</select>
+	
+	<select id="getRooms" resultType="String">
+		SELECT room_grade FROM rooms
 	</select>
 
 </mapper>
