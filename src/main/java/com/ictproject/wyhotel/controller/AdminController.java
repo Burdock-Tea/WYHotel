@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 	
 	@GetMapping("/member")
-	public void memberPage() {}
+	public void memberPage() {
+		
+	}
 
 }

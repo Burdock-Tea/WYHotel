@@ -22,7 +22,8 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
 				/WEB-INF/spring/config/dispatcher-config.xml
-				/WEB-INF/spring/config/email-config.xml				
+				/WEB-INF/spring/config/email-config.xml
+				/WEB-INF/spring/config/interceptor-config.xml	
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

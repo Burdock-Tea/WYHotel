@@ -65,6 +65,86 @@ header {
 
 /* footer */
 
+footer {
+    margin-top: 50px;
+    padding: 30px 0 15px;
+    position: relative;
+    background: #000;
+    box-sizing: border-box;
+    color: white;
+}
+
+footer .innerbox {
+    width: 1280px;
+    padding: 0 80px;
+    margin: 0 auto;
+    border-bottom: 1px solid gray;
+}
+
+footer .footerBox {
+    float: left;
+}
+
+footer .footerBox h1 {
+    font-size: 18px;
+    color: #9c836a;
+}
+
+footer .footer-service {
+    padding-left: 150px;
+}
+
+footer .footSub .copyright {
+    margin-top: 50px;
+}
+
+footer .footSub .subfont {
+    font-size: 15px; 
+    color: lightgray;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer .footer-service .social a {
+    font-size: 30px;
+    line-height: 40px;
+}
+
+footer .footer-service .social .kakao {
+    font-size: 38px;
+}
+
+footer a:hover {
+    color:lightgray;
+}
+
+footer .footer-service .social {
+    float: left;
+    padding: 0 20px;
+}
+
+footer .copyright {
+    font-size: 15px;
+    color: lightgray;
+    line-height: 20px;
+}
+
+footer .logo-img {
+    width: 20%;
+    float: right;
+    filter: invert(100%);
+    padding-bottom: 30px;
+    
+}
+
+footer .footer-div {
+    width: 20%;
+    float: right;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
 
 img {
@@ -88,38 +168,6 @@ ul, ol, dl, li {
     content: '';
     display: block;
     clear: both;
-}
-
-footer {
-    margin-top: 50px;
-    background: lightgray;
-    padding: 30px 0 15px;
-    position: relative;
-    height: 200px;
-}
-
-footer .copyright {
-    font-size: 15px;
-    color: #000;
-    line-height: 20px;
-}
-
-footer .logo-img {
-    width: 20%;
-    float: right;
-}
-
-footer .footer-div {
-    width: 20%;
-    float: right;
-}
-
-footer .topBtn {
-    font-size: 50px;
-    color: black;
-    position: fixed;
-    right: 10px;
-    bottom: 10px;
 }
 
 /* swiper */
@@ -175,6 +223,9 @@ footer .topBtn {
 
 /* list font hover*/
 .posi{padding: 80px 0;}
+.text-secondary:hover { font-weight: 400;}
+.row > div:nth-child(1) {padding-left: 50px;}
+.row > div:nth-child(1) > ul li {list-style: none; }
 
 /* acod */
 .list-group-item { border: 0; }

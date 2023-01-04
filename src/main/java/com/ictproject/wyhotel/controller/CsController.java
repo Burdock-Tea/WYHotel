@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ictproject.wyhotel.util.captcha.CaptchaUtil;
-import com.ictproject.wyhotel.util.email.MailSendService;
+import com.ictproject.wyhotel.util.email.MailSendServiceAdmin;
 
 import cn.apiclub.captcha.Captcha;
 
@@ -30,13 +30,13 @@ import cn.apiclub.captcha.Captcha;
 public class CsController {
 	
 	@Autowired
-	private MailSendService mailsender;
+	private MailSendServiceAdmin mailsender;
 	
 	@GetMapping("/faq")
-	public void CsFaq() {};
+	public void csFaq() {};
 	
 	@GetMapping("/customer")
-	public void Customer() {};
+	public void customer() {};
 	
 	// captcha 이미지 가져오는 메서드
 	@GetMapping("/captchaImg")
