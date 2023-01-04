@@ -58,7 +58,9 @@ public class MemberController {
 			return "duplicated";
 		}else {
 			return "ok";
-		}		
+		}
+			
+		
 	}
 	
 	// 회원가입 페이지 이동
@@ -100,6 +102,8 @@ public class MemberController {
 			if(encoder.matches(vo.getPassword(), dbData.getPassword())) {
 				//로그인 성공 회원을 대상으로 세션 정보를 생성
 				session.setAttribute("member", dbData.getMemberCode());
+				session.setAttribute("admin", dbData.isAdmin());
+				
 				System.out.println(session.getId());
 				long limitTime = 60 * 60 * 24 * 90;
 				
@@ -125,11 +129,14 @@ public class MemberController {
 					
 					}
 				
+					return "redirect:/";
+				} else {
+					ra.addFlashAttribute("msg", "loginFail");
+					
+					return "redirect:/member/login";
 				}
 			
-			return "redirect:/";
 			} else {
-				
 				ra.addFlashAttribute("msg", "loginFail");
 				
 				return "redirect:/member/login";
@@ -190,17 +197,10 @@ public class MemberController {
 	@PostMapping("/pwModify")
 	public String pwModify(MemberVO vo, HttpSession session, String newPw) {
 		
-		System.out.println(service.login(vo.getEmail()));
-		
-		
-		System.out.println(":::" + newPw);
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		
-		
-		
 		vo.setPassword(newPw);
 		service.pwModify(vo);
 		session.removeAttribute("member");
+		
 		return "redirect:/member/login";
 	}
 	
@@ -259,8 +259,15 @@ public class MemberController {
 	//아이디 찾기 처리
 	@PostMapping("/searchId")
 	public String searchId(String name, Model model,  String tel, String tel2, String tel3, RedirectAttributes ra) {
-		String phoneNum = tel + "-" + tel2 + "-" + tel3;		
-		ra.addFlashAttribute("email", service.searchId(name, phoneNum));
+		String phoneNum = tel + "-" + tel2 + "-" + tel3;
+		if(service.searchId(name, phoneNum) == null) {
+			ra.addFlashAttribute("msg", "fail");
+		} else {
+			ra.addFlashAttribute("msg", "success");
+			ra.addFlashAttribute("email", service.searchId(name, phoneNum));
+		}
+				
+		
 		
 		return "redirect:/member/searchId";
 	}

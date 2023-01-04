@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<<<<<<< HEAD
 
     <%@ include file="../include/header.jsp" %>
 	
@@ -7,6 +8,15 @@
     <style>
 
 
+=======
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+    <%@ include file="../include/header.jsp" %>
+
+
+    <style>
+>>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
         /* reservations page css */
         a {
             color: inherit;
@@ -150,6 +160,11 @@
             display: block;
             margin: 10px auto;
         }
+<<<<<<< HEAD
+=======
+        
+        .btn { border-radius: 0;}
+>>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
 
     </style>
 
@@ -173,6 +188,7 @@
                     <div class="tab-content" id="pills-tabContent">
                         
                         <!--hotel toggle begin-->
+<<<<<<< HEAD
                         <div class="tab-pane fade show active" id="reservationsHotel" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">    
                             <form action="#" method="post" id="resvCheck">
                                 <p class="date-search-form"> 
@@ -188,6 +204,9 @@
                                     <button type="button" class="btn form-control">조회</button>
                                 </p>
                             </form>
+=======
+                        <div class="tab-pane fade show active" id="reservationsHotel" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+>>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
 
                             <h4 class="reservation-title">내 호텔 예약정보</h4>
 
@@ -204,6 +223,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+<<<<<<< HEAD
                                     <tr data-resv-num="221220swsum1001">
                                         <td>221220slsum1001</td>
                                         <td>WY호텔 서울지점</td>
@@ -222,6 +242,28 @@
                                         <td>2022-12-26</td>
                                         <td>2022-12-27</td>
                                     </tr>
+=======
+                                	<c:if test="${roomList.size() > 0}">
+                                    <c:forEach var="reserv" items="${roomList}">
+                                        <tr data-resv-num="${reserv.reservationCode}">
+                                            <td>${reserv.reservationCode}</td>
+                                            <td>${reserv.hotelCode}</td>
+                                            <td>${reserv.roomCode}</td>
+                                            <td>${reserv.capacity}</td>
+                                            <td>${reserv.checkOutDate - reserv.checkInDate}박</td>
+                                            <td><fmt:formatDate value="${reserv.checkInDate}" pattern="yyyy-MM-dd" /></td>
+                                            <td><fmt:formatDate value="${reserv.checkOutDate}" pattern="yyyy-MM-dd" /></td>
+                                        </tr>
+                                    </c:forEach>
+                                    </c:if>
+                                    <c:if test="${roomList.size() == 0}">
+                                    	<tr>
+                                    		<td colspan="7">
+                                    			<h3 class="my-0 mx-auto text-center">검색 결과가 없습니다.</h3>
+                                    		</td>
+                                    	</tr>
+                                    </c:if>
+>>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
                                 </tbody>
 
                             </table>
@@ -232,6 +274,7 @@
 
                         <!--dining toggle begin-->
                         <div class="tab-pane fade" id="reservationsDining" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+<<<<<<< HEAD
                             <form action="#" method="post" id="diningResvCheck">
                                 <p class="date-search-form"> 
                                     <b class="paragraph-strong">기간 검색</b> &ensp;&ensp; 
@@ -246,6 +289,8 @@
                                     <button type="button" class="btn form-control">조회</button>
                                 </p>
                             </form>
+=======
+>>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
 
                             <h4 class="reservation-title">내 다이닝 예약정보</h4>
 
@@ -260,6 +305,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+<<<<<<< HEAD
                                     <tr data-resv-num="221220s3m1001">
                                         <td>221220s3m1001</td>
                                         <td>WY호텔 서울지점</td>
@@ -267,6 +313,26 @@
                                         <td>4</td>
                                         <td>2022-12-25</td>
                                     </tr>
+=======
+                                	<c:if test="${diningList.size() > 0}">
+                                    <c:forEach var="reserv" items="${diningList}">
+                                    <tr data-resv-num="221220s3m1001">
+                                        <td>${reserv.reservationCode}</td>
+                                        <td>${reserv.hotelCode}</td>
+                                        <td>${reserv.resCode}</td>
+                                        <td>${reserv.reservationAmount}</td>
+                                        <td><fmt:formatDate value="${reserv.reservationDate}" pattern="yyyy-MM-dd" /></td>
+                                    </tr>
+                                    </c:forEach>
+                                    </c:if>
+                                    <c:if test="${diningList.size() == 0}">
+                                    	<tr>
+                                    		<td colspan="5">
+                                    			<h3 class="my-0 mx-auto text-center">검색 결과가 없습니다.</h3>
+                                    		</td>
+                                    	</tr>
+                                    </c:if>
+>>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
                                     
                                 </tbody>
 
@@ -287,8 +353,17 @@
 
     </section>
 
+<<<<<<< HEAD
     <%@ include file="./reservationModal.jsp" %>
     <%@ include file="../include/footer.jsp" %>
+=======
+
+
+
+
+
+    <%@ include file="./reservationModal.jsp" %>
+>>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
 
 
     <script>
@@ -362,3 +437,7 @@
         
     </script>
 
+<<<<<<< HEAD
+=======
+<%@ include file="../include/footer.jsp" %>
+>>>>>>> 1efb61d53793ccca72d608ab1161968df2170916

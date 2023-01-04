@@ -17,4 +17,7 @@ public class DiningVO {
 	private int resTables;
 	private String resInfo;
 	
+	// 남은 테이블 수
+	private String hotelCode;
+	private int remainTables;
 }

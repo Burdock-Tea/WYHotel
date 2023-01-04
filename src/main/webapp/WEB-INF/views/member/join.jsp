@@ -123,8 +123,8 @@
 								aria-describedby="button-addon2" name="email" id="email">
 							<button class="btn btn-dark" type="button" id="emailCheckBtn" disabled>중복체크</button>
 							<button class="btn btn-dark" type="button" id="button-addon2">인증</button>
-							<span id="msgId"></span>
 						</div>
+						<span id="msgId"></span>
 						<input id="mail-check-input" type="text" class="form-control" 
 							placeholder="인증번호를 6자리를 입력해 주세요." 
 							style="display: inline-block; width: 300px;" readonly>
@@ -133,20 +133,17 @@
 					</div>
 					<span></span>
 					<div class="hideForm">
-					<div class="form-group passwordForm"> 
-						<label for="inputPassword" class="form-label mt-4">Password</label>
-						<input type="password" class="form-control w-50"
-							id="inputPassword" placeholder="Password" name="password"
-							>
-					</div>
-					
-					<div class="form-group passwordForm"> 
-						<label for="inputPassword" class="form-label mt-4">PasswordCheck</label>
-						<input type="password" class="form-control w-50"
-							id="inputPasswordChk" placeholder="PasswordChk" name="passwordChk"
-							>
-					</div>
-					
+						<div class="form-group passwordForm"> 
+							<label for="inputPassword" class="form-label mt-4">Password</label>
+							<input type="password" class="form-control w-50"
+								id="inputPassword" placeholder="Password" name="password">
+						</div>
+						<div class="form-group passwordForm"> 
+							<label for="inputPassword" class="form-label mt-4">PasswordCheck</label>
+							<input type="password" class="form-control w-50"
+								id="inputPasswordChk" placeholder="PasswordCheck">
+						</div>
+						<span id="pwChkMsg" style="margin-top: 10px;"></span>
 					<div class="form-group nameForm">
 						<label for="inputName" class="form-label mt-4">이름</label> <input
 							type="text" class="form-control w-50" id="inputName"
@@ -288,7 +285,7 @@
 						$('#email').attr('readonly', true);
 						$('#emailCheckBtn').hide();
 						$('#button-addon2').show();
-						$('#emailCheckBtn').attr('id', 'button-addon2');
+						// $('#emailCheckBtn').attr('id', 'button-addon2');
 						$('#msgId').html('사용가능한 아이디 입니다.');
 					}
 				},
@@ -333,6 +330,7 @@
 				contentType : 'application/json',
 				data : email,
 				success : function(data) {
+					$('#msgId').hide();
 					console.log('컨트롤러가 전달한 인증번호: ' + data);
 					$('#mail-check-input').attr('readonly', false); //비활성된 인증번호 입력창을 활성화.
 					code = data;
@@ -355,19 +353,33 @@
 					if (inputCode === code) {
 						$resultMsg.html('인증번호가 일치합니다.');
 						$resultMsg.css('color', 'green');
-						$('#mail-check-input').attr('disabled', true);
-						$('#email').attr('readonly', true);
+						$('#email').next().hide();
 						$(this).css('display', 'none');
 						$('#mail-check-input').hide();
-						$('#mail-check-input').next().hide();
+						$('#button-addon2').css('display', 'none');
 						$('.hideForm').show();
-					
-					} else {
+						$('#email').attr('readonly', true);			
+						
+					} else { 
 						$resultMsg.html('인증번호를 다시 확인해 주세요.');
 						$resultMsg.css('color', 'red');
 						$(this).focus();
 					}
+					
 				}); //인증번호 이벤트 끝.	
+				
+				
+				
+		//비밀번호 확인 input키업 이벤트 시작
+		$('#inputPasswordChk').keyup(function() {
+			if($('#inputPassword').val() === $('#inputPasswordChk').val()) {
+				$('#pwChkMsg').html('비밀번호가 일치합니다.');
+				$('#pwChkMsg').css('color', 'green');
+			} else {
+				$('#pwChkMsg').html('비밀번호가 일치하지 않습니다.');
+				$('#pwChkMsg').css('color', 'red');
+			}
+		});
 				
 	}); //end Query
 	

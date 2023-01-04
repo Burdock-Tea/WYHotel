@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@ include file="../include/header.jsp" %>
 
 <!-- 메인영역 각자 할꺼 여기서 부터 적으세용 -->
@@ -25,8 +27,8 @@
                         </ul>
                     </div>
 
-                    <div class="col-lg-2"></div>
-                    <form id="searchPwForm" action="${pageContext.request.contextPath}/member/searchPw" method="post" class="col-lg-6">
+                    
+                    <form id="searchPwForm" action="${pageContext.request.contextPath}/member/searchPw" method="post" class="col-lg-6 my-0 mx-auto">
                         <div class="form-group col-12">
                             <div class="form-group">
                                 <label for="inputEmail" class="form-label mt-4">이메일</label>
@@ -68,7 +70,6 @@
             </div>
         </div>
     </section>
-    
     
     <%@ include file="../include/footer.jsp" %>
     
@@ -126,8 +127,10 @@
 				console.log('완성된 이메일: ' + email);
 				
 				$.ajax({
-					type: 'get',
-					url: '<c:url value="/member/mailCheck?email=" />' + email, 
+					type: 'post',
+					url: '<c:url value="/member/mailCheck" />', 
+					contentType : 'application/json',
+					data : email,
 					success: function(data) {
 						console.log('컨트롤러가 전달한 인증번호: ' + data);
 						closeLoading();

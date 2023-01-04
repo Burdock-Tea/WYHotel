@@ -38,7 +38,3 @@
 		<property name="mapperLocations" value="classpath:/mapper/*Mapper.xml" />
 	</bean>
 	
-	<!-- <mybatis-spring:scan base-package="com.ictproject.wyhotel.***.mapper"/> -->
-	<mybatis-spring:scan base-package="com.ictproject.wyhotel.member.mapper"/>
-		
-</beans>

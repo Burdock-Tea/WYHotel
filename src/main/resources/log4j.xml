@@ -73,7 +73,7 @@
 	</logger> 
 	
 	<!-- Application Loggers -->
-	<logger name="com.spring.myweb">
+	<logger name="com.ictproject.wyhotel">
 		<level value="info" /> <!-- 최소 info 이상부터 출력이 가능! -->
 	</logger>
 	
