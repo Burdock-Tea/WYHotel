@@ -16,7 +16,7 @@
 	
 	<beans:bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
       <beans:property name="locations">
-         <beans:list>            
+         <beans:list>
             <beans:value>classpath:/db-config/Email.properties</beans:value>
          </beans:list>
       </beans:property>
