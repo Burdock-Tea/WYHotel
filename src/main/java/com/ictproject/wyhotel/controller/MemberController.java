@@ -101,6 +101,9 @@ public class MemberController {
 			if(encoder.matches(vo.getPassword(), dbData.getPassword())) {
 				//로그인 성공 회원을 대상으로 세션 정보를 생성
 				session.setAttribute("member", dbData.getMemberCode());
+				session.setAttribute("admin", dbData.isAdmin());
+				
+				System.out.println(session.getId());
 				long limitTime = 60 * 60 * 24 * 90;
 				
 					//자동 로그인 체크 시 처리해야할 내용

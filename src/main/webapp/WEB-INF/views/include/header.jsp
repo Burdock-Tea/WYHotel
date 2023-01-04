@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <!DOCTYPE html>
     <html>
     <head>
@@ -11,9 +10,14 @@
         <title>WYHotel</title>
     
         <!--BOOTSTRAP CDN -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">   <!-- google font CDN -->
-        <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        
+        <!-- google font CDN -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        
         <!-- jquery and daterangepicker -->
         <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -24,9 +28,10 @@
         <!-- Link Swiper's CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css"/>
+
+        <!-- xeicon CDN-->
+	    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
         
-        <!-- xe아이콘 cdn -->
-    	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     </head>
     <body>    
         <header> <!-- start header -->
@@ -50,22 +55,22 @@
                                 호텔소개
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce_hotels.html">개요</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce_hotels.html">WY호텔 서울</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce_hotels.html">WY호텔 부산</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce_hotels.html">WY호텔 제주</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotels">개요</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotelsSinfo">WY호텔 서울</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotelsBinfo">WY호텔 부산</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotelsJinfo">WY호텔 제주</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">프로모션</a>
+                            <a class="nav-link" href="${ pageContext.request.contextPath }/promotion/list">프로모션</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 고객관리
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">QNA</a></li>
-                                <li><a class="dropdown-item" href="./reservations.html">문의하기</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/cscenter/faq">FAQ</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/cscenter/customer">문의하기</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -101,6 +106,17 @@
 	                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/login">맴버쉽</a></li>
 	                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/pwChk">회원정보수정</a></li>
 	                                <li><a class="dropdown-item" id="logoutBtn" href="${pageContext.request.contextPath}/member/logout">로그아웃</a></li>
+	                            </ul>
+	                        </li>
+                        </c:if>
+                        <!-- 관리자 로그인시 띄워줄 드롭다운 메뉴 -->
+                        <c:if test="${admin == true}">
+	                        <li class="nav-item dropdown">
+	                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	                                관리자페이지
+	                            </a>
+	                            <ul class="dropdown-menu">
+	                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin/member">회원관리</a></li>	                                
 	                            </ul>
 	                        </li>
                         </c:if>

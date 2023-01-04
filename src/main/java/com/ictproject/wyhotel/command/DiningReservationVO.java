@@ -12,6 +12,7 @@ import lombok.ToString;
 public class DiningReservationVO {
 	
 	private String reservationCode;
+	private String hotelCode;
 	private String resCode;
 	private String memberCode;
 	private Timestamp reservationDate;
