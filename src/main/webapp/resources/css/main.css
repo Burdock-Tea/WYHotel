@@ -1,0 +1,391 @@
+/* 로고 이미지 */
+#logo{width: 70px; height: 70px; margin-left: 20px;}
+
+/* font setting */
+*{ font-family: 'Noto Sans KR', sans-serif; font-weight: 300;}
+.nav-link{ font-weight: 400;} /* font 활성화시 폰트 두께*/
+.box-shodow{ box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);}
+
+/* section : video */
+.hero{
+    height: 40vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to left,black,transparent);
+}
+/* using object-fit */
+.hero video{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.hero .heading{color: white;}
+
+/* header navlink text-decoration, color*/
+
+.nav-item .nav-link {
+    color: #000;
+}
+      
+/* content */
+.intro{ padding: 80px 0;}
+.list {
+    padding: 1rem 0;
+    width: 100%;
+    display: flex;
+    transform: translate(0, 0);
+}
+
+.item {
+    padding-right: 1rem;
+    list-style: none;
+    user-select: none;
+}
+
+.item:first-child {
+    padding-left: 1rem;
+}
+
+/* header */
+header {
+    padding: 10px 0;
+}
+
+/* main */
+.wrapper {
+    margin-top: 20px;
+}
+
+/* footer */
+
+footer {
+    margin-top: 50px;
+    padding: 30px 0 15px;
+    position: relative;
+    background: #000;
+    box-sizing: border-box;
+    color: white;
+}
+
+footer .innerbox {
+    width: 1280px;
+    padding: 0 80px;
+    margin: 0 auto;
+    border-bottom: 1px solid gray;
+}
+
+footer .footerBox {
+    float: left;
+}
+
+footer .footerBox h1 {
+    font-size: 18px;
+    color: #9c836a;
+}
+
+footer .footer-service {
+    padding-left: 150px;
+}
+
+footer .footSub .copyright {
+    margin-top: 50px;
+}
+
+footer .footSub .subfont {
+    font-size: 15px; 
+    color: lightgray;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer .footer-service .social a {
+    font-size: 30px;
+    line-height: 40px;
+}
+
+footer .footer-service .social .kakao {
+    font-size: 38px;
+}
+
+footer a:hover {
+    color:lightgray;
+}
+
+footer .footer-service .social {
+    float: left;
+    padding: 0 20px;
+}
+
+footer .copyright {
+    font-size: 15px;
+    color: lightgray;
+    line-height: 20px;
+}
+
+footer .logo-img {
+    width: 20%;
+    float: right;
+    filter: invert(100%);
+    padding-bottom: 30px;
+    
+}
+
+footer .footer-div {
+    width: 20%;
+    float: right;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+input, textarea, button, select {
+    border: none;
+
+    -webkit-appearance: none;
+    -moz-appearance: none; 
+    appearance: none;   
+}
+
+ul, ol, dl, li {
+    list-style: none;
+}
+
+.clearfix::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* swiper */
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.mySwiper { padding :20px; }
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* member_delete */
+/* detail titlebox */
+.titlebox {
+    margin: 50px 0;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #999999;
+    padding-bottom: 50px;
+}
+
+/* detail joinButton */
+.joinButton {
+    margin-top: 50px;
+}
+
+/* list font hover*/
+.posi{padding: 80px 0;}
+.text-secondary:hover { font-weight: 400;}
+.row > div:nth-child(1) {padding-left: 50px;}
+.row > div:nth-child(1) > ul li {list-style: none; }
+
+/* acod */
+.list-group-item { border: 0; }
+.text-secondary { text-decoration: none;}
+
+/* deleteBtn */
+.deleteBtn {color: white;}
+
+/* member_join */
+/* 여기부터 */
+.join-in {
+    width: 88%;
+    height: 180px;
+    border-top: 2px solid lightgray;
+    border-bottom: 2px solid lightgray;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: left;
+    overflow: auto;
+
+}
+
+.titlebbox {
+    margin-left: 50px;
+}
+
+.titlebbox1 {
+    margin-left: 85px;
+}
+
+
+/* section {
+    padding: 70px;
+}
+
+section h3 {
+    margin-left: 70px;
+}
+
+section p {
+    margin-left: 70px;
+} */
+
+.join-in button {
+    border-radius: 3px;
+    width: 17%;
+    height: 25%;
+}
+
+.checkbox {
+    padding: 10px;
+    margin-left: 88%;
+}
+
+.join-in p {
+    margin-left: 15px;
+}
+
+#loginForm {
+    margin-left: 100px;
+    line-height: 20px;
+}
+
+#loginForm input {
+    width: 60%;
+    text-align: left;
+
+}
+
+.joinButton {
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 30px;
+    margin-top: 50px;
+}
+
+.joinButton button {
+    width: 30%;
+    border: 1px solid black;
+}
+
+#addrForm {
+    width: 30%;
+}
+
+#addrForm button {
+    background-color: black;
+}
+
+.select {
+    width: 200px;
+}
+
+p>small {
+    color: red;
+}
+
+/* member_login */
+
+/* login titlebox */
+#titlebox1{ 
+    padding-left: 10px;
+    margin-top: 80px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+/* login titlebox2 */
+.titlebox2 {
+    margin-bottom: 30px;
+    font-size: 12px;
+}
+
+/* login login-content */
+.login-content {
+    margin: 80px 0;
+}
+
+/* login id-pw-search */
+.id-pw-search {
+    color: black;
+    float: right;
+    font-size: 13px;
+    line-height: 30px;
+}
+
+.id-pw-search:hover {
+    text-decoration: underline;
+    color: black;
+}
+
+/* login login-btn */
+.login-btn {
+    margin: 20px 0;
+}
+
+/* login check-login */
+.check-login {
+    background: #F1F1F1;
+    border: 1px solid #888888;
+}
+
+/* login check-btn */
+.check-btn {
+    color: #999999;
+}
+
+/* login check-btn hover */
+.check-btn:hover {
+    color: #555555;
+}
+
+/* login form-check */
+.form-check {
+    font-size: 13px;
+    display: inline-block;
+}
+
+/* login userLogin-btn */
+.userLogin-btn {
+    font-size: 13px;
+}
+
