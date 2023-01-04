@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ictproject.wyhotel.admin.mapper.IAdminMapper">
+
+	<sql id="search">
+		<if test="search == ''">
+		</if>
+		<if test="category == 'name'">
+			WHERE				
+				name LIKE '%' || #{search} || '%'
+		</if>
+		<if test="category == 'tel'">
+			WHERE
+				tel LIKE '%' || #{search} || '%'
+		</if>
+	</sql>
+
+	<select id="getMemberList" resultType="member">
+		SELECT
+			*
+		FROM
+			members
+		<include refid="search"/>
+	</select>
+
+</mapper>

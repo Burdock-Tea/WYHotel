@@ -55,9 +55,10 @@
                 </c:forEach>
                 <!-- 프로모션 리스트 끝 지점 -->
             </div>
-            <!-- 관리자로 로그인 했을때 보이게 하면 됩니다 -->
-            <button type="button" class="btn btn-secondary float-end" onclick="location.href='${ pageContext.request.contextPath }/promotion/insert'">프로모션 등록</button>
-            <!-- 관리자로 로그인 했을때 보이게 하면 됩니다 -->
+            <%-- 관리자로 로그인 했을때 보이게 하면 됩니다 --%>
+            <c:if test="${ admin == true }">
+            	<button type="button" class="btn btn-secondary float-end" onclick="location.href='${ pageContext.request.contextPath }/promotion/insert'">프로모션 등록</button>            
+            </c:if>
         </div>
     </section>
     
@@ -92,10 +93,12 @@
             <div class="modal-footer">
             	<form action="#" method="get">
             		<input id="promotionCodeData" name="promotionCodeData" type="hidden"/>
-	                <!-- 관리자 로그인시에만 보이게 끔 c:if 사용 -->
-	                <button id="updateBtn" type="button" class="btn btn-success">수정하기</button>
-	                <button id="deleteBtn" type="button" class="btn btn-danger">삭제하기</button>
-	                <!-- 관리자 로그인시에만 보이게 끔 c:if 사용 -->
+            		<c:if test="${ admin == true }">
+		                <!-- 관리자 로그인시에만 보이게 끔 c:if 사용 -->
+		                <button id="updateBtn" type="button" class="btn btn-success">수정하기</button>
+		                <button id="deleteBtn" type="button" class="btn btn-danger">삭제하기</button>
+		                <!-- 관리자 로그인시에만 보이게 끔 c:if 사용 -->
+	                </c:if>
 	                <button id="resvBtn" type="button" class="btn btn-dark">예약하기</button>	                
 	           </form>
             </div>

@@ -152,6 +152,7 @@ public class MemberController {
 		
 		String memeCode = (String) session.getAttribute("member");
 		session.removeAttribute("member");
+		session.removeAttribute("admin");
 		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 		
 		
