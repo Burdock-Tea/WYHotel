@@ -13,6 +13,8 @@ public class RoomVO {
 	private String roomGrade;
 	private String roomPrice;
 	private String roomInfo;
+	
+	// 방 갯수 조회용
 	private int roomCount;
 	
 	// 잔여객실 조회용

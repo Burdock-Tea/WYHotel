@@ -4,15 +4,11 @@
 
 	<%@ include file="./include/header.jsp" %>
 
-<<<<<<< HEAD
-=======
 <style>
 	input[name="daterange"] {
             text-align: center;
     }
 </style>
-
->>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
 
 <section class="main"> <!-- start main -->
 	<div class="wrapper"> <!-- start video -->
@@ -25,34 +21,16 @@
 			<video src="img/main.mp4" autoplay muted loop poster="img/hotel-g080e39db0_1920.jpg"></video>
 		</section>
 	</div> <!-- end video -->
-<<<<<<< HEAD
-	<div class="container wrapper"> <!-- start fastreservations -->
-		<h3>빠른예약</h3>
-		<form>
-=======
 
 	<div class="container wrapper"> <!-- start fastreservations -->
 		<h3>빠른예약</h3>
 		<form action="${pageContext.request.contextPath}/reservation/reservationPage" method="post" id="reservForm">
->>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
 			<table class="table">
 				<thead>
 					<tr>
 						<td>
 							<select class="form-select" aria-label="Default select example" name="category">
 								<option>호텔 / 다이닝 선택</option>
-<<<<<<< HEAD
-								<option value="hotel">호텔</option>
-								<option value="dining">다이닝</option>
-							</select>
-						</td>
-						<td>
-							<select class="form-select" aria-label="Default select example" name="hotel">
-								<option>지점선택</option>
-								<option value="seoul">서울WY호텔</option>
-								<option value="busan">부산WY호텔</option>
-								<option value="jeju">제주WY호텔</option>
-=======
 								<option value="hotels">호텔</option>
 								<option value="dinings">다이닝</option>
 							</select>
@@ -63,7 +41,6 @@
 								<option value="10">서울WY호텔</option>
 								<option value="20">부산WY호텔</option>
 								<option value="30">제주WY호텔</option>
->>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
 							</select>
 						</td>
 						<td>
@@ -75,20 +52,6 @@
 								<option value="4">4</option>
 							</select>
 						</td>
-<<<<<<< HEAD
-						<td>
-							<select class="form-select" aria-label="Default select example" name="age">
-								<option>연령대</option>
-								<option value="adult">성인</option>
-								<option value="notadult">미성년</option>
-							</select>
-						</td>
-						<td>
-							<input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
-						</td>
-						<td>
-							<button type="button" class="btn btn-dark">검색</button>
-=======
 						<!-- 연령대 삭제, 다이닝 예약 선택시 시간대로 변경  22/12/30 -->
                         <td class="" id="time">
                             <select class="form-select" aria-label="Default select example" name="reservationTime">
@@ -115,7 +78,6 @@
 						</td>
 						<td>
 							<button type="button" class="btn btn-dark" id="reservBtn">검색</button>
->>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
 						</td>
 					</tr>
 				</thead>
@@ -249,15 +211,6 @@
             },
         });
 
-<<<<<<< HEAD
-        $(function() {
-            $('input[name="daterange"]').daterangepicker({
-                opens: 'left'
-            }, function(start, end, label) {
-                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-            });
-        });
-=======
      	// jQuery 시작
         $(function() {
 
@@ -379,7 +332,6 @@
         }); // jQuery 종료
 
 
->>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
     </script>
 
 	<%@ include file="./include/footwo.jsp" %>

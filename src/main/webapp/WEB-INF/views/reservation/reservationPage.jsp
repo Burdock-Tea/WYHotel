@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="../include/header.jsp" %>
+    <style>
+
         /* reservation page css */
         .reservation-title {
+            text-align: center;
             margin: 0 auto;
             padding: 40px 0 30px;
             border-bottom: 1px solid #c8c8c8;

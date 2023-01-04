@@ -145,6 +145,8 @@ footer .footer-div {
     float: right;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
 img {
     max-width: 100%;
     height: auto;
@@ -170,6 +172,7 @@ ul, ol, dl, li {
 
 /* swiper */
 .swiper {
+    width: 100%;
     height: 100%;
 }
 

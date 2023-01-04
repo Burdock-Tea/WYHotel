@@ -97,6 +97,8 @@ public class MamberServiceImpl implements IMemberService {
 	
 	@Override
 	public void newPw(String email, String password) {
+		//회원 비밀번호를 암호화 인코딩
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		System.out.println("되기전 비밀번호: " + password);
 		
 		//비밀번호를 암호화 해서 member객체에 다시 저장하기
@@ -106,6 +108,7 @@ public class MamberServiceImpl implements IMemberService {
 		password = securPw;
 		mapper.newPw(email, password);
 	}
+	
 	@Override
 	public void keepLogin(String session, Date limitTime, String email) {
 		Map<String, Object> data = new HashMap<>();

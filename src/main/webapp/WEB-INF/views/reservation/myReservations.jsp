@@ -1,14 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<<<<<<< HEAD
-
-    <%@ include file="../include/header.jsp" %>
-	
-
-    <style>
-
-
-=======
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
@@ -16,7 +7,6 @@
 
 
     <style>
->>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
         /* reservations page css */
         a {
             color: inherit;
@@ -160,11 +150,9 @@
             display: block;
             margin: 10px auto;
         }
-<<<<<<< HEAD
-=======
         
         .btn { border-radius: 0;}
->>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
+
 
     </style>
 
@@ -188,25 +176,7 @@
                     <div class="tab-content" id="pills-tabContent">
                         
                         <!--hotel toggle begin-->
-<<<<<<< HEAD
-                        <div class="tab-pane fade show active" id="reservationsHotel" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">    
-                            <form action="#" method="post" id="resvCheck">
-                                <p class="date-search-form"> 
-                                    <b class="paragraph-strong">기간 검색</b> &ensp;&ensp; 
-                                    <input type="date" class="form-control date-inp" id="startDate"> &ensp; - &ensp; 
-                                    <input type="date" class="form-control date-inp" id="endDate"> &ensp;
-                                    <select name="hotel" class="form-control hotel-select" id="hotelSelect">
-                                        <option value="entire">전체</option>
-                                        <option value="seoul">WY호텔 서울</option>
-                                        <option value="busan">WY호텔 부산</option>
-                                        <option value="jeju">WY호텔 제주</option>
-                                    </select> &ensp;&ensp;
-                                    <button type="button" class="btn form-control">조회</button>
-                                </p>
-                            </form>
-=======
                         <div class="tab-pane fade show active" id="reservationsHotel" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
->>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
 
                             <h4 class="reservation-title">내 호텔 예약정보</h4>
 
@@ -223,26 +193,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-<<<<<<< HEAD
-                                    <tr data-resv-num="221220swsum1001">
-                                        <td>221220slsum1001</td>
-                                        <td>WY호텔 서울지점</td>
-                                        <td>Suite</td>
-                                        <td>1</td>
-                                        <td>2박</td>
-                                        <td>2022-12-23</td>
-                                        <td>2022-12-25</td>
-                                    </tr>
-                                    <tr data-resv-num="221200bnbdm1001">
-                                        <td>221220slsum1001</td>
-                                        <td>WY호텔 부산지점</td>
-                                        <td>Business Delux</td>
-                                        <td>1</td>
-                                        <td>2박</td>
-                                        <td>2022-12-26</td>
-                                        <td>2022-12-27</td>
-                                    </tr>
-=======
                                 	<c:if test="${roomList.size() > 0}">
                                     <c:forEach var="reserv" items="${roomList}">
                                         <tr data-resv-num="${reserv.reservationCode}">
@@ -263,7 +213,6 @@
                                     		</td>
                                     	</tr>
                                     </c:if>
->>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
                                 </tbody>
 
                             </table>
@@ -274,23 +223,6 @@
 
                         <!--dining toggle begin-->
                         <div class="tab-pane fade" id="reservationsDining" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-<<<<<<< HEAD
-                            <form action="#" method="post" id="diningResvCheck">
-                                <p class="date-search-form"> 
-                                    <b class="paragraph-strong">기간 검색</b> &ensp;&ensp; 
-                                    <input type="date" class="form-control date-inp" id="startDate"> &ensp; - &ensp; 
-                                    <input type="date" class="form-control date-inp" id="endDate"> &ensp;
-                                    <select name="hotel" class="form-control hotel-select" id="hotelSelect">
-                                        <option value="entire">전체</option>
-                                        <option value="seoul">WY호텔 서울</option>
-                                        <option value="busan">WY호텔 부산</option>
-                                        <option value="jeju">WY호텔 제주</option>
-                                    </select> &ensp;&ensp;
-                                    <button type="button" class="btn form-control">조회</button>
-                                </p>
-                            </form>
-=======
->>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
 
                             <h4 class="reservation-title">내 다이닝 예약정보</h4>
 
@@ -305,18 +237,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-<<<<<<< HEAD
-                                    <tr data-resv-num="221220s3m1001">
-                                        <td>221220s3m1001</td>
-                                        <td>WY호텔 서울지점</td>
-                                        <td>존맛탱 다이닝</td>
-                                        <td>4</td>
-                                        <td>2022-12-25</td>
-                                    </tr>
-=======
                                 	<c:if test="${diningList.size() > 0}">
                                     <c:forEach var="reserv" items="${diningList}">
-                                    <tr data-resv-num="221220s3m1001">
+                                    <tr data-resv-num="${reserv.reservationCode}">
                                         <td>${reserv.reservationCode}</td>
                                         <td>${reserv.hotelCode}</td>
                                         <td>${reserv.resCode}</td>
@@ -332,7 +255,6 @@
                                     		</td>
                                     	</tr>
                                     </c:if>
->>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
                                     
                                 </tbody>
 
@@ -353,17 +275,12 @@
 
     </section>
 
-<<<<<<< HEAD
-    <%@ include file="./reservationModal.jsp" %>
-    <%@ include file="../include/footer.jsp" %>
-=======
 
 
 
 
 
     <%@ include file="./reservationModal.jsp" %>
->>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
 
 
     <script>
@@ -377,6 +294,9 @@
                 const resvNum = $(this).data('resvNum');
                 console.log(resvNum);
                 
+
+
+
                 $('.reservation-modal-title').text('호텔 예약 상세');
                 $('.hotelForm #reservationCode').val(resvNum);
                 $('.hotelForm').attr('hidden', false);
@@ -390,13 +310,33 @@
             */
             $('.dining-reservations tbody').on('click', 'tr', function(e){
                 const resvNum = $(this).data('resvNum');
-                console.log(resvNum);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '${pageContext.request.contextPath}/reservation/getReservDetailDining',
+                    contentType: 'application/JSON',
+                    data: JSON.stringify(resvNum),
+                    success: function(detail){
+                        $('.reservation-modal-title').text('다이닝 예약 상세');
+                        $('.diningForm #reservationCode').val(resvNum);
+                        $('.diningForm #hotelCode').val(detail.hotelCode);
+                        $('.diningForm #resCode').val(detail.resCode);
+                        $('.diningForm #reservationAmount').val(detail.reservationAmount);
+                        
+                        const resvDate = new Date(detail.reservationDate);
+                        const resvString = resvDate.getFullYear() + '-' + 
+                                            (String(resvDate.getMonth() + 1).length === 1 ? '0' + String(resvDate.getMonth() + 1) : String(resvDate.getMonth() + 1)) + '-' + 
+                                            (String(resvDate.getDate()).length === 1 ? '0' + String(resvDate.getDate()) : String(resvDate.getDate()));
+                        $('.diningForm #reservationDate').val(resvString);
+                        $('.diningForm #reservationTime').val(detail.reservationTime);
+
+                        $('.hotelForm').attr('hidden', true);
+                        $('.diningForm').attr('hidden', false);
+                        $('#reservationModal').modal('show');    
+                    }
+                });
                 
-                $('.reservation-modal-title').text('다이닝 예약 상세');
-                $('.diningForm #reservationCode').val(resvNum);
-                $('.hotelForm').attr('hidden', true);
-                $('.diningForm').attr('hidden', false);
-                $('#reservationModal').modal('show');
+                
 
             });// 다이닝 예약확인 버튼처리 끝
 
@@ -437,7 +377,4 @@
         
     </script>
 
-<<<<<<< HEAD
-=======
 <%@ include file="../include/footer.jsp" %>
->>>>>>> 1efb61d53793ccca72d608ab1161968df2170916
