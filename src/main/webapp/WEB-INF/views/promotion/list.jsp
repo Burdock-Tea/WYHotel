@@ -25,13 +25,14 @@
 				    <option value="30" ${ param.hotelCode == "30" ? "selected" : "" }>제주</option>
 				  </select>
 				  <span class="input-group-text">시작날짜</span>
-                            <input type="date" aria-label="startDate" class="form-control" id="startDate" name="startDate">
-                            <span class="input-group-text">마침날짜</span>
-                            <input type="date" aria-label="endDate" class="form-control" id="endDate" name="endDate">
+                  <input type="date" aria-label="startDate" class="form-control" id="startDate" name="startDate">
+                  <span class="input-group-text">마침날짜</span>
+                  <input type="date" aria-label="endDate" class="form-control" id="endDate" name="endDate" value="${ param.endDate }">
 				  <button id="listBtn" class="btn btn-outline-secondary" type="button">검색</button>
 				</div>
                 <!-- 프로모션 리스트 시작 지점 -->
                 <c:forEach items="${ promotionList }" var="list">
+                	<span id="promotionCode">${ list.promotionCode }</span>
 	                <div id="${ list.promotionCode }" class="card mb-3" style="max-width: 800px;">
 	                    <div class="row g-0">
 	                      <div class="col-md-4">
@@ -73,6 +74,12 @@
                 <div class="container-fluid">
                     <div class="p-3 mt-3" style="background-color: #eee; margin: 0 auto;">                        
                         <form>
+                        	<input type="hidden" name="category">
+                        	<input type="hidden" name="hotelCode">
+                        	<input type="hidden" name="capacity" value="2">
+                        	<input type="hidden" name="reservationTime">
+                        	<input type="hidden" name="daterange">
+                        	<input type="hidden" name="code">
                             <div class="mb-3 clearfix">
                                 <div class="img-wrapper">
                                     <img src="" class="img-fluid rounded-start" alt="...">                                
@@ -123,6 +130,8 @@
     			$('#modalContent').val($(promotionCode + ' .card-body .card-text').html());
     			$('#modalPrice').text($(promotionCode + ' .card-body .card-price').html());
     			
+    			$('input[name="daterange"]').val($('#startDate').val() + ' to ' + $('#endDate').val());    			
+    			
     		});
     		
     		$('#updateBtn').click(function() {   			
@@ -154,7 +163,10 @@
     		});
     		
     		$('#startDate').val(getDate(false));
-    		$('#endDate').val(getDate(true));
+    		if($('#endDate').val() === '') {
+    			$('#endDate').val(getDate(true));
+    		}
+    		
     		
     		// 시작 날짜를 오늘 날짜로 하기 위한 함수
       	  	function getDate(isNextDay) {
