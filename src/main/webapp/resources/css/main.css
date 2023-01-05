@@ -63,6 +63,19 @@ header {
     margin-top: 20px;
 }
 
+/* footer 하단 고정 */
+
+section{
+  height: auto;
+  min-height: 100%;
+  padding-bottom: 300px;
+}
+footer{
+  height: 300px;
+  position : relative;
+  transform : translateY(-100%);
+}
+
 /* footer */
 
 footer {

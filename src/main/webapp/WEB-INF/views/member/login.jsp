@@ -4,6 +4,7 @@
 <%@ include file="../include/header.jsp" %>
 
 <!-- 메인영역 각자 할꺼 여기서 부터 적으세용 -->
+<section>
 <div class="container">
     <div class="row">
         <div id="titlebox1" class="titlebox1">
@@ -78,6 +79,7 @@
         
     </div>
 </div>
+</section>
 
 <%@ include file="../include/footer.jsp" %>
 
