@@ -18,5 +18,20 @@ public class AdminServiceImpl implements IAdminService {
 	public List<MemberVO> getMemberList(String category, String search) {		
 		return mapper.getMemberList(category, search);
 	}
+	
+	@Override
+	public MemberVO getMemberInfo(String memberCode) {		
+		return mapper.getMemberInfo(memberCode);
+	}
+	
+	@Override
+	public void updateMember(MemberVO member) {
+		mapper.updateMember(member);		
+	}
+	
+	@Override
+	public void deleteMember(String memberCode) {
+		mapper.deleteMember(memberCode);		
+	}
 
 }
