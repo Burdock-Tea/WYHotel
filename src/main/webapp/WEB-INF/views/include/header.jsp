@@ -38,7 +38,7 @@
             <div class="header-wrapper">
                 <div class="contatiner" style="text-align: center;">
                     <div class="img-wrapper">
-                        <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/img/em_logo.svg" width="150"></a>
+                        <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/img/logo.svg" width="150"></a>
                     </div>
                 </div>
             </div>        

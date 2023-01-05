@@ -97,7 +97,7 @@ footer .footer-div {
 			</div>
 			<div class="col-4">
 				<div class="logo-img">
-					<img src="${pageContext.request.contextPath}/img/em_logo.svg"
+					<img src="${pageContext.request.contextPath}/img/logo.svg"
 						width="150">
 				</div>
 			</div>

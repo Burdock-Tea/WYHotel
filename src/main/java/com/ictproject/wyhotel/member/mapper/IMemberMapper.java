@@ -55,6 +55,8 @@ public interface IMemberMapper {
 	//세션 id로 정보 조회 후 계속 로그인 중인 것처럼 세션 데이터를 만들어 주자
 	MemberVO getMemberWithSessionId(String sessionId);
 	
+	//전화번호 중복 체크
+	int telChk(String tel);
 }
 
 

@@ -17,6 +17,12 @@
 		  	SELECT COUNT(*) FROM members
 			WHERE email = #{email} 
 	  	</select>
+
+    	<!-- 전화번호 중복 체크 -->
+    	<select id="telChk" resultType="int">
+    		SELECT COUNT(*) FROM members
+    		WHERE tel = #{tel}
+    	</select>
     	
     	<!-- 로그인 처리 -->
     	<select id="login" resultType="member">

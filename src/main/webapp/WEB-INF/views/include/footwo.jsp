@@ -149,7 +149,7 @@ footer .footer-div {
                         </div>
                     </div>
                         <div class="logo-img col-4 clearfix">
-                            <img src="./img/em_logo.svg" width="150">
+                            <img src="./img/logo.svg" width="150">
                         </div>
                 	</div>
                </div>
