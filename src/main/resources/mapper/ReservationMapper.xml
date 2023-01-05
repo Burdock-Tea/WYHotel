@@ -74,7 +74,7 @@
 	
 	<insert id="reservDining">
 		INSERT INTO dining_reservation
-		VALUES (#{reservationCode}, #{hotelCode}, #{resCode}, #{memberCode}
+		VALUES (#{reservationCode} || reserv_seq.NEXTVAL, #{hotelCode}, #{resCode}, #{memberCode}
 		, #{reservationDate}, #{reservationTime}, #{reservationAmount}, #{reservationRequest})
 	</insert>
 	
@@ -112,5 +112,13 @@
 	<select id="getRooms" resultType="String">
 		SELECT room_grade FROM rooms
 	</select>
+	
+	<insert id="reservRoom">
+		INSERT INTO room_reservation
+		VALUES (#{reservationCode} || reserv_seq.NEXTVAL, 
+		#{hotelCode}, #{roomCode}, #{memberCode}, 
+		#{capacity}, #{checkInDate}, #{checkOutDate}, 
+		sysdate, #{paymentKey})
+	</insert>
 
 </mapper>

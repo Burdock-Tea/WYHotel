@@ -46,7 +46,10 @@ public interface IReservationMapper {
 	// 호텔별 다이닝 이름 리스트
 	List<String> getDinings(@Param("hotelCode") String hotelCode);
 
-	// 방 이름 리스트
+	// 객실 이름 리스트
 	List<String> getRooms();
+
+	// 객실 예약
+	void reservRoom(RoomReservationVO roomReserv);
 	
 }
