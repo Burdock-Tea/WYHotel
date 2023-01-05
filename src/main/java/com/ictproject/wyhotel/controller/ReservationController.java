@@ -1,5 +1,7 @@
 package com.ictproject.wyhotel.controller;
 
+import java.sql.Timestamp;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ictproject.wyhotel.command.DiningReservationVO;
+import com.ictproject.wyhotel.command.MemberVO;
 import com.ictproject.wyhotel.command.NotMemberVO;
 import com.ictproject.wyhotel.command.ReservationVO;
+import com.ictproject.wyhotel.command.RoomReservationVO;
 import com.ictproject.wyhotel.command.RoomVO;
+import com.ictproject.wyhotel.member.service.IMemberService;
 import com.ictproject.wyhotel.reservation.service.IReservationService;
 
 @Controller
@@ -25,6 +30,9 @@ public class ReservationController {
 	
 	@Autowired
 	private IReservationService service;
+	
+	@Autowired
+	private IMemberService mService;
 	
 	/**
 	 * 작 성 일 : 2022/12/29
@@ -85,10 +93,11 @@ public class ReservationController {
 	
 	// 다이닝 예약
 	@PostMapping("/diningReserv")
-	public String dinigReserv(DiningReservationVO diningReserv, String strDate) {
+	public String dinigReserv(DiningReservationVO diningReserv, String strDate, HttpSession session) {
 		
 		service.reservDining(diningReserv, strDate);
-		return "redirect:/";
+		session.setAttribute("member", diningReserv.getMemberCode());
+		return "redirect:/reservation/myReservations";
 	}
 	
 	// 회원 비회원예약 선택 페이지
@@ -129,6 +138,28 @@ public class ReservationController {
 	public DiningReservationVO getReservDetailDining(@RequestBody String resvNum, HttpSession session) {
 		
 		return service.getReservDetailDining(resvNum, session);
+	}
+	
+	// get user info
+	@ResponseBody
+	@PostMapping("/getMemberInfo")
+	public MemberVO getMemberInfo(@RequestBody String memberCode) {
+		
+		return mService.getInfo(memberCode);
+	}
+	
+	// payment success
+	@GetMapping("/success")
+	public String paymentSuccess(RoomReservationVO roomReserv, 
+								String cInDate, String cOutDate,
+								HttpSession session) {
+		
+		roomReserv.setCheckInDate(Timestamp.valueOf(cInDate + " 00:00:00.0"));
+		roomReserv.setCheckOutDate(Timestamp.valueOf(cOutDate + " 00:00:00.0"));
+		service.reservRoom(roomReserv);
+		
+		session.setAttribute("member", roomReserv.getMemberCode());
+		return "redirect:/reservation/myReservations";
 	}
 
 }

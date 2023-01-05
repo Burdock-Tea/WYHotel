@@ -12,7 +12,7 @@ import com.ictproject.wyhotel.command.MemberVO;
 import com.ictproject.wyhotel.member.mapper.IMemberMapper;
 
 @Service
-public class MamberServiceImpl implements IMemberService {
+public class MemberServiceImpl implements IMemberService {
 	
 	/*
 	 * 2022.12.29 임영준 작업 
