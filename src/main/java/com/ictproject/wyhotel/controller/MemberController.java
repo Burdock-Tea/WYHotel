@@ -38,20 +38,20 @@ public class MemberController {
 	@Autowired
 	private MailSendService mailService;
 	
-	// 로그인 페이지 이동
-	@GetMapping("/login")
-	public void loginPage(){}
 	
 	/**
 	 * 작성일 : 22/12/29
 	 * 작성자 : 임영준
 	 */
+	
+	// 로그인 페이지 이동
+	@GetMapping("/login")
+	public void loginPage(){}
+	
 	//이메일 중복 체크
 	@ResponseBody
 	@PostMapping("/idCheck")
 	public String idCheck(@RequestBody MemberVO vo) {
-		
-		System.out.println("이메일 들어옴!");
 		int result = service.idcheck(vo.getEmail());
 		
 		if(result == 1) {
@@ -70,7 +70,6 @@ public class MemberController {
 	// 회원가입
 	@PostMapping("/join")
 	public String join(MemberVO vo, String tel2, String tel3, RedirectAttributes ra) {
-		System.out.println("vo 들어옴 " + vo);
 		String tel = vo.getTel() + "-" + tel2+ "-" + tel3;
 				vo.setTel(tel);
 		service.join(vo);
@@ -110,7 +109,6 @@ public class MemberController {
 					//자동 로그인 체크 시 처리해야할 내용
 					if(vo.isAutoLogin()) {
 						//쿠키를 이용하여 자동 로그인 정보를 저장
-						System.out.println("자동로그인 쿠키 생성중");
 						//세션 아이디를 가지고 와서 쿠키에 저장(고유한 값)
 						Cookie loginCookie = new Cookie("loginCookie", session.getId());
 						
@@ -173,14 +171,13 @@ public class MemberController {
 	@GetMapping("/modify")
 	public void modifyPage(HttpSession session, Model model){
 		String memCode = (String) session.getAttribute("member");
-		System.out.println(memCode);
 		model.addAttribute("member", service.getInfo(memCode));
 	}
 	
 	// 회원정보 수정 처리
 	@PostMapping("/modify")
 	public String modify(MemberVO vo, HttpSession session, String tel2, String tel3) {
-		System.out.println(vo);
+
 		vo.setTel(vo.getTel() + "-" + tel2 + "-" + tel3);
 		service.modify(vo);
 		session.removeAttribute("member");
@@ -211,14 +208,12 @@ public class MemberController {
 		
 		String mem = (String) session.getAttribute("member");
 		
-		System.out.println(session.getAttribute("member"));
 		model.addAttribute("pw", service.getInfo(mem));
 	}
 	
 	//탈퇴 처리
 	@PostMapping("/delete")
 	public String delete(String memberCode, HttpSession session) {
-		System.out.println("memCode : " + memberCode);
 		service.delete(memberCode);
 		session.removeAttribute("member");
 		
@@ -232,7 +227,6 @@ public class MemberController {
 		String mem = (String)session.getAttribute("member");
 		
 		model.addAttribute("email", service.getEmail(mem));
-		System.out.println(service.getEmail(mem));
 	}
 	
 	//비밀번호 확인
@@ -280,7 +274,6 @@ public class MemberController {
 	//비밀번호 변경 처리(비로그인)
 	@PostMapping("/searchPw")
 	public String searchPw(String newPw, String email) {
-		System.out.println("eamil: " + email + "password: " + newPw);
 		service.newPw(email, newPw);
 		return "redirect:/member/login";
 	}
