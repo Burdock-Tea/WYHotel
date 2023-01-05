@@ -62,6 +62,27 @@ public class MemberController {
 			
 		
 	}
+	/*
+	 * 작성일: 23/01/05
+	 * 작성자: 이준희
+	 * 전화번호 중복 처리 추가
+	 */
+	//전화번호 중복 체크(회원기입시)
+	@ResponseBody
+	@PostMapping("/telCheck")
+	public String telCheck(@RequestBody MemberVO vo) {
+		
+		MemberVO member = service.getInfo(vo.getMemberCode());
+		
+		if(member.getTel().equals(vo.getTel())) {
+			return "mytel";
+		} else if((service.telChk(vo.getTel()) == 0)) {
+			return "success";
+		} else {
+			return "telFail";
+		}
+		
+	}
 	
 	// 회원가입 페이지 이동
 	@GetMapping("/join")
@@ -71,10 +92,12 @@ public class MemberController {
 	@PostMapping("/join")
 	public String join(MemberVO vo, String tel2, String tel3, RedirectAttributes ra) {
 		String tel = vo.getTel() + "-" + tel2+ "-" + tel3;
-				vo.setTel(tel);
+		vo.setTel(tel);
+	
 		service.join(vo);
 		ra.addFlashAttribute("msg" , "joinSuccess");
 		return "redirect:/member/login";
+		
 	}
 	
 	//이메일 인증(비동기)
@@ -181,7 +204,7 @@ public class MemberController {
 		vo.setTel(vo.getTel() + "-" + tel2 + "-" + tel3);
 		service.modify(vo);
 		session.removeAttribute("member");
-		return "redirect:/member/login";
+		return "redirect:/member/modify";
 	}
 	
 	// 비밀번호 수정 페이지 이동

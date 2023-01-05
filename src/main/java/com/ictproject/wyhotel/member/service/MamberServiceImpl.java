@@ -112,6 +112,11 @@ public class MamberServiceImpl implements IMemberService {
 		mapper.keepLogin(data);
 	}
 	
+	@Override
+	public int telChk(String tel) {
+		return mapper.telChk(tel);
+	}
+	
 }
 
 
