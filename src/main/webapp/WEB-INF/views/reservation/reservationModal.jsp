@@ -19,42 +19,17 @@
                             </tr>
                             <tr class="hotelCode">
                                 <td class="col-md-5"><strong>예약지점</strong></td>
-                                <td class="col-md-7">
-                                    <select type="text" value="" name="hotelCode" id="hotelCode" class="form-control"
-                                    onFocus="this.initialSelect = this.selectedIndex;" onChange="this.selectedIndex = this.initialSelect;" readonly>
-                                        <option value="entire">전체</option>
-                                        <option value="sl" selected>WY호텔 서울</option>
-                                        <option value="bn">WY호텔 부산</option>
-                                        <option value="jj">WY호텔 제주</option>
-                                    </select>
-                                </td>
+                                <td class="col-md-7"><input type="text" value="" name="hotelCode" id="hotelCode" readonly></td>
                             </tr>
 
                             <!--hotel reservation-->
                             <tr class="roomCode">
                                 <td class="col-md-5"><strong>예약객실</strong></td>
-                                <td class="col-md-7">
-                                    <select name="roomCode" id="roomCode" class="form-control"
-                                    onFocus="this.initialSelect = this.selectedIndex;" onChange="this.selectedIndex = this.initialSelect;" readonly>
-                                        <option value="su" selected>Suite</option>
-                                        <option value="bd">Business Delux</option>
-                                        <option value="bs">Business</option>
-                                        <option value="sd">Standard Delux</option>
-                                        <option value="st">Standard</option>
-                                    </select>
-                                </td>
+                                <td class="col-md-7"><input type="text" value="" name="roomCode" id="roomCode" readonly></td>
                             </tr>
                             <tr class="capacity">
                                 <td class="col-md-5"><strong>인원</strong></td>
-                                <td class="col-md-7">
-                                    <select name="capacity" id="capacity" class="form-control"
-                                    onFocus="this.initialSelect = this.selectedIndex;" onChange="this.selectedIndex = this.initialSelect;" readonly>
-                                        <option>1</option>
-                                        <option selected>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                    </select>
-                                </td>
+                                <td class="col-md-7"><input type="text" value="" name="capacity" id="capacity" readonly></td>
                             </tr>
                             <tr class="nights">
                                 <td class="col-md-5"><strong>투숙일</strong></td>
@@ -63,18 +38,18 @@
                             </tr>
                             <tr class="checkInDate">
                                 <td class="col-md-5"><strong>체크인</strong></td>
-                                <td class="col-md-7"><input type="date" value="2022-12-23" name="checkInDate" id="checkInDate" class="form-control" readonly></td>
+                                <td class="col-md-7"><input type="text" value="" name="checkInDate" id="checkInDate" readonly></td>
                             </tr>
                             <tr class="checkOutDate">
                                 <td class="col-md-5"><strong>체크아웃</strong></td>
-                                <td class="col-md-7"><input type="date" value="2022-12-25" name="checkOutDate" id="checkOutDate" class="form-control" readonly></td>
+                                <td class="col-md-7"><input type="text" value="" name="checkOutDate" id="checkOutDate" readonly></td>
                             </tr>
 
                         </tbody>
 
                     </table>
                     
-                    <button type="button" class="btn bnt-modify btn-dark form-control" id="modifyBtn">예약 변경하기</button>
+                    <button type="button" class="btn bnt-modify btn-dark form-control" id="modifyBtn">예약취소</button>
                     
                 </form>
 
@@ -102,11 +77,11 @@
                             </tr>
                             <tr class="reservationDate">
                                 <td class="col-md-5"><strong>예약일</strong></td>
-                                <td class="col-md-7"><input type="date" value="" name="reservationDate" id="reservationDate" class="form-control" readonly></td>
+                                <td class="col-md-7"><input type="date" value="" name="reservationDate" id="reservationDate" readonly></td>
                             </tr>
                             <tr class="reservationTime">
                                 <td class="col-md-5"><strong>예약시간</strong></td>
-                                <td class="col-md-7"><input type="text" value="" name="reservationTime" id="reservationTime" class="form-control" readonly></td>
+                                <td class="col-md-7"><input type="text" value="" name="reservationTime" id="reservationTime" readonly></td>
                             </tr>
 
 

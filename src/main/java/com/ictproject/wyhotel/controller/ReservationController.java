@@ -93,10 +93,12 @@ public class ReservationController {
 	
 	// 다이닝 예약
 	@PostMapping("/diningReserv")
-	public String dinigReserv(DiningReservationVO diningReserv, String strDate, HttpSession session) {
+	public String dinigReserv(DiningReservationVO diningReserv, String strDate, HttpSession session,
+							  RedirectAttributes ra) {
 		
 		service.reservDining(diningReserv, strDate);
 		session.setAttribute("member", diningReserv.getMemberCode());
+		ra.addFlashAttribute("msg", "reservSuccess");
 		return "redirect:/reservation/myReservations";
 	}
 	
@@ -110,7 +112,7 @@ public class ReservationController {
 							HttpSession session, RedirectAttributes ra) {
 		
 		if (service.nMemLogin(reservationCode, email)) {
-			session.setAttribute("member", reservationCode.substring(10));
+			session.setAttribute("member", reservationCode.substring(12));
 			System.out.println("memberCode: " + session.getAttribute("member"));
 			return "redirect:/reservation/myReservations";
 		} else { 
@@ -144,22 +146,36 @@ public class ReservationController {
 	@ResponseBody
 	@PostMapping("/getMemberInfo")
 	public MemberVO getMemberInfo(@RequestBody String memberCode) {
-		
-		return mService.getInfo(memberCode);
+		String isMem = memberCode.substring(0, 1);
+		System.out.println("isMem: " + isMem);
+		if (isMem.equals("1") || isMem.equals("2"))
+			return service.getInfo(memberCode);
+		else
+			return mService.getInfo(memberCode);
 	}
 	
 	// payment success
 	@GetMapping("/success")
 	public String paymentSuccess(RoomReservationVO roomReserv, 
 								String cInDate, String cOutDate,
-								HttpSession session) {
+								HttpSession session,
+								RedirectAttributes ra) {
 		
 		roomReserv.setCheckInDate(Timestamp.valueOf(cInDate + " 00:00:00.0"));
 		roomReserv.setCheckOutDate(Timestamp.valueOf(cOutDate + " 00:00:00.0"));
 		service.reservRoom(roomReserv);
 		
 		session.setAttribute("member", roomReserv.getMemberCode());
+		ra.addFlashAttribute("msg", "reservSuccess");
 		return "redirect:/reservation/myReservations";
+	}
+	
+	// get room reservation detail
+	@ResponseBody
+	@PostMapping("/getReservDetailRoom")
+	public RoomReservationVO getReservDetailRoom(@RequestBody String resvNum, HttpSession session) {
+		
+		return service.getReservDetailRoom(resvNum, session);
 	}
 
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.ictproject.wyhotel.command.DiningReservationVO;
 import com.ictproject.wyhotel.command.DiningVO;
+import com.ictproject.wyhotel.command.MemberVO;
 import com.ictproject.wyhotel.command.NotMemberVO;
 import com.ictproject.wyhotel.command.ReservationVO;
 import com.ictproject.wyhotel.command.RoomReservationVO;
@@ -245,6 +246,29 @@ public class ReservationServiceImpl implements IReservationService {
 		System.out.println("객실예약 커맨드객체: " + roomReserv);
 		
 		mapper.reservRoom(roomReserv);
+	}
+	
+	@Override
+	public MemberVO getInfo(String memberCode) {
+		
+		return mapper.getInfo(memberCode);
+	}
+	
+	@Override
+	public RoomReservationVO getReservDetailRoom(String resvNum, HttpSession session) {
+		
+		List<RoomReservationVO> list = getReservRoomList(session);
+		
+		RoomReservationVO vo = null;
+		
+		for (RoomReservationVO detail : list) {
+			if (detail.getReservationCode().equals(resvNum)) {
+				vo = detail;
+				break;
+			}
+		}
+		System.out.println();
+		return vo;
 	}
 
 }

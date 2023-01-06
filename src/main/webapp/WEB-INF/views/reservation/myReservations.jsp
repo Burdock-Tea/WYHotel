@@ -293,6 +293,14 @@
 
     <script>
 
+        const msg = '${msg}';
+        if (msg === 'reservSuccess'){
+            alert('예약 성공');
+            if(confirm('추가 예약하시겠습니까?')) {
+                window.location.href = '${pageContext.request.contextPath}/reservation/reservationPage';
+            }
+        } 
+
         $(document).ready(function(){
 
             /**
@@ -300,16 +308,45 @@
             */
             $('.hotel-reservations tbody').on('click', 'tr', function(e){
                 const resvNum = $(this).data('resvNum');
-                console.log(resvNum);
+                
+                $.ajax({
+                    type: 'POST',
+                    url : '${pageContext.request.contextPath}/reservation/getReservDetailRoom',
+                    contentType: 'application/JSON',
+                    data: JSON.stringify(resvNum),
+                    success: function(detail) {
+                        $('.reservation-modal-title').text('호텔 예약 상세');
+                        $('.hotelForm #reservationCode').val(resvNum);
+                        $('.hotelForm #hotelCode').val(detail.hotelCode);
+                        $('.hotelForm #roomCode').val(detail.roomCode);
+                        $('.hotelForm #capacity').val(detail.capacity);
+
+                        const cInDate = new Date(detail.checkInDate);
+                        const cOutDate = new Date(detail.checkOutDate);
+
+                        const cInDateStr = cInDate.getFullYear() + '-' + 
+                                            (String(cInDate.getMonth() + 1).length === 1 ? '0' + String(cInDate.getMonth() + 1) : String(cInDate.getMonth() + 1)) + '-' + 
+                                            (String(cInDate.getDate()).length === 1 ? '0' + String(cInDate.getDate()) : String(cInDate.getDate()));
+                        $('.hotelForm #checkInDate').val(cInDateStr);
+                        const cOutDateStr = cOutDate.getFullYear() + '-' + 
+                                            (String(cOutDate.getMonth() + 1).length === 1 ? '0' + String(cOutDate.getMonth() + 1) : String(cOutDate.getMonth() + 1)) + '-' + 
+                                            (String(cOutDate.getDate()).length === 1 ? '0' + String(cOutDate.getDate()) : String(cOutDate.getDate()));
+                        $('.hotelForm #checkOutDate').val(cOutDateStr);
+
+                        const nights = (cOutDate - cInDate) / (60*1000*60*24) + '박';
+                        $('.hotelForm #nights').val(nights);
+
+                        
+                        $('.hotelForm').attr('hidden', false);
+                        $('.diningForm').attr('hidden', true);
+                        $('#reservationModal').modal('show');
+                    }
+                });
                 
 
 
 
-                $('.reservation-modal-title').text('호텔 예약 상세');
-                $('.hotelForm #reservationCode').val(resvNum);
-                $('.hotelForm').attr('hidden', false);
-                $('.diningForm').attr('hidden', true);
-                $('#reservationModal').modal('show');
+
 
             }); // 호텔 예약확인 버튼처리 끝
 

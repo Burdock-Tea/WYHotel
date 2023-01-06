@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.ictproject.wyhotel.command.DiningReservationVO;
 import com.ictproject.wyhotel.command.DiningVO;
+import com.ictproject.wyhotel.command.MemberVO;
 import com.ictproject.wyhotel.command.NotMemberVO;
 import com.ictproject.wyhotel.command.RoomReservationVO;
 import com.ictproject.wyhotel.command.RoomVO;
@@ -51,5 +52,8 @@ public interface IReservationMapper {
 
 	// 객실 예약
 	void reservRoom(RoomReservationVO roomReserv);
+
+	// 비회원 정보
+	MemberVO getInfo(String memberCode);
 	
 }

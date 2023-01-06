@@ -337,7 +337,7 @@
                                 memName = info.name;
                             },
                             error: function() {
-                                alert('통신 실패')
+                                alert('통신 실패');
                             }
                         });
                         setTimeout(() => {
