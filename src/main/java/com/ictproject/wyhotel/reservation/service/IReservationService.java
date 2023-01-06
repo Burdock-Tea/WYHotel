@@ -56,5 +56,4 @@ public interface IReservationService {
 
 	// 객실 예약 상세내역 가져오기
 	RoomReservationVO getReservDetailRoom(String resvNum, HttpSession session);
-
 }
