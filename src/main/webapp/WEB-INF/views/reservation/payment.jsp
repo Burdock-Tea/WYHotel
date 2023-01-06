@@ -197,7 +197,7 @@
         var memCode = '';
         let memName = '';
         let memEmail = '';
-        let nigths = 0;
+        let nights = 0;
 
 
 
