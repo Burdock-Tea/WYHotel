@@ -2,85 +2,85 @@
 	pageEncoding="UTF-8"%>
 	
 	<style>
-footer {
-    margin-top: 50px;
-    padding: 30px 0 15px;
-    position: relative;
-    background: #000;
-    box-sizing: border-box;
-    color: white;
-}
-
-footer .innerbox {
-    width: 1280px;
-    padding: 0 80px;
-    margin: 0 auto;
-    border-bottom: 1px solid gray;
-}
-
-footer .footerBox {
-    float: left;
-}
-
-footer .footerBox h1 {
-    font-size: 18px;
-    color: #9c836a;
-}
-
-footer .footer-service {
-    padding-left: 150px;
-}
-
-footer .footSub .copyright {
-    margin-top: 50px;
-}
-
-footer .footSub .subfont {
-    font-size: 15px; 
-    color: lightgray;
-}
-
-footer a {
-    color: white;
-    text-decoration: none;
-}
-
-footer .footer-service .social a {
-    font-size: 30px;
-    line-height: 40px;
-}
-
-footer .footer-service .social .kakao {
-    font-size: 38px;
-}
-
-footer a:hover {
-    color:lightgray;
-}
-
-footer .footer-service .social {
-    float: left;
-    padding: 0 20px;
-}
-
-footer .copyright {
-    font-size: 15px;
-    color: lightgray;
-    line-height: 20px;
-}
-
-footer .logo-img {
-    width: 20%;
-    float: right;
-    filter: invert(100%);
-    padding-bottom: 30px;
-    
-}
-
-footer .footer-div {
-    width: 20%;
-    float: right;
-}
+		footer {
+		    margin-top: 50px;
+		    padding: 30px 0 15px;
+		    position: relative;
+		    background: #000;
+		    box-sizing: border-box;
+		    color: white;
+		}
+		
+		footer .innerbox {
+		    width: 1280px;
+		    padding: 0 80px;
+		    margin: 0 auto;
+		    border-bottom: 1px solid gray;
+		}
+		
+		footer .footerBox {
+		    float: left;
+		}
+		
+		footer .footerBox h1 {
+		    font-size: 18px;
+		    color: #9c836a;
+		}
+		
+		footer .footer-service {
+		    padding-left: 150px;
+		}
+		
+		footer .footSub .copyright {
+		    margin-top: 50px;
+		}
+		
+		footer .footSub .subfont {
+		    font-size: 15px; 
+		    color: lightgray;
+		}
+		
+		footer a {
+		    color: white;
+		    text-decoration: none;
+		}
+		
+		footer .footer-service .social a {
+		    font-size: 30px;
+		    line-height: 40px;
+		}
+		
+		footer .footer-service .social .kakao {
+		    font-size: 38px;
+		}
+		
+		footer a:hover {
+		    color:lightgray;
+		}
+		
+		footer .footer-service .social {
+		    float: left;
+		    padding: 0 20px;
+		}
+		
+		footer .copyright {
+		    font-size: 15px;
+		    color: lightgray;
+		    line-height: 20px;
+		}
+		
+		footer .logo-img {
+		    width: 20%;
+		    float: right;
+		    filter: invert(100%);
+		    padding-bottom: 30px;
+		    
+		}
+		
+		footer .footer-div {
+		    width: 20%;
+		    float: right;
+		}
 	</style>
 
 <!-- footer.jsp 파일 시작 부분-->
@@ -97,7 +97,7 @@ footer .footer-div {
 			</div>
 			<div class="col-4">
 				<div class="logo-img">
-					<img src="${pageContext.request.contextPath}/img/em_logo.svg"
+					<img src="${pageContext.request.contextPath}/img/logo.svg"
 						width="150">
 				</div>
 			</div>

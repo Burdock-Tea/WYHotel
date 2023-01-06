@@ -54,7 +54,7 @@
 			<beans:ref bean="myReserv" />
 		</interceptor>
 		<interceptor>
-			<mapping path="/**" />
+			<mapping path="/member/**" />
 			<beans:ref bean="notMemberAuth" />
 		</interceptor>
 	</interceptors>

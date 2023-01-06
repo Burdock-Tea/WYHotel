@@ -383,7 +383,7 @@
             // 객실 상세보기 버튼 클릭 모달 열기 이벤트
             $('#resultTable').on('click', 'a', function(e){
                 e.preventDefault();
-
+                console.log('버튼 클릭됨');
                 const roomCode = $(this).data('room-code');
 
                 $.getJSON(
@@ -392,11 +392,9 @@
                         $('#modalRoomGrade').text(roomDetail.roomGrade);
                         $('#modalRoomInfo').text(roomDetail.roomInfo);
                         $('#modalRoomPrice').text(roomDetail.roomPrice + ' KRW / night');
+                        $('#roomDetailModal').modal('show');
                     }
                 );
-                
-                $('#roomDetailModal').modal('show');
-
             }); // 모달 열기 종료
 
 
@@ -436,6 +434,7 @@
 
 
         </script>    
+    <%@ include file="./roomDetailModal.jsp" %>
     
     <%@ include file="../include/footer.jsp" %>
     

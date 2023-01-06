@@ -47,4 +47,10 @@ public interface IReservationService {
 	// 다이닝 예약 상세내역 가져오기
 	DiningReservationVO getReservDetailDining(String resvNum, HttpSession session);
 
+<<<<<<< HEAD
+=======
+	// 호텔 예약
+	void reservRoom(RoomReservationVO roomReserv);
+
+>>>>>>> 9050a99d96446d05d9dcb9bbb0e875b89026b6ed
 }

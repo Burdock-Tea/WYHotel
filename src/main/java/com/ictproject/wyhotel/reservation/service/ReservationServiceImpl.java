@@ -137,11 +137,6 @@ public class ReservationServiceImpl implements IReservationService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
 		String reservCode = sdf.format(today);
 		System.out.println("예약코드: " + reservCode);
-		reservCode = reservCode
-					+ diningReserv.getHotelCode()
-					+ diningReserv.getResCode()
-					+ diningReserv.getMemberCode();
-		System.out.println("예약코드: " + reservCode);
 		diningReserv.setReservationCode(reservCode);
 		System.out.println("diningReserv: " + diningReserv);
 		
@@ -237,5 +232,22 @@ public class ReservationServiceImpl implements IReservationService {
 		
 		return vo;
 	}
+<<<<<<< HEAD
+=======
+	
+	@Override
+	public void reservRoom(RoomReservationVO roomReserv) {
+		
+		Date today = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
+		String reservCode = sdf.format(today);
+		System.out.println("예약코드: " + reservCode);
+		
+		roomReserv.setReservationCode(reservCode);
+		System.out.println("객실예약 커맨드객체: " + roomReserv);
+		
+		mapper.reservRoom(roomReserv);
+	}
+>>>>>>> 9050a99d96446d05d9dcb9bbb0e875b89026b6ed
 
 }

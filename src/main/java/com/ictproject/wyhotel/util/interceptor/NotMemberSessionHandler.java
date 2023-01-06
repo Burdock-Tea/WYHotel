@@ -22,6 +22,7 @@ public class NotMemberSessionHandler implements HandlerInterceptor {
 		if (member != null 
 			&& !uri.equals("/wyhotel/reservation/myReservations") 
 			&& !uri.equals("/wyhotel/reservation/getReservDetailDining")) {
+			System.out.println("member? " + member.substring(0,1));
 			if (member.substring(0,1).equals("1") || member.substring(0,1).equals("2")) {
 
 				session.removeAttribute("member");

@@ -153,6 +153,7 @@
         
         .btn { border-radius: 0;}
 
+
     </style>
 
     <!-- 메인영역 각자 할꺼 여기서 부터 적으세용 -->
@@ -199,7 +200,15 @@
                                             <td>${reserv.hotelCode}</td>
                                             <td>${reserv.roomCode}</td>
                                             <td>${reserv.capacity}</td>
-                                            <td>${reserv.checkOutDate - reserv.checkInDate}박</td>
+
+                                            <fmt:parseDate value="${reserv.checkInDate}" var="strPlanDate" pattern="yyyy-MM-dd"/>
+                                            <fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
+                                            <fmt:parseDate value="${reserv.checkOutDate}" var="endPlanDate" pattern="yyyy-MM-dd"/>
+                                            <fmt:parseNumber value="${endPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
+                                            
+
+
+                                            <td>${endDate - strDate} 박</td>
                                             <td><fmt:formatDate value="${reserv.checkInDate}" pattern="yyyy-MM-dd" /></td>
                                             <td><fmt:formatDate value="${reserv.checkOutDate}" pattern="yyyy-MM-dd" /></td>
                                         </tr>

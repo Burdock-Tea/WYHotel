@@ -89,33 +89,39 @@
 							<div id="ccaudio" class="btn"></div>
 							
 							<div class="col-6 d-inline-flex">
-								<input id="answer" type="text" class="form-control" > 
-								<input id="check" type="button" class="btn btn-dark ms-2" value="확인" />
-							</div>   
+								<img id="captchaImg" src="${pageContext.request.contextPath}/cscenter/captchaImg" alt="캡차이미지" />
+								<div id="ccaudio" class="btn"></div>
+								
+								<div class="col-6 d-inline-flex">
+									<input id="answer" type="text" class="form-control" > 
+									<input id="check" type="button" class="btn btn-dark ms-2" value="확인" />
+								</div>   
+							</div>
+							<div class="form-group">
+								<input id="reload" type="button" 
+									onclick="javaScript:getImage()" value="새로고침" /> 
+								<input id="soundOn" type="button" 
+									onclick="javaScript:audio()" value="음성듣기" />
+							</div>
 						</div>
-						<div class="form-group">
-							<input id="reload" type="button" 
-								onclick="javaScript:getImage()" value="새로고침" /> 
-							<input id="soundOn" type="button" 
-								onclick="javaScript:audio()" value="음성듣기" />
-						</div>
-					</div>
-           			<!-- 자동입력방지 끝 -->         
-                
-                <div class="row">
-                    <div class="col-5"></div>
-                    <div class="col-4">
-                        <button type="button" id="formSubmit" class="btn btn-dark">문의하기</button>
-                    </div>
-                </div>
-            </form>
-                
-            </div>
-           
-        </div> <!-- aco row end-->
-
-    </div>
-
+						
+	           			<!-- 자동입력방지 끝 -->         
+	                
+	                <div class="row">
+	                    <div class="col-5"></div>
+	                    <div class="col-4">
+	                        <button type="submit" class="btn btn-dark">문의하기</button>
+	                    </div>
+	                </div>
+	            </form>
+	                
+	            </div>
+	           
+	        </div> <!-- aco row end-->        
+	    </div>
+	</section>
+   
+	
 	<script type="text/javascript">
 	
 		window.onload = function(){

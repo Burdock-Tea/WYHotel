@@ -25,13 +25,14 @@
 				    <option value="30" ${ param.hotelCode == "30" ? "selected" : "" }>제주</option>
 				  </select>
 				  <span class="input-group-text">시작날짜</span>
-                            <input type="date" aria-label="startDate" class="form-control" id="startDate" name="startDate">
-                            <span class="input-group-text">마침날짜</span>
-                            <input type="date" aria-label="endDate" class="form-control" id="endDate" name="endDate">
+                  <input type="date" aria-label="startDate" class="form-control" id="startDate" name="startDate">
+                  <span class="input-group-text">마침날짜</span>
+                  <input type="date" aria-label="endDate" class="form-control" id="endDate" name="endDate" value="${ param.endDate }">
 				  <button id="listBtn" class="btn btn-outline-secondary" type="button">검색</button>
 				</div>
                 <!-- 프로모션 리스트 시작 지점 -->
                 <c:forEach items="${ promotionList }" var="list">
+                	<span id="promotionCode">${ list.promotionCode }</span>
 	                <div id="${ list.promotionCode }" class="card mb-3" style="max-width: 800px;">
 	                    <div class="row g-0">
 	                      <div class="col-md-4">
@@ -55,9 +56,10 @@
                 </c:forEach>
                 <!-- 프로모션 리스트 끝 지점 -->
             </div>
-            <!-- 관리자로 로그인 했을때 보이게 하면 됩니다 -->
-            <button type="button" class="btn btn-secondary float-end" onclick="location.href='${ pageContext.request.contextPath }/promotion/insert'">프로모션 등록</button>
-            <!-- 관리자로 로그인 했을때 보이게 하면 됩니다 -->
+            <%-- 관리자로 로그인 했을때 보이게 하면 됩니다 --%>
+            <c:if test="${ admin == true }">
+            	<button type="button" class="btn btn-secondary float-end" onclick="location.href='${ pageContext.request.contextPath }/promotion/insert'">프로모션 등록</button>            
+            </c:if>
         </div>
     </section>
     
@@ -72,6 +74,12 @@
                 <div class="container-fluid">
                     <div class="p-3 mt-3" style="background-color: #eee; margin: 0 auto;">                        
                         <form>
+                        	<input type="hidden" name="category">
+                        	<input type="hidden" name="hotelCode">
+                        	<input type="hidden" name="capacity" value="2">
+                        	<input type="hidden" name="reservationTime">
+                        	<input type="hidden" name="daterange">
+                        	<input type="hidden" name="code">
                             <div class="mb-3 clearfix">
                                 <div class="img-wrapper">
                                     <img src="" class="img-fluid rounded-start" alt="...">                                
@@ -92,10 +100,12 @@
             <div class="modal-footer">
             	<form action="#" method="get">
             		<input id="promotionCodeData" name="promotionCodeData" type="hidden"/>
-	                <!-- 관리자 로그인시에만 보이게 끔 c:if 사용 -->
-	                <button id="updateBtn" type="button" class="btn btn-success">수정하기</button>
-	                <button id="deleteBtn" type="button" class="btn btn-danger">삭제하기</button>
-	                <!-- 관리자 로그인시에만 보이게 끔 c:if 사용 -->
+            		<c:if test="${ admin == true }">
+		                <!-- 관리자 로그인시에만 보이게 끔 c:if 사용 -->
+		                <button id="updateBtn" type="button" class="btn btn-success">수정하기</button>
+		                <button id="deleteBtn" type="button" class="btn btn-danger">삭제하기</button>
+		                <!-- 관리자 로그인시에만 보이게 끔 c:if 사용 -->
+	                </c:if>
 	                <button id="resvBtn" type="button" class="btn btn-dark">예약하기</button>	                
 	           </form>
             </div>
@@ -119,6 +129,8 @@
     			$('#modalDate').text($(promotionCode + ' .card-body .card-date').text());
     			$('#modalContent').val($(promotionCode + ' .card-body .card-text').html());
     			$('#modalPrice').text($(promotionCode + ' .card-body .card-price').html());
+    			
+    			$('input[name="daterange"]').val($('#startDate').val() + ' to ' + $('#endDate').val());    			
     			
     		});
     		
@@ -151,7 +163,10 @@
     		});
     		
     		$('#startDate').val(getDate(false));
-    		$('#endDate').val(getDate(true));
+    		if($('#endDate').val() === '') {
+    			$('#endDate').val(getDate(true));
+    		}
+    		
     		
     		// 시작 날짜를 오늘 날짜로 하기 위한 함수
       	  	function getDate(isNextDay) {
