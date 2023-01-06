@@ -46,7 +46,7 @@
 	                          <p class="card-text">${ list.promotionContent }</p>
 	                          <span class="card-date"><fmt:formatDate value="${ list.startDate }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${ list.endDate }" pattern="yyyy-MM-dd"/></span><br>	                          
 	                          <strong class="card-price"><fmt:formatNumber value="${ list.promotionPrice }" type="currency"/></strong>
-	                          <input type="hidden" id="price" value="${ list.promotionPrice }">	                          
+	                          <input type="hidden" class="geonwookPrice" value="${ list.promotionPrice }">	                          
 	                          <button type="button" class="btn btn-primary modalBtn float-end" data-bs-toggle="modal" data-bs-target="#detailModal" data-promotion-code="${ list.promotionCode }">
                             	상세보기
                          	  </button>
@@ -126,7 +126,7 @@
     			$('#modalDate').text($(promotionCode + ' .card-body .card-date').text());
     			$('#modalContent').val($(promotionCode + ' .card-body .card-text').html());
     			$('#modalPrice').text($(promotionCode + ' .card-body .card-price').html());
-    			$('input[name="price"]').val($('#price').val());
+    			$('input[name="price"]').val($(this).prev().val());
     			
     			$('input[name="daterange"]').val($('#startDate').val() + ' / ' + $('#endDate').val());    			
     			
