@@ -6,8 +6,8 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- 
-		Namespaces 탭에서 mvc 기능 추가
-		web.xml에 초기 설정 파일로 이 파일을 추가 
+	Namespaces 탭에서 mvc 기능 추가
+	web.xml에 초기 설정 파일로 이 파일을 추가 
 	-->
 	
 	<bean id="MemberAutoLogin" class="com.ictproject.wyhotel.member.commons.AutoLoginInterceptor" />
@@ -32,8 +32,6 @@
 			<mvc:mapping path="/member/pwModify"/>
 			<!-- 삭제처리 -->
 			<mvc:mapping path="/member/delete"/>
-			<!-- 프로모션 예약 -->
-			<mvc:mapping path="/promotion/payment"/>
 			<ref bean="userAuthHandler"/>
 		</mvc:interceptor>
 		
