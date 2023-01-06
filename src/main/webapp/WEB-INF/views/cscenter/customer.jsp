@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ include file="../include/header.jsp" %>	
-<!-- 자동완성용 ajax 임포트 -->
+<%@ include file="../include/header.jsp" %>	
+
 	<style>
 	    /* font setting */
 	    *{ font-family: 'Noto Sans KR', sans-serif; font-weight: 300;}
@@ -10,13 +10,10 @@
 	    .posi{ padding: 80px 0;}
 	    .text-secondary:hover { font-weight: 400;}
 	    
-	    /**/
+	    /*캡차 사이즈*/
 	    #answer{ width: 200px;}
     </style>
 	
-	<!-- nav-->
-
-    <!-- 메인영역 각자 할꺼 여기서 부터 적으세용 -->
     <div class="container posi">
         <!-- Content here -->
         <div class="row">
@@ -34,8 +31,7 @@
              
             <div class="col-5">
              	
-             	<!--  -->
-                <form action="${pageContext.request.contextPath}/cscenter/mailSend" method="post">
+                <form action="${pageContext.request.contextPath}/cscenter/mailSend" method="post" id="emailForm">
                     <div class="form-group">
                         <label for="exampleSelect1" class="form-label mt-4">호텔 선택</label>
                         <select class="form-select" id="exampleSelect1" name="branch">
@@ -57,11 +53,10 @@
                     <!-- 이메일 로그인시 비활성화 하면 될덧 -->
                     <div class="form-group">
                         <label for="exampleInputEmail1" class="form-label mt-4">이메일</label>
-                        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
                     </div>
                     
-                    <!-- https://juein.tistory.com/43 << 이런 방식도 있던데 이건 어때요? -->
+                    <!-- 전화번호 -->
                     <label class="col-form-label mt-4" for="inputDefault">전화번호</label>
                     <div class="form-group">
                         <div class="d-inline-flex">
@@ -71,21 +66,20 @@
                                 <option>018</option>
                             </select>
                             <span class="mt-2 px-2"> - </span>
-                            <input type="tel" class="form-control" name="phone2" maxlength="4" placeholder="0000" id="inputDefault"> 
+                            <input type="tel" class="form-control" name="phone2" maxlength="4" placeholder="0000" id="phone2" > 
                             <span class="mt-2 px-2"> - </span>
-                            <input type="tel" class="form-control" name="phone3" maxlength="4" placeholder="0000" id="inputDefault"> 
+                            <input type="tel" class="form-control" name="phone3" maxlength="4" placeholder="0000" id="phone3"> 
                         </div>
-
-                	</div>  <!-- 전화번호 끝 -->
+                	</div> 
                 	
                 <div class="form-group">
                     <label class="col-form-label mt-4" for="inputDefault">제목</label>
-                    <input type="text" class="form-control" name="title" placeholder="제목을 입력해주세요" id="inputDefault">
+                    <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해주세요" >
                 </div>
                 
                 <div class="form-group mb-4">
                     <label for="exampleTextarea" class="form-label mt-4">내용 </label>
-                    <textarea class="form-control" name="content" id="exampleTextarea" rows="3" placeholder="내용을 입력해주세요"></textarea>
+                    <textarea class="form-control" name="content" id="content" rows="3" placeholder="내용을 입력해주세요"></textarea>
                 </div>
                 
 		           <!-- 자동입력방지 시작 -->         
@@ -106,14 +100,12 @@
 								onclick="javaScript:audio()" value="음성듣기" />
 						</div>
 					</div>
-					
-					  
            			<!-- 자동입력방지 끝 -->         
                 
                 <div class="row">
                     <div class="col-5"></div>
                     <div class="col-4">
-                        <button type="submit" class="btn btn-dark">문의하기</button>
+                        <button type="button" id="formSubmit" class="btn btn-dark">문의하기</button>
                     </div>
                 </div>
             </form>
@@ -122,12 +114,10 @@
            
         </div> <!-- aco row end-->
 
-        
     </div>
 
-   
-	
 	<script type="text/javascript">
+	
 		window.onload = function(){
 			getImage();	// 이미지 가져오기
 			
@@ -160,6 +150,7 @@
 			});//addEventListener
 			
 		}
+		
 		/*매번 랜덤값을 파라미터로 전달하는 이유 : IE의 경우 매번 다른 임의 값을 전달하지 않으면 '새로고침' 클릭해도 정상 호출되지 않아 이미지가 변경되지 않는 문제가 발생된다*/
 		function audio(){
 			var rand = Math.random();
@@ -189,15 +180,76 @@
 		function audioPlayer(objUrl){
 			document.querySelector('#ccaudio').innerHTML = '<bgsoun src="' +objUrl +'">';
 		}
+			
 		
+		/* 유효성 검사 */
+		$('#formSubmit').click(function () {
+			
+			if($('#email').val() === '') {
+				alert('이메일은 필수값 입니다');
+				return;
+			}
+			if($('#phone2').val() === '' && $('#phone3').val() === '') {
+				alert('핸드폰 번호를 입력해 주세요');
+				return;
+			}
+			if($('#title').val() === '') {
+				alert('제목을 입력해 주세요');
+				return;
+			}
+			if($('#content').val() === '') {
+				alert('내용을 입력해 주세요');
+				return;
+			}
+			if($('#answer').val() === '') {
+				alert('자동 입력 방지를 입력해 주세요');
+				return;
+			}
+			
+			if(confirm('관리자에게 이메일을 전송합니다')) {
+				$('#emailForm').submit();
+				alert('발송 성공!');
+			} else {
+				return;
+			}
+			
+		});
 		
-		/* 확인 버튼 눌렀을 경우 */
-		function checkBtn() {
+
+		/* 이메일 전송시 로딩처리*/
+        function openLoading() {
+			// 화면의 가로 길이, 세로 길이를 구해서 저장
+			const maskWidth = window.document.body.clientWidth;
+			const maskHeight = $(document).height();
+			
+			// mask(로딩창이 화면에 드러날 때 주변을 어둡게 지정하기 위한 틀)
+			// 간단한 디자인을 지정합니다
+	        const $mask = '<div id="mask" style="position: fixed; left: 0; top: 0; z-index: 9999; background: #000000; display: none;"></div>';
+			
+			// 로딩 이미지 요소 생성 및 속성 지정
+			let $loadingImg = '';
+			$loadingImg += '<div id="loadingImg" style="position: fixed; left:50%; top: 50%; transform: translate(-50%, -50%); width: 100%; z-index: 999999;">';
+			$loadingImg += `<img src="<c:url value='/img/loading.gif' />" style="positon: relative; display: block; margin: 0 auto;" />`;
+			$loadingImg += '</div>';
+			
+			// 위에 준비한 mask와 loading 이미지를 배치 
+			$('body').append($mask).append($loadingImg);
+			
+			// mask의 가로, 세로를 지정해주고, 투명도를 조절해 주겠습니다
+			$('#mask').css({
+				'width' : maskWidth,
+				'heigth' : maskHeight,
+				'opacity' : '0.6'
+			});
+			
+			// mask와 이미지를 화면에 표시
+			$('#mask').show();
+			$('#loadingImg').show();
 			
 		}
+		
+		
 		
 	</script>
 
 	<%@ include file="../include/footer.jsp" %>
-
-
