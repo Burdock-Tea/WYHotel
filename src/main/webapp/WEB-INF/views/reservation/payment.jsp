@@ -124,7 +124,7 @@
         <c:if test="${param.category == 'hotels'}">
             <div class="col-md-3">체크아웃</div>
             <div class="col-md-5">
-                <input type="text" value="" class="form-control" name="checkOutDate" readonly>
+                <input type="text" value="${ param.endDate }" class="form-control" name="checkOutDate" readonly>
             </div>
         </c:if>
         <c:if test="${param.category == 'dinings'}">
@@ -191,7 +191,7 @@
 
     $(document).ready(function(){
 
-        $('#reservTitleSpan').text(('${reservation.category}' === 'dinings' ? '다이닝 예약 선택사항 확인' : '호텔 예약 선택사항 확인'));
+        $('#reservTitleSpan').text(('${reservation.category}' === 'dinings' ? '다이닝 예약 선택사항 확인' : '호텔 예약 선택사항 확인'));        
         $('#isMember').text(('${member}' === '' ? '(비회원 예약)' : '(회원 예약)'));
 
         var memCode = '';
@@ -239,6 +239,10 @@
                     document.getElementById('roomGrade').value = 'Standard';
                     document.reservForm.roomPrice.value = 800000 * nights;
                     break;
+            }
+            
+            if('${param.price}' !== '') {
+            	document.reservForm.roomPrice.value = '${param.price}';
             }
 
 
