@@ -74,7 +74,7 @@
 	
 	<insert id="reservDining">
 		INSERT INTO dining_reservation
-		VALUES (#{reservationCode} || reserv_seq.NEXTVAL, #{hotelCode}, #{resCode}, #{memberCode}
+		VALUES (#{reservationCode} || reserv_seq.NEXTVAL || #{memberCode}, #{hotelCode}, #{resCode}, #{memberCode}
 		, #{reservationDate}, #{reservationTime}, #{reservationAmount}, #{reservationRequest})
 	</insert>
 	
@@ -115,10 +115,15 @@
 	
 	<insert id="reservRoom">
 		INSERT INTO room_reservation
-		VALUES (#{reservationCode} || reserv_seq.NEXTVAL, 
+		VALUES (#{reservationCode} || reserv_seq.NEXTVAL || #{memberCode}, 
 		#{hotelCode}, #{roomCode}, #{memberCode}, 
 		#{capacity}, #{checkInDate}, #{checkOutDate}, 
 		sysdate, #{paymentKey})
 	</insert>
+	
+	<select id="getInfo" resultType="member">
+		SELECT * FROM not_members
+		WHERE member_code = #{memberCode}
+	</select>
 
 </mapper>
