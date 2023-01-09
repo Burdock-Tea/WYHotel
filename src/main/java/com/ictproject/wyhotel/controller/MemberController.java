@@ -94,6 +94,23 @@ public class MemberController {
 		
 	}
 	
+	//내정보수정 전화번호 중복 체크(정보수정)
+	@ResponseBody
+	@PostMapping("/telCheck2")
+	public String telCheck2(@RequestBody MemberVO vo) {
+		
+		MemberVO member = service.getInfo(vo.getMemberCode());
+		
+		if(member.getTel().equals(vo.getTel())) {
+			return "mytel";
+		} else if (service.telChk(vo.getTel()) == 0) {
+			return "success";
+		} else {
+			return "telFail";
+		}
+		
+	}
+	
 	// 회원가입 페이지 이동
 	@GetMapping("/join")
 	public void joinPage(){}
