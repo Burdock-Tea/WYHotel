@@ -1,6 +1,7 @@
 package com.ictproject.wyhotel.util;
 
 import java.util.Random;
+import java.util.UUID;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -17,6 +18,7 @@ public class MailSendService {
 	private JavaMailSender mailSender;
 	
 	private int authNum;
+	private String tempPassword;
 	
 	//난수 발생 (맘대로 설정 해도 됨.)
 	public void makeRandomNumber() {
@@ -25,6 +27,12 @@ public class MailSendService {
 		int checkNum = r.nextInt(888888) + 111111;
 		System.out.println("인증번호: " + checkNum);
 		authNum = checkNum;
+	}
+	
+	// 임시비밀번호 발급
+	public void makeTempPassword() {
+		String uuid = UUID.randomUUID().toString();
+		tempPassword = uuid.split("-")[0];
 	}
 	
 	// 회원 가입 시 사용할 이메일 양식
@@ -48,7 +56,50 @@ public class MailSendService {
 		return Integer.toString(authNum); // 정수를 문자열로 변환하여 리턴.
 	}
 	
-	//이메일 전송 메서드
+	/*
+	 * 작성일 : 23/01/09
+	 * 작성자 : 권우영
+	 * 작성내용 : 임시비밀번호 생성 및 이메일 전송
+	 * 비회원 예약시 입력한 이메일로 예약 내역 전송
+	 */
+	
+	// 관리자 회원관리에서 임시비밀번호 생성하여 전달
+	public String sendPasswordEmail(String email) {
+		makeTempPassword();
+		
+		String setFrom = "test123test1591@gmail.com"; // email-config에 설정한 발신용 이메일 주소를 입력.
+		String toMail = email; // 수신받을 이메일
+		String title = "임시비밀번호 발급 이메일 입니다."; // 이메일 제목
+		String content = "<div style=\"border: 1px solid rgb(187, 187, 187); color: rgb(63, 63, 63); width: 500px; padding: 20px 0 40px 40px; \">\r\n" + 
+				"        <h3 style=\"padding-bottom: 5px;\"> 임시비밀번호</h3>\r\n" + 
+				"        <p style=\"padding-bottom: 7px;\">\r\n" + 
+				"            안녕하세요. 고객님 <br>\r\n" + 
+				"            비밀번호를 초기화 하였으며, 초기화된 이메일은 <strong>"+ tempPassword +"</strong> 입니다.\r\n" + 
+				"        </p>\r\n" +
+				"    </div>"; // 이메일에 삽입할 내용.
+		mailSend(setFrom, toMail, title, content);
+		
+		return tempPassword;
+	}
+	
+	// 비회원 예약시 메일 전송해주는 메소드
+	public void sendReservationInfo(String reservCode, String email) {
+		
+		String setFrom = "test123test1591@gmail.com"; // email-config에 설정한 발신용 이메일 주소를 입력.
+		String toMail = email; // 수신받을 이메일
+		String title = "[WYHotel] 예약 완료 이메일입니다."; // 이메일 제목
+		String content = "<div style=\"border: 1px solid rgb(187, 187, 187); color: rgb(63, 63, 63); width: 500px; padding: 20px 0 40px 40px; \">\r\n" + 
+				"        <h3 style=\"padding-bottom: 5px;\"> 예약완료</h3>\r\n" + 
+				"        <p style=\"padding-bottom: 7px;\">\r\n" + 
+				"            안녕하세요. 고객님 <br>\r\n" + 
+				"            예약이 완료되었으며, 고객님이 예약한 예약번호는 <strong>"+ reservCode +"</strong> 입니다.\r\n" +
+				"        </p>\r\n" +
+				"    </div>"; // 이메일에 삽입할 내용.
+		mailSend(setFrom, toMail, title, content);
+		
+	}
+	
+	// 이메일 전송 메서드
 	private void mailSend(String setFrom, String toMail, String title, String content) {
 		
 		MimeMessage message = mailSender.createMimeMessage();

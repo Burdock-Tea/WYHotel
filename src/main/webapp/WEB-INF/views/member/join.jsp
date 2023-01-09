@@ -356,16 +356,20 @@
 		}); // 아이디 중복체크 끝
 		
 		//전화번호 중복체크
-		$('#tel3').keyup(function() {
+		/*
+		 * 수정일 : 23/01/09
+		 * 작성자 : 권우영
+		 * 전화번호 중복 처리 오류 수정
+		 * (keyup이 아닌 blur 이벤트로 교체, data 객체형식이 아닌 String형식으로 전달)
+		 */		
+		$('#tel3').blur(function() {
 			const tel = $('#tel').val() + '-' + $('#tel2').val() + '-' + $('#tel3').val();
 			console.log('완성된 전화번호' + tel);
 			
 			$.ajax({
 				type: 'post',
 				url : '${pageContext.request.contextPath}/member/telCheck',
-				data : JSON.stringify({
-					'tel' : tel
-				}),
+				data : tel,
 				dataType : 'text',
 				contentType : 'application/json',
 				success: function(result) {

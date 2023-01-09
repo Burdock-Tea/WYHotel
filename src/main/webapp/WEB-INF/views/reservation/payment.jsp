@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ include file="../include/header.jsp" %>
+<spring:eval expression="@tossProperties['toss.key']" var="key" />
 <script src="https://js.tosspayments.com/v1/payment"></script>
 <style>
     #reservTitleSpan {font-weight: 500;}
@@ -162,20 +164,6 @@
             </div>
             <div class="col-md-2"></div>
             <!-- 6그룹 끝 -->
-            <!-- 7그룹 -->
-            <div class="col-md-2"></div>
-            <div class="col-md-3">결제방식</div>
-            <div class="col-md-5">
-                <select class="form-select" aria-label="Default select example" name="paymentMethod" id="paymentMethod">
-                    <option value="none">선택</option>
-                    <option value="practiceKakao">카카오페이</option>
-                    <option value="naver">네이버페이</option>
-                    <option value="payco">PAYCO</option>
-                    <option value="practiceToss">Toss</option>
-                </select>
-            </div>
-            <div class="col-md-2"></div>
-            <!-- 7그룹 끝 -->
 
         </c:if>
 
@@ -202,29 +190,6 @@
 <script>
 
 
-
-    // iamport (결제) 함수 생성
-    function iamport(selectedMethod, membercode, mPrice, mEmail, mName, mTel){
-		//가맹점 식별코드
-		IMP.init('imp23063478');
-		IMP.request_pay({
-		    pg : 'kcp.A52CY',
-		    pay_method : selectedMethod,
-		    merchant_uid : membercode + '-' + new Date().getTime(),
-		    amount : price, //실제 결제되는 가격
-		    buyer_email : mEmail,
-		    buyer_name : mName,
-		    buyer_tel : mTel,
-            m_redirect_url: '${pageContext.request.contextPath}/'
-		}, function(rsp) {
-			console.log(rsp);
-		    if ( !rsp.success ) {
-		    	var msg = '결제에 실패하였습니다.';
-		        msg += '\r\n에러내용 : ' + rsp.error_msg;
-		    }
-		    alert(msg);
-		});
-	}
 
     $(document).ready(function(){
 
@@ -278,6 +243,9 @@
                     break;
             }
 
+            if('${param.price}' !== '') {
+            	document.reservForm.roomPrice.value = '${param.price}';
+            }
 
             const hotelname = $('#hotelName').val();
             const roomgrade = $('#roomGrade').val();
@@ -341,7 +309,7 @@
                         setTimeout(() => {
                             console.log('memCode before purchase: ',$('#memberCode').val());
                             if (confirm('위의 내용대로 예약을 진행하시겠습니까?')){
-                                const clientKey = 'test_ck_aBX7zk2yd8ybEvXNaZY3x9POLqKQ';
+                                const clientKey = '${key}';
                                 const tossPayments = TossPayments(clientKey);
 
                                 tossPayments.requestPayment('CARD', {
@@ -374,13 +342,13 @@
                                 memName = info.name;
                             },
                             error: function() {
-                                alert('통신 실패')
+                                alert('통신 실패');
                             }
                         });
                         setTimeout(() => {
                             console.log('memCode before purchase: ',$('#memberCode').val());
                             if (confirm('위의 내용대로 예약을 진행하시겠습니까?')){
-                                const clientKey = 'test_ck_aBX7zk2yd8ybEvXNaZY3x9POLqKQ';
+                                const clientKey = '${key}';
                                 const tossPayments = TossPayments(clientKey);
 
                                 tossPayments.requestPayment('CARD', {
@@ -402,7 +370,7 @@
                 } else {
                     console.log('memCode before purchase: ',$('#memberCode').val());
                     if (confirm('위의 내용대로 예약을 진행하시겠습니까?')){
-                        const clientKey = 'test_ck_aBX7zk2yd8ybEvXNaZY3x9POLqKQ';
+                        const clientKey = '${key}';
                         const tossPayments = TossPayments(clientKey)
                         tossPayments.requestPayment('CARD', {
                             amount : price,
@@ -514,25 +482,10 @@
 
             }); // 다이닝 예약확정 종료
             
-<<<<<<< HEAD
-        }); // 다이닝 예약확정 종료
-
-        // 결제방식 선택 버튼 클릭이벤트 시작
-        $('#paymentsBtn').click(function(){
-            if ($('#paymentMethod').val() === 'none') {
-                alert('결제방식을 선택하세요');
-                $('#paymentMethod').focus();
-                return;
-            } else {
-
-            }
-        }); // 결제방식 선택 버튼 클릭이벤트 끝
-=======
         }
 
 
 
->>>>>>> 9050a99d96446d05d9dcb9bbb0e875b89026b6ed
         
     }); // end jQuery
     

@@ -12,17 +12,22 @@ import org.springframework.stereotype.Service;
 
 import com.ictproject.wyhotel.command.DiningReservationVO;
 import com.ictproject.wyhotel.command.DiningVO;
+import com.ictproject.wyhotel.command.MemberVO;
 import com.ictproject.wyhotel.command.NotMemberVO;
 import com.ictproject.wyhotel.command.ReservationVO;
 import com.ictproject.wyhotel.command.RoomReservationVO;
 import com.ictproject.wyhotel.command.RoomVO;
 import com.ictproject.wyhotel.reservation.mapper.IReservationMapper;
+import com.ictproject.wyhotel.util.MailSendService;
 
 @Service
 public class ReservationServiceImpl implements IReservationService {
 
 	@Autowired
 	private IReservationMapper mapper;
+	
+	@Autowired
+	private MailSendService mailSender;
 	
 	@Override
 	public List<RoomVO> getRoomList(ReservationVO reservation) {
@@ -244,7 +249,77 @@ public class ReservationServiceImpl implements IReservationService {
 		roomReserv.setReservationCode(reservCode);
 		System.out.println("객실예약 커맨드객체: " + roomReserv);
 		
-		mapper.reservRoom(roomReserv);
+		
+		/* 비회원 일시 이메일을 보냅시다 */
+		int memberCode = Integer.parseInt(roomReserv.getMemberCode());
+		
+		if((memberCode >= 1000) && (memberCode < 3000)) { 
+			// 이 회원이 비회원일시?
+			MemberVO notMember = mapper.getInfo(roomReserv.getMemberCode());
+			// 이메일 추출 완료
+			String email = notMember.getEmail();
+			
+			// 맵퍼에게 예약하라고 전달
+			mapper.reservRoom(roomReserv);
+			
+			String newReservCode = mapper.getReservationCode(roomReserv.getMemberCode());
+			
+			// 이메일 전송
+			mailSender.sendReservationInfo(newReservCode, email);
+		} else {
+			mapper.reservRoom(roomReserv);
+		}		
+	}
+	
+	@Override
+	public MemberVO getInfo(String memberCode) {
+		
+		return mapper.getInfo(memberCode);
+	}
+	
+	@Override
+	public RoomReservationVO getReservDetailRoom(String resvNum, HttpSession session) {
+		
+		List<RoomReservationVO> list = getReservRoomList(session);
+		
+		RoomReservationVO vo = null;
+		
+		for (RoomReservationVO detail : list) {
+			if (detail.getReservationCode().equals(resvNum)) {
+				vo = detail;
+				break;
+			}
+		}
+		System.out.println();
+		return vo;
+	}
+	
+	@Override
+	public void cancelDiningReservation(String resvNum, HttpSession session) {
+		
+		mapper.cancelDining(resvNum);
+		String memberCode = (String) session.getAttribute("member");
+		if (mapper.getReservRoomListOnlyCode(memberCode) == 0
+			&& mapper.getReservDiningListOnlyCode(memberCode) == 0) {
+			mapper.deleteNmem(memberCode);
+		}
+	}
+	
+	@Override
+	public String getPaymentKey(String resvNum) {
+	
+		return mapper.getPaymentKey(resvNum);
+	}
+	
+	@Override
+	public void cancelRoom(String resvNum, HttpSession session) {
+	
+		String memberCode = (String) session.getAttribute("member");
+		mapper.cancelRoom(resvNum);
+		if (mapper.getReservRoomListOnlyCode(memberCode) == 0
+			&& mapper.getReservDiningListOnlyCode(memberCode) == 0) {
+			mapper.deleteNmem(memberCode);
+		}
 	}
 
 }

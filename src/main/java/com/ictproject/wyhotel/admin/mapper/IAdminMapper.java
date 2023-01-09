@@ -20,4 +20,7 @@ public interface IAdminMapper {
 	// 회원 삭제 처리
 	public void deleteMember(@Param("memberCode") String memberCode);
 
+	// 회원에게 임시비밀번호 변경
+	public void updateTempPassword(MemberVO member);
+
 }

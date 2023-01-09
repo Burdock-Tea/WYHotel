@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import com.ictproject.wyhotel.command.DiningReservationVO;
 import com.ictproject.wyhotel.command.DiningVO;
+import com.ictproject.wyhotel.command.MemberVO;
 import com.ictproject.wyhotel.command.NotMemberVO;
 import com.ictproject.wyhotel.command.ReservationVO;
 import com.ictproject.wyhotel.command.RoomReservationVO;
@@ -49,5 +50,20 @@ public interface IReservationService {
 
 	// 호텔 예약
 	void reservRoom(RoomReservationVO roomReserv);
+
+	// 비회원 회원정보
+	MemberVO getInfo(String memberCode);
+
+	// 객실 예약 상세내역 가져오기
+	RoomReservationVO getReservDetailRoom(String resvNum, HttpSession session);
+
+	// 다이닝 예약 취소
+	void cancelDiningReservation(String resvNum, HttpSession session);
+
+	// paymentKey 찾기
+	String getPaymentKey(String resvNum);
+
+	// cancel room
+	void cancelRoom(String resvNum, HttpSession session);
 
 }

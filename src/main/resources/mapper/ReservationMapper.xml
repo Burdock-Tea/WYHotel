@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ictproject.wyhotel.reservation.mapper.IReservationMapper">
+<mapper namespace="com.ictproject.wyhotel.reservation.mapper.IReservationMapper">	
 
 	<sql id="locals">
 		<choose>
@@ -74,7 +74,7 @@
 	
 	<insert id="reservDining">
 		INSERT INTO dining_reservation
-		VALUES (#{reservationCode} || reserv_seq.NEXTVAL, #{hotelCode}, #{resCode}, #{memberCode}
+		VALUES (#{reservationCode} || reserv_seq.NEXTVAL || #{memberCode}, #{hotelCode}, #{resCode}, #{memberCode}
 		, #{reservationDate}, #{reservationTime}, #{reservationAmount}, #{reservationRequest})
 	</insert>
 	
@@ -115,10 +115,72 @@
 	
 	<insert id="reservRoom">
 		INSERT INTO room_reservation
-		VALUES (#{reservationCode} || reserv_seq.NEXTVAL, 
+		VALUES (#{reservationCode} || reserv_seq.NEXTVAL || #{memberCode}, 
 		#{hotelCode}, #{roomCode}, #{memberCode}, 
 		#{capacity}, #{checkInDate}, #{checkOutDate}, 
 		sysdate, #{paymentKey})
 	</insert>
+	
+	<select id="getInfo" resultType="member">
+		SELECT * FROM not_members
+		WHERE member_code = #{memberCode}
+	</select>
+	
+	<delete id="cancelDining">
+		DELETE FROM dining_reservation
+		WHERE reservation_code = #{resvNum}
+	</delete>
+	
+	<select id="getReservRoomListOnlyCode" resultType="int">
+		SELECT COUNT(*) FROM room_reservation
+		WHERE member_code = #{member_code}
+	</select>
+	
+	<delete id="deleteNmem">
+		DELETE FROM not_members
+		WHERE member_code = #{memberCode}
+	</delete>
+	
+	<select id="getPaymentKey" resultType="String">
+		SELECT payment_key FROM room_reservation
+		WHERE reservation_code = #{resvNum}
+	</select>
+	
+	<delete id="cancelRoom">
+		DELETE FROM room_reservation
+		WHERE reservation_code = #{resvNum}
+	</delete>
+	
+	<select id="getReservDiningListOnlyCode" resultType="int">
+		SELECT COUNT(*) FROM dining_reservation
+		WHERE member_code = #{member_code}
+	</select>
+	
+	<!--
+		작성일 : 23/01/09
+		작성자 : 권우영
+		작성내용 : 비회원 예약번호 조회 가지고 오기 
+	 -->
+	<select id="getReservationCode" resultType="String">
+		SELECT
+		    reservation_code
+		FROM
+		    (
+		    SELECT
+		        ROWNUM as RN, tbl.*
+		    FROM
+		        (
+		        SELECT
+		            *
+		        FROM
+		            room_reservation
+		        WHERE
+		            member_code = #{memberCode}
+		        ORDER BY
+		            charged_date DESC
+		            ) tbl ) tbl2
+		WHERE
+		    rn = 1
+	</select>
 
 </mapper>

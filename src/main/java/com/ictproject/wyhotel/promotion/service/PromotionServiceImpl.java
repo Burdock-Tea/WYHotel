@@ -14,13 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ictproject.wyhotel.command.PromotionReservationVO;
 import com.ictproject.wyhotel.command.PromotionUploadVO;
 import com.ictproject.wyhotel.command.PromotionVO;
+import com.ictproject.wyhotel.command.ReservationVO;
 import com.ictproject.wyhotel.promotion.mapper.IPromotionMapper;
 
 import lombok.extern.log4j.Log4j;
+import oracle.sql.DATE;
 
 @Service
+@Log4j
 public class PromotionServiceImpl implements IPromotionService {
 
 	@Autowired
@@ -178,5 +182,25 @@ public class PromotionServiceImpl implements IPromotionService {
 		
 		mapper.delete(promotionCode);
 	}
-
+		
+	@Override
+	public ReservationVO convertReservationData(PromotionReservationVO data) {
+		
+		PromotionVO promotion = mapper.getPromotion(data.getPromotionCodeData());
+		
+		ReservationVO reservation = new ReservationVO();
+		
+		
+		log.info("정제전 dateRange : " + data.getDaterange());
+		
+		reservation.setCapacity(2);
+		reservation.setCategory("hotels");
+		reservation.setCode(promotion.getRoomCode());
+		reservation.setHotelCode(promotion.getHotelCode());
+		reservation.setDaterange(data.getDaterange());
+		
+		
+		return reservation;
+	}
+	
 }

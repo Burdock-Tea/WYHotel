@@ -32,7 +32,7 @@
 				</div>
                 <!-- 프로모션 리스트 시작 지점 -->
                 <c:forEach items="${ promotionList }" var="list">
-                	<span id="promotionCode">${ list.promotionCode }</span>
+                	<%-- <span id="promotionCode">${ list.promotionCode }</span> --%>
 	                <div id="${ list.promotionCode }" class="card mb-3" style="max-width: 800px;">
 	                    <div class="row g-0">
 	                      <div class="col-md-4">
@@ -45,7 +45,8 @@
 	                          <h5 class="card-title">${ list.promotionName }</h5>
 	                          <p class="card-text">${ list.promotionContent }</p>
 	                          <span class="card-date"><fmt:formatDate value="${ list.startDate }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${ list.endDate }" pattern="yyyy-MM-dd"/></span><br>	                          
-	                          <strong class="card-price"><fmt:formatNumber value="${ list.promotionPrice }" type="currency"/></strong>	                          
+	                          <strong class="card-price"><fmt:formatNumber value="${ list.promotionPrice }" type="currency"/></strong>
+	                          <input type="hidden" class="geonwookPrice" value="${ list.promotionPrice }">	                          
 	                          <button type="button" class="btn btn-primary modalBtn float-end" data-bs-toggle="modal" data-bs-target="#detailModal" data-promotion-code="${ list.promotionCode }">
                             	상세보기
                          	  </button>
@@ -72,34 +73,30 @@
             </div>
             <div class="modal-body">              
                 <div class="container-fluid">
-                    <div class="p-3 mt-3" style="background-color: #eee; margin: 0 auto;">                        
-                        <form>
-                        	<input type="hidden" name="category">
-                        	<input type="hidden" name="hotelCode">
-                        	<input type="hidden" name="capacity" value="2">
-                        	<input type="hidden" name="reservationTime">
-                        	<input type="hidden" name="daterange">
-                        	<input type="hidden" name="code">
-                            <div class="mb-3 clearfix">
-                                <div class="img-wrapper">
-                                    <img src="" class="img-fluid rounded-start" alt="...">                                
-                                </div>
-                                <span id="modalDate" class="float-start">dummy</span><span id="modalPrice" class="float-end">dummy</span>
+                    <div class="p-3 mt-3" style="background-color: #eee; margin: 0 auto;">
+                        <div class="mb-3 clearfix">
+                            <div class="img-wrapper">
+                                <img src="" class="img-fluid rounded-start" alt="...">                                
                             </div>
-                            <hr>
-                            <div class="mb-3">
-                                <strong id="modalName">dummy</strong>
-                            </div>
-                            <div class="mb-3">                                
-                                <textarea class="form-control" id="modalContent" rows="3" style="resize: none;" disabled>dummy</textarea>
-                            </div>
-                        </form>
+                            <span id="modalDate" class="float-start">dummy</span><span id="modalPrice" class="float-end">dummy</span>
+                        </div>
+                        <hr>
+                        <div class="mb-3">
+                            <strong id="modalName">dummy</strong>
+                        </div>
+                        <div class="mb-3">                                
+                            <textarea class="form-control" id="modalContent" rows="3" style="resize: none;" disabled>dummy</textarea>
+                        </div>                      
                     </div>
                 </div>              
             </div>
             <div class="modal-footer">
-            	<form action="#" method="get">
-            		<input id="promotionCodeData" name="promotionCodeData" type="hidden"/>
+            	<form id="menuListForm" action="#" method="get">
+            		<input id="promotionCodeData" name="promotionCodeData" type="hidden">            		                  	
+                  	<input type="hidden" name="capacity" value="2">
+                  	<input type="hidden" name="category" value="hotels">
+                  	<input type="hidden" name="daterange">
+                  	<input type="hidden" name="price" >
             		<c:if test="${ admin == true }">
 		                <!-- 관리자 로그인시에만 보이게 끔 c:if 사용 -->
 		                <button id="updateBtn" type="button" class="btn btn-success">수정하기</button>
@@ -129,8 +126,9 @@
     			$('#modalDate').text($(promotionCode + ' .card-body .card-date').text());
     			$('#modalContent').val($(promotionCode + ' .card-body .card-text').html());
     			$('#modalPrice').text($(promotionCode + ' .card-body .card-price').html());
+    			$('input[name="price"]').val($(this).prev().val());
     			
-    			$('input[name="daterange"]').val($('#startDate').val() + ' to ' + $('#endDate').val());    			
+    			$('input[name="daterange"]').val($('#startDate').val() + ' / ' + $('#endDate').val());    			
     			
     		});
     		
@@ -160,6 +158,14 @@
     			}
     			
     			location.href='${pageContext.request.contextPath}/promotion/list?hotelCode=' + $('#hotelCode').val() + '&startDate=' + $('#startDate').val() + '&endDate=' + $('#endDate').val();
+    		});
+    		
+    		$('#resvBtn').click(function() {
+    			
+    			$('#menuListForm').attr('method', 'post');
+    			$('#menuListForm').attr('action', '${pageContext.request.contextPath}/promotion/payment');
+    			$('#menuListForm').submit();
+    			
     		});
     		
     		$('#startDate').val(getDate(false));

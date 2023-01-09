@@ -112,7 +112,8 @@
 				</div>
 			</form>
 	      </div> <!-- end modal-body -->
-	      <div class="modal-footer">	        
+	      <div class="modal-footer">
+			<button type="button" class="btn btn-warning" id="resetPassword">비밀번호 초기화</button>
 	        <button type="button" class="btn btn-primary" id="update">수정</button>
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 	      </div>
@@ -193,6 +194,16 @@
 		$('#update').click(function(e){
 			if(confirm('수정하시겠습니까?')) {
 				$('#tel').val($('#tel1').val() + '-' + $('#tel2').val() + '-' + $('#tel3').val());				
+				$('#adminMemberInfoForm').submit();
+			} else {
+				return;
+			}
+		});
+
+		// 해당 회원의 비밀번호 초기화
+		$('#resetPassword').click(function (e) {
+			if(confirm('해당 회원의 비밀번호를 초기화 하시겠습니까?')) {
+				$('#adminMemberInfoForm').attr('action','${pageContext.request.contextPath}/admin/updateTempPassword')
 				$('#adminMemberInfoForm').submit();
 			} else {
 				return;

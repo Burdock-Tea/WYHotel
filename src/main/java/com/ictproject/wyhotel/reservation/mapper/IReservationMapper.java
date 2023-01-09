@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.ictproject.wyhotel.command.DiningReservationVO;
 import com.ictproject.wyhotel.command.DiningVO;
+import com.ictproject.wyhotel.command.MemberVO;
 import com.ictproject.wyhotel.command.NotMemberVO;
 import com.ictproject.wyhotel.command.RoomReservationVO;
 import com.ictproject.wyhotel.command.RoomVO;
@@ -51,5 +52,34 @@ public interface IReservationMapper {
 
 	// 객실 예약
 	void reservRoom(RoomReservationVO roomReserv);
+
+	// 비회원 정보
+	MemberVO getInfo(String memberCode);
+
+	// 다이닝 취소
+	void cancelDining(String resvNum);
+	
+	// 해당 멤버코드로만 조회된 방이 있는지
+	int getReservRoomListOnlyCode(String memberCode);
+
+	// 비회원 정보 삭제
+	void deleteNmem(String memberCode);
+
+	// payment key 찾기
+	String getPaymentKey(String resvNum);
+
+	// cancel room
+	void cancelRoom(String resvNum);
+
+	// 해당 멤버코드로만 조회된 다이닝 예약이 있는지
+	int getReservDiningListOnlyCode(String memberCode);
+		
+	/*
+	 * 	작성일 : 23/01/09
+	 *  작성자 : 권우영
+	 *  작성내용 : 비회원 예약번호 가지고 오기!
+	 */
+	// 비회원 예약코드 가지고 오기 (이메일 전송용)
+	String getReservationCode(@Param("memberCode") String memberCode);
 	
 }
