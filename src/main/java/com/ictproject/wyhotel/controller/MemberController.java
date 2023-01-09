@@ -301,6 +301,9 @@ public class MemberController {
 		return "redirect:/member/login";
 	}
 	
+	//멤버쉽 페이지 이동
+	@GetMapping("/memberShip")
+	public void memberShip() {}
 	
 }
 
