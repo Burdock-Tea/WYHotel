@@ -52,7 +52,7 @@
             <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                 <!-- 비회원 로그인 -->
                 <div>
-                    <form id=" login-form">
+                    <form action="${pageContext.request.contextPath}/reservation/nmemLogin" id="login-form" method="post" name="nMemLoginForm">
                         <div class="mb-3">
                             <input type="text" class="form-control" id="formGroupExampleInput" placeholder="예약번호">
                         </div>
@@ -89,7 +89,9 @@
 	
 	if(msg === 'loginFail') {
 		alert('아이디, 비밀번호를 확인 해주세요.');
-	}
+	} else if (msg === 'nMemLoginFail') {
+        alert('예약번호 또는 이메일을 확인하세요');
+    }
 	
 	
 	//로그인
@@ -124,6 +126,30 @@
 		$('#joinBtn').click(function() {
 			location.href="${pageContext.request.contextPath}/member/join";
 		});
+		
+        // 비회원로그인 이벤트
+        function nmemberLogin () {
+            if ($('#reservationCode').val().trim() === ''){
+                alert('예약번호를 입력하세요');
+                $('#reservationCode').val('');
+                $('#reservationCode').focus();
+            } else if ($('#emailNm').val().trim() === ''){
+                alert('이메일을 입력하세요');
+                $('#emailNm').val('');
+                $('#emailNm').focus();
+            } else {
+                $('#nMemLogin-form').submit();
+            }
+        }
+        $('#nmemLogin').click(nmemberLogin);
+
+        $('#nMemLogin-form').on('keyup', 'input', function(e){
+            if (e.key === 'Enter') {
+                nmemberLogin();
+            } else {
+                return;
+            }
+        });// 비회원 로그인 이벤트 종료
 		
 	});
 	
