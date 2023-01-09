@@ -232,8 +232,6 @@ public class ReservationServiceImpl implements IReservationService {
 		
 		return vo;
 	}
-<<<<<<< HEAD
-=======
 	
 	@Override
 	public void reservRoom(RoomReservationVO roomReserv) {
@@ -248,6 +246,5 @@ public class ReservationServiceImpl implements IReservationService {
 		
 		mapper.reservRoom(roomReserv);
 	}
->>>>>>> 9050a99d96446d05d9dcb9bbb0e875b89026b6ed
 
 }
