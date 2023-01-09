@@ -10,7 +10,9 @@
 	web.xml에 초기 설정 파일로 이 파일을 추가 
 	-->
 	
-	<bean id="MemberAutoLogin" class="com.ictproject.wyhotel.member.commons.AutoLoginInterceptor"></bean>
+	<bean id="MemberAutoLogin" class="com.ictproject.wyhotel.member.commons.AutoLoginInterceptor" />
+	<bean id="userAuthHandler" class="com.ictproject.wyhotel.util.interceptor.MemberAuthHandler" />
+	<bean id="adminAuthHandler" class="com.ictproject.wyhotel.util.interceptor.AdminAuthHandler" />
 	
 	<mvc:interceptors>
 		
@@ -20,18 +22,44 @@
 			<ref bean="MemberAutoLogin" />		
 		</mvc:interceptor>
 		
-	</mvc:interceptors>
-	
-	<!-- <bean id="memberLoginSuccessHandler" class="com.ictproject.wyhotel.utill.interceptor.MemberLoginSuccessHandler" />
-	
-	<mvc:interceptors>
-	
-		로그인 이후에 실행되는 postHandler, 자동로그인 preHandeler
+		<!-- 회원 권한 인터셉터 -->
 		<mvc:interceptor>
-			<mvc:mapping path="/member/login"/>
-			<ref bean="memberLoginSuccessHandler" />
+			<!-- 정보수정 -->
+			<mvc:mapping path="/member/modify"/>
+			<!-- 비밀번호 확인 -->
+			<mvc:mapping path="/member/pwChk"/>
+			<!-- 비밀번호 수정 -->
+			<mvc:mapping path="/member/pwModify"/>
+			<!-- 삭제처리 -->
+			<mvc:mapping path="/member/delete"/>
+			<ref bean="userAuthHandler"/>
 		</mvc:interceptor>
+		
+		<!-- 관리자 권한 인터셉터 -->
+		<mvc:interceptor>
+			<!-- 관리자 페이지 -->
+			<mvc:mapping path="/admin/member"/>
+			<!-- 프로모션 수정 -->
+			<mvc:mapping path="/promotion/update"/>
+			<!-- 프로모션 insert -->
+			<mvc:mapping path="/promotion/insert"/>
+			<ref bean="adminAuthHandler" />
+		</mvc:interceptor>
+		
+	</mvc:interceptors>
 
-	</mvc:interceptors> -->
 	
 </beans>
+
+
+
+
+
+
+
+
+
+
+
+
+

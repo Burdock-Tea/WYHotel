@@ -46,9 +46,11 @@
                   <label for="inputName" class="form-label mt-4">이름</label> <input
                      type="text" class="form-control" id="inputName" name="name"
                      value="${member.name}">
+                  <span id="nameMsg"></span>
                </div>
                <input type="hidden" value="${member.memberCode}" name="memberCode">
                <label class="col-form-label mt-4" for="inputDefault">전화번호</label>
+               <p id="telMsg"></p>
                    <div class="form-group">
                        <div class="d-inline-flex">
                            <select class="form-select select" id="tel" name="tel">
@@ -56,12 +58,15 @@
                                <option>011</option>
                                <option>018</option>
                            </select>
-                         <span style="padding: 5px"><strong> - </strong></span> <input type="text" class="form-control" name="tel2" size="6" placeholder="0000" id="inputDefault">
-                         <span style="padding: 5px"><strong> - </strong></span> <input type="text" class="form-control" name="tel3" size="6" placeholder="0000" id="inputDefault">
+                         <span style="padding: 5px"><strong> - </strong></span> 
+                         <input type="text" class="form-control" name="tel2" size="6" maxlength="4" placeholder="0000" id="tel2">
+                         <span style="padding: 5px"><strong> - </strong></span> 
+                         <input type="text" class="form-control" name="tel3" size="6" maxlength="4" placeholder="0000" id="tel3">
+                         <input type="hidden" name="memberCode" value="${member.memberCode}">
                        </div>
-   
+                   
                    </div>
-
+				<span id="telChk"></span>
                <div class="joinButton col-12">
                   <button type="button" class="btn btn-light col-6 clearfix" onclick="location.href='${pageContext.request.contextPath}/'"
                       style="float: left;">취소</button>
@@ -79,12 +84,88 @@
 
 
    <script>
+   		//전화번호 값 넣기
+   		const str = '${member.tel}';
+   		const arr = str.split('-');
+   		$('#tel').val(arr[0]);
+   		$('#tel2').val(arr[1]);
+   		$('#tel3').val(arr[2]);
+   
+		// 이름 입력값 검증
+	    const getNameCheck = RegExp(/^[가-힣]+$/);
+		$('#inputName').keyup(function() {
+			//이름값 유효성 검사
+			if(getNameCheck.test($(this).val())) {
+				$(this).css('borderColor', 'green');
+				$('#nameMsg').html('');
+			} else {
+				$(this).css('borderColor', 'red');
+				$('#nameMsg').html('이름은 한글로만 작성하세요.');
+				$('#nameMsg').css('color', 'red');
+			}
+		}); //이름 입력 검증 끝
+		
+		//전화번호 입력값 검증
+		const regTel2 = /^([0-9]{3,4})$/;
+		const regTel3 = /^([0-9]{4})$/;
+		$('#tel2').keyup(function() {
+			if(regTel2.test($(this).val())) {
+				$(this).css('borderColor', 'green');
+				$('#telChk').html('');
+			} else {
+				$(this).css('borderColor', 'red');
+				$('#telChk').html('3~4글자, 숫자로만 입력하세요.');
+				$('#telChk').css('color', 'red');
+			}
+		});
+		$('#tel3').keyup(function() {
+			if(regTel3.test($(this).val())) {
+				$(this).css('borderColor', 'green');
+				$('#telChk').html('');
+			} else {
+				$(this).css('borderColor', 'red');
+				$('#telChk').html('4글자, 숫자로만 입력하세요.');
+				$('#telChk').css('color', 'red');
+			}
+		}); //전화번호 입력값 검증 끝
+		
+		//전화번호 중복체크
+		$('#tel3').keyup(function() {
+			const tel = $('#tel').val() + '-' + $('#tel2').val() + '-' + $('#tel3').val();
+			console.log('완성된 전화번호' + tel);
+			
+			$.ajax({
+				type: 'post',
+				url : '${pageContext.request.contextPath}/member/telCheck',
+				data : JSON.stringify({
+					'tel' : tel,
+					'memberCode': '${member.memberCode}'
+				}),
+				dataType : 'text',
+				contentType : 'application/json',
+				success: function(result) {
+					console.log(result);
+					if(result === 'mytel') {
+						$('#telMsg').html('');
+					} else if(result === 'telFail') {
+						$('#telMsg').html('<span id="tel6" style="font-size: 14px">중복된 전화번호가 있습니다. 다시 확인해 주세요</span>');
+						$('#telMsg').css('color', 'red');
+					} else {
+						$('#telMsg').html('<span id="tel6" style="font-size: 14px">중복된 전화번호가 없습니다.</span>');
+						$('#telMsg').css('color', 'green');
+					}
+				},
+				error: function() {
+					alert('일시적인 오류 발생. 관리자에게 문의해 주세요.');
+				}
+			});//비동기통신 끝
+		}); //전화번호 중복체크 끝
       
       $(function() {
          //정보수정 버튼클릭 이벤트0
          $('#modiBtn').click(function() {
             
-            const chk1 = true, chk2 = true, chk3 = true, chk4 = true, chk5 = true;
+            const chk1 = true, chk2 = true, chk3 = true, chk4 = true, chk5 = true, chk6 = true, chk7 = true;
             
             if($('#inputEmail').val() === '') { //이메일
                alert('이메일 필수 입력 사항입니다.');
@@ -116,15 +197,35 @@
                chk5 = false;
                return;
             }
+            if($('#nameMsg').html() === '이름은 한글로만 작성하세요.') {
+				alert('이름을 확인해 주세요.');
+				$('#inputName').focus();
+				chk6 = false;
+				return;
+			}
+            if($('#tel6').html() === '중복된 전화번호가 있습니다. 다시 확인해 주세요') {
+            	alert('전화번호 중복! 다시 확인해 주세요.');
+            	$('#tel2').focus();
+            	chk7 = false;
+            	return;
+            }
+            if($('#telChk').html() === '4글자, 숫자로만 입력하세요.') {
+            	alert('전화번호를 확인해 주세요.');
+            	$('#tel3').focus();
+            	return;
+            }
+            if($('#telChk').html() === '3~4글자, 숫자로만 입력하세요.') {
+            	alert('전화번호를 확인해 주세요.');
+            	$('#tel2').focus();
+            	return;
+            }
             
             //정보수정 이벤트
             if(chk1 === true && chk2 === true && chk3 === true 
-                  && chk4 === true && chk5 === true) {
+                  && chk4 === true && chk5 === true && chk6 === true && chk7 === true) {
                if(confirm('정보 수정 하시겠습니까?')) {
-                  const tel = $('#tel').val() + $('#tel2').val() + $('#tel3').val();
-                  console.log(tel);
                   
-                  alert('수정 완료! 다시 로그인 하세요');
+                  alert('수정 완료!');
                   $('#modifyForm').submit();
                } else {
                   return;
@@ -196,13 +297,13 @@
             
             //mask(로딩창이 화면에 드러날 때 주변을 어둡게 지정하기 위한 틀) 요소를 생성하고
             //간단한 디자인을 지정한다.
-               const $mask = '<div id="mask" style="position: fixed; left: 0; top: 0; z-index: 9999; background: #000000; display: none;"></div>';
-            
-               //로딩 이미지 요소 생성 및 속성 지정
-               let $loadingImg = '';
-               $loadingImg += '<div id="loadingImg" style="position: fixed; left:50%; top: 50%; transform: translate(-50%, -50%); width: 100%; z-index: 999999;">';
-               $loadingImg += `<img src="<c:url value='/img/loading.gif' />" style="position: relative; display: block; margin: 0 auto;"  />`;
-               $loadingImg += '</div>';
+            const $mask = '<div id="mask" style="position: fixed; left: 0; top: 0; z-index: 9999; background: #000000; display: none;"></div>';
+         
+            //로딩 이미지 요소 생성 및 속성 지정
+            let $loadingImg = '';
+            $loadingImg += '<div id="loadingImg" style="position: absolute; top: 50%; width: 100%; z-index: 99999; ">';
+    		$loadingImg += `<img src="<c:url value='/img/loading.gif' />" style="position: relative; display: block; margin: 0 auto;" />`;
+    		$loadingImg += '</div>';
             
             //위에 준비한 mask와 loading이미지를 배치.
             $('body').append($mask).append($loadingImg);
@@ -219,10 +320,10 @@
             $('#loadingImg').show();
          }
          
-           //로딩창 숨겨주는 함수
-           function closeLoading() {
-            $('#maxk, #loadingImg').remove();
-         }
+       //로딩창 숨겨주는 함수
+       function closeLoading() {
+        	$('#maxk, #loadingImg').remove();
+       }
          
       }); //end jquery
    

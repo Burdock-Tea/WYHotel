@@ -198,7 +198,7 @@
         var swiper = new Swiper(".mySwiper", {
             slidesPerView: 3,
             spaceBetween: 30,
-            slidesPerGroup: 3,
+            slidesPerGroup: '${promotionList.size()}'/3,
             loop: true,
             loopFillGroupWithBlank: true,
             pagination: {
@@ -334,4 +334,4 @@
 
     </script>
 
-	<%@ include file="./include/footwo.jsp" %>
+	<%@ include file="./include/footwo.jsp" %> 

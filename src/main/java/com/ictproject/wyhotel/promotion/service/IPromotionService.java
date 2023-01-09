@@ -2,8 +2,10 @@ package com.ictproject.wyhotel.promotion.service;
 
 import java.util.List;
 
+import com.ictproject.wyhotel.command.PromotionReservationVO;
 import com.ictproject.wyhotel.command.PromotionUploadVO;
 import com.ictproject.wyhotel.command.PromotionVO;
+import com.ictproject.wyhotel.command.ReservationVO;
 
 public interface IPromotionService {
 	
@@ -21,4 +23,7 @@ public interface IPromotionService {
 
 	// 프로모션 삭제
 	public void delete(String promotionCode);
+
+	// 프로모션 예약페이지로 이동하기 위한 데이터 정제
+	public ReservationVO convertReservationData(PromotionReservationVO data);
 }

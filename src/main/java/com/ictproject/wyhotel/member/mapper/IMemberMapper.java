@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.ictproject.wyhotel.command.MemberVO;
+import com.ictproject.wyhotel.command.MembershipVO;
 
 public interface IMemberMapper {
 	
@@ -55,6 +56,11 @@ public interface IMemberMapper {
 	//세션 id로 정보 조회 후 계속 로그인 중인 것처럼 세션 데이터를 만들어 주자
 	MemberVO getMemberWithSessionId(String sessionId);
 	
+	//전화번호 중복 체크
+	int telChk(String tel);
+
+	// membership detail
+	MembershipVO getMembershipInfo(String grade);
 }
 
 

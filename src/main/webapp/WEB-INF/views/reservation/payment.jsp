@@ -243,6 +243,9 @@
                     break;
             }
 
+            if('${param.price}' !== '') {
+            	document.reservForm.roomPrice.value = '${param.price}';
+            }
 
             const hotelname = $('#hotelName').val();
             const roomgrade = $('#roomGrade').val();

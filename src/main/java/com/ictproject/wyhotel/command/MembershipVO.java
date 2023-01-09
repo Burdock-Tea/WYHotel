@@ -12,5 +12,7 @@ public class MembershipVO {
 	private String grade;
 	private int price;
 	private double dcPercent;
+	private double pointAccumulate;
+	private double pointDining;
 
 }

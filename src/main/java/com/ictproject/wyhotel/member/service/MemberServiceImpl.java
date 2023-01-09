@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ictproject.wyhotel.command.MemberVO;
+import com.ictproject.wyhotel.command.MembershipVO;
 import com.ictproject.wyhotel.member.mapper.IMemberMapper;
 
 @Service
@@ -30,11 +31,9 @@ public class MemberServiceImpl implements IMemberService {
 	public void join(MemberVO vo) {
 		//회원 비밀번호를 암호화 인코딩
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		System.out.println("되기전 비밀번호: " + vo.getPassword());
 		
 		//비밀번호를 암호화 해서 member객체에 다시 저장하기
 		String securPw = encoder.encode(vo.getPassword());
-		System.out.println("변경 후 비밀번호: " + securPw);
 		
 		vo.setPassword(securPw);
 		
@@ -64,11 +63,9 @@ public class MemberServiceImpl implements IMemberService {
 	public void pwModify(MemberVO vo) {
 		//회원 비밀번호를 암호화 인코딩
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		System.out.println("되기전 비밀번호: " + vo.getPassword());
 		
 		//비밀번호를 암호화 해서 member객체에 다시 저장하기
 		String securPw = encoder.encode(vo.getPassword());
-		System.out.println("변경 후 비밀번호: " + securPw);
 		
 		vo.setPassword(securPw);
 		
@@ -99,11 +96,9 @@ public class MemberServiceImpl implements IMemberService {
 	public void newPw(String email, String password) {
 		//회원 비밀번호를 암호화 인코딩
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		System.out.println("되기전 비밀번호: " + password);
 		
 		//비밀번호를 암호화 해서 member객체에 다시 저장하기
 		String securPw = encoder.encode(password);
-		System.out.println("변경 후 비밀번호: " + securPw);
 		
 		password = securPw;
 		mapper.newPw(email, password);
@@ -116,6 +111,17 @@ public class MemberServiceImpl implements IMemberService {
 		data.put("limitDate", limitTime);
 		data.put("email", email);
 		mapper.keepLogin(data);
+	}
+	
+	@Override
+	public int telChk(String tel) {
+		return mapper.telChk(tel);
+	}
+	
+	@Override
+	public MembershipVO getMembershipInfo(String grade) {
+		
+		return mapper.getMembershipInfo(grade);
 	}
 	
 }

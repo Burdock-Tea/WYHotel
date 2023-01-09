@@ -9,7 +9,7 @@
    		<insert id="join">
 	  		INSERT INTO members
 	  		VALUES (mem_code_seq.NEXTVAL,#{email},#{password},#{name},#{tel},
-	  		#{zipCode},#{addrBasic},#{addrDetail}, default, default, default, sysdate, default)
+	  		#{zipCode},#{addrBasic},#{addrDetail}, default, null, null, default, default, null, default)
   		</insert>
   	
   		<!-- 이메일 중복 체크 -->
@@ -17,6 +17,12 @@
 		  	SELECT COUNT(*) FROM members
 			WHERE email = #{email} 
 	  	</select>
+
+    	<!-- 전화번호 중복 체크 -->
+    	<select id="telChk" resultType="int">
+    		SELECT COUNT(*) FROM members
+    		WHERE tel = #{tel}
+    	</select>
     	
     	<!-- 로그인 처리 -->
     	<select id="login" resultType="member">
@@ -88,6 +94,11 @@
     	<select id="getMemberWithSessionId" resultType="member">
     		SELECT * FROM members 
     		WHERE session_id = #{sessionId}
+    	</select>
+    	
+    	<select id="getMembershipInfo" resultType="membership">
+    		SELECT * FROM memberships
+    		WHERE grade = #{grade}
     	</select>
     	
     </mapper>
