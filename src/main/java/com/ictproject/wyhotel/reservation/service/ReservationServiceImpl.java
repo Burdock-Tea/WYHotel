@@ -18,12 +18,16 @@ import com.ictproject.wyhotel.command.ReservationVO;
 import com.ictproject.wyhotel.command.RoomReservationVO;
 import com.ictproject.wyhotel.command.RoomVO;
 import com.ictproject.wyhotel.reservation.mapper.IReservationMapper;
+import com.ictproject.wyhotel.util.MailSendService;
 
 @Service
 public class ReservationServiceImpl implements IReservationService {
 
 	@Autowired
 	private IReservationMapper mapper;
+	
+	@Autowired
+	private MailSendService mailSender;
 	
 	@Override
 	public List<RoomVO> getRoomList(ReservationVO reservation) {
@@ -245,7 +249,26 @@ public class ReservationServiceImpl implements IReservationService {
 		roomReserv.setReservationCode(reservCode);
 		System.out.println("객실예약 커맨드객체: " + roomReserv);
 		
-		mapper.reservRoom(roomReserv);
+		
+		/* 비회원 일시 이메일을 보냅시다 */
+		int memberCode = Integer.parseInt(roomReserv.getMemberCode());
+		
+		if((memberCode >= 1000) && (memberCode < 3000)) { 
+			// 이 회원이 비회원일시?
+			MemberVO notMember = mapper.getInfo(roomReserv.getMemberCode());
+			// 이메일 추출 완료
+			String email = notMember.getEmail();
+			
+			// 맵퍼에게 예약하라고 전달
+			mapper.reservRoom(roomReserv);
+			
+			String newReservCode = mapper.getReservationCode(roomReserv.getMemberCode());
+			
+			// 이메일 전송
+			mailSender.sendReservationInfo(newReservCode, email);
+		} else {
+			mapper.reservRoom(roomReserv);
+		}		
 	}
 	
 	@Override
