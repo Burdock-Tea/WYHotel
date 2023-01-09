@@ -73,5 +73,13 @@ public interface IReservationMapper {
 
 	// 해당 멤버코드로만 조회된 다이닝 예약이 있는지
 	int getReservDiningListOnlyCode(String memberCode);
+		
+	/*
+	 * 	작성일 : 23/01/09
+	 *  작성자 : 권우영
+	 *  작성내용 : 비회원 예약번호 가지고 오기!
+	 */
+	// 비회원 예약코드 가지고 오기 (이메일 전송용)
+	String getReservationCode(@Param("memberCode") String memberCode);
 	
 }
