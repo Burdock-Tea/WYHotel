@@ -9,7 +9,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <form action="#" method="post" id="modifyReservation" class="hotelForm">
+                <form action="${pageContext.request.contextPath}/reservation/cancelRoom" method="post" id="modifyReservation" class="hotelForm">
                     <table class="col-md-10">
                         <tbody class="reservation-modify-table">
 
@@ -38,23 +38,23 @@
                             </tr>
                             <tr class="checkInDate">
                                 <td class="col-md-5"><strong>체크인</strong></td>
-                                <td class="col-md-7"><input type="text" value="" name="checkInDate" id="checkInDate" readonly></td>
+                                <td class="col-md-7"><input type="text" value="" name="cInDate" id="cInDate" readonly></td>
                             </tr>
                             <tr class="checkOutDate">
                                 <td class="col-md-5"><strong>체크아웃</strong></td>
-                                <td class="col-md-7"><input type="text" value="" name="checkOutDate" id="checkOutDate" readonly></td>
+                                <td class="col-md-7"><input type="text" value="" name="cOutDate" id="cOutDate" readonly></td>
                             </tr>
 
                         </tbody>
 
                     </table>
                     
-                    <button type="button" class="btn bnt-modify btn-dark form-control" id="modifyBtn">예약취소</button>
+                    <button type="button" class="btn bnt-modify btn-dark form-control" id="cancelRoomBtn">예약취소</button>
                     
                 </form>
 
                 <!--dining form-->
-                <form action="#" method="post" id="modifyReservation" class="diningForm">
+                <form action="${pageContext.request.contextPath}/reservation/cancelDining" method="post" id="cancelReservation" class="diningForm">
                     <table class="col-md-10">
                         <tbody class="reservation-modify-table">
 
@@ -77,7 +77,7 @@
                             </tr>
                             <tr class="reservationDate">
                                 <td class="col-md-5"><strong>예약일</strong></td>
-                                <td class="col-md-7"><input type="date" value="" name="reservationDate" id="reservationDate" readonly></td>
+                                <td class="col-md-7"><input type="text" value="" name="date" id="date" readonly></td>
                             </tr>
                             <tr class="reservationTime">
                                 <td class="col-md-5"><strong>예약시간</strong></td>
@@ -89,7 +89,7 @@
 
                     </table>
                     
-                    <button type="button" class="btn bnt-modify btn-dark form-control" id="modifyBtn">예약취소</button>
+                    <button type="button" class="btn bnt-modify btn-dark form-control" id="cancelDiningBtn">예약취소</button>
                     
                 </form>
 

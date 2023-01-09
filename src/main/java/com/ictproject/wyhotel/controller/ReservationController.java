@@ -182,6 +182,18 @@ public class ReservationController {
 		return service.getReservDetailRoom(resvNum, session);
 	}
 	
+	// cancel dining
+	@PostMapping("/cancelDining")
+	public String cancelDining(DiningReservationVO reserv, HttpSession session, RedirectAttributes ra){
+		
+		String resvNum = reserv.getReservationCode();
+		
+		service.cancelDiningReservation(resvNum, session);
+		
+		ra.addFlashAttribute("msg", resvNum);
+		return "redirect:/reservation/myReservations";
+	}
+
 	// member login
 	@PostMapping("/login")
 	public String login(HttpSession session, RedirectAttributes ra, 
@@ -234,5 +246,26 @@ public class ReservationController {
 			}
 		
 	}
+<<<<<<< HEAD
+=======
+	
+	// get paymentKey
+	@ResponseBody
+	@PostMapping("/getPaymentKey")
+	public String getPaymentKey(@RequestBody String resvNum) {
+		
+		return service.getPaymentKey(resvNum);
+	}
+
+	// cancel room reservation
+	@PostMapping("/cancelRoom")
+	public String cancelRoom(RoomReservationVO reserv, HttpSession session, RedirectAttributes ra) {
+		
+		String resvNum = reserv.getReservationCode();
+		service.cancelRoom(resvNum, session);
+		
+		return "redirect:/reservation/myReservations";
+	}
+>>>>>>> geonwook
 
 }
