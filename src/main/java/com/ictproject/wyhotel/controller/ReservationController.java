@@ -246,8 +246,6 @@ public class ReservationController {
 			}
 		
 	}
-<<<<<<< HEAD
-=======
 	
 	// get paymentKey
 	@ResponseBody
@@ -266,6 +264,5 @@ public class ReservationController {
 		
 		return "redirect:/reservation/myReservations";
 	}
->>>>>>> geonwook
 
 }
