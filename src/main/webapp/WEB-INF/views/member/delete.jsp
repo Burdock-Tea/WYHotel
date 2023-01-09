@@ -30,7 +30,6 @@
                      <button class="btn btn-outline-secondary btn-dark deleteBtn" type="button" id="delBtn">확인</button>
                      <input type="hidden" value="${pw.memberCode}" name="memberCode">
                  </div>
-               <span id="msgId"></span>
              </form>
          </div>            
          </div>
@@ -59,8 +58,7 @@
 						return;
 					}
 				} else {
-					$('#msgId').html('비밀번호를 확인해 주세요.');
-					$('#msgId').css('color', 'red');
+					alert('비밀번호를 확인해 주세요.');
 					$('.pwInput').focus();
 					$('.pwInput').val('');
 				}

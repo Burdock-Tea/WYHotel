@@ -165,6 +165,8 @@ public class ReservationController {
 								HttpSession session,
 								RedirectAttributes ra) {
 		
+		System.out.println(roomReserv);
+		
 		roomReserv.setCheckInDate(Timestamp.valueOf(cInDate + " 00:00:00.0"));
 		roomReserv.setCheckOutDate(Timestamp.valueOf(cOutDate + " 00:00:00.0"));
 		service.reservRoom(roomReserv);

@@ -4,6 +4,7 @@
 <%@ include file="../include/header.jsp" %>
 
 <!-- 메인영역 각자 할꺼 여기서 부터 적으세용 -->
+<section>
 <div class="container">
     <div class="row">
         <div id="titlebox1" class="titlebox1">
@@ -43,6 +44,7 @@
                             <div class="d-grid gap-2 login-btn">
                                 <button type="button" id="loginBtn" class="btn btn-dark userLogin-btn"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">로그인</font></font></button>
                                 <button type="button" id="joinBtn" class="btn btn-secondary userLogin-btn"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">회원가입</font></font></button>
+                           	 
                         </div>
                     </form>
                 </div>
@@ -78,6 +80,7 @@
         
     </div>
 </div>
+</section>
 
 <%@ include file="../include/footer.jsp" %>
 

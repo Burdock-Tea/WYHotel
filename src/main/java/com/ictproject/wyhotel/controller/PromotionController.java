@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ictproject.wyhotel.command.PromotionReservationVO;
 import com.ictproject.wyhotel.command.PromotionUploadVO;
 import com.ictproject.wyhotel.command.PromotionVO;
+import com.ictproject.wyhotel.command.ReservationVO;
 import com.ictproject.wyhotel.promotion.service.IPromotionService;
 
 import lombok.extern.log4j.Log4j;
@@ -104,5 +106,16 @@ public class PromotionController {
 		service.delete(promotionCodeData);
 		
 		return "redirect:/promotion/list";
+	}
+	
+	// 프로모션 예약 페이지 이동
+	@PostMapping("/payment")
+	public String paymentPage(PromotionReservationVO data, Model model) {
+		
+		ReservationVO reservation = service.convertReservationData(data);
+		
+		model.addAttribute("reservation", reservation);
+		
+		return "/reservation/payment";	
 	}
 }

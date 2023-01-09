@@ -38,7 +38,7 @@
             <div class="header-wrapper">
                 <div class="contatiner" style="text-align: center;">
                     <div class="img-wrapper">
-                        <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/img/em_logo.svg" width="150"></a>
+                        <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/img/logo.svg" width="150"></a>
                     </div>
                 </div>
             </div>        
@@ -75,6 +75,9 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    	<li class="nav-item">
+                            <a class="nav-link" href="${ pageContext.request.contextPath }/board/list">후기게시판</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 예약관리
@@ -103,7 +106,7 @@
 	                                마이페이지
 	                            </a>
 	                            <ul class="dropdown-menu">
-	                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/login">맴버쉽</a></li>
+	                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberShip">맴버쉽</a></li>
 	                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/pwChk">회원정보수정</a></li>
 	                                <li><a class="dropdown-item" id="logoutBtn" href="${pageContext.request.contextPath}/member/logout">로그아웃</a></li>
 	                            </ul>

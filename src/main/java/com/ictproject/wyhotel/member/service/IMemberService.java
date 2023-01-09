@@ -52,4 +52,7 @@ public interface IMemberService {
 	//자동 로그인 쿠키값 DB 저장 처리
 	void keepLogin(String session, Date limitTime, String email);
 	
+	//전화번호 중복 체크
+	int telChk(String tel);
+	
 }
