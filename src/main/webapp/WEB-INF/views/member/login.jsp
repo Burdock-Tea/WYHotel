@@ -94,6 +94,8 @@
 		alert('아이디, 비밀번호를 확인 해주세요.');
 	} else if (msg === 'nMemLoginFail') {
         alert('예약번호 또는 이메일을 확인하세요');
+    } else if (msg === 'loginAuthFail') {
+    	alert('회원 전용 페이지입니다.');
     }
 	
 	

@@ -5,6 +5,7 @@ import java.util.Date;
 import org.apache.ibatis.annotations.Param;
 
 import com.ictproject.wyhotel.command.MemberVO;
+import com.ictproject.wyhotel.command.MembershipVO;
 
 public interface IMemberService {
 	
@@ -54,5 +55,8 @@ public interface IMemberService {
 	
 	//전화번호 중복 체크
 	int telChk(String tel);
+
+	// 멤버십 상세정보
+	MembershipVO getMembershipInfo(String grade);
 	
 }

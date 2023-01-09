@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.ictproject.wyhotel.command.MemberVO;
+import com.ictproject.wyhotel.command.MembershipVO;
 
 public interface IMemberMapper {
 	
@@ -57,6 +58,9 @@ public interface IMemberMapper {
 	
 	//전화번호 중복 체크
 	int telChk(String tel);
+
+	// membership detail
+	MembershipVO getMembershipInfo(String grade);
 }
 
 

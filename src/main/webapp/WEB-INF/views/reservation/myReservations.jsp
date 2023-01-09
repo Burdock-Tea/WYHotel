@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <spring:eval expression="@tossProperties['toss.key']" var="key" />
+<script src="https://js.tosspayments.com/v1/payment"></script> 
 
     <%@ include file="../include/header.jsp" %>
 
