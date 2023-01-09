@@ -106,7 +106,7 @@
 	                                마이페이지
 	                            </a>
 	                            <ul class="dropdown-menu">
-	                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/login">맴버쉽</a></li>
+	                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberShip">맴버쉽</a></li>
 	                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/pwChk">회원정보수정</a></li>
 	                                <li><a class="dropdown-item" id="logoutBtn" href="${pageContext.request.contextPath}/member/logout">로그아웃</a></li>
 	                            </ul>

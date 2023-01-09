@@ -44,6 +44,7 @@
                             <div class="d-grid gap-2 login-btn">
                                 <button type="button" id="loginBtn" class="btn btn-dark userLogin-btn"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">로그인</font></font></button>
                                 <button type="button" id="joinBtn" class="btn btn-secondary userLogin-btn"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">회원가입</font></font></button>
+                           	 
                         </div>
                     </form>
                 </div>
