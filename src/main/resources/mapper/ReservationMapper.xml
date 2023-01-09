@@ -140,5 +140,20 @@
 		DELETE FROM not_members
 		WHERE member_code = #{memberCode}
 	</delete>
+	
+	<select id="getPaymentKey" resultType="String">
+		SELECT payment_key FROM room_reservation
+		WHERE reservation_code = #{resvNum}
+	</select>
+	
+	<delete id="cancelRoom">
+		DELETE FROM room_reservation
+		WHERE reservation_code = #{resvNum}
+	</delete>
+	
+	<select id="getReservDiningListOnlyCode" resultType="int">
+		SELECT COUNT(*) FROM dining_reservation
+		WHERE member_code = #{member_code}
+	</select>
 
 </mapper>

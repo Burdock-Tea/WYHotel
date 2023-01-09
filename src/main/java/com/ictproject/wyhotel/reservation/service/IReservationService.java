@@ -60,4 +60,10 @@ public interface IReservationService {
 	// 다이닝 예약 취소
 	void cancelDiningReservation(String resvNum, HttpSession session);
 
+	// paymentKey 찾기
+	String getPaymentKey(String resvNum);
+
+	// cancel room
+	void cancelRoom(String resvNum, HttpSession session);
+
 }

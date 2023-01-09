@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<spring:eval expression="@tossProperties['toss.key']" var="key" />
 
     <%@ include file="../include/header.jsp" %>
 
@@ -392,11 +394,46 @@
             // 다이닝 예약 취소 버튼
             $('#cancelDiningBtn').click(function(){
                 
-                if(confirm('예약 취소 하시겠습니까?\r\n(해당 예약번호로 예약된 모든 다이닝 예약이 취소됩니다.)')){
+                if(confirm('예약 취소 하시겠습니까?')){
                     $('.diningForm').submit();
                 }
                 
-            });
+            }); // 다이닝 예약 취소 이벤트 종료
+
+
+            // 객실 예약 취소
+            $('#cancelRoomBtn').click(function(){
+
+                if(confirm('예약 취소하시겠습니까?')){
+                    const resvNum = $('#reservationCode').val();
+                    $.ajax({
+                        type: 'POST',
+                        url : '${pageContext.request.contextPath}/reservation/getPaymentKey',
+                        contentType: 'application/JSON',
+                        data: resvNum,
+                        success: function(paymentKey) {
+                            const cancelReason = prompt('취소 사유를 입력하세요');
+                            console.log(paymentKey);
+                            fetch('https://api.tosspayments.com/v1/payments/' + paymentKey + '/cancel', {
+                                method: 'POST',
+                                headers: {
+                                    'Authorization': '${key}',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    'cancelReason': cancelReason
+                                })
+                            }).then(function(){
+                                $('.hotelForm').submit();
+                            });
+                        },
+                        error: function() {
+                            alert('통신오류');
+                        }
+                    });
+                }
+                
+            }); // 객실 예약 취소 이벤트 종료
         
         }); // end jQuery
         
