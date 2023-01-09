@@ -55,5 +55,14 @@ public interface IReservationMapper {
 
 	// 비회원 정보
 	MemberVO getInfo(String memberCode);
+
+	// 다이닝 취소
+	void cancelDining(String resvNum);
+	
+	// 해당 예약코드로만 조회된 방이 있는지
+	int getReservRoomListOnlyCode(String memberCode);
+
+	// 비회원 정보 삭제
+	void deleteNmem(String memberCode);
 	
 }

@@ -270,5 +270,15 @@ public class ReservationServiceImpl implements IReservationService {
 		System.out.println();
 		return vo;
 	}
+	
+	@Override
+	public void cancelDiningReservation(String resvNum, HttpSession session) {
+		
+		mapper.cancelDining(resvNum);
+		String memberCode = (String) session.getAttribute("member");
+		if (mapper.getReservRoomListOnlyCode(memberCode) == 0) {
+			mapper.deleteNmem(memberCode);
+		}
+	}
 
 }

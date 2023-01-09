@@ -125,5 +125,20 @@
 		SELECT * FROM not_members
 		WHERE member_code = #{memberCode}
 	</select>
+	
+	<delete id="cancelDining">
+		DELETE FROM dining_reservation
+		WHERE reservation_code = #{resvNum}
+	</delete>
+	
+	<select id="getReservRoomListOnlyCode" resultType="int">
+		SELECT COUNT(*) FROM room_reservation
+		WHERE member_code = #{member_code}
+	</select>
+	
+	<delete id="deleteNmem">
+		DELETE FROM not_members
+		WHERE member_code = #{memberCode}
+	</delete>
 
 </mapper>

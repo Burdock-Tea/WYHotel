@@ -177,5 +177,17 @@ public class ReservationController {
 		
 		return service.getReservDetailRoom(resvNum, session);
 	}
+	
+	// cancel dining
+	@PostMapping("/cancelDining")
+	public String cancelDining(DiningReservationVO reserv, HttpSession session, RedirectAttributes ra){
+		
+		String resvNum = reserv.getReservationCode();
+		
+		service.cancelDiningReservation(resvNum, session);
+		
+		ra.addFlashAttribute("msg", resvNum);
+		return "redirect:/reservation/myReservations";
+	}
 
 }

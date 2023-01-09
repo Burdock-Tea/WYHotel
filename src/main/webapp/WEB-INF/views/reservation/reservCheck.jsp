@@ -163,8 +163,8 @@
         }
         $('#nmemLogin').click(nmemberLogin);
 
-        $('#nMemLoginForm').on('keyup', 'input', function(e){
-            if (e.keyCode === 'Enter') {
+        $('#nMemLogin-form').on('keyup', 'input', function(e){
+            if (e.key === 'Enter') {
                 nmemberLogin();
             } else {
                 return;
