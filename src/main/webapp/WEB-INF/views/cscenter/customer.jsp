@@ -86,16 +86,11 @@
 					<div class="form-group" id="captchaForm">
 						<div class="col-6 d-inline-flex">
 							<img id="captchaImg" src="${pageContext.request.contextPath}/cscenter/captchaImg" alt="캡차이미지" />
-							<div id="ccaudio" class="btn"></div>
-							
+							<div id="ccaudio" class="btn"></div>						
 							<div class="col-6 d-inline-flex">
-								<img id="captchaImg" src="${pageContext.request.contextPath}/cscenter/captchaImg" alt="캡차이미지" />
-								<div id="ccaudio" class="btn"></div>
-								
-								<div class="col-6 d-inline-flex">
-									<input id="answer" type="text" class="form-control" > 
-									<input id="check" type="button" class="btn btn-dark ms-2" value="확인" />
-								</div>   
+								<input id="answer" type="text" class="form-control" > 
+								<input id="check" type="button" class="btn btn-dark ms-2" value="확인" />
+							</div>   
 							</div>
 							<div class="form-group">
 								<input id="reload" type="button" 

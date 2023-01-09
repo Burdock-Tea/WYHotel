@@ -61,5 +61,23 @@ public class AdminController {
 		
 		return "redirect:/admin/member";
 	}
+	
+	/*
+	 * 작성일 : 23/01/09
+	 * 작성자 : 권우영
+	 * 
+	 * 해당 회원에게 임시비밀번호 발급 
+	 */
+	
+	// 회원에게 임시비밀번호 발급
+	@PostMapping("/updateTempPassword")
+	public String updateTempPassword(MemberVO member) {
+		
+		log.info("updateTempPassword // member is : " + member);
+					
+		service.updateTempPassword(member);
+		
+		return "redirect:/admin/member";
+	}
 
 }

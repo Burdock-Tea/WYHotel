@@ -54,5 +54,14 @@
 		WHERE
 			member_code = #{memberCode}
 	</delete>
+	
+	<update id="updateTempPassword">
+		UPDATE
+			members
+		SET
+			password = #{password}
+		WHERE
+			member_code = #{memberCode}
+	</update>
 
 </mapper>

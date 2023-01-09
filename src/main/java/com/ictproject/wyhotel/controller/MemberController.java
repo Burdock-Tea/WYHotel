@@ -66,21 +66,31 @@ public class MemberController {
 	 * 작성일: 23/01/05
 	 * 작성자: 이준희
 	 * 전화번호 중복 처리 추가
+	 * 
+	 * 수정일 : 23/01/09
+	 * 작성자 : 권우영
+	 * 전화번호 중복 처리 수정
 	 */
-	//전화번호 중복 체크(회원기입시)
+	//전화번호 중복 체크(회원가입시)
 	@ResponseBody
 	@PostMapping("/telCheck")
-	public String telCheck(@RequestBody MemberVO vo) {
+	public String telCheck(@RequestBody String tel) {
 		
-		MemberVO member = service.getInfo(vo.getMemberCode());
-		
-		if(member.getTel().equals(vo.getTel())) {
-			return "mytel";
-		} else if((service.telChk(vo.getTel()) == 0)) {
+		if(service.telChk(tel) == 0) {
 			return "success";
 		} else {
 			return "telFail";
 		}
+		
+		/*
+			if(member.getTel().equals(vo.getTel())) {
+				return "mytel";
+			} else if((service.telChk(vo.getTel()) == 0)) {
+				return "success";
+			} else {
+				return "telFail";
+			}
+		*/
 		
 	}
 	
