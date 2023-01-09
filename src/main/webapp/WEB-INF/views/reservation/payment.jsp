@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ include file="../include/header.jsp" %>
+<spring:eval expression="@tossProperties['toss.key']" var="key" />
 <script src="https://js.tosspayments.com/v1/payment"></script>
 <style>
     #reservTitleSpan {font-weight: 500;}
@@ -307,7 +309,7 @@
                         setTimeout(() => {
                             console.log('memCode before purchase: ',$('#memberCode').val());
                             if (confirm('위의 내용대로 예약을 진행하시겠습니까?')){
-                                const clientKey = 'test_ck_aBX7zk2yd8ybEvXNaZY3x9POLqKQ';
+                                const clientKey = '${key}';
                                 const tossPayments = TossPayments(clientKey);
 
                                 tossPayments.requestPayment('CARD', {
@@ -346,7 +348,7 @@
                         setTimeout(() => {
                             console.log('memCode before purchase: ',$('#memberCode').val());
                             if (confirm('위의 내용대로 예약을 진행하시겠습니까?')){
-                                const clientKey = 'test_ck_aBX7zk2yd8ybEvXNaZY3x9POLqKQ';
+                                const clientKey = '${key}';
                                 const tossPayments = TossPayments(clientKey);
 
                                 tossPayments.requestPayment('CARD', {
@@ -368,7 +370,7 @@
                 } else {
                     console.log('memCode before purchase: ',$('#memberCode').val());
                     if (confirm('위의 내용대로 예약을 진행하시겠습니까?')){
-                        const clientKey = 'test_ck_aBX7zk2yd8ybEvXNaZY3x9POLqKQ';
+                        const clientKey = '${key}';
                         const tossPayments = TossPayments(clientKey)
                         tossPayments.requestPayment('CARD', {
                             amount : price,

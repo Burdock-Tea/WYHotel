@@ -9,6 +9,7 @@ MANIFEST.MF
 Email.properties
 Hikari.properties
 kakao.properties
+toss.properties
 
 ### Eclipse ###
 .metadata

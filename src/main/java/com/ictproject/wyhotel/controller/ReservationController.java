@@ -1,10 +1,14 @@
 package com.ictproject.wyhotel.controller;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -176,6 +180,89 @@ public class ReservationController {
 	public RoomReservationVO getReservDetailRoom(@RequestBody String resvNum, HttpSession session) {
 		
 		return service.getReservDetailRoom(resvNum, session);
+	}
+	
+	// cancel dining
+	@PostMapping("/cancelDining")
+	public String cancelDining(DiningReservationVO reserv, HttpSession session, RedirectAttributes ra){
+		
+		String resvNum = reserv.getReservationCode();
+		
+		service.cancelDiningReservation(resvNum, session);
+		
+		ra.addFlashAttribute("msg", resvNum);
+		return "redirect:/reservation/myReservations";
+	}
+	
+	// member login
+	@PostMapping("/login")
+	public String login(HttpSession session, RedirectAttributes ra, 
+			HttpServletResponse response, MemberVO vo) {
+		MemberVO dbData = mService.login(vo.getEmail());
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		if(dbData != null) {
+			if(encoder.matches(vo.getPassword(), dbData.getPassword())) {
+				//로그인 성공 회원을 대상으로 세션 정보를 생성
+				session.setAttribute("member", dbData.getMemberCode());
+				session.setAttribute("admin", dbData.isAdmin());
+				
+				System.out.println(session.getId());
+				long limitTime = 60 * 60 * 24 * 90;
+				
+					//자동 로그인 체크 시 처리해야할 내용
+					if(vo.isAutoLogin()) {
+						//쿠키를 이용하여 자동 로그인 정보를 저장
+						System.out.println("자동로그인 쿠키 생성중");
+						//세션 아이디를 가지고 와서 쿠키에 저장(고유한 값)
+						Cookie loginCookie = new Cookie("loginCookie", session.getId());
+						
+						//쿠키수명 설정
+						loginCookie.setMaxAge((int) limitTime);
+						//쿠키가 동작할 수 있는 유효한 url
+						loginCookie.setPath("/");
+						response.addCookie(loginCookie);
+						
+						//자동 로그인 유지시간을 날짜 객체고 변환(DB저장 때문)
+						long expireDate = System.currentTimeMillis() + (limitTime * 1000);
+						//Date 객체의 생성자에 매개값으로 밀리초의 정수를 전달하면 날짜 형태로 변경
+						Date limitDate = new Date(expireDate);
+						
+						mService.keepLogin(session.getId(), limitDate, vo.getEmail());
+					
+					}
+				
+					return "redirect:/reservation/myReservations";
+				} else {
+					ra.addFlashAttribute("msg", "loginFail");
+					
+					return "redirect:/member/login";
+				}
+			
+			} else {
+				ra.addFlashAttribute("msg", "loginFail");
+				
+				return "redirect:/reservation/reservCheck";
+			}
+		
+	}
+	
+	// get paymentKey
+	@ResponseBody
+	@PostMapping("/getPaymentKey")
+	public String getPaymentKey(@RequestBody String resvNum) {
+		
+		return service.getPaymentKey(resvNum);
+	}
+
+	// cancel room reservation
+	@PostMapping("/cancelRoom")
+	public String cancelRoom(RoomReservationVO reserv, HttpSession session, RedirectAttributes ra) {
+		
+		String resvNum = reserv.getReservationCode();
+		service.cancelRoom(resvNum, session);
+		
+		return "redirect:/reservation/myReservations";
 	}
 
 }
