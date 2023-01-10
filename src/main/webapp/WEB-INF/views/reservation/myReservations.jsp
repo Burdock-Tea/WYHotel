@@ -156,6 +156,8 @@
         
         .btn { border-radius: 0;}
 
+        .passed {color: #c8c8c8;}
+
 
     </style>
 
@@ -196,21 +198,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                	<c:if test="${roomList.size() > 0}">
+                                	<c:set var="today" value="<%= new java.sql.Timestamp(System.currentTimeMillis()) %>" />
+                                    <fmt:parseDate value="${today}" var="todayPlanDate" pattern="yyyy-MM-dd" />
+                                    <fmt:parseNumber value="${todayPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="today"></fmt:parseNumber>
+                                    <c:if test="${roomList.size() > 0}">
                                     <c:forEach var="reserv" items="${roomList}">
-                                        <tr data-resv-num="${reserv.reservationCode}">
+                                        <fmt:parseDate value="${reserv.checkInDate}" var="strPlanDate" pattern="yyyy-MM-dd"/>
+                                        <fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
+                                        <fmt:parseDate value="${reserv.checkOutDate}" var="endPlanDate" pattern="yyyy-MM-dd"/>
+                                        <fmt:parseNumber value="${endPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
+                                    
+                                        <tr data-resv-num="${reserv.reservationCode}" class="${today - endDate > 0 ? 'passed' : ''}">
                                             <td>${reserv.reservationCode}</td>
                                             <td>${reserv.hotelCode}</td>
                                             <td>${reserv.roomCode}</td>
                                             <td>${reserv.capacity}</td>
-
-                                            <fmt:parseDate value="${reserv.checkInDate}" var="strPlanDate" pattern="yyyy-MM-dd"/>
-                                            <fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
-                                            <fmt:parseDate value="${reserv.checkOutDate}" var="endPlanDate" pattern="yyyy-MM-dd"/>
-                                            <fmt:parseNumber value="${endPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
-                                            
-
-
                                             <td>${endDate - strDate} 박</td>
                                             <td><fmt:formatDate value="${reserv.checkInDate}" pattern="yyyy-MM-dd" /></td>
                                             <td><fmt:formatDate value="${reserv.checkOutDate}" pattern="yyyy-MM-dd" /></td>
@@ -250,7 +252,9 @@
                                 <tbody>
                                 	<c:if test="${diningList.size() > 0}">
                                     <c:forEach var="reserv" items="${diningList}">
-                                    <tr data-resv-num="${reserv.reservationCode}">
+                                    <fmt:parseDate value="${reserv.reservationDate}" var="endPlanDate" pattern="yyyy-MM-dd"/>
+                                    <fmt:parseNumber value="${endPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
+                                    <tr data-resv-num="${reserv.reservationCode}" class="${today - endDate > 0 ? 'passed' : ''}">
                                         <td>${reserv.reservationCode}</td>
                                         <td>${reserv.hotelCode}</td>
                                         <td>${reserv.resCode}</td>
