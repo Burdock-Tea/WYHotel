@@ -260,9 +260,12 @@
                                 contentType: 'application/JSON',
                                 data: grade,
                                 success: function(membership){
-                                    document.reservForm.roomPrice.value = Math.floor(basicPrice * 1.1 * (1 - membership.dcPercent));
-                                    accumulatePoint = Math.floor(Math.floor(basicPrice * 1.1 * (1 - membership.dcPercent)) * membership.pointAccumulate);
-                                    price = Math.floor(basicPrice * 1.1 * (1 - membership.dcPercent));
+                                	price = Math.floor(basicPrice * 1.1 * (1 - membership.dcPercent));
+                                	if('${param.price}' !== '') {
+                                   		price = '${param.price}';	
+                                	}
+                                    document.reservForm.roomPrice.value = price;
+                                    accumulatePoint = price * membership.pointAccumulate;                                    
                                     console.log('적립 포인트: ', accumulatePoint);
                                 },
                                 error: function(){
@@ -276,13 +279,20 @@
                     });
                     
                 } else {
-                    document.reservForm.roomPrice.value = Math.floor(basicPrice*1.1); 
-                    price = Math.floor(basicPrice * 1.1);   
+                	price = Math.floor(basicPrice * 1.1);
+                	if('${param.price}' !== '') {
+                   		price = '${param.price}';	
+                	}
+                    document.reservForm.roomPrice.value = price;                       
                 }
             } else {
-                document.reservForm.roomPrice.value = Math.floor(basicPrice*1.1);
-                price = Math.floor(basicPrice * 1.1);
-            }
+            	price = Math.floor(basicPrice * 1.1);
+            	if('${param.price}' !== '') {
+               		price = '${param.price}';	
+            	}
+                document.reservForm.roomPrice.value = price;
+            }            
+
             document.getElementById('hotelName').value = 
             (document.reservForm.hotelCode.value === '10' ? 'WY호텔 서울' : (document.reservForm.hotelCode.value === '20' ? 'WY호텔 부산' : 'WY호텔 제주'));
 

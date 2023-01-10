@@ -31,6 +31,7 @@ public class AdminController {
 		log.info("String keyword : " + paging.getKeyword());
 		
 		model.addAttribute("list", service.getMemberList(paging));
+		model.addAttribute("pc", service.getPageCreator(paging));
 	}
 	
 	// 관리자가 수정 버튼을 누를때 비동기 방식으로 회원의 정보를 불러옴

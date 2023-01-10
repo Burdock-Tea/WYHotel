@@ -27,7 +27,7 @@
 				  <span class="input-group-text">시작날짜</span>
                   <input type="date" aria-label="startDate" class="form-control" id="startDate" name="startDate">
                   <span class="input-group-text">마침날짜</span>
-                  <input type="date" aria-label="endDate" class="form-control" id="endDate" name="endDate" value="${ param.endDate }">
+                  <input type="date" aria-label="endDate" class="form-control" id="endDate" name="endDate" readonly>
 				  <button id="listBtn" class="btn btn-outline-secondary" type="button">검색</button>
 				</div>
                 <!-- 프로모션 리스트 시작 지점 -->
@@ -168,15 +168,29 @@
     			
     		});
     		
+    		
+    		$('#startDate').change(function() {    			
+    			const now = new Date();
+    			const startDate = new Date($('#startDate').val());
+    			
+    			$('#endDate').val(getNextDay($('#startDate').val()));
+    			
+    			if(startDate < now) {
+    				alert('오늘 날짜보다 과거로 돌아갈 수 없습니다.');
+    				$('#startDate').val(getDate(false));
+    				$('#endDate').val(getNextDay($('#startDate').val()));
+    				return;
+    			}
+			});
+    		
     		$('#startDate').val(getDate(false));
-    		if($('#endDate').val() === '') {
-    			$('#endDate').val(getDate(true));
-    		}
+    		$('#endDate').val(getNextDay($('#startDate').val()));
     		
     		
-    		// 시작 날짜를 오늘 날짜로 하기 위한 함수
+    		// 오늘 날짜와 그 다음 날짜를 input type이 date인 값에 맞게 가져옴
+    		// false시 오늘 날짜 / true시 내일 날짜
       	  	function getDate(isNextDay) {
-      		  	let date = new Date();
+      		  	const date = new Date();
       		  	
       		  	if(isNextDay) {
       		  		date.setDate(date.getDate() + 1);
@@ -195,7 +209,27 @@
                 }         
                 
                 return year + '-' + month + '-' + day;
-      	  }
+      	  	}
+    		
+    		function getNextDay(dateData) {
+    			const date = new Date(dateData);
+    			
+    			date.setDate(date.getDate() + 1);
+    			
+      		  	let year = String(date.getFullYear());
+                let month = String(date.getMonth() + 1);
+                let day = String(date.getDate());
+
+                if(month.length === 1) {
+                  month = '0' + month;
+                }
+
+                if(day.length === 1) {
+                  day = '0' + day;
+                }         
+                
+                return year + '-' + month + '-' + day;
+    		}
     		
     	});
     	

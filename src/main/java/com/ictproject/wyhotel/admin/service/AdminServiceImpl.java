@@ -33,7 +33,7 @@ public class AdminServiceImpl implements IAdminService {
 	public PageCreator getPageCreator(PageVO paging) {
 		pc.setPaging(paging);
 		pc.setArticleTotalCount(mapper.getMemberCount());
-		return null;
+		return pc;
 	}
 	
 	@Override

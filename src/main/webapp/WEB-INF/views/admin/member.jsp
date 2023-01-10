@@ -60,11 +60,15 @@
             </form>
             <nav class="page-wrapper">
 			  <ul class="pagination justify-content-center">
-			    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-			    <li class="page-item"><a class="page-link" href="#">1</a></li>
-			    <li class="page-item"><a class="page-link" href="#">2</a></li>
-			    <li class="page-item"><a class="page-link" href="#">3</a></li>
-			    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+			  	<c:if test="${ pc.prev }">
+			    	<li class="page-item"><a class="page-link" href="${ pageContext.request.contextPath }/admin/member${ pc.makeURI(pc.beginPage - 1) }">Previous</a></li>
+			    </c:if>
+				<c:forEach var="pageNum" begin="${ pc.beginPage }" end="${ pc.endPage }">
+			    	<li class="page-item ${ pc.paging.pageNum == pageNum ? 'active' : '' }"><a class="page-link" href="${ pageContext.request.contextPath }/admin/member${ pc.makeURI(pageNum) }">${ pageNum }</a></li>
+			    </c:forEach>
+			    <c:if test="${ pc.next }">
+			    	<li class="page-item"><a class="page-link" href="${ pageContext.request.contextPath }/admin/member${ pc.makeURI(pc.endPage + 1) }">Next</a></li>
+			    </c:if>
 			  </ul>
 			</nav>
             <button type="button" class="btn btn-outline-secondary" id="excelDownload">엑셀파일 다운로드</button>
@@ -138,8 +142,8 @@
     	// 관리자 회원관리 검색 버튼
         $('#search').click(function(e) {
             const category = $('#category').val();
-            const search = $('input[name="search"]').val();
-            location.href='${pageContext.request.contextPath}/admin/member?category=' + category + '&search=' + search;
+            const keyword = $('input[name="keyword"]').val();
+            location.href='${pageContext.request.contextPath}/admin/member?category=' + category + '&keyword=' + keyword;
         });
         
     	// 각 회원들의 수정 버튼
