@@ -174,7 +174,7 @@ public class ReservationServiceImpl implements IReservationService {
 		
 		list.forEach(roomReserv -> {
 			String hotelCode = roomReserv.getHotelCode();
-			int idx = Integer.parseInt(roomReserv.getRoomCode().substring(1)) - 1;
+			int idx = 5 - Integer.parseInt(roomReserv.getRoomCode().substring(1));
 			roomReserv.setRoomCode(roomList.get(idx));
 			
 			if (hotelCode.equals("10")) {

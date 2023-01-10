@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -330,6 +331,12 @@ public class MemberController {
 		return "redirect:/member/login";
 	}
 	
+	/**
+	 *	작 성 자 : 백 건 욱
+	 *	작 성 일 : 2023-01-09
+	 *	내     용 : 멤버십 관련 메소드 추가
+	 * */
+	
 	//멤버쉽 페이지 이동
 	@GetMapping("/memberShip")
 	public String memberShip (HttpSession session,
@@ -357,6 +364,25 @@ public class MemberController {
 	public MembershipVO getMembershipInfo(@RequestBody String grade) {
 		System.out.println(grade);
 		return service.getMembershipInfo(grade);
+	}
+	
+	// 멤버십 구매
+	@GetMapping("/membershipPurchase")
+	public String membershipPurchase(MemberVO member, String paymentKey, HttpSession session, RedirectAttributes ra) {
+		
+		service.updateMembership(member, paymentKey);
+		
+		session.setAttribute("member", member.getMemberCode());
+		
+		return "redirect:/member/memberShip";
+	}
+	
+	// get member info
+	@ResponseBody
+	@PostMapping("/getInfo")
+	public MemberVO getInfo(@RequestBody String memberCode) {
+		
+		return service.getInfo(memberCode);
 	}
 	
 }

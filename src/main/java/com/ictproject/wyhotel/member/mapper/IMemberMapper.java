@@ -59,8 +59,19 @@ public interface IMemberMapper {
 	//전화번호 중복 체크
 	int telChk(String tel);
 
+	/**
+	 *	작 성 자 : 백 건 욱
+	 *	작 성 일 : 2023-01-09
+	 *	내     용 : 멤버십 관련 메소드 추가
+	 * */
 	// membership detail
 	MembershipVO getMembershipInfo(String grade);
+
+	// update membership
+	void updateMembership(@Param("member") MemberVO member, @Param("purchaseKey") String paymentKey);
+
+	// 포인트 적립
+	void accumulatePoint(@Param("memberCode") String memberCode, @Param("pointAccumulate") String pointAccumulate);
 }
 
 
