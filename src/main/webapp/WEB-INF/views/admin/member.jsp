@@ -24,7 +24,7 @@
                 </div>
             </div>
             <form id="adminMemberForm" method="post">
-	            <table id="memberTable" class="table" style="background: #FFCD48">
+	            <table id="memberTable" class="table">
 	                <thead>
 	                  <tr class="admin-table">
 	                    <th>회원코드</th>
@@ -58,6 +58,7 @@
 	            </table>
 	            <input type="hidden" name="memberCode">
             </form>
+            <!-- 페이징 지점 -->
             <nav class="page-wrapper">
 			  <ul class="pagination justify-content-center">
 			  	<c:if test="${ pc.prev }">
