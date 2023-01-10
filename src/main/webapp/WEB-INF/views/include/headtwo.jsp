@@ -37,13 +37,6 @@
 	    
     </head>
     <body> 
-    <div class="full-screen">
-        <div class="wrapper"> <!-- start video -->
-            <section class="hero">
-            <video src="img/main.mp4" autoplay muted loop poster="img/hotel-g080e39db0_1920.jpg"></video>
-            </section> 
-        </div>
-    </div> <!-- end video -->
        
        <header> <!-- start header -->
             <div class="header-wrapper">
@@ -138,6 +131,13 @@
                 </div>
             </div>
         </nav> <!-- end navbar-->
+	    <div class="full-screen">
+	        <div class="wrapper"> <!-- start video -->
+	            <section class="hero">
+	            <video src="img/main.mp4" autoplay muted loop poster="img/hotel-g080e39db0_1920.jpg"></video>
+	            </section> 
+	        </div>
+	    </div> <!-- end video -->
 
         
         <script>
