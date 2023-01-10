@@ -18,7 +18,7 @@
                             <option value="name">이름</option>
                             <option value="tel">전화번호</option>
                         </select>
-                        <input type="text" class="form-control" placeholder="검색어를 넣어주세요" name="search">
+                        <input type="text" class="form-control" placeholder="검색어를 넣어주세요" name="keyword">
                         <button class="btn btn-outline-secondary" type="button" id="search">검색</button>
                     </div>
                 </div>
@@ -58,6 +58,15 @@
 	            </table>
 	            <input type="hidden" name="memberCode">
             </form>
+            <nav class="page-wrapper">
+			  <ul class="pagination justify-content-center">
+			    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+			    <li class="page-item"><a class="page-link" href="#">1</a></li>
+			    <li class="page-item"><a class="page-link" href="#">2</a></li>
+			    <li class="page-item"><a class="page-link" href="#">3</a></li>
+			    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+			  </ul>
+			</nav>
             <button type="button" class="btn btn-outline-secondary" id="excelDownload">엑셀파일 다운로드</button>
         </div>
     </section>

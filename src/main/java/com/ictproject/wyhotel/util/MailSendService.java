@@ -74,7 +74,7 @@ public class MailSendService {
 				"        <h3 style=\"padding-bottom: 5px;\"> 임시비밀번호</h3>\r\n" + 
 				"        <p style=\"padding-bottom: 7px;\">\r\n" + 
 				"            안녕하세요. 고객님 <br>\r\n" + 
-				"            비밀번호를 초기화 하였으며, 초기화된 이메일은 <strong>"+ tempPassword +"</strong> 입니다.\r\n" + 
+				"            비밀번호를 초기화 하였으며, 초기화된 비밀번호는 <strong>"+ tempPassword +"</strong> 입니다.\r\n" + 
 				"        </p>\r\n" +
 				"    </div>"; // 이메일에 삽입할 내용.
 		mailSend(setFrom, toMail, title, content);

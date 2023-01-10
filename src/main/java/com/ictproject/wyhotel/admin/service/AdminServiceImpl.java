@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.ictproject.wyhotel.admin.mapper.IAdminMapper;
 import com.ictproject.wyhotel.command.MemberVO;
 import com.ictproject.wyhotel.util.MailSendService;
+import com.ictproject.wyhotel.util.paging.PageCreator;
+import com.ictproject.wyhotel.util.paging.PageVO;
 
 @Service
 public class AdminServiceImpl implements IAdminService {
@@ -19,9 +21,19 @@ public class AdminServiceImpl implements IAdminService {
 	@Autowired
 	private MailSendService mailService;
 	
+	@Autowired
+	private PageCreator pc;
+	
 	@Override
-	public List<MemberVO> getMemberList(String category, String search) {		
-		return mapper.getMemberList(category, search);
+	public List<MemberVO> getMemberList(PageVO paging) {		
+		return mapper.getMemberList(paging);
+	}
+	
+	@Override
+	public PageCreator getPageCreator(PageVO paging) {
+		pc.setPaging(paging);
+		pc.setArticleTotalCount(mapper.getMemberCount());
+		return null;
 	}
 	
 	@Override

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ictproject.wyhotel.admin.service.IAdminService;
 import com.ictproject.wyhotel.command.MemberVO;
+import com.ictproject.wyhotel.util.paging.PageVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -24,12 +25,12 @@ public class AdminController {
 	
 	// 관리자 회원관리 페이지 이동
 	@GetMapping("/member")
-	public void memberPage(Model model, String category, String search) {
+	public void memberPage(PageVO paging , Model model) {
 		
-		log.info("String category : " + category);
-		log.info("String search : " + search);
+		log.info("String category : " + paging.getCategory());
+		log.info("String keyword : " + paging.getKeyword());
 		
-		model.addAttribute("list", service.getMemberList(category, search));
+		model.addAttribute("list", service.getMemberList(paging));
 	}
 	
 	// 관리자가 수정 버튼을 누를때 비동기 방식으로 회원의 정보를 불러옴

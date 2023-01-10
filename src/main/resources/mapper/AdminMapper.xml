@@ -4,9 +4,7 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ictproject.wyhotel.admin.mapper.IAdminMapper">
 
-	<sql id="search">
-		<if test="search == ''">
-		</if>
+	<sql id="search">		
 		<if test="category == 'name'">
 			WHERE				
 				name LIKE '%' || #{search} || '%'
@@ -19,10 +17,26 @@
 
 	<select id="getMemberList" resultType="member">
 		SELECT
-			*
+		    tbl2.*
 		FROM
-			members
-		<include refid="search"/>
+		    (
+		    SELECT
+		        ROWNUM as rn, tbl.*
+		    FROM
+		        (
+		        SELECT
+		            *
+		        FROM
+		            members
+		        <include refid="search"/>
+		        ORDER BY
+		            member_code DESC ) tbl ) tbl2
+		<![CDATA[
+		WHERE		
+		    rn > (#{pageNum}-1) * #{cpp}
+		AND 
+			rn <= #{pageNum} * #{cpp}
+		]]>
 	</select>
 	
 	<select id="getMemberInfo" resultType="member">
