@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-	<%@ include file="./include/header.jsp" %>
+	<%@ include file="./include/headtwo.jsp" %>
 
 <style>
 	input[name="daterange"] {
@@ -11,180 +11,158 @@
 </style>
 
 <section class="main"> <!-- start main -->
-	<div class="wrapper"> <!-- start video -->
-		<section class="hero">
-			<div class="heading">
-				<p>
-					늘 말로만 얘기하는 부산 풀코스를 WY호텔에서!!
-				</p>
-			</div>
-			<video src="img/main.mp4" autoplay muted loop poster="img/hotel-g080e39db0_1920.jpg"></video>
-		</section>
-	</div> <!-- end video -->
+        <div class="container">
+            <div class="row">
+               <div class="main-introduce" id="main-introduce">
+                    <img src="${pageContext.request.contextPath}/img/logo.svg" alt="#" width="150">
+                    <p>
+                        WY HOTEL is new but has <br> luxurious rooms and delicious dining
+                    </p>
+               </div>
+               <hr>
+                <div class="main-room-content" style="text-align: center;">
+                    <p class="room">Special Room</p>
+                    <p class="room-name">Suite Room</p>
+                    <span class="room-content">
+                        WYHOTEL에는 최신 유행하는 스타일의 선진적 아름다움이 있습니다. <br>
+                        머무는 공간마다 시대를 초월하는 클래식의 미학, 최신의 감각을 만족시키는 럭셔리가 조화롭게 공존합니다. <br>
+                        선별된 가치와 오감을 자극하는 다층적 경험으로 공감각적 아름다움을 이어갑니다.
+                    </span>
 
-	<div class="container wrapper"> <!-- start fastreservations -->
-		<h3>빠른예약</h3>
-		<form action="${pageContext.request.contextPath}/reservation/reservationPage" method="post" id="reservForm">
-			<table class="table">
-				<thead>
-					<tr>
-						<td>
-							<select class="form-select" aria-label="Default select example" name="category">
-								<option>호텔 / 다이닝 선택</option>
-								<option value="hotels">호텔</option>
-								<option value="dinings">다이닝</option>
-							</select>
-						</td>
-						<td>
-							<select class="form-select" aria-label="Default select example" name="hotelCode">
-								<option>지점선택</option>
-								<option value="10">서울WY호텔</option>
-								<option value="20">부산WY호텔</option>
-								<option value="30">제주WY호텔</option>
-							</select>
-						</td>
-						<td>
-							<select class="form-select" aria-label="Default select example" name="capacity">
-								<option>인원수</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-							</select>
-						</td>
-						<!-- 연령대 삭제, 다이닝 예약 선택시 시간대로 변경  22/12/30 -->
-                        <td class="" id="time">
-                            <select class="form-select" aria-label="Default select example" name="reservationTime">
-                                <option>시간선택</option>
-                                <optgroup label="Lunch">
-                                    <option ${reservation.reservationTime == '11:30' ? 'selected' : ''}>11:30</option>
-                                    <option ${reservation.reservationTime == '12:00' ? 'selected' : ''}>12:00</option>
-                                    <option ${reservation.reservationTime == '12:30' ? 'selected' : ''}>12:30</option>
-                                    <option ${reservation.reservationTime == '13:00' ? 'selected' : ''}>13:00</option>
-                                    <option ${reservation.reservationTime == '13:30' ? 'selected' : ''}>13:30</option>
-                                </optgroup>
-                                <optgroup label="Dinner">
-                                    <option ${reservation.reservationTime == '17:30' ? 'selected' : ''}>17:30</option>
-                                    <option ${reservation.reservationTime == '18:00' ? 'selected' : ''}>18:00</option>
-                                    <option ${reservation.reservationTime == '18:30' ? 'selected' : ''}>18:30</option>
-                                    <option ${reservation.reservationTime == '19:00' ? 'selected' : ''}>19:00</option>
-                                    <option ${reservation.reservationTime == '19:30' ? 'selected' : ''}>19:30</option>
-                                    <option ${reservation.reservationTime == '20:00' ? 'selected' : ''}>20:00</option>
-                                </optgroup>
-                            </select>
-                        </td>
-						<td>
-							<input type="text" name="daterange" value="카테고리를 먼저 선택하세요" class="form-control"/>
-						</td>
-						<td>
-							<button type="button" class="btn btn-dark" id="reservBtn">검색</button>
-						</td>
-					</tr>
-				</thead>
-			</table>
-		</form> <!-- end form tag-->
-	</div><!-- end fastreservations -->
-
-	<div class="container wrapper"><!-- start promotion -->
-		<h3>프로모션</h3>
-		<div class="swiper mySwiper">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide">
-					<div class="card" style="width: 22rem;">
-						<img src="./img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
-						<div class="card-body">
-						  <h5 class="card-title">Card title</h5>
-						  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						  <a href="#" class="btn btn-primary">Go somewhere</a>
-						</div>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div class="card" style="width: 22rem;">
-						<img src="./img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
-						<div class="card-body">
-						  <h5 class="card-title">Card title</h5>
-						  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						  <a href="#" class="btn btn-primary">Go somewhere</a>
-						</div>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div class="card" style="width: 22rem;">
-						<img src="./img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
-						<div class="card-body">
-						  <h5 class="card-title">Card title</h5>
-						  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						  <a href="#" class="btn btn-primary">Go somewhere</a>
-						</div>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div class="card" style="width: 22rem;">
-						<img src="./img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
-						<div class="card-body">
-						  <h5 class="card-title">Card title</h5>
-						  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						  <a href="#" class="btn btn-primary">Go somewhere</a>
-						</div>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div class="card" style="width: 22rem;">
-						<img src="./img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
-						<div class="card-body">
-						  <h5 class="card-title">Card title</h5>
-						  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						  <a href="#" class="btn btn-primary">Go somewhere</a>
-						</div>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div class="card" style="width: 22rem;">
-						<img src="./img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
-						<div class="card-body">
-						  <h5 class="card-title">Card title</h5>
-						  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						  <a href="#" class="btn btn-primary">Go somewhere</a>
-						</div>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div class="card" style="width: 22rem;">
-						<img src="./img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
-						<div class="card-body">
-						  <h5 class="card-title">Card title</h5>
-						  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						  <a href="#" class="btn btn-primary">Go somewhere</a>
-						</div>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div class="card" style="width: 22rem;">
-						<img src="./img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
-						<div class="card-body">
-						  <h5 class="card-title">Card title</h5>
-						  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						  <a href="#" class="btn btn-primary">Go somewhere</a>
-						</div>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div class="card" style="width: 22rem;">
-						<img src="./img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
-						<div class="card-body">
-						  <h5 class="card-title">Card title</h5>
-						  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						  <a href="#" class="btn btn-primary">Go somewhere</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		<div class="swiper-button-next"></div>
-		<div class="swiper-button-prev"></div>            
-		</div>            
-	</div> <!-- end promotion -->
-</section> <!-- end main -->
+                    <div class="main-more">
+                        <a href="#">Show More</a>
+                    </div>
+                </div>
+                <div class="guest-room">
+                    <img src="${pageContext.request.contextPath}/img/to-travel-gb2e60ab1c_1920.jpg" alt="#">
+                </div>
+                <hr>
+                <div class="main-dining-content">
+                    <p class="dining">dining</p>
+                    <p class="dining-name">존맛탱 다이닝</p>
+                    <span class="dining-content">
+                        WYHOTEL은, 시대를 대표하는 예술가들과 정치, 경제, 문화적 소양가들은<br>
+                        WYHOTEL의 다이닝 공간에서 품격있는 모임과 휴식을 누려왔습니다. WYHOTEL은 우아한<br>
+                        식문화 선도 정신을 이어 미식을 즐기는 방식과 순간의 경험을 진화시킵니다. 최고의 맛이란 수식어로는 충분하지 않습니다.<br>
+                        오늘의 미식가들을 만족시킬 새롭고 독창적인 파인 다이닝 문화가 펼쳐집니다.
+                    </span>
+                    <div class="main-more">
+                        <a href="#">Show More</a>
+                    </div>
+                </div>
+                <div class="dining-1">
+                    <img src="${pageContext.request.contextPath}/img/hotel-g080e39db0_1920.jpg" alt="#">
+                </div>
+            </div>
+        </div>
+        
+    
+        <hr>
+        <div class="container wrapper promotion"><!-- start promotion -->
+            <h3>Promotion</h3>
+            <span>
+                WYHOTEL은, 반분기 단위로 새로운 프로모션을<br>
+                진행하고 있습니다. 아래에서 고객님께 해당하는 프로모션을<br>
+                찾아 보다 저렴하게 이용 하시기 바랍니다.
+            </span>
+            <div class="swiper mySwiper" style="margin-top: 50px;">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="card" style="width: 22rem;">
+                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="card" style="width: 22rem;">
+                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="card" style="width: 22rem;">
+                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="card" style="width: 22rem;">
+                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="card" style="width: 22rem;">
+                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="card" style="width: 22rem;">
+                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="card" style="width: 22rem;">
+                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="card" style="width: 22rem;">
+                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="card" style="width: 22rem;">
+                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>            
+            </div>            
+        </div> <!-- end promotion -->
+    </section> <!-- end main -->
 
 
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>

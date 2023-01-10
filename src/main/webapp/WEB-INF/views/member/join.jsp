@@ -562,7 +562,7 @@
 	
 	//로딩창 숨겨주는 함수
 	function closeLoading() {
-			$('#mask, #loadingImg').remove();
+		$('#mask, #loadingImg').remove();
 	}
 	
 </script>
