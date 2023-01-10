@@ -493,6 +493,7 @@
                     if (truncDate - iDate > 0) {
                         alert('다이닝은 하루 전에만 예약 가능합니다.');
                         $('#daterange').val(basicDate);
+                        e.preventDefault();
                     }
                 }
             }
