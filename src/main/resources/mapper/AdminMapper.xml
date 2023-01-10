@@ -4,15 +4,17 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ictproject.wyhotel.admin.mapper.IAdminMapper">
 
-	<sql id="search">		
-		<if test="category == 'name'">
-			WHERE				
-				name LIKE '%' || #{search} || '%'
-		</if>
-		<if test="category == 'tel'">
-			WHERE
-				tel LIKE '%' || #{search} || '%'
-		</if>
+	<sql id="search">
+		<choose>
+			<when test="category == 'name'">
+				WHERE				
+					name LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="category == 'tel'">
+				WHERE
+					tel LIKE '%' || #{keyword} || '%'
+			</when>		
+		</choose>
 	</sql>
 
 	<select id="getMemberList" resultType="member">
@@ -44,6 +46,7 @@
 			COUNT(*)
 		FROM
 			members
+		<include refid="search"/>
 	</select>
 	
 	<select id="getMemberInfo" resultType="member">

@@ -13,7 +13,7 @@ public interface IAdminMapper {
 	public List<MemberVO> getMemberList(PageVO paging);
 	
 	// 총 회원 갯수 가지고옵시다
-	public int getMemberCount();
+	public int getMemberCount(PageVO paging);
 
 	// 회원 하나의 정보를 불러오기 (비동기 통신)
 	public MemberVO getMemberInfo(String memberCode);

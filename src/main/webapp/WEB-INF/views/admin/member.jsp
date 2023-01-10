@@ -61,13 +61,13 @@
             <nav class="page-wrapper">
 			  <ul class="pagination justify-content-center">
 			  	<c:if test="${ pc.prev }">
-			    	<li class="page-item"><a class="page-link" href="${ pageContext.request.contextPath }/admin/member${ pc.makeURI(pc.beginPage - 1) }">Previous</a></li>
+			    	<li class="page-item"><a class="page-link" href="${ pageContext.request.contextPath }/admin/member${ pc.makeURI(pc.beginPage - 1) }">이전</a></li>
 			    </c:if>
 				<c:forEach var="pageNum" begin="${ pc.beginPage }" end="${ pc.endPage }">
 			    	<li class="page-item ${ pc.paging.pageNum == pageNum ? 'active' : '' }"><a class="page-link" href="${ pageContext.request.contextPath }/admin/member${ pc.makeURI(pageNum) }">${ pageNum }</a></li>
 			    </c:forEach>
 			    <c:if test="${ pc.next }">
-			    	<li class="page-item"><a class="page-link" href="${ pageContext.request.contextPath }/admin/member${ pc.makeURI(pc.endPage + 1) }">Next</a></li>
+			    	<li class="page-item"><a class="page-link" href="${ pageContext.request.contextPath }/admin/member${ pc.makeURI(pc.endPage + 1) }">다음</a></li>
 			    </c:if>
 			  </ul>
 			</nav>
@@ -77,7 +77,7 @@
     
     <!-- Modal -->
 	<div class="modal fade" id="memberModal" tabindex="-1" aria-labelledby="memberModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
+	  <div class="modal-dialog">	
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h1 class="modal-title fs-5" id="memberModalLabel">dummy</h1>
