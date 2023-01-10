@@ -60,7 +60,7 @@
 	
 	<insert id="createNmemCode">
 		INSERT INTO not_members
-		VALUES (nmem_code_seq.NEXTVAL, #{email}, #{name}, #{tel})
+		VALUES (nmem_code_seq.NEXTVAL, #{email}, #{name}, #{tel}, DEFAULT)
 	</insert>
 	
 	<select id="selectNmemCode" resultType="String">

@@ -162,15 +162,16 @@ public class ReservationController {
 	@GetMapping("/success")
 	public String paymentSuccess(RoomReservationVO roomReserv, 
 								String cInDate, String cOutDate,
+								String pointAccumulate,
 								HttpSession session,
 								RedirectAttributes ra) {
 		
 		System.out.println(roomReserv);
-		
+		System.out.println("적립 포인트" + pointAccumulate);
 		roomReserv.setCheckInDate(Timestamp.valueOf(cInDate + " 00:00:00.0"));
 		roomReserv.setCheckOutDate(Timestamp.valueOf(cOutDate + " 00:00:00.0"));
 		service.reservRoom(roomReserv);
-		
+		mService.accumulatePoint(roomReserv.getMemberCode(), pointAccumulate);
 		session.setAttribute("member", roomReserv.getMemberCode());
 		ra.addFlashAttribute("msg", "reservSuccess");
 		return "redirect:/reservation/myReservations";
