@@ -158,7 +158,7 @@
         <c:if test="${param.category == 'hotels'}">
             <!-- 6그룹 -->
             <div class="col-md-2"></div>
-            <div class="col-md-3">가격</div>
+            <div class="col-md-3">가격<small>(* VAT를 포함한 가격입니다.)</small></div>
             <div class="col-md-5">
                 <input type="text" value="" class="form-control" name="roomPrice" id="roomPrice" readonly>
             </div>
@@ -199,62 +199,102 @@
         var memCode = '';
         let memName = '';
         let memEmail = '';
-        let nights = 0;
+        let price;
+  
 
 
 
         if ('${reservation.category}' === 'hotels') {
+            let nigths = 0;
+            let accumulatePoint = 0;
             const daterange = '${reservation.daterange}';
             const checkInDate = daterange.substring(0, daterange.indexOf('/') - 1);
-            const checkOutDate = daterange.substring(daterange.indexOf('/') + 2)
-
+            const checkOutDate = daterange.substring(daterange.indexOf('/') + 2);
+            
             document.reservForm.checkInDate.value = checkInDate;
             document.reservForm.checkOutDate.value = checkOutDate;
 
             nights = (new Date(checkOutDate) - new Date(checkInDate)) / (1000 * 60 * 60 * 24);
             document.reservForm.nights.value = nights + ' 박';
+            
+            
+            let basicPrice;
+            switch('${reservation.code}') {
+                case '55' :
+                    document.getElementById('roomGrade').value = 'Suite';
+                    basicPrice = 2000000 * nights;
+                    break;
+                case '44' :
+                    document.getElementById('roomGrade').value = 'Business Deluxe';
+                    basicPrice = 1800000 * nights;
+                    break;
+                case '33' :
+                    document.getElementById('roomGrade').value = 'Business';
+                    basicPrice = 1700000 * nights;
+                    break;
+                case '22' :
+                    document.getElementById('roomGrade').value = 'Standard Deluxe';
+                    basicPrice = 1000000 * nights;
+                    break;
+                case '11' :
+                    document.getElementById('roomGrade').value = 'Standard';
+                    basicPrice = 800000 * nights;
+                    break;
+            }
 
-            document.reservForm.roomPrice.value = Number('${price}') * nights;
-
+            
+            if ('${member}' !== ''){
+                const memberCode = '${member}';
+                const isMem = memberCode.substring(0, 1);
+                if (isMem !== '1' && isMem !== '2') {
+                    $.ajax({
+                        type: 'POST',
+                        url : '${pageContext.request.contextPath}/member/getInfo',
+                        contentType: 'application/JSON',
+                        data: memberCode,
+                        success: function(memberInfo){
+                            const grade = memberInfo.grade;
+                            $.ajax({
+                                type: 'POST',
+                                url : '${pageContext.request.contextPath}/member/getMembershipInfo',
+                                contentType: 'application/JSON',
+                                data: grade,
+                                success: function(membership){
+                                    document.reservForm.roomPrice.value = Math.floor(basicPrice * 1.1 * (1 - membership.dcPercent));
+                                    accumulatePoint = Math.floor(Math.floor(basicPrice * 1.1 * (1 - membership.dcPercent)) * membership.pointAccumulate);
+                                    price = Math.floor(basicPrice * 1.1 * (1 - membership.dcPercent));
+                                    console.log('적립 포인트: ', accumulatePoint);
+                                },
+                                error: function(){
+                                    alert('멤버십 통신 실패');
+                                }
+                            });
+                        },
+                        error: function(){
+                            alert('통신실패');
+                        }
+                    });
+                    
+                } else {
+                    document.reservForm.roomPrice.value = Math.floor(basicPrice*1.1); 
+                    price = Math.floor(basicPrice * 1.1);   
+                }
+            } else {
+                document.reservForm.roomPrice.value = Math.floor(basicPrice*1.1);
+                price = Math.floor(basicPrice * 1.1);
+            }
             document.getElementById('hotelName').value = 
             (document.reservForm.hotelCode.value === '10' ? 'WY호텔 서울' : (document.reservForm.hotelCode.value === '20' ? 'WY호텔 부산' : 'WY호텔 제주'));
 
             
-            switch('${reservation.code}') {
-                case '55' :
-                    document.getElementById('roomGrade').value = 'Suite';
-                    document.reservForm.roomPrice.value = 2000000 * nights;
-                    break;
-                case '44' :
-                    document.getElementById('roomGrade').value = 'Business Deluxe';
-                    document.reservForm.roomPrice.value = 1800000 * nights;
-                    break;
-                case '33' :
-                    document.getElementById('roomGrade').value = 'Business';
-                    document.reservForm.roomPrice.value = 1700000 * nights;
-                    break;
-                case '22' :
-                    document.getElementById('roomGrade').value = 'Standard Deluxe';
-                    document.reservForm.roomPrice.value = 1000000 * nights;
-                    break;
-                case '11' :
-                    document.getElementById('roomGrade').value = 'Standard';
-                    document.reservForm.roomPrice.value = 800000 * nights;
-                    break;
-            }
 
-            if('${param.price}' !== '') {
-            	document.reservForm.roomPrice.value = '${param.price}';
-            }
 
             const hotelname = $('#hotelName').val();
             const roomgrade = $('#roomGrade').val();
-            const price = $('#roomPrice').val();
 
             console.log(price);
             console.log(hotelname);
             console.log(roomgrade);
-
 
 
             // 결제 및 예약확정 버튼 클릭이벤트 시작
@@ -311,7 +351,11 @@
                             if (confirm('위의 내용대로 예약을 진행하시겠습니까?')){
                                 const clientKey = '${key}';
                                 const tossPayments = TossPayments(clientKey);
-
+                                console.log('비회원예약 멤버코드', memCode);
+                                console.log('비회원예약 이름', memName);
+                                console.log('비회원예약 이메일', memEmail);
+                                console.log('price ', price);
+                                
                                 tossPayments.requestPayment('CARD', {
                                     amount : price,
                                     orderId: memCode + new Date().getTime(),
@@ -320,7 +364,7 @@
                                     customerEmail: memEmail,
                                     successUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/success?memberCode=' + $('#memberCode').val()
                                     + '&hotelCode=' + '${reservation.hotelCode}'+ '&roomCode=' + '${reservation.code}'+ '&capacity=' + '${reservation.capacity}'
-                                    + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate,
+                                    + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate + '&pointAccumulate=' + accumulatePoint,
                                     failUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/reservationPage'
                                 });
                             }
@@ -347,9 +391,14 @@
                         });
                         setTimeout(() => {
                             console.log('memCode before purchase: ',$('#memberCode').val());
+                            console.log('적립 포인트: ', accumulatePoint);
                             if (confirm('위의 내용대로 예약을 진행하시겠습니까?')){
                                 const clientKey = '${key}';
                                 const tossPayments = TossPayments(clientKey);
+                                console.log('멤버코드 ', memCode);
+                                console.log('이름 ', memName);
+                                console.log('이메일 ', memEmail);
+                                console.log('price ', price);
 
                                 tossPayments.requestPayment('CARD', {
                                     amount : price,
@@ -359,7 +408,7 @@
                                     customerEmail: memEmail,
                                     successUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/success?memberCode=' + $('#memberCode').val()
                                     + '&hotelCode=' + '${reservation.hotelCode}'+ '&roomCode=' + '${reservation.code}'+ '&capacity=' + '${reservation.capacity}'
-                                    + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate,
+                                    + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate + '&pointAccumulate=' + accumulatePoint,
                                     failUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/reservationPage'
                                 });
                             }  
@@ -369,9 +418,15 @@
 
                 } else {
                     console.log('memCode before purchase: ',$('#memberCode').val());
+                    console.log('적립 포인트: ', accumulatePoint);
                     if (confirm('위의 내용대로 예약을 진행하시겠습니까?')){
                         const clientKey = '${key}';
-                        const tossPayments = TossPayments(clientKey)
+                        const tossPayments = TossPayments(clientKey);
+                        console.log('멤버코드 ', memCode);
+                        console.log('이름 ', memName);
+                        console.log('이메일 ', memEmail);
+                        console.log('price ', price);
+
                         tossPayments.requestPayment('CARD', {
                             amount : price,
                             orderId: memCode + new Date().getTime(),
@@ -380,7 +435,7 @@
                             customerEmail: memEmail,
                             successUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/success?memberCode=' + $('#memberCode').val()
                             + '&hotelCode=' + '${reservation.hotelCode}'+ '&roomCode=' + '${reservation.code}'+ '&capacity=' + '${reservation.capacity}'
-                            + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate,
+                            + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate + '&pointAccumulate=' + accumulatePoint,
                             failUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/reservationPage'
                         });
                     }

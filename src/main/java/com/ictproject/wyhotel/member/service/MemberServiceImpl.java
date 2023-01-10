@@ -118,10 +118,28 @@ public class MemberServiceImpl implements IMemberService {
 		return mapper.telChk(tel);
 	}
 	
+	
+	/**
+	 *	작 성 자 : 백 건 욱
+	 *	작 성 일 : 2023-01-09
+	 *	내     용 : 멤버십 관련 메소드 추가
+	 * */
 	@Override
 	public MembershipVO getMembershipInfo(String grade) {
 		
 		return mapper.getMembershipInfo(grade);
+	}
+	
+	@Override
+	public void updateMembership(MemberVO member, String paymentKey) {
+		
+		mapper.updateMembership(member, paymentKey);
+	}
+	
+	@Override
+	public void accumulatePoint(String memberCode, String pointAccumulate) {
+		
+		mapper.accumulatePoint(memberCode, pointAccumulate);
 	}
 	
 }

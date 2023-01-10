@@ -47,19 +47,20 @@
                                     <p class="col-md-12 mt-2">Membership Price</p>
                                     <p class="col-md-6">krw</p>
                                     <p class="col-md-6" id="membershipPrice"></p>
-
-
-
-                                    <div id="modalRoomPrice" class="col-md-6 mt-2"></div>
-                                    <div id="modalReservation" class="col-md-6 mt-2">
-                                        <button class="btn btn-dark" id="purchaseBtn">멤버십 구매</button>
-                                    </div>
                                     
                                 </div>
                                 
                             </div>
+
+                            <div class="col-md-3 mt-2"></div>
+                            <div id="modalReservation" class="col-md-6 mt-2">
+                                <button class="btn btn-dark" id="purchaseBtn" style="display: block; width: 100%;">멤버십 구매</button>
+                            </div>
+                            <div class="col-md-3 mt-2"></div>
                             
                         </div>
+
+
                         
                     </div>
 

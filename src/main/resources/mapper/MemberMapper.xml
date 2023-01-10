@@ -96,10 +96,30 @@
     		WHERE session_id = #{sessionId}
     	</select>
     	
+    	
+    	<!-- 
+  		/**
+		 *	작 성 자 : 백 건 욱
+		 *	작 성 일 : 2023-01-09
+		 *	내     용 : 멤버십 관련 메소드 추가
+		 * */
+    	-->
     	<select id="getMembershipInfo" resultType="membership">
     		SELECT * FROM memberships
     		WHERE grade = #{grade}
     	</select>
+    	
+    	<update id="updateMembership">
+    		UPDATE members
+    		SET grade = #{member.grade}, membership_purchase_day = sysdate, membership_payment_key = #{purchaseKey}
+    		WHERE member_code = #{member.memberCode}
+    	</update>
+    	
+    	<update id="accumulatePoint">
+    		UPDATE members
+    		SET point = point + #{pointAccumulate}
+    		WHERE member_code = #{memberCode}
+    	</update>
     	
     </mapper>
     

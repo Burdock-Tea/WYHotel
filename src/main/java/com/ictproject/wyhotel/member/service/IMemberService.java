@@ -55,8 +55,20 @@ public interface IMemberService {
 	
 	//전화번호 중복 체크
 	int telChk(String tel);
+	
+	/**
+	 *	작 성 자 : 백 건 욱
+	 *	작 성 일 : 2023-01-09
+	 *	내     용 : 멤버십 관련 메소드 추가
+	 * */
 
 	// 멤버십 상세정보
 	MembershipVO getMembershipInfo(String grade);
+
+	// 멤버십 구매 처리
+	void updateMembership(MemberVO member, String paymentKey);
+
+	// 포인트 적립
+	void accumulatePoint(String memberCode, String pointAccumulate);
 	
 }
