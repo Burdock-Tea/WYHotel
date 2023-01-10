@@ -5,11 +5,15 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.ictproject.wyhotel.command.MemberVO;
+import com.ictproject.wyhotel.util.paging.PageVO;
 
 public interface IAdminMapper {
 	
 	// 회원 목록 조회
-	public List<MemberVO> getMemberList(@Param("category") String category, @Param("search") String search);
+	public List<MemberVO> getMemberList(PageVO paging);
+	
+	// 총 회원 갯수 가지고옵시다
+	public int getMemberCount(PageVO paging);
 
 	// 회원 하나의 정보를 불러오기 (비동기 통신)
 	public MemberVO getMemberInfo(String memberCode);

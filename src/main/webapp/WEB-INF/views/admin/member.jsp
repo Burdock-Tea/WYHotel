@@ -18,13 +18,13 @@
                             <option value="name">이름</option>
                             <option value="tel">전화번호</option>
                         </select>
-                        <input type="text" class="form-control" placeholder="검색어를 넣어주세요" name="search">
+                        <input type="text" class="form-control" placeholder="검색어를 넣어주세요" name="keyword">
                         <button class="btn btn-outline-secondary" type="button" id="search">검색</button>
                     </div>
                 </div>
             </div>
             <form id="adminMemberForm" method="post">
-	            <table id="memberTable" class="table" style="background: #FFCD48">
+	            <table id="memberTable" class="table">
 	                <thead>
 	                  <tr class="admin-table">
 	                    <th>회원코드</th>
@@ -58,13 +58,27 @@
 	            </table>
 	            <input type="hidden" name="memberCode">
             </form>
+            <!-- 페이징 지점 -->
+            <nav class="page-wrapper">
+			  <ul class="pagination justify-content-center">
+			  	<c:if test="${ pc.prev }">
+			    	<li class="page-item"><a class="page-link" href="${ pageContext.request.contextPath }/admin/member${ pc.makeURI(pc.beginPage - 1) }">이전</a></li>
+			    </c:if>
+				<c:forEach var="pageNum" begin="${ pc.beginPage }" end="${ pc.endPage }">
+			    	<li class="page-item ${ pc.paging.pageNum == pageNum ? 'active' : '' }"><a class="page-link" href="${ pageContext.request.contextPath }/admin/member${ pc.makeURI(pageNum) }">${ pageNum }</a></li>
+			    </c:forEach>
+			    <c:if test="${ pc.next }">
+			    	<li class="page-item"><a class="page-link" href="${ pageContext.request.contextPath }/admin/member${ pc.makeURI(pc.endPage + 1) }">다음</a></li>
+			    </c:if>
+			  </ul>
+			</nav>
             <button type="button" class="btn btn-outline-secondary" id="excelDownload">엑셀파일 다운로드</button>
         </div>
     </section>
     
     <!-- Modal -->
 	<div class="modal fade" id="memberModal" tabindex="-1" aria-labelledby="memberModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
+	  <div class="modal-dialog">	
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h1 class="modal-title fs-5" id="memberModalLabel">dummy</h1>
@@ -129,8 +143,8 @@
     	// 관리자 회원관리 검색 버튼
         $('#search').click(function(e) {
             const category = $('#category').val();
-            const search = $('input[name="search"]').val();
-            location.href='${pageContext.request.contextPath}/admin/member?category=' + category + '&search=' + search;
+            const keyword = $('input[name="keyword"]').val();
+            location.href='${pageContext.request.contextPath}/admin/member?category=' + category + '&keyword=' + keyword;
         });
         
     	// 각 회원들의 수정 버튼

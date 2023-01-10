@@ -43,12 +43,12 @@ public class MailSendService {
 		String toMail = email; // 수신받을 이메일
 		String title = "회원 가입 인증 이메일 입니다."; // 이메일 제목
 		String content = "<div style=\"border: 1px solid rgb(187, 187, 187); color: rgb(63, 63, 63); width: 500px; padding: 20px 0 40px 40px; \">\r\n" + 
-				"        <h3 style=\"padding-bottom: 5px;\"> 이메일 인증 코드</h3>\r\n" + 
+				"        <img src=\"https://i.ibb.co/gDfYhCN/logo.png\" alt=\"logo\" border=\"0\"><h3 style=\"padding-bottom: 5px;\"> 이메일 인증 코드</h3>\r\n" + 
 				"        <p style=\"padding-bottom: 7px;\">\r\n" + 
 				"            안녕하세요. 고객님 <br>\r\n" + 
 				"            맴버쉽 서비스를 이용하기 위한 인증번호(<strong>"+ authNum +"</strong>)를  발송 하였습니다\r\n" + 
 				"        </p>\r\n" + 
-				"        <strong style=\"background: rgb(231, 231, 231); color: rgb(63, 63, 63); padding: 8px 180px 8px 180px;\">이메일 코드</strong> <br><br>\r\n" + 
+				"        <strong style=\"background: rgb(231, 231, 231); color: rgb(63, 63, 63); padding: 8px 180px 8px 180px;\">" + authNum + "</strong> <br><br>\r\n" + 
 				"        <small style=\"color: silver;\"> ! 인증메일은 1시간 이내로 완료해 주세요</small>\r\n" + 
 				"    </div>"; // 이메일에 삽입할 내용.
 		mailSend(setFrom, toMail, title, content);
@@ -71,10 +71,10 @@ public class MailSendService {
 		String toMail = email; // 수신받을 이메일
 		String title = "임시비밀번호 발급 이메일 입니다."; // 이메일 제목
 		String content = "<div style=\"border: 1px solid rgb(187, 187, 187); color: rgb(63, 63, 63); width: 500px; padding: 20px 0 40px 40px; \">\r\n" + 
-				"        <h3 style=\"padding-bottom: 5px;\"> 임시비밀번호</h3>\r\n" + 
+				"        <img src=\"https://i.ibb.co/gDfYhCN/logo.png\" alt=\"logo\" border=\"0\"><h3 style=\"padding-bottom: 5px;\"> 임시비밀번호</h3>\r\n" + 
 				"        <p style=\"padding-bottom: 7px;\">\r\n" + 
 				"            안녕하세요. 고객님 <br>\r\n" + 
-				"            비밀번호를 초기화 하였으며, 초기화된 이메일은 <strong>"+ tempPassword +"</strong> 입니다.\r\n" + 
+				"            비밀번호를 초기화 하였으며, 초기화된 비밀번호는 <strong>"+ tempPassword +"</strong> 입니다.\r\n" + 
 				"        </p>\r\n" +
 				"    </div>"; // 이메일에 삽입할 내용.
 		mailSend(setFrom, toMail, title, content);

@@ -5,21 +5,45 @@
 <mapper namespace="com.ictproject.wyhotel.admin.mapper.IAdminMapper">
 
 	<sql id="search">
-		<if test="search == ''">
-		</if>
-		<if test="category == 'name'">
-			WHERE				
-				name LIKE '%' || #{search} || '%'
-		</if>
-		<if test="category == 'tel'">
-			WHERE
-				tel LIKE '%' || #{search} || '%'
-		</if>
+		<choose>
+			<when test="category == 'name'">
+				WHERE				
+					name LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="category == 'tel'">
+				WHERE
+					tel LIKE '%' || #{keyword} || '%'
+			</when>		
+		</choose>
 	</sql>
 
 	<select id="getMemberList" resultType="member">
 		SELECT
-			*
+		    tbl2.*
+		FROM
+		    (
+		    SELECT
+		        ROWNUM as rn, tbl.*
+		    FROM
+		        (
+		        SELECT
+		            *
+		        FROM
+		            members
+		        <include refid="search"/>
+		        ORDER BY
+		            member_code DESC ) tbl ) tbl2
+		<![CDATA[
+		WHERE		
+		    rn > (#{pageNum}-1) * #{cpp}
+		AND 
+			rn <= #{pageNum} * #{cpp}
+		]]>
+	</select>
+	
+	<select id="getMemberCount" resultType="int">
+		SELECT
+			COUNT(*)
 		FROM
 			members
 		<include refid="search"/>
