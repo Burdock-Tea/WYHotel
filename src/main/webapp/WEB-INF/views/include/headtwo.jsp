@@ -31,15 +31,14 @@
 
         <!-- xeicon CDN-->
 	    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-
-        <!-- 로티파이 CDN -->
+	    
+	     <!-- 로티파이 CDN -->
         <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-
-
-        
+	    
     </head>
-    <body>    
-        <header> <!-- start header -->
+    <body> 
+       
+       <header> <!-- start header -->
             <div class="header-wrapper">
                 <div class="contatiner" style="text-align: center;">
                     <div class="img-wrapper">
@@ -132,9 +131,22 @@
                 </div>
             </div>
         </nav> <!-- end navbar-->
+	    <div class="full-screen">
+	        <div class="wrapper"> <!-- start video -->
+	            <section class="hero">
+	            <video src="img/main.mp4" autoplay muted loop poster="img/hotel-g080e39db0_1920.jpg"></video>
+	            </section> 
+	        </div>
+	    </div> <!-- end video -->
+
         
         <script>
-           
-           
-           
+        	
+        	
+        	
         </script>
+        
+        
+        
+        
+        

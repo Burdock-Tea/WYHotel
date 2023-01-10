@@ -263,7 +263,7 @@ public class ReservationController {
 		
 		String resvNum = reserv.getReservationCode();
 		service.cancelRoom(resvNum, session);
-		
+		ra.addFlashAttribute("msg", resvNum);
 		return "redirect:/reservation/myReservations";
 	}
 

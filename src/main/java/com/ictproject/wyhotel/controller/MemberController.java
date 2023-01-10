@@ -1,5 +1,6 @@
 package com.ictproject.wyhotel.controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import com.ictproject.wyhotel.command.MemberVO;
+import com.ictproject.wyhotel.command.MembershipVO;
 import com.ictproject.wyhotel.member.service.IMemberService;
 import com.ictproject.wyhotel.util.MailSendService;
 
@@ -91,6 +93,23 @@ public class MemberController {
 				return "telFail";
 			}
 		*/
+		
+	}
+	
+	//내정보수정 전화번호 중복 체크(정보수정)
+	@ResponseBody
+	@PostMapping("/telCheck2")
+	public String telCheck2(@RequestBody MemberVO vo) {
+		
+		MemberVO member = service.getInfo(vo.getMemberCode());
+		
+		if(member.getTel().equals(vo.getTel())) {
+			return "mytel";
+		} else if (service.telChk(vo.getTel()) == 0) {
+			return "success";
+		} else {
+			return "telFail";
+		}
 		
 	}
 	
@@ -313,7 +332,32 @@ public class MemberController {
 	
 	//멤버쉽 페이지 이동
 	@GetMapping("/memberShip")
-	public void memberShip() {}
+	public String memberShip (HttpSession session,
+							RedirectAttributes ra,
+							Model model) {
+		if(session.getAttribute("member") == null) {
+			ra.addFlashAttribute("msg", "loginAuthFail");
+			return "redirect:/member/login";
+		} else {
+			String memCode = (String)session.getAttribute("member");
+			String isMem = ((String)session.getAttribute("member")).substring(0, 1);
+			if (isMem.equals("1") || isMem.equals("2")) {
+				ra.addFlashAttribute("msg", "loginAuthFail");
+				return "redirect:/member/login";
+			} else {
+				model.addAttribute("info", service.getInfo(memCode));
+				return "member/memberShip";
+			}
+		}
+	}
+	
+	// 멤버십 디테일
+	@ResponseBody
+	@PostMapping("/getMembershipInfo")
+	public MembershipVO getMembershipInfo(@RequestBody String grade) {
+		System.out.println(grade);
+		return service.getMembershipInfo(grade);
+	}
 	
 }
 

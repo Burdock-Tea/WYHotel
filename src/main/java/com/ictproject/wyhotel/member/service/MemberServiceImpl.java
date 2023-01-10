@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ictproject.wyhotel.command.MemberVO;
+import com.ictproject.wyhotel.command.MembershipVO;
 import com.ictproject.wyhotel.member.mapper.IMemberMapper;
 
 @Service
@@ -115,6 +116,12 @@ public class MemberServiceImpl implements IMemberService {
 	@Override
 	public int telChk(String tel) {
 		return mapper.telChk(tel);
+	}
+	
+	@Override
+	public MembershipVO getMembershipInfo(String grade) {
+		
+		return mapper.getMembershipInfo(grade);
 	}
 	
 }
