@@ -156,6 +156,8 @@
         
         .btn { border-radius: 0;}
 
+        .passed {color: #c8c8c8;}
+
 
     </style>
 
@@ -196,21 +198,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                	<c:if test="${roomList.size() > 0}">
+                                	<c:set var="today" value="<%= new java.sql.Timestamp(System.currentTimeMillis()) %>" />
+                                    <fmt:parseDate value="${today}" var="todayPlanDate" pattern="yyyy-MM-dd" />
+                                    <fmt:parseNumber value="${todayPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="today"></fmt:parseNumber>
+                                    <c:if test="${roomList.size() > 0}">
                                     <c:forEach var="reserv" items="${roomList}">
-                                        <tr data-resv-num="${reserv.reservationCode}">
+                                        <fmt:parseDate value="${reserv.checkInDate}" var="strPlanDate" pattern="yyyy-MM-dd"/>
+                                        <fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
+                                        <fmt:parseDate value="${reserv.checkOutDate}" var="endPlanDate" pattern="yyyy-MM-dd"/>
+                                        <fmt:parseNumber value="${endPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
+                                    
+                                        <tr data-resv-num="${reserv.reservationCode}" class="${today - endDate > 0 ? 'passed' : ''}">
                                             <td>${reserv.reservationCode}</td>
                                             <td>${reserv.hotelCode}</td>
                                             <td>${reserv.roomCode}</td>
                                             <td>${reserv.capacity}</td>
-
-                                            <fmt:parseDate value="${reserv.checkInDate}" var="strPlanDate" pattern="yyyy-MM-dd"/>
-                                            <fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
-                                            <fmt:parseDate value="${reserv.checkOutDate}" var="endPlanDate" pattern="yyyy-MM-dd"/>
-                                            <fmt:parseNumber value="${endPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
-                                            
-
-
                                             <td>${endDate - strDate} 박</td>
                                             <td><fmt:formatDate value="${reserv.checkInDate}" pattern="yyyy-MM-dd" /></td>
                                             <td><fmt:formatDate value="${reserv.checkOutDate}" pattern="yyyy-MM-dd" /></td>
@@ -250,7 +252,9 @@
                                 <tbody>
                                 	<c:if test="${diningList.size() > 0}">
                                     <c:forEach var="reserv" items="${diningList}">
-                                    <tr data-resv-num="${reserv.reservationCode}">
+                                    <fmt:parseDate value="${reserv.reservationDate}" var="endPlanDate" pattern="yyyy-MM-dd"/>
+                                    <fmt:parseNumber value="${endPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
+                                    <tr data-resv-num="${reserv.reservationCode}" class="${today - endDate > 0 ? 'passed' : ''}">
                                         <td>${reserv.reservationCode}</td>
                                         <td>${reserv.hotelCode}</td>
                                         <td>${reserv.resCode}</td>
@@ -310,6 +314,9 @@
 
         $(document).ready(function(){
 
+            // 예약 취소버튼 활성, 비활성 여부 처리
+            const today = new Date();
+
             /**
              * 호텔 예약버튼
             */
@@ -343,7 +350,17 @@
                         const nights = (cOutDate - cInDate) / (60*1000*60*24) + '박';
                         $('.hotelForm #nights').val(nights);
 
-                        
+                        const isShow = (today - detail.checkInDate)/(1000*60*60*24);
+                        console.log(isShow);
+                        if (isShow >= 0) {
+                            $('#cancelRoomBtn').addClass('visually-hidden'); 
+                            $('#cancelRoomBtn').attr('disabled', true);
+                        } else {
+                            $('#cancelRoomBtn').removeClass('visually-hidden'); 
+                            $('#cancelRoomBtn').attr('disabled', false);
+                        }
+
+
                         $('.hotelForm').attr('hidden', false);
                         $('.diningForm').attr('hidden', true);
                         $('#reservationModal').modal('show');
@@ -382,6 +399,15 @@
                         $('.diningForm #date').val(resvString);
                         $('.diningForm #reservationTime').val(detail.reservationTime);
 
+                        const isShow = (today-detail.reservationDate)/(1000*60*60*24);
+                        if(isShow > -1) {
+                            $('#cancelDiningBtn').addClass('visually-hidden');
+                            $('#cancelDiningBtn').attr('disabled', true);
+                        } else {
+                            $('#cancelDiningBtn').removeClass('visually-hidden');
+                            $('#cancelDiningBtn').attr('disabled', false);
+                        }
+
                         $('.hotelForm').attr('hidden', true);
                         $('.diningForm').attr('hidden', false);
                         $('#reservationModal').modal('show');    
@@ -392,6 +418,8 @@
 
             });// 다이닝 예약확인 버튼처리 끝
 
+            
+            
             // 다이닝 예약 취소 버튼
             $('#cancelDiningBtn').click(function(){
                 
@@ -404,7 +432,7 @@
 
             // 객실 예약 취소
             $('#cancelRoomBtn').click(function(){
-
+                
                 if(confirm('예약 취소하시겠습니까?')){
                     const resvNum = $('#reservationCode').val();
                     $.ajax({

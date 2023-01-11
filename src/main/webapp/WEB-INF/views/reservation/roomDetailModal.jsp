@@ -5,7 +5,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header position-relative">
-                    <h2 class="room-detail-modal-title">객실 상세정보</h5>
+                    <h2 class="room-detail-modal-title">객실 상세정보</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

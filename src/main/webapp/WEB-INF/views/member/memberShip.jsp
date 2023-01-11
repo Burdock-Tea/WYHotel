@@ -69,7 +69,7 @@
                     </div>
                     <div class="memberShip-introduce">
                         <div class="clearfix memberShip-block">
-                            <div class="float-start memberShip-block-1 pt-5" data-grade="diamond">
+                            <div class="float-start memberShip-block-1 pt-5" data-grade="rank_diamond">
                                 <p class="diamond">DIAMOND</p>
                                 <img src="${pageContext.request.contextPath}/img/rank_diamond.svg" alt="#">
                                 <div class="memberShip-content">
@@ -82,7 +82,7 @@
                                     <p><i>4,500,000</i> <small>KRW</small></p>
                                 </div>
                             </div>
-                            <div class="float-start memberShip-block-2 pt-5" data-grade="gold">
+                            <div class="float-start memberShip-block-2 pt-5" data-grade="rank_gold">
                                 <p class="gold">GOLD</p>
                                 <img src="${pageContext.request.contextPath}/img/rank_gold.svg" alt="#">
                                 <div class="memberShip-content">
@@ -95,7 +95,7 @@
                                     <p><i>3,500,000</i> <small>KRW</small></p>
                                 </div>
                             </div>
-                            <div class="float-start memberShip-block-2 pt-5" data-grade="silver">
+                            <div class="float-start memberShip-block-2 pt-5" data-grade="rank_silver">
                                 <p class="silver">SILVER</p>
                                 <img src="${pageContext.request.contextPath}/img/rank_silver.svg" alt="#">
                                 <div class="memberShip-content">
@@ -108,7 +108,7 @@
                                     <p><i>2,500,000</i> <small>KRW</small></p>
                                 </div>
                             </div>
-                            <div class="float-start memberShip-block-2 pt-5" id="bronzeGrade" data-grade="bronze">
+                            <div class="float-start memberShip-block-2 pt-5" id="bronzeGrade" data-grade="rank_bronze">
                                 <p class="brown">BRONZE</p>
                                 <img src="${pageContext.request.contextPath}/img/rank_bronze.svg" alt="#">
                                 <div class="memberShip-content">
@@ -139,8 +139,8 @@
             let grade = '';
 
             // 모달 열기 이벤트
-            $('.memberShip-block').on('click', 'div', function() {
-                grade = $(this).data('grade');
+            $('.memberShip-block').on('click', 'div[data-grade*=rank]', function() {
+                grade = $(this).data('grade').substring($(this).data('grade').indexOf('_') + 1);
                 $('.detail-main-img > img').attr('src', '${pageContext.request.contextPath}/resources/img/rank_' + grade + '.svg');
                 
                 $.ajax({
@@ -193,7 +193,7 @@
                             orderName: grade.toUpperCase(),
                             customerName: '${info.name}',
                             customerEmail: '${info.email}',
-                            successUrl: 'http://localhost/${pageContext.request.contextPath}/member/membershipPurchase?memberCode=' + '${info.memberCode}',
+                            successUrl: 'http://localhost/${pageContext.request.contextPath}/member/membershipPurchase?memberCode=' + '${info.memberCode}' + '&grade=' + grade,
                             failUrl: 'http://localhost/${pageContext.request.contextPath}/member/memberShip'
                         });
                     }
