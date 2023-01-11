@@ -16,8 +16,9 @@ import java.util.Map;
 public class PapagoAPITest {
 
 	public static void main(String[] args) {
-        String clientId = "DONxUDdIfA7yC2A2BDL1"; // 애플리케이션 클라이언트 아이디값";
-        String clientSecret = "_zpGM_1PUH"; // 애플리케이션 클라이언트 시크릿값";
+		
+        String clientId = "aaa"; // 애플리케이션 클라이언트 아이디값";
+        String clientSecret = "aaa"; // 애플리케이션 클라이언트 시크릿값";
 
         String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
         String text;
