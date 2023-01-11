@@ -96,7 +96,7 @@ public class PromotionServiceImpl implements IPromotionService {
 		
 		list.forEach((promotion) -> {
 			String start = promotion.getStartDate().toString();
-			String end = promotion.getEndDate().toString();		
+			String end = promotion.getEndDate().toString();
 		});
 		
 		return list;
