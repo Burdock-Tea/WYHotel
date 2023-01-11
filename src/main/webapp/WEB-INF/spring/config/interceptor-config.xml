@@ -32,6 +32,8 @@
 			<mvc:mapping path="/member/pwModify"/>
 			<!-- 삭제처리 -->
 			<mvc:mapping path="/member/delete"/>
+			<!-- 프로모션 예약 -->
+			<mvc:mapping path="/promotion/payment"/>
 			<ref bean="userAuthHandler"/>
 		</mvc:interceptor>
 		

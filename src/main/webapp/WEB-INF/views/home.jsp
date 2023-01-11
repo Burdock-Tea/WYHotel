@@ -8,6 +8,18 @@
 	input[name="daterange"] {
             text-align: center;
     }
+    
+    #mainPopup {
+        display: block;
+        position: fixed;
+        border: 5px black solid;
+        width: 400px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background-color: #fff;
+        z-index: 999999;
+    }
 </style>
 
 <section class="main"> <!-- start main -->
@@ -30,11 +42,11 @@
                     </span>
 
                     <div class="main-more">
-                        <a href="#">Show More</a>
+                        <a href="${pageContext.request.contextPath}/introduce/hotels">Show More</a>
                     </div>
-                </div>
-                <div class="guest-room">
-                    <img src="${pageContext.request.contextPath}/img/to-travel-gb2e60ab1c_1920.jpg" alt="#">
+	                <div class="guest-room">
+	                    <img src="${pageContext.request.contextPath}/img/to-travel-gb2e60ab1c_1920.jpg" alt="#">
+	                </div>
                 </div>
                 <hr>
                 <div class="main-dining-content">
@@ -47,15 +59,32 @@
                        	 오늘의 미식가들을 만족시킬 새롭고 독창적인 파인 다이닝 문화가 펼쳐집니다.
                     </span>
                     <div class="main-more">
-                        <a href="#">Show More</a>
+                        <a href="${pageContext.request.contextPath}/reservation/reservationPage">Show More</a>
                     </div>
-                </div>
-                <div class="dining-1">
-                    <img src="${pageContext.request.contextPath}/img/hotel-g080e39db0_1920.jpg" alt="#">
+                	<div class="dining-1">
+                    	<img src="${pageContext.request.contextPath}/img/hotel-g080e39db0_1920.jpg" alt="#">
+                	</div>
                 </div>
             </div>
         </div>
         
+        <div id="mainPopup" class="mainPopup" style="display: none;">
+            <div class="logo-wrapper mx-2 my-2">
+                <img src="${pageContext.request.contextPath}/img/chrome_logo.svg" alt="#">
+            </div>
+            <br>
+            <div class="popupContent text-center">
+	            <p>
+	                이 페이지는 크롬 브라우저로 최적화가 되어 있습니다.
+	            </p>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input ms-1" type="checkbox" value="" id="noShow">
+                <label class="form-check-label" for="noShow">
+                  오늘 하루 그만 보기
+                </label>
+            </div>
+        </div>
     
         <hr>
         <div class="container wrapper promotion"><!-- start promotion -->
@@ -67,96 +96,19 @@
             </span>
             <div class="swiper mySwiper" style="margin-top: 50px;">
                 <div class="swiper-wrapper">
+                	<!-- swiper 내 프로모션 배치 시작 -->
+                	<c:forEach items="${ promotionList }" var="list">
                     <div class="swiper-slide">
                         <div class="card" style="width: 22rem;">
-                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
+                            <img src="${pageContext.request.contextPath}/promotion/display?fileLocation=${ list.fileLocation }&fileName=${ list.fileName }" class="card-img-top" alt="...">
                             <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                              <h5 class="card-title">${ list.promotionName }</h5>
+                              <p class="card-text">${ list.promotionContent }</p>                              
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide">
-                        <div class="card" style="width: 22rem;">
-                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card" style="width: 22rem;">
-                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card" style="width: 22rem;">
-                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card" style="width: 22rem;">
-                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card" style="width: 22rem;">
-                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card" style="width: 22rem;">
-                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card" style="width: 22rem;">
-                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card" style="width: 22rem;">
-                            <img src="${pageContext.request.contextPath}/img/apartment-g219363a2e_1920.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
+                    <!-- swiper 내 프로모션 배치 끝 -->
                 </div>
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>            
@@ -166,6 +118,7 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script src="${ pageContext.request.contextPath }/js/js.cookie.min.js"></script>
     <script>
     
     	const msg = '${msg}';
@@ -176,7 +129,7 @@
         var swiper = new Swiper(".mySwiper", {
             slidesPerView: 3,
             spaceBetween: 30,
-            slidesPerGroup: '${promotionList.size()}'/3,
+            slidesPerGroup: 3,
             loop: true,
             loopFillGroupWithBlank: true,
             pagination: {
@@ -189,8 +142,51 @@
             },
         });
 
+        function isBrowserCheck(){ 
+        	const agent = window.navigator.userAgent.toLowerCase();
+    		let browserName;
+    		switch (true) {
+    			case agent.indexOf("edge") > -1: 
+    				browserName = "MS Edge"; // MS 엣지
+    				break;
+    			case agent.indexOf("edg/") > -1: 
+    				browserName = "Edge (chromium based)"; // 크롬 기반 엣지
+    				break;
+    			case agent.indexOf("opr") > -1 && !!window.opr: 
+    				browserName = "Opera"; // 오페라
+    				break;
+    			case agent.indexOf("chrome") > -1 && !!window.chrome: 
+    				browserName = "Chrome"; // 크롬
+    				break;
+    			case agent.indexOf("trident") > -1: 
+    				browserName = "MS IE"; // 익스플로러
+    				break;
+    			case agent.indexOf("firefox") > -1: 
+    				browserName = "Mozilla Firefox"; // 파이어 폭스
+    				break;
+    			case agent.indexOf("safari") > -1: 
+    				browserName = "Safari"; // 사파리
+    				break;
+    			default: 
+    				browserName = "other"; // 기타
+    		}
+    		return browserName;
+        }
+
      	// jQuery 시작
         $(function() {
+        	
+        	if(isBrowserCheck() !== 'Chrome') {
+        		if(Cookies.get('popupNoShow') !== 'true') {
+        			$('#mainPopup').css('display', 'block')
+        		}
+        	}
+        	
+        	$('#noShow').change(function() {
+        		// 쿠키 생성 및 팝업창 diplay none으로
+        		$('#mainPopup').css('display', 'none');
+        		Cookies.set('popupNoShow', 'true', { expires: 1 });
+        	});
 
             const today = new Date();
             let month = today.getMonth() + 1;
@@ -308,8 +304,11 @@
 
 
         }); // jQuery 종료
+<<<<<<< HEAD
+        
+=======
 
-
+>>>>>>> 0d4d2e1fbd3c94da05aa6cc5f456e885557a5642
     </script>
 
 	<%@ include file="./include/footwo.jsp" %> 

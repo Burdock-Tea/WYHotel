@@ -36,8 +36,8 @@
         <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 	    
     </head>
-    <body> 
-       
+    <body>
+     
        <header> <!-- start header -->
             <div class="header-wrapper">
                 <div class="contatiner" style="text-align: center;">
@@ -131,6 +131,7 @@
                 </div>
             </div>
         </nav> <!-- end navbar-->
+
 	    <div class="full-screen">
 	        <div class="wrapper"> <!-- start video -->
 	            <section class="hero">
@@ -138,11 +139,11 @@
 	            </section> 
 	        </div>
 	    </div> <!-- end video -->
-
+       
         
         <script>
         	
-        	
+     
         	
         </script>
         
