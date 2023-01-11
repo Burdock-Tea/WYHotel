@@ -42,11 +42,11 @@
                     </span>
 
                     <div class="main-more">
-                        <a href="#">Show More</a>
+                        <a href="${pageContext.request.contextPath}/introduce/hotels">Show More</a>
                     </div>
-                </div>
-                <div class="guest-room">
-                    <img src="${pageContext.request.contextPath}/img/to-travel-gb2e60ab1c_1920.jpg" alt="#">
+	                <div class="guest-room">
+	                    <img src="${pageContext.request.contextPath}/img/to-travel-gb2e60ab1c_1920.jpg" alt="#">
+	                </div>
                 </div>
                 <hr>
                 <div class="main-dining-content">
@@ -59,11 +59,11 @@
                        	 오늘의 미식가들을 만족시킬 새롭고 독창적인 파인 다이닝 문화가 펼쳐집니다.
                     </span>
                     <div class="main-more">
-                        <a href="#">Show More</a>
+                        <a href="${pageContext.request.contextPath}/reservation/reservationPage">Show More</a>
                     </div>
-                </div>
-                <div class="dining-1">
-                    <img src="${pageContext.request.contextPath}/img/hotel-g080e39db0_1920.jpg" alt="#">
+                	<div class="dining-1">
+                    	<img src="${pageContext.request.contextPath}/img/hotel-g080e39db0_1920.jpg" alt="#">
+                	</div>
                 </div>
             </div>
         </div>
@@ -304,7 +304,11 @@
 
 
         }); // jQuery 종료
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 0d4d2e1fbd3c94da05aa6cc5f456e885557a5642
     </script>
 
 	<%@ include file="./include/footwo.jsp" %> 

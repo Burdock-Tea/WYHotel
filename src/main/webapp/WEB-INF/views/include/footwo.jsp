@@ -149,7 +149,7 @@ footer .footer-div {
                         </div>
                     </div>
                         <div class="logo-img col-4 clearfix">
-                            <img src="./img/logo.svg" width="150">
+                            <a href="${pageContext.request.contextPath}/"><img src="./img/logo.svg" width="150"></a>
                         </div>
                 	</div>
                </div>
