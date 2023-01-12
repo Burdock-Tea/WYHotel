@@ -5,15 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ictproject.wyhotel.command.PromotionReservationVO;
-import com.ictproject.wyhotel.command.PromotionUploadVO;
-import com.ictproject.wyhotel.command.PromotionVO;
-import com.ictproject.wyhotel.command.ReservationVO;
+
 import com.ictproject.wyhotel.command.ReviewVO;
-import com.ictproject.wyhotel.promotion.mapper.IPromotionMapper;
 import com.ictproject.wyhotel.review.mapper.IReviewMapper;
-import lombok.extern.log4j.Log4j;
-import oracle.sql.DATE;
 
 @Service
 public class ReviewServiceImpl implements IReviewService {
@@ -29,8 +23,8 @@ public class ReviewServiceImpl implements IReviewService {
 
 	// 리뷰 목록 요청
 	@Override
-	public List<ReviewVO> getList(int bno, int pageNum){
-		return null;
+	public List<ReviewVO> getList(){
+		return mapper.getList();
 	}
 	
 	// 리뷰 갯수

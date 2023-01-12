@@ -17,4 +17,9 @@ public class ReviewVO {
 	private Timestamp regDate;  
 	private Timestamp modifyDate; 
 	private int grade; 
+	
+	private String reservationCode;
+	private String hotelCode;
+	private String roomCode;
+	private String name;
 }

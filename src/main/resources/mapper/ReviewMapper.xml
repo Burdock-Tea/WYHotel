@@ -20,7 +20,13 @@
 	</insert>
 
 	<select id="getList" resultMap="reviewMap">
-
+        SELECT rb.*, rr.hotel_code, rr.room_code, m.name
+        FROM
+        review_board rb LEFT JOIN room_reservation rr 
+        ON rb.reservation_code = rr.reservation_code
+        LEFT JOIN members m
+        ON rr.member_code = m.member_code
+        ORDER BY rb.bno DESC
 	</select>
 
 	<select id="getTotal" resultType="int">
