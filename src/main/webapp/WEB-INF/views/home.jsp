@@ -42,11 +42,11 @@
                     </span>
 
                     <div class="main-more">
-                        <a href="${pageContext.request.contextPath}/introduce/hotels">Show More</a>
+                        <a href="#">Show More</a>
                     </div>
-	                <div class="guest-room">
-	                    <img src="${pageContext.request.contextPath}/img/to-travel-gb2e60ab1c_1920.jpg" alt="#">
-	                </div>
+                </div>
+                <div class="guest-room">
+                    <img src="${pageContext.request.contextPath}/img/to-travel-gb2e60ab1c_1920.jpg" alt="#">
                 </div>
                 <hr>
                 <div class="main-dining-content">
@@ -59,11 +59,11 @@
                        	 오늘의 미식가들을 만족시킬 새롭고 독창적인 파인 다이닝 문화가 펼쳐집니다.
                     </span>
                     <div class="main-more">
-                        <a href="${pageContext.request.contextPath}/reservation/reservationPage">Show More</a>
+                        <a href="#">Show More</a>
                     </div>
-                	<div class="dining-1">
-                    	<img src="${pageContext.request.contextPath}/img/hotel-g080e39db0_1920.jpg" alt="#">
-                	</div>
+                </div>
+                <div class="dining-1">
+                    <img src="${pageContext.request.contextPath}/img/hotel-g080e39db0_1920.jpg" alt="#">
                 </div>
             </div>
         </div>
@@ -74,15 +74,14 @@
             </div>
             <br>
             <div class="popupContent text-center">
-	            <p>
-	                이 페이지는 크롬 브라우저로 최적화가 되어 있습니다.
-	            </p>
+	            <p>이 페이지는 크롬 브라우저로 최적화가 되어 있습니다.</p>
+            </div>
+            <div class="text-center mb-3">
+                <button class="btn btn-primary" onclick="window.open('https://www.google.co.kr/chrome')">Chrome Download</button>
             </div>
             <div class="form-check">
                 <input class="form-check-input ms-1" type="checkbox" value="" id="noShow">
-                <label class="form-check-label" for="noShow">
-                  오늘 하루 그만 보기
-                </label>
+                <label class="form-check-label" for="noShow">오늘 하루 그만 보기</label>
             </div>
         </div>
     
@@ -118,7 +117,7 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-<script src="${ pageContext.request.contextPath }/js/js.cookie.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/js.cookie.min.js"></script>
     <script>
     
     	const msg = '${msg}';
@@ -176,17 +175,49 @@
      	// jQuery 시작
         $(function() {
         	
+        	// 브라우저 체크, 크롬 브라우저가 아닐 시 해당 로직 실행
         	if(isBrowserCheck() !== 'Chrome') {
-        		if(Cookies.get('popupNoShow') !== 'true') {
-        			$('#mainPopup').css('display', 'block')
-        		}
+        		
+                if(Cookies.get('noPopup') !== 'true') { // 쿠키가 없니?
+
+                    // 만약 언어가 한국이 아니면, 비동기 통신 시작   
+                    if(window.navigator.language !== 'ko') {
+
+                        const message = $('.popupContent > p').text();
+                        const language = window.navigator.language;                    
+                        
+                        console.log(message);
+                        console.log(language);                    
+
+                        const data = {
+                            'message': message,
+                            'language': language
+                        }
+
+                        $.ajax({
+                            type: 'post',
+                            url: '${pageContext.request.contextPath}/translate',
+                            data: JSON.stringify(data),
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (response) {                        	
+                                console.log(response.message.result.translatedText);
+                                $('.popupContent > p').text(response.message.result.translatedText);
+                            }
+                        });
+                    }
+                    
+                    $('#mainPopup').css('display', 'block');
+                }
+
         	}
-        	
-        	$('#noShow').change(function() {
-        		// 쿠키 생성 및 팝업창 diplay none으로
-        		$('#mainPopup').css('display', 'none');
-        		Cookies.set('popupNoShow', 'true', { expires: 1 });
-        	});
+
+            // 팝업창 체크박스 클릭시 쿠키 생성 및 팝업창 숨겨주기
+            $('#noShow').change(function () {
+                if($('#noShow').is(':checked')) {
+                    Cookies.set('noPopup', 'true', { expires: 1 });
+                    $('#mainPopup').css('display', 'none');
+                }
+            });
 
             const today = new Date();
             let month = today.getMonth() + 1;
@@ -304,11 +335,7 @@
 
 
         }); // jQuery 종료
-<<<<<<< HEAD
         
-=======
-
->>>>>>> 0d4d2e1fbd3c94da05aa6cc5f456e885557a5642
     </script>
 
 	<%@ include file="./include/footwo.jsp" %> 
