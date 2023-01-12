@@ -124,7 +124,8 @@
                                    관리자페이지
                                </a>
                                <ul class="dropdown-menu">
-                                   <li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin/member">회원관리</a></li>                                   
+                                   <li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin/member">회원관리</a></li>
+                                   <li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin/question">문의내역</a></li>
                                </ul>
                            </li>
                         </c:if>
