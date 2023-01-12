@@ -22,8 +22,8 @@
                 <ul class="list-group">
                     <li class="list-group"><h4>고객센터</h4></li>
                     <hr>
-                    <li class="list-group-item"> <a href="${pageContext.request.contextPath}/cscenter/customer" class="text-secondary">문의 하기</a></li>
                     <li class="list-group-item"> <a href="${pageContext.request.contextPath}/cscenter/faq" class="text-secondary">FAQ</a></li>
+                    <li class="list-group-item"> <a href="${pageContext.request.contextPath}/cscenter/customer" class="text-secondary">문의 하기</a></li>
                 </ul>
             </div>
 
@@ -53,7 +53,7 @@
                     <!-- 이메일 로그인시 비활성화 하면 될덧 -->
                     <div class="form-group">
                         <label for="exampleInputEmail1" class="form-label mt-4">이메일</label>
-                        <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                        <input type="email" name="email" class="form-control"  id="email" aria-describedby="emailHelp" placeholder="Enter email">
                     </div>
                     
                     <!-- 전화번호 -->
