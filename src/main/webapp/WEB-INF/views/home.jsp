@@ -325,8 +325,75 @@
 
             // reservBtn 클릭 이벤트
             $('#reservBtn').click(function(){
-                $('#reservForm').submit();
+                // 입력값 검증
+                rangeCheck(e);
+                if (document.reservForm.category.value === '호텔 / 다이닝 선택') {
+                    alert('호텔 또는 다이닝을 선택해주세요');
+                    document.reservForm.category.focus();
+                } else if (document.reservForm.hotelCode.value === '지점선택') {
+                    alert('지점을 선택해주세요');
+                    document.reservForm.hotelCode.focus();
+                } else if (document.reservForm.capacity.value === '인원수') {
+                    alert('인원수를 선택해주세요');
+                    document.reservForm.capacity.focus();
+                } else if (document.reservForm.category.value === 'dinings' && document.reservForm.reservationTime.value === '시간선택') {
+                    alert('다이닝 예약시간을 선택해주세요');
+                    document.reservForm.reservationTime.focus();
+                } else {
+                    document.reservForm.submit();
+                }
             });
+
+		    // dateRange 직접 수정 막는 로직
+			$('#daterange').keydown(function(e){
+                e.preventDefault();
+                alert('달력을 통해 날짜를 선택 해주세요');
+            });
+
+            function rangeCheck(e){
+                const inp = $('#daterange').val();
+                if ($('#category').val() === 'hotels') {
+                    const start = inp.substring(0, inp.indexOf('-') - 1);
+                    const end = inp.substring(inp.indexOf('-') + 1);
+                    const startClean = (start.substring(start.lastIndexOf('/') + 1) + '/' + start.substring(0, start.lastIndexOf('/'))).replaceAll('/', '-');
+                    const endClean = (end.substring(end.lastIndexOf('/') + 1) + '/' + end.substring(0, end.lastIndexOf('/'))).replaceAll('/', '-');
+
+                    const sDate = new Date(startClean);
+                    const eDate = new Date(endClean);
+                    const truncDate = new Date(Math.trunc(today/(1000*60*60*24)) * (1000*60*60*24));
+                    let basicStart = truncDate.toISOString().substring(0, 10);
+                    let basicEnd = (new Date(truncDate.getTime() + (1000*60*60*24))).toISOString().substring(0, 10);
+
+                    basicStart = (basicStart.substring(basicStart.indexOf('-') + 1) + '-' + basicStart.substring(0, basicStart.indexOf('-'))).replaceAll('-', '/');
+                    basicEnd = (basicEnd.substring(basicEnd.indexOf('-') + 1) + '-' + basicEnd.substring(0, basicEnd.indexOf('-'))).replaceAll('-', '/');
+
+                    if (truncDate - sDate > 0) {
+                        alert('오늘 이후 날짜만 선택 가능합니다.');
+                        if (truncDate - eDate > 0) {
+                            $('#daterange').val(basicStart + ' - ' + basicEnd);
+                        } else {
+                            $('#daterange').val(basicStart + ' - ' + end);
+                        }
+                        e.preventDefault();
+                    } 
+
+                } else if ($('#category').val() === 'dinings') {
+                    const inpClean = (inp.substring(inp.lastIndexOf('/') + 1) + '/' + inp.substring(0, inp.lastIndexOf('/'))).replaceAll('/', '-');
+                    const iDate = new Date(inpClean);
+                    const truncDate = new Date(Math.trunc(today/(1000*60*60*24)) * (1000*60*60*24) + (1000*60*60*24));
+                    let basicDate = truncDate.toISOString().substring(0, 10);
+                    basicDate = (basicDate.substring(basicDate.indexOf('-') + 1) + '-' + basicDate.substring(0, basicDate.indexOf('-'))).replaceAll('-', '/');
+                    if (truncDate - iDate > 0) {
+                        alert('다이닝은 하루 전에만 예약 가능합니다.');
+                        $('#daterange').val(basicDate);
+                    }
+                }
+            }
+
+
+            $('#daterange').change(rangeCheck); 
+            
+            // dateRange 입력값 검증 끝
 
 
         }); // jQuery 종료
