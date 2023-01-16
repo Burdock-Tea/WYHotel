@@ -81,5 +81,12 @@ public class AdminController {
 		
 		return "redirect:/admin/member";
 	}
+	
+	// 관리자 문의내역 페이지로 이동
+	@GetMapping("/question")
+	public String qusetionPage() {
+		return "/admin/question";
+	}
+	
 
 }

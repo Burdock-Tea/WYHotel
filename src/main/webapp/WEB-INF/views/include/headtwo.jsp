@@ -36,8 +36,8 @@
         <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 	    
     </head>
-    <body> 
-       
+    <body>
+     
        <header> <!-- start header -->
             <div class="header-wrapper">
                 <div class="contatiner" style="text-align: center;">
@@ -80,7 +80,7 @@
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                        <li class="nav-item">
-                            <a class="nav-link" href="${ pageContext.request.contextPath }/board/list">후기게시판</a>
+                            <a class="nav-link" href="${ pageContext.request.contextPath }/review/review">후기게시판</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -131,6 +131,7 @@
                 </div>
             </div>
         </nav> <!-- end navbar-->
+
 	    <div class="full-screen">
 	        <div class="wrapper"> <!-- start video -->
 	            <section class="hero">
@@ -138,11 +139,11 @@
 	            </section> 
 	        </div>
 	    </div> <!-- end video -->
-
+       
         
         <script>
         	
-        	
+     
         	
         </script>
         
