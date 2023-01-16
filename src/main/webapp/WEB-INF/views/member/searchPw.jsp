@@ -65,7 +65,7 @@
 
                         <div class="joinButton col-12">
                             <button type="button" class="btn btn-light col-6 clearfix" style="float: left;" onclick="${pageContext.request.contextPath}/">취소</button>
-                            <button type="button" id="searchPw" class="btn btn-dark col-6 clearfix" style="float: left;">비밀번호 찾기</button>
+                            <button type="button" id="searchPw" class="btn btn-dark col-6 clearfix" style="float: left;">비밀번호 수정</button>
                         </div>
                     </form>
                 </div>
@@ -88,7 +88,7 @@
     			/*test메서드를 통해 비교하며, 매칭되면 true, 아니면 false반*/
     			var regex =/[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]$/i;
     			if (regex.test(document.getElementById("inputEmail").value)) {
-    				document.getElementById("inputEmail").style.borderColor = "green";
+    				document.getElementById("inputEmail").style.borderColor = "black";
     				$('#mailMsg').html('');
     				$('#mail-check').attr('disabled', false);
     			} else {
@@ -104,7 +104,7 @@
     		pw.onkeyup = function() {
     			var regex = /^[A-Za-z0-9+]{8,16}$/;
     			if(regex.test(document.getElementById('newPw').value)) {
-    				document.getElementById('newPw').style.borderColor = "green";
+    				document.getElementById('newPw').style.borderColor = "black";
     				$('#pwMsg').html('');
     			} else {
     				document.getElementById('newPw').style.borderColor = "red";
@@ -131,7 +131,7 @@
     				$('#newPw').focus();
     				return;
     			}
-    			if($('#mail-check').attr('disabled')) {
+    			if(!$('#mail-check').attr('disabled')) {
     				alert('이메일 양식을 확인해 주세요.');
     				$('#email').focus();
     				return;

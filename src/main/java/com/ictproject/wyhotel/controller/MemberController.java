@@ -138,8 +138,9 @@ public class MemberController {
 	} //이메일 인증 끝
 	
 	/**
-	 * 작성일 : 22/12/29
+	 * 수정일 : 23/01/16
 	 * 작성자 : 이준희
+	 * 이름값을 담은 세션(memberName) 생성
 	 */
 	
 	// 로그인 처리
@@ -155,6 +156,7 @@ public class MemberController {
 				//로그인 성공 회원을 대상으로 세션 정보를 생성
 				session.setAttribute("member", dbData.getMemberCode());
 				session.setAttribute("admin", dbData.isAdmin());
+				session.setAttribute("memberName", dbData.getName());
 				
 				System.out.println(session.getId());
 				long limitTime = 60 * 60 * 24 * 90;
@@ -196,6 +198,11 @@ public class MemberController {
 		
 	}
 	
+	/**
+	 * 수정일 : 23/01/16
+	 * 작성자 : 이준희
+	 * 이름값을 담은 세션(memberName) 제거
+	 */
 	// 로그아웃 처리
 	@GetMapping("/logout")
 	public ModelAndView logout(HttpSession session, RedirectAttributes ra, 
@@ -204,6 +211,7 @@ public class MemberController {
 		String memeCode = (String) session.getAttribute("member");
 		session.removeAttribute("member");
 		session.removeAttribute("admin");
+		session.removeAttribute("memberName");
 		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 		
 		

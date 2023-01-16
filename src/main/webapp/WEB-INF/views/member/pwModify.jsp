@@ -66,7 +66,7 @@
 		pw.onkeyup = function() {
 			var regex = /^[A-Za-z0-9+]{8,16}$/;
 			if(regex.test(document.getElementById('newPw').value)) {
-				document.getElementById('newPw').style.borderColor = "green";
+				document.getElementById('newPw').style.borderColor = "black";
 				$('#pwMsg').html('');
 			} else {
 				document.getElementById('newPw').style.borderColor = "red";
