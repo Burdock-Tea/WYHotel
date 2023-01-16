@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper	namespace="com.ictproject.wyhotel.review.mapper.IReviewMapper">
+
+	<resultMap type="review" id="reviewMap">
+		<result property="bno" column="BNO" />
+		<result property="memberCode" column="MEMBER_CODE" />
+		<result property="content" column="CONTENT" />
+		<result property="regDate" column="REG_DATE" />
+		<result property="modifyDate" column="MODIFY_DATE" />
+		<result property="grade" column="GRADE" />
+		<result property="hotelCode" column="HOTEL_CODE" />
+		<result property="roomCode" column="ROOM_CODE" />
+		<result property="reservationCode" column="RESERVATION_CODE" />
+	</resultMap>
+
+	<insert id="replyRegist">
+		INSERT INTO review_board(bno, member_code, content, grade, reservation_code) 
+		VALUES(review_board_seq.NEXTVAL, #{memberCode}, #{content}, #{grade}, #{reservationCode})
+	</insert>
+
+	<select id="getList" resultMap="reviewMap">
+        SELECT rb.*, rr.hotel_code, rr.room_code, m.name
+        FROM
+        review_board rb LEFT JOIN room_reservation rr 
+        ON rb.reservation_code = rr.reservation_code
+        LEFT JOIN members m
+        ON rr.member_code = m.member_code
+        ORDER BY rb.bno DESC
+	</select>
+
+	<select id="regMemberChk" resultMap="reviewMap">
+		SELECT * FROM room_reservation 
+		WHERE MEMBER_CODE = #{memberCode} 
+		AND HOTEL_CODE = #{hotelCode} 
+		AND ROOM_CODE = #{roomCode} 
+		ORDER BY RESERVATION_CODE DESC 
+	</select>
+
+	<!-- <select id="getTotal" resultType="int">
+
+	</select> -->
+
+	<update id="update">
+		UPDATE review_board SET 
+		content = #{updateContent},
+		modify_date = sysdate
+		WHERE bno = #{bno} 
+	</update>
+	
+	<select id="getUpdateAuthMember" resultType="String">
+		SELECT MEMBER_CODE FROM review_board 
+		WHERE BNO = #{bno}
+	</select>
+	
+	
+
+	<delete id="delete">
+
+	</delete>
+
+</mapper>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

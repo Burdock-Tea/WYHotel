@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ 
+ <configuration>
+ 
+ 	<settings>
+	 	<!--
+	 		MyBatis에서 쿼리에 매핑되는 #{} 파라미터에 NULL이 들어가면 에러가 발생합니다.
+	 		value에는 전달할 값이 null일 경우에 처리할 값을 지정하면
+	 		그 값으로 데이터베이스에 값이 세팅됩니다.
+	 	-->
+ 		<setting name="jdbcTypeForNull" value="NULL"/>
+ 		<!--
+ 			데이터베이스로부터의 응답을 얼마나 오래 기다릴지를 판단하는 타임아웃을 설정.
+ 			value값은 밀리초값. 
+ 		 -->
+ 		<setting name="defaultStatementTimeout" value="3000"/> 		
+ 		<setting name="mapUnderscoreToCamelCase" value="true"/>
+ 	</settings>
+ 	
+ 	<typeAliases>
+ 		<typeAlias type="com.ictproject.wyhotel.command.MemberVO" alias="member"/> 		
+ 		<typeAlias type="com.ictproject.wyhotel.command.RoomReservationVO" alias="roomReserv"/> 		
+ 		<typeAlias type="com.ictproject.wyhotel.command.DiningReservationVO" alias="diningReserv"/> 		
+ 		<typeAlias type="com.ictproject.wyhotel.command.RoomVO" alias="room"/>
+ 		<typeAlias type="com.ictproject.wyhotel.command.DiningVO" alias="dining"/>
+ 		<typeAlias type="com.ictproject.wyhotel.command.PromotionVO" alias="promotion"/>
+ 		<typeAlias type="com.ictproject.wyhotel.command.MembershipVO" alias="membership"/>
+ 		<typeAlias type="com.ictproject.wyhotel.command.ReviewVO" alias="review"/>
+ 	</typeAliases>
+ 	
+ 	<!--
+ 		인터페이스 mapper 구현체 xml 파일의 경로를 표시하는 태그.
+ 		우리는 SqlSessionFactoryBean을 등록할 때 이미 지정했기 때문에
+ 		추가로 작성할 필요는 없습니다.
+ 	-->
+ 	<!-- <mappers>
+ 		<mapper resource="classpath:/mapper/*.xml"/>
+ 	</mappers> -->	
+ 
+ </configuration>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="com.ictproject.wyhotel.member.mapper.IMemberMapper">
+    	
+    	<!-- 회원가입 -->
+   		<insert id="join">
+	  		INSERT INTO members
+	  		VALUES (mem_code_seq.NEXTVAL,#{email},#{password},#{name},#{tel},
+	  		#{zipCode},#{addrBasic},#{addrDetail}, default, null, null, default, default, null, default)
+  		</insert>
+  	
+  		<!-- 이메일 중복 체크 -->
+  		<select id="idcheck" resultType="int">
+		  	SELECT COUNT(*) FROM members
+			WHERE email = #{email} 
+	  	</select>
+
+    	<!-- 전화번호 중복 체크 -->
+    	<select id="telChk" resultType="int">
+    		SELECT COUNT(*) FROM members
+    		WHERE tel = #{tel}
+    	</select>
+    	
+    	<!-- 로그인 처리 -->
+    	<select id="login" resultType="member">
+    		SELECT * FROM members
+    		WHERE email = #{email}
+    	</select>
+    	
+    	<!-- 비밀번호 확인 처리 -->
+    	<select id="pwChk" resultType="String">
+    		SELECT password FROM members
+    		WHERE email = #{email}
+    	</select>
+    	
+    	<!-- 이메일 가져오기 -->
+    	<select id="getEmail" resultType="String">
+    		SELECT email FROM members
+    		WHERE member_code = #{memberCode}
+    	</select>
+    	
+    	<!-- 정보 가져오기 -->
+    	<select id="getInfo" resultType="member">
+    		SELECT * FROM members
+    		WHERE member_code = #{memberCode}
+    	</select>
+    	
+    	<!-- 이메일, 이름, 번호 수정 -->
+    	<update id="modify">
+    		UPDATE members SET
+	  		email = #{email}, name = #{name}, tel = #{tel}
+	  		WHERE member_code = #{memberCode}
+    	</update>
+    	
+    	<!-- 비밀번호 수정 -->
+    	<update id="pwModify">
+    		UPDATE members SET
+    		password = #{password}
+    		WHERE member_code = #{memberCode}
+    	</update>
+    	
+    	<!-- 회원 삭제 -->
+    	<delete id="delete">
+    		DELETE FROM members
+    		WHERE member_code = #{memberCode}
+    	</delete>
+    	
+    	<!-- 아이디 찾기 -->
+    	<select id="searchId" resultType="String">
+    		SELECT email FROM members
+    		WHERE name = #{name}
+    		AND tel = #{tel}
+    	</select>
+    	
+    	<!-- 비밀번호 수정(비로그인) -->
+    	<update id="newPw">
+    		UPDATE members SET
+    		password = #{password}
+    		WHERE email = #{email}
+    	</update>
+    	
+    	<!-- 자동 로그인을 체크한 경우 쿠키값(세션 아이디)과 유효시간을 갱신 -->
+    	<update id="keepLogin">
+    		UPDATE members
+    		SET session_id = #{sessionId}, 
+    		limit_date = #{limitDate} 
+    		WHERE email = #{email}
+    	</update>
+    	
+    	<!-- 자동 로그인을 신청했던 회원이 다시 사이트에 방문 시 로컬에 저장된 쿠키값(세션ID)과 일치하는 회원의 모든정보를 조회하는 SQL문 -->
+    	<select id="getMemberWithSessionId" resultType="member">
+    		SELECT * FROM members 
+    		WHERE session_id = #{sessionId}
+    	</select>
+    	
+    	
+    	<!-- 
+  		/**
+		 *	작 성 자 : 백 건 욱
+		 *	작 성 일 : 2023-01-09
+		 *	내     용 : 멤버십 관련 메소드 추가
+		 * */
+    	-->
+    	<select id="getMembershipInfo" resultType="membership">
+    		SELECT * FROM memberships
+    		WHERE grade = #{grade}
+    	</select>
+    	
+    	<update id="updateMembership">
+    		UPDATE members
+    		SET grade = #{member.grade}, membership_purchase_day = sysdate, membership_payment_key = #{purchaseKey}
+    		WHERE member_code = #{member.memberCode}
+    	</update>
+    	
+    	<update id="accumulatePoint">
+    		UPDATE members
+    		SET point = point + #{pointAccumulate}
+    		WHERE member_code = #{memberCode}
+    	</update>
+    	
+    </mapper>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
