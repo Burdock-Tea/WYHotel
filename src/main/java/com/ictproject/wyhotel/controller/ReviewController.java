@@ -35,19 +35,11 @@ public class ReviewController {
 	@Autowired
 	private IReviewService service;
 	
-//	@Autowired
 //	private IMemberService mService;
 	
 //	@Autowired
 //	private IReservationService rService;
 	
-	@GetMapping("/review")
-	public void reviewPage(Model model) {
-//		String memberCode = (String)session.getAttribute("member");
-//		String isMem = memberCode.substring(0, 1);
-//		
-//		MemberVO member = new MemberVO();
-//		if (isMem.equals("1") || isMem.equals("2")) {
 //			member = rService.getInfo(memberCode); // 예약한 비회원 정보 조회
 //		} else {
 //			member = mService.getInfo(memberCode); // 회원정보 조회
@@ -63,7 +55,6 @@ public class ReviewController {
 	@PostMapping("/reviewRegist")
  	public String reviewRegist(@RequestBody ReviewVO vo, HttpSession session){
 		
-		System.out.println("☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆vo : " + vo + "☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆" );
 		
 		List<ReviewVO> list = null;
 		list = service.regMemberChk(vo);
@@ -120,4 +111,3 @@ public class ReviewController {
 	
 
 
-}

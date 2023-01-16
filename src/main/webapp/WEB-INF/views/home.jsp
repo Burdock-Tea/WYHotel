@@ -304,7 +304,7 @@
 
 
         }); // jQuery 종료
-
+        
     </script>
 
 	<%@ include file="./include/footwo.jsp" %> 
