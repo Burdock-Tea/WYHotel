@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ictproject.wyhotel.admin.mapper.IAdminMapper;
 import com.ictproject.wyhotel.command.MemberVO;
+import com.ictproject.wyhotel.command.QuestionVO;
 import com.ictproject.wyhotel.util.MailSendService;
 import com.ictproject.wyhotel.util.paging.PageCreator;
 import com.ictproject.wyhotel.util.paging.PageVO;
@@ -37,7 +38,7 @@ public class AdminServiceImpl implements IAdminService {
 	}
 	
 	@Override
-	public MemberVO getMemberInfo(String memberCode) {		
+	public MemberVO getMemberInfo(String memberCode) {	
 		return mapper.getMemberInfo(memberCode);
 	}
 	
@@ -61,6 +62,39 @@ public class AdminServiceImpl implements IAdminService {
 		member.setPassword(encoder.encode(tempPassword));
 		
 		mapper.updateTempPassword(member);
+	}
+	
+	// 문의내역 관련 서비스
+	// 문의내역 리스트 가져오기
+	@Override
+	public List<QuestionVO> getQuestionList() {	
+		
+		return mapper.getQuestionList();
+		
+	}
+	
+	// 문의내역 하나 가져오기
+	@Override
+	public QuestionVO getQuestion(String questionCode) {
+		return mapper.getQuestion(questionCode);
+	}
+	
+	// 메일도 보내고, DB에 값 수정 진행해야함!
+	@Override
+	public boolean replyQuestion(QuestionVO question) {
+		// 완전체 VO 세팅 (메일에 필요한 내용이니까 왠만해서는 다 가지자
+		QuestionVO vo = mapper.getQuestion(question.getQuestionCode());
+		vo.setQuestionAnswer(question.getQuestionAnswer());
+		
+		// 메일이 정상적으로 보내졌으면 true 리턴
+		if(mailService.sendQuestionReply(vo)) {
+			mapper.updateQuestion(vo);
+			return true;
+		} else {
+			return false;
+		}
+		
+		
 	}
 
 }

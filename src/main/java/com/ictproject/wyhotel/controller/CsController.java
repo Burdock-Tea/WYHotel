@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ictproject.wyhotel.cs.service.ICsService;
 import com.ictproject.wyhotel.util.captcha.CaptchaUtil;
 import com.ictproject.wyhotel.util.email.MailSendServiceAdmin;
 
@@ -31,6 +33,9 @@ public class CsController {
 	
 	@Autowired
 	private MailSendServiceAdmin mailsender;
+	
+	@Autowired
+	private ICsService service;
 	
 	@GetMapping("/faq")
 	public void csFaq() {};
@@ -61,25 +66,41 @@ public class CsController {
 		String result = "";
 		Captcha captcha = (Captcha) req.getSession().getAttribute(Captcha.NAME);
 		
-		if(params!=null && !"".equals(params)) {
+		if(params != null && !"".equals(params)) {
 			if(captcha.isCorrect(params)) {
 				req.getSession().removeAttribute(Captcha.NAME);
 				result = "1";
-			}else {
+			} else {
 				result = "0";
 			}
 		}
 		return result;
 	}
 	
+	/*
+	 * 
+	 *  작성일 : 23/01/17
+	 *  작성자 : 권 우 영
+	 *  메일 작성 이후 문의내역 DB값 넣기 추가
+	 *  
+	 */
 	@PostMapping("/mailSend")
-	public String name(@RequestParam Map<String, String> param) {
+	public String name(@RequestParam Map<String, String> param, RedirectAttributes ra) {	
 		
-		String phone = param.get("phone1")+param.get("phone2")+param.get("phone3");
+		String phone = param.get("phone1") + param.get("phone2") + param.get("phone3");
 		param.put("phone", phone);
-		mailsender.beFed(param);
 		
-		System.out.println("여기야" + param.toString());
+		if(mailsender.beFed(param)) {
+			// 메일 전송 성공시
+			System.out.println("문의내역 메일 전송 성공! DB 값 입력");
+			// TODO: 서비스로 MAP 데이터 주고, 서비스에서 DB값 입력
+			service.insert(param);
+			
+		} else {
+			// 메일 전송 실패시
+			System.out.println("문의내역 메일 전송 실패! DB 에는 들어가지 않습니다");
+			ra.addFlashAttribute("msg", "mailSendError");
+		}	
 		
 		return "redirect:/cscenter/customer";
 	}

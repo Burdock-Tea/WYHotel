@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper	namespace="com.ictproject.wyhotel.cs.mapper.ICsMapper">
+
+	<insert id="insert">
+		INSERT INTO
+		    question
+		VALUES
+		    ('q' || question_code_seq.nextval, #{hotelCode}, #{questionCategory}, #{customerEmail}, #{customerTel}, #{questionTitle}, #{questionContent}, DEFAULT, DEFAULT, DEFAULT)	
+	</insert>
+
+</mapper>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

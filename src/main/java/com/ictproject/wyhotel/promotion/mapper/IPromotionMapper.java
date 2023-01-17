@@ -13,7 +13,7 @@ public interface IPromotionMapper {
 	public void insert(PromotionVO vo);
 
 	// 프로모션 리스트 불러오기
-	public List<PromotionVO> getList(@Param("hotelCode") String hotelCode);
+	public List<PromotionVO> getList(@Param("hotelCode") String hotelCode, @Param("startDate") String startDate, @Param("endDate") String endDate);
 
 	// 프로모션 상세보기
 	public PromotionVO getPromotion(String promotionCode);

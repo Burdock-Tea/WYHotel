@@ -58,7 +58,8 @@
     	<!-- 비밀번호 수정 -->
     	<update id="pwModify">
     		UPDATE members SET
-    		password = #{password}
+    		password = #{password},
+    		is_reset_password = 0
     		WHERE member_code = #{memberCode}
     	</update>
     	

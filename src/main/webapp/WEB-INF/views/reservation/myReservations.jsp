@@ -351,6 +351,7 @@
                         $('.hotelForm #nights').val(nights);
 
                         const isShow = (today - detail.checkInDate)/(1000*60*60*24);
+                        const reviewShow = Math.floor((today - detail.checkOutDate)/(1000*60*60*24));
                         console.log(isShow);
                         if (isShow >= 0) {
                             $('#cancelRoomBtn').addClass('visually-hidden'); 
@@ -360,10 +361,35 @@
                             $('#cancelRoomBtn').attr('disabled', false);
                         }
 
+                        if (reviewShow <= 0) {
+                            $('#reviewBtn').addClass('visually-hidden'); 
+                            $('#reviewBtn').attr('disabled', true);
+                        } else {
+                            $('#reviewBtn').removeClass('visually-hidden'); 
+                            $('#reviewBtn').attr('disabled', false);
+                        }
+
 
                         $('.hotelForm').attr('hidden', false);
                         $('.diningForm').attr('hidden', true);
                         $('#reservationModal').modal('show');
+
+
+                        // 후기 작성 버튼 클릭 이벤트
+                        $('#reviewBtn').click( function(e){
+                            if (reviewShow <= 0) {
+                                e.preventDefault();
+                                alert('잘못된 접근입니다.');
+                                return;
+                            } else if ('${member}'.substring(0,1) === '1' || '${member}'.substring(0,1) === '2') {
+                                e.preventDefault();
+                                alert('회원전용 기능입니다.');
+                                return;
+                            } else {
+                                $('#modifyReservation').attr('action', '${pageContext.request.contextPath}/review/write');
+                                $('#modifyReservation').submit();
+                            }
+                        }); // 후기 작성 버튼 클릭 이벤트 종료
                     }
                 });
                 
@@ -463,6 +489,9 @@
                 }
                 
             }); // 객실 예약 취소 이벤트 종료
+
+
+
         
         }); // end jQuery
         

@@ -119,6 +119,15 @@
 					<input type="text" class="form-control mb-1" placeholder="상세주소" id="addrDetail" name="addrDetail">				
 				</div>
 				<div class="mb-3">
+					<label for="form-select" class="form-label">등급</label>
+					<select class="form-select" name="grade" id="grade">
+					  <option value="bronze">Bronze</option>
+					  <option value="silver">Silver</option>
+					  <option value="gold">Gold</option>
+					  <option value="diamond">Diamond</option>
+					</select>
+				</div>
+				<div class="mb-3">
 					<div class="form-check form-switch">
 					  <input class="form-check-input" type="checkbox" role="switch" id="admin" name="admin">
 					  <label class="form-check-label" for="admin">관리자 어부</label>
@@ -139,7 +148,13 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script lang="javascript" src="${pageContext.request.contextPath}/js/xlsx.full.min.js"></script>
     <script>
-
+    
+    if('${msg}' === 'transferEmail') {
+    	alert('비밀번호 초기화가 완료되었습니다.');
+    }
+    
+    $(function() {
+    	
     	// 관리자 회원관리 검색 버튼
         $('#search').click(function(e) {
             const category = $('#category').val();
@@ -181,6 +196,16 @@
 						$('#admin').removeAttr('checked');
 					}
 					
+					if(response.grade === 'bronze') {
+						$('option[value="bronze"]').attr('selected', 'selected');
+					} else if(response.grade === 'silver') {
+						$('option[value="silver"]').attr('selected', 'selected');
+					} else if(response.grade === 'gold') {
+						$('option[value="gold"]').attr('selected', 'selected');
+					} else if(response.grade === 'diamond') {
+						$('option[value="diamond"]').attr('selected', 'selected');
+					}
+					
 					
 					$('#memberModal').modal('show');
 				}
@@ -217,7 +242,7 @@
 		// 해당 회원의 비밀번호 초기화
 		$('#resetPassword').click(function (e) {
 			if(confirm('해당 회원의 비밀번호를 초기화 하시겠습니까?')) {
-				$('#adminMemberInfoForm').attr('action','${pageContext.request.contextPath}/admin/updateTempPassword')
+				$('#adminMemberInfoForm').attr('action','${pageContext.request.contextPath}/admin/updateTempPassword');				
 				$('#adminMemberInfoForm').submit();
 			} else {
 				return;
@@ -260,6 +285,8 @@
                 }
             }).open();
         }
+    	
+    });
 
     </script>
     

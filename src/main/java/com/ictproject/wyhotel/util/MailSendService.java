@@ -11,6 +11,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.ictproject.wyhotel.command.QuestionVO;
+
 @Service
 public class MailSendService {
 
@@ -99,8 +101,27 @@ public class MailSendService {
 		
 	}
 	
+	// 문의내역에 대한 답변 이메일로 전송
+	public boolean sendQuestionReply(QuestionVO question) {	
+		
+		System.out.println("in sendQuestionReply : " + question);
+		
+		String setFrom = "test123test1591@gmail.com";
+		String toMail = question.getCustomerEmail();
+		String title = "[WYHotel] Re:" + question.getQuestionTitle();
+		String content = "<div style=\"border: 1px solid rgb(187, 187, 187); color: rgb(63, 63, 63); width: 500px; padding: 20px 0 40px 40px; \">\r\n" + 
+				"        <h3 style=\"padding-bottom: 5px;\">문의내역</h3>\r\n" + 
+				"        <p style=\"padding-bottom: 7px;\">\r\n" + 
+				"            안녕하세요. 고객님 문의하신 내용에 대한 답변입니다.<br>\r\n" + 
+				"            " + question.getQuestionAnswer() + "<br>\r\n" +
+				"        </p>\r\n" +
+				"    </div>";
+		
+		return mailSend(setFrom, toMail, title, content);
+	}
+	
 	// 이메일 전송 메서드
-	private void mailSend(String setFrom, String toMail, String title, String content) {
+	private boolean mailSend(String setFrom, String toMail, String title, String content) {
 		
 		MimeMessage message = mailSender.createMimeMessage();
 		try {
@@ -118,10 +139,12 @@ public class MailSendService {
 			
 			//메일 전송.
 			mailSender.send(message);
+			return true;
 			
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 	}
 	

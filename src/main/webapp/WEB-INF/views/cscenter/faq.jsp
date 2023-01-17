@@ -30,8 +30,8 @@
 	                <ul class="list-group">
 	                    <li class="list-group"><h4>고객센터</h4></li>
 	                    <hr>
-	                    <li class="list-group-item"> <a href="${pageContext.request.contextPath}/cscenter/customer" class="text-secondary">문의 하기</a></li>
 	                    <li class="list-group-item"> <a href="${pageContext.request.contextPath}/cscenter/faq" class="text-secondary">FAQ</a></li>
+	                    <li class="list-group-item"> <a href="${pageContext.request.contextPath}/cscenter/customer" class="text-secondary">문의 하기</a></li>
 	                </ul>
 	            </div>
 	

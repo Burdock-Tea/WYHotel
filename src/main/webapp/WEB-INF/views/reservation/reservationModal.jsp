@@ -50,6 +50,7 @@
                     </table>
                     
                     <button type="button" class="btn bnt-modify btn-dark form-control" id="cancelRoomBtn">예약취소</button>
+                    <button type="button" class="btn bnt-review btn-dark form-control" id="reviewBtn">후기작성</button>
                     
                 </form>
 

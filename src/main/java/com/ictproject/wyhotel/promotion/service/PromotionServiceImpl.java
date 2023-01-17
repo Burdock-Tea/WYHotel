@@ -21,7 +21,6 @@ import com.ictproject.wyhotel.command.ReservationVO;
 import com.ictproject.wyhotel.promotion.mapper.IPromotionMapper;
 
 import lombok.extern.log4j.Log4j;
-import oracle.sql.DATE;
 
 @Service
 @Log4j
@@ -62,6 +61,8 @@ public class PromotionServiceImpl implements IPromotionService {
 
 			// 날짜별로 파일을 저장하기 위해 폴더 형식 세팅 (ex: 20230102)
 			String folderName = new SimpleDateFormat("yyyyMMdd").format(new Date()); // 오늘날짜
+			
+			// AWS EC2로 배포할때는 /var/upload/로 지정
 			String uploadFolder = "C:/test/upload/";
 
 			// 업로드 되는 경로 C:/test/upload/날짜
@@ -92,11 +93,11 @@ public class PromotionServiceImpl implements IPromotionService {
 
 	@Override
 	public List<PromotionVO> getList(String hotelCode, String startDate, String endDate) {
-		List<PromotionVO> list = mapper.getList(hotelCode);
+		List<PromotionVO> list = mapper.getList(hotelCode, startDate, endDate);
 		
 		list.forEach((promotion) -> {
 			String start = promotion.getStartDate().toString();
-			String end = promotion.getEndDate().toString();		
+			String end = promotion.getEndDate().toString();
 		});
 		
 		return list;
@@ -143,6 +144,7 @@ public class PromotionServiceImpl implements IPromotionService {
 				String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."), fileRealName.length());
 				
 				String folderName = new SimpleDateFormat("yyyyMMdd").format(new Date());
+				// AWS EC2로 배포할때는 /var/upload/로 지정
 				String uploadFolder = "C:/test/upload/";
 				
 				File folder = new File(uploadFolder + folderName);
