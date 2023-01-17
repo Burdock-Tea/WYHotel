@@ -71,7 +71,12 @@ public class MemberServiceImpl implements IMemberService {
 		
 		mapper.pwModify(vo);
 	}
-
+	
+	/**
+	 *	작 성 자 : 이 준 희
+	 *	작 성 일 : 2023-01-16
+	 *	내     용 : 회원 삭제 부분 로직 수정(비밀번호 가져와서 암호화 매치 후 비교)
+	 * */
 	@Override
 	public void delete(String memberCode) {
 		mapper.delete(memberCode);
