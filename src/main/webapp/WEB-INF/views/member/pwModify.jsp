@@ -33,6 +33,7 @@
 							비밀번호</label> <input type="password" class="form-control"
 							id="newPw" placeholder="New Password" name="newPw">
 					</div>
+					<span id="pwMsg"></span>
 					<div class="form-group col-12">
 						<label for="inputPassword" class="form-label mt-4">비밀번호 확인</label>
 						<input type="password" class="form-control" id="newPwChk"
@@ -59,7 +60,31 @@
 
 
 	<script>
+	
+		// 초기화된 비밀번호 로그인시 디자인 수정
+		if('${msg}' === 'resetPassword') {
+			$('div[class="col-3"]').css('display', 'none');
+			$('#pwForm').prev().removeClass('col-lg-1');
+			$('#pwForm').prev().addClass('col-lg-3');
+			
+			alert('초기화된 비밀번호입니다. 수정해주세요!');
+		}
 		
+		//비밀번호 양식 유효성 검사
+		var pw = document.getElementById('newPw');
+		pw.onkeyup = function() {
+			var regex = /^[A-Za-z0-9+]{8,16}$/;
+			if(regex.test(document.getElementById('newPw').value)) {
+				document.getElementById('newPw').style.borderColor = "black";
+				$('#pwMsg').html('');
+			} else {
+				document.getElementById('newPw').style.borderColor = "red";
+				$('#pwMsg').html('비밀번호는 영어나 숫자가 8~16자 이어야 합니다.');
+				$('#pwMsg').css('color', 'red');
+			}
+	
+		}// 비밀번호 양식 유효성검사 끝
+	
 		$(function() {
 			
 			//비밀번호 수정버튼 클릭 이벤트
@@ -73,6 +98,11 @@
 				if($('#newPwChk').val() === '') {
 					alert('비밀번호 확인란을 확인 해주세요.');
 					$('#newPwChk').focus();
+					return;
+				}
+				if($('#pwMsg').html() === '비밀번호는 영어나 숫자가 8~16자 이어야 합니다.') {
+					alert('비밀번호를 확인해 주세요.');
+					$('#newPw').focus();
 					return;
 				}
 				if($('#newPw').val() === $('#newPwChk').val()) {

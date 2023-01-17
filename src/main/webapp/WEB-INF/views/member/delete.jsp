@@ -26,11 +26,10 @@
          <div class="col-lg-6 align-self-center">
              <form id="delForm" action="${pageContext.request.contextPath}/member/delete" method="post">
                  <div class="input-group mb-3 delete-input">
-                     <input type="password" class="form-control pwInput" placeholder="비밀번호를 입력하세요." aria-label="Recipient's username" name="password" aria-describedby="button-addon2">
+                     <input type="password" id="pwInput" class="form-control pwInput" placeholder="비밀번호를 입력하세요." aria-label="Recipient's username" name="password" aria-describedby="button-addon2">
                      <button class="btn btn-outline-secondary btn-dark deleteBtn" type="button" id="delBtn">확인</button>
                      <input type="hidden" value="${pw.memberCode}" name="memberCode">
                  </div>
-               <span id="msgId"></span>
              </form>
          </div>            
          </div>
@@ -46,27 +45,60 @@
     	$(function() {
 			//삭제버튼처리
     		$('#delBtn').click(function() {
-    			console.log($('.pwInput').val());
-				if($('.pwInput').val() === '') {
+    			console.log($('#pwInput').val());
+    			console.log('${pw.password}');
+				if($('#pwInput').val() === '') {
 					alert('비밀번호 입력해주세요.');
-					$('.pwInput').focus();
+					$('#pwInput').focus();
 					return;
-				}
-				if('${pw.password}' === $('.pwInput').val()) {
-					if(confirm('진짜 삭제 하시겠습니까?')) {
-						$('#delForm').submit();
-					} else {
-						return;
-					}
 				} else {
-					$('#msgId').html('비밀번호를 확인해 주세요.');
-					$('#msgId').css('color', 'red');
-					$('.pwInput').focus();
-					$('.pwInput').val('');
+					const data = {
+						email : '${pw.email}',
+						password: $('#pwInput').val()
+					};
+					$.ajax({
+						url : '${pageContext.request.contextPath}/member/pwChk',
+						type: 'POST',
+						contentType: 'application/JSON',
+						data: JSON.stringify(data),
+						success: function(result){
+							if (confirm('삭제하시겠습니까?')){
+								if(result === 'success') {
+									$('#delForm').submit();
+									alert('삭제 성공.');	
+								} else {
+									alert('비밀번호 확인해 주세요');
+									$('#pwInput').val('');
+									$('#pwInput').focus();
+									return;
+								}
+							} else {
+								return
+							}
+						}, 
+						error: function() {
+							alert('관리자에게 문의 하세요.');
+						}
+					});
 				}
 				
+				
+				
+				/*if(confirm('진짜 삭제 하시겠습니까?')) {
+					if($('#pwInput').val() !== '${pw.password}') {
+						alert('비밀번호 확인 해 주세요.');
+						$('#pwInput').val('');
+						$('#pwInput').focus();
+						return;
+					} else {
+						$('#delForm').submit();
+						alert('삭제 성공.');
+					}
+				} else { 
+					return;
+				}*/
+				
 			}); //삭제 이벤트처리 끝
-    		
 		});
     
     </script>

@@ -16,8 +16,8 @@ public class MailSendServiceAdmin {
 	@Autowired
 	private JavaMailSender mailsender;
 	
-	public void beFed(Map<String, String> param) {
-		System.out.println(param.toString());
+	public boolean beFed(Map<String, String> param) {
+		
 		String setFrom = "ppipong_@naver.com";
 		String toMail = param.get("email");
 		String title = param.get("title");
@@ -49,11 +49,11 @@ public class MailSendServiceAdmin {
 				"        </div>\r\n" + 
 				"    </div>\r\n" + 
 				"    </div>";
-		mailsend(setFrom, toMail, title, content);
+		return mailsend(setFrom, toMail, title, content);
 	}
 	
 	// 이메일 전송
-	public void mailsend(String setFrom, String toMail, String title, String content) {
+	public boolean mailsend(String setFrom, String toMail, String title, String content) {
 		MimeMessage message = mailsender.createMimeMessage();
 		try {
 			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -65,8 +65,12 @@ public class MailSendServiceAdmin {
 			System.out.println("메일 전송 직전 !");
 			mailsender.send(message);
 			System.out.println("메일 전송 성공 !");
+			// 메일 전송 성공시 true 전달
+			return true;
 		} catch (MessagingException e) {
 			e.printStackTrace();
+			// 메일 전송 실패시 false 전달
+			return false;
 		}
 		
 	}	

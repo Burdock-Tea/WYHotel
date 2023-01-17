@@ -1,5 +1,6 @@
 package com.ictproject.wyhotel.controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
@@ -16,12 +17,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import com.ictproject.wyhotel.command.MemberVO;
+import com.ictproject.wyhotel.command.MembershipVO;
 import com.ictproject.wyhotel.member.service.IMemberService;
 import com.ictproject.wyhotel.util.MailSendService;
 
@@ -39,20 +42,20 @@ public class MemberController {
 	@Autowired
 	private MailSendService mailService;
 	
-	// 로그인 페이지 이동
-	@GetMapping("/login")
-	public void loginPage(){}
 	
 	/**
 	 * 작성일 : 22/12/29
 	 * 작성자 : 임영준
 	 */
+	
+	// 로그인 페이지 이동
+	@GetMapping("/login")
+	public void loginPage(){}
+	
 	//이메일 중복 체크
 	@ResponseBody
 	@PostMapping("/idCheck")
 	public String idCheck(@RequestBody MemberVO vo) {
-		
-		System.out.println("이메일 들어옴!");
 		int result = service.idcheck(vo.getEmail());
 		
 		if(result == 1) {
@@ -63,6 +66,54 @@ public class MemberController {
 			
 		
 	}
+	/*
+	 * 작성일: 23/01/05
+	 * 작성자: 이준희
+	 * 전화번호 중복 처리 추가
+	 * 
+	 * 수정일 : 23/01/09
+	 * 작성자 : 권우영
+	 * 전화번호 중복 처리 수정
+	 */
+	//전화번호 중복 체크(회원가입시)
+	@ResponseBody
+	@PostMapping("/telCheck")
+	public String telCheck(@RequestBody String tel) {
+		
+		if(service.telChk(tel) == 0) {
+			return "success";
+		} else {
+			return "telFail";
+		}
+		
+		/*
+			if(member.getTel().equals(vo.getTel())) {
+				return "mytel";
+			} else if((service.telChk(vo.getTel()) == 0)) {
+				return "success";
+			} else {
+				return "telFail";
+			}
+		*/
+		
+	}
+	
+	//내정보수정 전화번호 중복 체크(정보수정)
+	@ResponseBody
+	@PostMapping("/telCheck2")
+	public String telCheck2(@RequestBody MemberVO vo) {
+		
+		MemberVO member = service.getInfo(vo.getMemberCode());
+		
+		if(member.getTel().equals(vo.getTel())) {
+			return "mytel";
+		} else if (service.telChk(vo.getTel()) == 0) {
+			return "success";
+		} else {
+			return "telFail";
+		}
+		
+	}
 	
 	// 회원가입 페이지 이동
 	@GetMapping("/join")
@@ -71,12 +122,13 @@ public class MemberController {
 	// 회원가입
 	@PostMapping("/join")
 	public String join(MemberVO vo, String tel2, String tel3, RedirectAttributes ra) {
-		System.out.println("vo 들어옴 " + vo);
 		String tel = vo.getTel() + "-" + tel2+ "-" + tel3;
-				vo.setTel(tel);
+		vo.setTel(tel);
+	
 		service.join(vo);
 		ra.addFlashAttribute("msg" , "joinSuccess");
 		return "redirect:/member/login";
+		
 	}
 	
 	//이메일 인증(비동기)
@@ -87,8 +139,9 @@ public class MemberController {
 	} //이메일 인증 끝
 	
 	/**
-	 * 작성일 : 22/12/29
+	 * 수정일 : 23/01/16
 	 * 작성자 : 이준희
+	 * 이름값을 담은 세션(memberName) 생성
 	 */
 	
 	// 로그인 처리
@@ -104,6 +157,7 @@ public class MemberController {
 				//로그인 성공 회원을 대상으로 세션 정보를 생성
 				session.setAttribute("member", dbData.getMemberCode());
 				session.setAttribute("admin", dbData.isAdmin());
+				session.setAttribute("memberName", dbData.getName());
 				
 				System.out.println(session.getId());
 				long limitTime = 60 * 60 * 24 * 90;
@@ -111,7 +165,6 @@ public class MemberController {
 					//자동 로그인 체크 시 처리해야할 내용
 					if(vo.isAutoLogin()) {
 						//쿠키를 이용하여 자동 로그인 정보를 저장
-						System.out.println("자동로그인 쿠키 생성중");
 						//세션 아이디를 가지고 와서 쿠키에 저장(고유한 값)
 						Cookie loginCookie = new Cookie("loginCookie", session.getId());
 						
@@ -126,8 +179,18 @@ public class MemberController {
 						//Date 객체의 생성자에 매개값으로 밀리초의 정수를 전달하면 날짜 형태로 변경
 						Date limitDate = new Date(expireDate);
 						
-						service.keepLogin(session.getId(), limitDate, vo.getEmail());
+						service.keepLogin(session.getId(), limitDate, vo.getEmail());				
+					}
 					
+					/*
+					 *  비밀번호 초기화 컬럼 추가 이후 추가 기능 구현
+					 *  작성자 : 권 우 영
+					 *  작성일 : 23/01/16
+					 */
+					
+					if(dbData.isResetPassword()) {
+						ra.addFlashAttribute("msg", "resetPassword");
+						return "redirect:/member/pwModify";
 					}
 				
 					return "redirect:/";
@@ -146,6 +209,11 @@ public class MemberController {
 		
 	}
 	
+	/**
+	 * 수정일 : 23/01/16
+	 * 작성자 : 이준희
+	 * 이름값을 담은 세션(memberName) 제거
+	 */
 	// 로그아웃 처리
 	@GetMapping("/logout")
 	public ModelAndView logout(HttpSession session, RedirectAttributes ra, 
@@ -153,6 +221,8 @@ public class MemberController {
 		
 		String memeCode = (String) session.getAttribute("member");
 		session.removeAttribute("member");
+		session.removeAttribute("admin");
+		session.removeAttribute("memberName");
 		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 		
 		
@@ -173,18 +243,17 @@ public class MemberController {
 	@GetMapping("/modify")
 	public void modifyPage(HttpSession session, Model model){
 		String memCode = (String) session.getAttribute("member");
-		System.out.println(memCode);
 		model.addAttribute("member", service.getInfo(memCode));
 	}
 	
 	// 회원정보 수정 처리
 	@PostMapping("/modify")
 	public String modify(MemberVO vo, HttpSession session, String tel2, String tel3) {
-		System.out.println(vo);
+
 		vo.setTel(vo.getTel() + "-" + tel2 + "-" + tel3);
 		service.modify(vo);
 		session.removeAttribute("member");
-		return "redirect:/member/login";
+		return "redirect:/member/modify";
 	}
 	
 	// 비밀번호 수정 페이지 이동
@@ -211,14 +280,12 @@ public class MemberController {
 		
 		String mem = (String) session.getAttribute("member");
 		
-		System.out.println(session.getAttribute("member"));
 		model.addAttribute("pw", service.getInfo(mem));
 	}
 	
 	//탈퇴 처리
 	@PostMapping("/delete")
 	public String delete(String memberCode, HttpSession session) {
-		System.out.println("memCode : " + memberCode);
 		service.delete(memberCode);
 		session.removeAttribute("member");
 		
@@ -232,7 +299,6 @@ public class MemberController {
 		String mem = (String)session.getAttribute("member");
 		
 		model.addAttribute("email", service.getEmail(mem));
-		System.out.println(service.getEmail(mem));
 	}
 	
 	//비밀번호 확인
@@ -280,12 +346,64 @@ public class MemberController {
 	//비밀번호 변경 처리(비로그인)
 	@PostMapping("/searchPw")
 	public String searchPw(String newPw, String email) {
-		System.out.println("eamil: " + email + "password: " + newPw);
 		service.newPw(email, newPw);
 		return "redirect:/member/login";
 	}
 	
-
+	/**
+	 *	작 성 자 : 백 건 욱
+	 *	작 성 일 : 2023-01-09
+	 *	내     용 : 멤버십 관련 메소드 추가
+	 * */
+	
+	//멤버쉽 페이지 이동
+	@GetMapping("/memberShip")
+	public String memberShip (HttpSession session,
+							RedirectAttributes ra,
+							Model model) {
+		if(session.getAttribute("member") == null) {
+			ra.addFlashAttribute("msg", "loginAuthFail");
+			return "redirect:/member/login";
+		} else {
+			String memCode = (String)session.getAttribute("member");
+			String isMem = ((String)session.getAttribute("member")).substring(0, 1);
+			if (isMem.equals("1") || isMem.equals("2")) {
+				ra.addFlashAttribute("msg", "loginAuthFail");
+				return "redirect:/member/login";
+			} else {
+				model.addAttribute("info", service.getInfo(memCode));
+				return "member/memberShip";
+			}
+		}
+	}
+	
+	// 멤버십 디테일
+	@ResponseBody
+	@PostMapping("/getMembershipInfo")
+	public MembershipVO getMembershipInfo(@RequestBody String grade) {
+		System.out.println(grade);
+		return service.getMembershipInfo(grade);
+	}
+	
+	// 멤버십 구매
+	@GetMapping("/membershipPurchase")
+	public String membershipPurchase(MemberVO member, String paymentKey, HttpSession session, RedirectAttributes ra) {
+		
+		service.updateMembership(member, paymentKey);
+		
+		session.setAttribute("member", member.getMemberCode());
+		
+		return "redirect:/member/memberShip";
+	}
+	
+	// get member info
+	@ResponseBody
+	@PostMapping("/getInfo")
+	public MemberVO getInfo(@RequestBody String memberCode) {
+		
+		return service.getInfo(memberCode);
+	}
+	
 }
 
 

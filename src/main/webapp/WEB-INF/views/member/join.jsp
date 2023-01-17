@@ -137,6 +137,7 @@
 							<label for="inputPassword" class="form-label mt-4">Password</label>
 							<input type="password" class="form-control w-50"
 								id="inputPassword" placeholder="Password" name="password">
+							<span id="pwMsg"></span>
 						</div>
 						<div class="form-group passwordForm"> 
 							<label for="inputPassword" class="form-label mt-4">PasswordCheck</label>
@@ -145,9 +146,10 @@
 						</div>
 						<span id="pwChkMsg" style="margin-top: 10px;"></span>
 					<div class="form-group nameForm">
-						<label for="inputName" class="form-label mt-4">이름</label> <input
-							type="text" class="form-control w-50" id="inputName"
-							placeholder="이름을 입력해주세요." name="name">
+						<label for="inputName" class="form-label mt-4">이름</label> 
+						<input type="text" class="form-control w-50" 
+							id="inputName" placeholder="이름을 입력해주세요." name="name">
+						<span id="nameMsg"></span>
 					</div>
 
 					<!-- https://juein.tistory.com/43 << 이런 방식도 있던데 이건 어때요? -->
@@ -161,12 +163,14 @@
 								<option>018</option>
 							</select> 
 							<span style="padding: 5px"><strong> - </strong></span> 
-								<input type="text" class="form-control" size="6" placeholder="0000" id="tel2" name="tel2"> 
+								<input type="text" class="form-control" size="6" maxlength="4" placeholder="0000" id="tel2" name="tel2"> 
 							<span style="padding: 5px"><strong>- </strong></span> 
-								<input type="text" class="form-control" size="6" placeholder="0000" id="tel3" name="tel3">
+								<input type="text" class="form-control" size="6" maxlength="4" placeholder="0000" id="tel3" name="tel3">
 						</div>
+					&nbsp;&nbsp;&nbsp;
+					<span id="telMsg"></span>
 					</div>
-
+					<span id="telChk"></span>
 					
 				<div class="addrForm">
 					<div class="form-group">
@@ -207,6 +211,12 @@
 <!-- 다음 api 주소 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+	
+	const msg = '${msg}';
+	if(msg === 'telFail') {
+		alert('전화번호 중복입니다.');
+	}
+
 	//취소 버튼 
 	$('#cancleButton').click(function() {
 		location.href='${pageContext.request.contextPath}/';	
@@ -233,15 +243,66 @@
 		/*test메서드를 통해 비교하며, 매칭되면 true, 아니면 false반*/
 		var regex =/[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]$/i;
 		if (regex.test(document.getElementById("email").value)) {
-			document.getElementById("email").style.borderColor = "green";
+			document.getElementById("email").style.borderColor = "black";
 			$('#emailCheckBtn').attr('disabled', false);
 		} else {
 			document.getElementById("email").style.borderColor = "red";
 			$('#emailCheckBtn').attr('disabled', true);
 		}
-	}
-			
+	}//이메일 양식 유효성 검사 끝
 	
+	//비밀번호 양식 유효성 검사
+	var pw = document.getElementById('inputPassword');
+	pw.onkeyup = function() {
+		var regex = /^[A-Za-z0-9+]{8,16}$/;
+		if(regex.test(document.getElementById('inputPassword').value)) {
+			document.getElementById('inputPassword').style.borderColor = "black";
+			$('#pwMsg').html('');
+		} else {
+			document.getElementById('inputPassword').style.borderColor = "red";
+			$('#pwMsg').html('비밀번호는 영어나 숫자가 8~16자 이어야 합니다.');
+			$('#pwMsg').css('color', 'red');
+		}
+
+	}// 비밀번호 양식 유효성검사 끝
+
+	// 이름 입력값 검증
+	const getNameCheck = RegExp(/^[가-힣]+$/);
+	$('#inputName').keyup(function() {
+		//이름값 유효성 검사
+		if(getNameCheck.test($(this).val())) {
+			$(this).css('borderColor', 'black');
+			$('#nameMsg').html('');
+		} else {
+			$(this).css('borderColor', 'red');
+			$('#nameMsg').html('이름은 한글로만 작성하세요.');
+			$('#nameMsg').css('color', 'red');
+		}
+	}); //이름 입력 검증 끝
+			
+	//전화번호 입력값 검증
+	const regTel2 = /^([0-9]{3,4})$/
+	const regTel3 = /^([0-9]{4})$/
+	$('#tel2').keyup(function() {
+		if(regTel2.test($(this).val())) {
+			$(this).css('borderColor', 'black');
+			$('#telChk').html('');
+		} else {
+			$(this).css('borderColor', 'red');
+			$('#telChk').html('3~4글자, 숫자로만 입력하세요.');
+			$('#telChk').css('color', 'red');
+		}
+	});
+	$('#tel3').keyup(function() {
+		if(regTel3.test($(this).val())) {
+			$(this).css('borderColor', 'black');
+			$('#telChk').html('');
+		} else {
+			$(this).css('borderColor', 'red');
+			$('#telChk').html('4글자, 숫자로만 입력하세요.');
+			$('#telChk').css('color', 'red');
+		}
+	}); //전화번호 입력값 검증 끝
 	
 	$(function() {
 		
@@ -256,8 +317,7 @@
 		$('#emailCheckBtn').click(function() {
 			
 			const email = $('#email').val();
-			console.log('email == ' + email);
-
+			
 			if (email === '') {
 				alert('이메일은 필수값입니다');
 				return;
@@ -276,11 +336,11 @@
 					if (data === 'duplicated') {
 						$('#email').val('');
 						$('#email').focus();
-						$('#email').css('background', 'red');
+						$('#email').css('borderColor', 'red');
 						$('#msgId').html('아이디가 중복되었습니다.');
 						$('#msgId').css('color', 'red');
 					} else {
-						$('#email').css('background', 'white');
+						$('#email').css('borderColor', 'black');
 						$('#msgId').css('color', 'green');
 						$('#email').attr('readonly', true);
 						$('#emailCheckBtn').hide();
@@ -294,24 +354,87 @@
 				}
 			});
 		}); // 아이디 중복체크 끝
+		
+		//전화번호 중복체크
+		/*
+		 * 수정일 : 23/01/09
+		 * 작성자 : 권우영
+		 * 전화번호 중복 처리 오류 수정
+		 * (keyup이 아닌 blur 이벤트로 교체, data 객체형식이 아닌 String형식으로 전달)
+		 */
+		$('#tel3').blur(function() {
+			const tel = $('#tel').val() + '-' + $('#tel2').val() + '-' + $('#tel3').val();
+			console.log('완성된 전화번호' + tel);
+			
+			$.ajax({
+				type: 'post',
+				url : '${pageContext.request.contextPath}/member/telCheck',
+				data : tel,
+				dataType : 'text',
+				contentType : 'application/json',
+				success: function(result) {
+					console.log(result);
+					if(result === 'telFail') {
+						$('#telMsg').html('중복된 전화번호가 있습니다. 다시 확인해 주세요');
+						$('#telMsg').css('color', 'red');
+					} else {
+						$('#telMsg').html('중복된 전화번호가 없습니다.');
+						$('#telMsg').css('color', 'green');
+					}
+				},
+				error: function() {
+					alert('일시적인 오류 발생. 관리자에게 문의해 주세요.');
+				}
+			});//비동기통신 끝
+		}); //전화번호 중복체크 끝
 
 		// 회원가입 창 유효성 검사.
+		/*
+		 * 수정일 : 23/01/16
+		 * 작성자 : 이준희
+		 * 비밀번호 비교 추가
+		 */
 		$('#joinButton').click(function() {
 
 			if ($('#email').val()==='') {
 				alert('이메일 입력은 필수입니다.');
+				$('#email').focus();
 				return;
 			} else if ($('#inputPassword').val() === '') {
 				alert('비밀번호를 작성하세요.');
+				$('#inputPassword').focus();
 				return;
 			}else if($('#inputName').val() === ''){
-				alert('이름을 입력해 주세요.')
+				alert('이름을 입력해 주세요.');
+				$('#inputName').focus();
 				return;
 			}else if($('#tel2').val()==='' || $('#tel3').val()===''){
 				alert('전화번호를 입력해 주세요.')
+				$('#tel2').focus();
 				return;
 			} else if ($('#addrDetail').val() === '') {
-				alert('주소를 입력해 주세요.')
+				alert('주소를 입력해 주세요.');
+				$('#addrDetail').focus();
+				return;
+			} else if($('#nameMsg').html() === '이름은 한글로만 작성하세요.') {
+				alert('이름을 확인해 주세요.');
+				$('#inputName').focus();
+				return;
+			} else if($('#pwMsg').html() === '비밀번호는 영어나 숫자가 8~16자 이어야 합니다.') {
+				alert('비밀번호를 확인해 주세요.');
+				$('#inputPassword').focus();
+				return;
+			} else if($('#emailCheckBtn').attr('disabled')) {
+				alert('이메일 양식을 확인해 주세요.');
+				$('#email').focus();
+				return;
+			} else if($('#telMsg').html() === '중복된 전화번호가 있습니다. 다시 확인해 주세요') {
+				alert('전화번호가 중복되었습니다. 다시 작성해주세요.');
+				$('#tel2').focus();
+				return;
+			} else if($('#inputPassword').val() !== $('#inputPasswordChk').val()) {
+				alert('비밀번호를 확인해 주세요.');
+				$('#inputPasswordChk').focus();
 				return;
 			} else {
 				alert('회원가입을 진행합니다.');
@@ -434,11 +557,8 @@
 		$('body').append(mask).append($loadingImg);
 		
 		//mask의 가로, 세로를 지정해주고, 투명도를 조절해 주겠습니다.
-		$('#mask').css({
-			'width' : maskWidth,
-			'height' : maskHeight,
-			'opacity' : '0.5'
-		}) ;
+		//230106 수정 -이준희(그냥지움)
+		
 		
 		// 마스크와 이미지를 화면에 표시
 		$('#mask').show();
@@ -448,7 +568,7 @@
 	
 	//로딩창 숨겨주는 함수
 	function closeLoading() {
-			$('#mask, #loadingImg').remove();
+		$('#mask, #loadingImg').remove();
 	}
 	
 </script>

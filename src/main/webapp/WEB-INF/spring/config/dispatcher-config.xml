@@ -27,8 +27,7 @@
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/img/**" location="/resources/img/" />
 	<resources mapping="/js/**" location="/resources/js/" />
-	<resources mapping="/testJson/**" location="/resources/testJson/" />
-	
+	<resources mapping="/json/**" location="/resources/json/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -56,7 +55,7 @@
 			<beans:ref bean="myReserv" />
 		</interceptor>
 		<interceptor>
-			<mapping path="/**" />
+			<mapping path="/member/**" />
 			<beans:ref bean="notMemberAuth" />
 		</interceptor>
 	</interceptors>

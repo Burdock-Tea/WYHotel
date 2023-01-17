@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ include file="../include/header.jsp" %>
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<spring:eval expression="@tossProperties['toss.key']" var="key" />
+<script src="https://js.tosspayments.com/v1/payment"></script>
 <style>
     #reservTitleSpan {font-weight: 500;}
 
@@ -55,12 +57,8 @@
         <div class="col-md-2"></div>
         <div class="col-md-3">예약지점</div>
         <div class="col-md-5">
-            <select class="form-select" aria-label="Default select example" name="hotelCode">
-                <option ${hotelCode == null ? 'selected' : ''}>지점선택</option>
-                <option value="10" ${reservation.hotelCode == '10' ? 'selected' : ''}>서울WY호텔</option>
-                <option value="20" ${reservation.hotelCode == '20' ? 'selected' : ''}>부산WY호텔</option>
-                <option value="30" ${reservation.hotelCode == '30' ? 'selected' : ''}>제주WY호텔</option>
-            </select>
+            <input type="hidden" value="${reservation.hotelCode}" name="hotelCode" id="hotelCode" readonly>
+            <input type="text" class="form-control" id="hotelName" value="" readonly>
         </div>
         <div class="col-md-2"></div>
         <!-- 1그룹 끝 -->
@@ -70,16 +68,8 @@
         <c:if test="${param.category == 'hotels'}">
             <div class="col-md-3">객실</div>
             <div class="col-md-5">
-                <select class="form-select" aria-label="Default select example" name="roomCode">
-                    <option ${hotelCode == null ? 'selected' : ''}>객실선택</option>
-                    <c:forEach var="room" items="${list}">
-                        <option value="${room.roomCode}" ${reservation.code == room.roomCode ? 'selected' : ''}>${room.roomGrade}</option>
-                        <c:if test="${reservation.code == room.roomCode}">
-                            <c:set var="price" value="${room.roomPrice}"/>
-                        </c:if>
-                    </c:forEach>
-                    
-                </select>
+                <input type="hidden" value="${reservation.code}" name="roomCode" id="roomCode" readonly>
+                <input type="text" class="form-control" id="roomGrade" value="" readonly>
             </div>
         </c:if>
         <c:if test="${param.category == 'dinings'}">
@@ -102,25 +92,13 @@
         <c:if test="${param.category == 'hotels'}">
             <div class="col-md-3">인원</div>
             <div class="col-md-5">
-                <select class="form-select" aria-label="Default select example" name="capacity">
-                    <option>인원수</option>
-                    <option value="1" ${reservation.capacity == '1' ? 'selected' : ''}>1</option>
-                    <option value="2" ${reservation.capacity == '2' ? 'selected' : ''}>2</option>
-                    <option value="3" ${reservation.capacity == '3' ? 'selected' : ''}>3</option>
-                    <option value="4" ${reservation.capacity == '4' ? 'selected' : ''}>4</option>
-                </select>
+                <input type="text" class="form-control" name="capacity" value="${reservation.capacity}" readonly>
             </div>
         </c:if>
         <c:if test="${param.category == 'dinings'}">
             <div class="col-md-3">인원</div>
             <div class="col-md-5">
-                <select class="form-select" aria-label="Default select example" name="reservationAmount">
-                    <option>인원수</option>
-                    <option value="1" ${reservation.capacity == '1' ? 'selected' : ''}>1</option>
-                    <option value="2" ${reservation.capacity == '2' ? 'selected' : ''}>2</option>
-                    <option value="3" ${reservation.capacity == '3' ? 'selected' : ''}>3</option>
-                    <option value="4" ${reservation.capacity == '4' ? 'selected' : ''}>4</option>
-                </select>
+                <input type="text" class="form-control" name="reservationAmount" value="${reservation.capacity}" readonly>
             </div>
         </c:if>
         <div class="col-md-2"></div>
@@ -131,13 +109,13 @@
         <c:if test="${param.category == 'hotels'}">
             <div class="col-md-3">체크인</div>
             <div class="col-md-5">
-                <input type="date" value="" class="form-control" name="checkInDate">
+                <input type="date" value="" class="form-control" name="checkInDate" readonly>
             </div>
         </c:if>
         <c:if test="${param.category == 'dinings'}">
             <div class="col-md-3">예약일</div>
             <div class="col-md-5">
-                <input type="date" value="" class="form-control" name="strDate">
+                <input type="text" value="" class="form-control" name="strDate" readonly>
             </div>
         </c:if>
         <div class="col-md-2"></div>
@@ -148,30 +126,13 @@
         <c:if test="${param.category == 'hotels'}">
             <div class="col-md-3">체크아웃</div>
             <div class="col-md-5">
-                <input type="date" value="" class="form-control" name="checkOutDate">
+                <input type="text" value="" class="form-control" name="checkOutDate" readonly>
             </div>
         </c:if>
         <c:if test="${param.category == 'dinings'}">
             <div class="col-md-3">예약시간</div>
             <div class="col-md-5">
-                <select class="form-select" aria-label="Default select example" name="reservationTime">
-                    <option>시간선택</option>
-                    <optgroup label="Lunch">
-                        <option ${reservation.reservationTime == '11:30' ? 'selected' : ''}>11:30</option>
-                        <option ${reservation.reservationTime == '12:00' ? 'selected' : ''}>12:00</option>
-                        <option ${reservation.reservationTime == '12:30' ? 'selected' : ''}>12:30</option>
-                        <option ${reservation.reservationTime == '13:00' ? 'selected' : ''}>13:00</option>
-                        <option ${reservation.reservationTime == '13:30' ? 'selected' : ''}>13:30</option>
-                    </optgroup>
-                    <optgroup label="Dinner">
-                        <option ${reservation.reservationTime == '17:30' ? 'selected' : ''}>17:30</option>
-                        <option ${reservation.reservationTime == '18:00' ? 'selected' : ''}>18:00</option>
-                        <option ${reservation.reservationTime == '18:30' ? 'selected' : ''}>18:30</option>
-                        <option ${reservation.reservationTime == '19:00' ? 'selected' : ''}>19:00</option>
-                        <option ${reservation.reservationTime == '19:30' ? 'selected' : ''}>19:30</option>
-                        <option ${reservation.reservationTime == '20:00' ? 'selected' : ''}>20:00</option>
-                    </optgroup>
-                </select>
+                <input type="text" value="${reservation.reservationTime}" class="form-control" name="reservationTime" readonly>
             </div>
         </c:if>
         <div class="col-md-2"></div>
@@ -182,7 +143,7 @@
         <c:if test="${param.category == 'hotels'}">
             <div class="col-md-3">투숙일</div>
             <div class="col-md-5">
-                <input type="text" value="" class="form-control" name="nights">
+                <input type="text" value="" class="form-control" name="nights" readonly>
             </div>
         </c:if>
         <c:if test="${param.category == 'dinings'}">
@@ -197,9 +158,9 @@
         <c:if test="${param.category == 'hotels'}">
             <!-- 6그룹 -->
             <div class="col-md-2"></div>
-            <div class="col-md-3">가격</div>
+            <div class="col-md-3">가격<small>(* VAT를 포함한 가격입니다.)</small></div>
             <div class="col-md-5">
-                <input type="text" value="${price}" class="form-control" name="roomPrice">
+                <input type="text" value="" class="form-control" name="roomPrice" id="roomPrice" readonly>
             </div>
             <div class="col-md-2"></div>
             <!-- 6그룹 끝 -->
@@ -242,27 +203,7 @@
 
 <script>
 
-    let memCode = '';
 
-    $('#reservTitleSpan').text(('${reservation.category}' === 'dinings' ? '다이닝 예약 선택사항 확인' : '호텔 예약 선택사항 확인'));
-    $('#isMember').text(('${member}' === '' ? '(비회원 예약)' : '(회원 예약)'));
-
-    if ('${reservation.category}' === 'hotels') {
-        const daterange = '${reservation.daterange}';
-        const checkInDate = daterange.substring(0, daterange.indexOf('/') - 1);
-        const checkOutDate = daterange.substring(daterange.indexOf('/') + 2)
-
-        document.reservForm.checkInDate.value = checkInDate;
-        document.reservForm.checkOutDate.value = checkOutDate;
-
-        const nights = (new Date(checkOutDate) - new Date(checkInDate)) / (1000 * 60 * 60 * 24);
-        console.log(nights + ' 박');
-        document.reservForm.nights.value = nights + ' 박';
-
-    } else {
-        const daterange = '${reservation.daterange}';
-        document.reservForm.strDate.value = daterange;
-    }
 
     // iamport (결제) 함수 생성
     function iamport(selectedMethod, membercode, mPrice, mEmail, mName, mTel){
@@ -289,12 +230,285 @@
 
     $(document).ready(function(){
 
-        
+        $('#reservTitleSpan').text(('${reservation.category}' === 'dinings' ? '다이닝 예약 선택사항 확인' : '호텔 예약 선택사항 확인'));
+        $('#isMember').text(('${member}' === '' ? '(비회원 예약)' : '(회원 예약)'));
+
+        var memCode = '';
+        let memName = '';
+        let memEmail = '';
+        let price;
+  
+
+
+
+        if ('${reservation.category}' === 'hotels') {
+            let nigths = 0;
+            let accumulatePoint = 0;
+            const daterange = '${reservation.daterange}';
+            const checkInDate = daterange.substring(0, daterange.indexOf('/') - 1);
+            const checkOutDate = daterange.substring(daterange.indexOf('/') + 2);
+            
+            document.reservForm.checkInDate.value = checkInDate;
+            document.reservForm.checkOutDate.value = checkOutDate;
+
+            nights = (new Date(checkOutDate) - new Date(checkInDate)) / (1000 * 60 * 60 * 24);
+            document.reservForm.nights.value = nights + ' 박';
+            
+            
+            let basicPrice;
+            switch('${reservation.code}') {
+                case '55' :
+                    document.getElementById('roomGrade').value = 'Suite';
+                    basicPrice = 2000000 * nights;
+                    break;
+                case '44' :
+                    document.getElementById('roomGrade').value = 'Business Deluxe';
+                    basicPrice = 1800000 * nights;
+                    break;
+                case '33' :
+                    document.getElementById('roomGrade').value = 'Business';
+                    basicPrice = 1700000 * nights;
+                    break;
+                case '22' :
+                    document.getElementById('roomGrade').value = 'Standard Deluxe';
+                    basicPrice = 1000000 * nights;
+                    break;
+                case '11' :
+                    document.getElementById('roomGrade').value = 'Standard';
+                    basicPrice = 800000 * nights;
+                    break;
+            }
+
+            
+            if ('${member}' !== ''){
+                const memberCode = '${member}';
+                const isMem = memberCode.substring(0, 1);
+                if (isMem !== '1' && isMem !== '2') {
+                    $.ajax({
+                        type: 'POST',
+                        url : '${pageContext.request.contextPath}/member/getInfo',
+                        contentType: 'application/JSON',
+                        data: memberCode,
+                        success: function(memberInfo){
+                            const grade = memberInfo.grade;
+                            $.ajax({
+                                type: 'POST',
+                                url : '${pageContext.request.contextPath}/member/getMembershipInfo',
+                                contentType: 'application/JSON',
+                                data: grade,
+                                success: function(membership){
+                                	price = Math.floor(basicPrice * 1.1 * (1 - membership.dcPercent));
+                                	if('${param.price}' !== '') {
+                                   		price = '${param.price}';	
+                                	}
+                                    document.reservForm.roomPrice.value = price;
+                                    accumulatePoint = price * membership.pointAccumulate;                                    
+                                    console.log('적립 포인트: ', accumulatePoint);
+                                },
+                                error: function(){
+                                    alert('멤버십 통신 실패');
+                                }
+                            });
+                        },
+                        error: function(){
+                            alert('통신실패');
+                        }
+                    });
+                    
+                } else {
+                	price = Math.floor(basicPrice * 1.1);
+                	if('${param.price}' !== '') {
+                   		price = '${param.price}';	
+                	}
+                    document.reservForm.roomPrice.value = price;                       
+                }
+            } else {
+            	price = Math.floor(basicPrice * 1.1);
+            	if('${param.price}' !== '') {
+               		price = '${param.price}';	
+            	}
+                document.reservForm.roomPrice.value = price;
+            }            
+
+            document.getElementById('hotelName').value = 
+            (document.reservForm.hotelCode.value === '10' ? 'WY호텔 서울' : (document.reservForm.hotelCode.value === '20' ? 'WY호텔 부산' : 'WY호텔 제주'));
+
+            
+
+
+            const hotelname = $('#hotelName').val();
+            const roomgrade = $('#roomGrade').val();
+
+            console.log(price);
+            console.log(hotelname);
+            console.log(roomgrade);
+
+
+            // 결제 및 예약확정 버튼 클릭이벤트 시작
+            $('#paymentsBtn').click(function(){
+                
+                if (memCode === ''){
+                    if ('${member}' === '') {
+
+                        if ($('#email').val().trim() === '') {
+                            alert('이메일을 입력하세요');
+                            $('#email').val('');
+                            $('#email').focus();
+                            return;
+                        } else if ($('#name').val().trim() === '') {
+                            alert('이름을 입력하세요');
+                            $('#name').val('');
+                            $('#name').focus();
+                            return;
+                        } else if ($('#phone2').val().trim() === '') {
+                            alert('전화번호를 입력하세요');
+                            $('#phone2').val('');
+                            $('#phone2').focus();
+                            return;
+                        } else if ($('#phone3').val().trim() === '') {
+                            alert('전화번호를 입력하세요');
+                            $('#phone3').val('');
+                            $('#phone3').focus();
+                            return;
+                        }
+                        
+                        memEmail = $('#email').val();
+                        memName = $('#name').val();
+                        const tel = $('#phone1').val() + '-' + $('#phone2').val() + '-' + $('#phone3').val();
+
+                        const data = {
+                            'email' : memEmail,
+                            'name' : memName,
+                            'tel' : tel
+                        };
+
+                        $.ajax({
+                            type: 'POST',
+                            url : '${pageContext.request.contextPath}/reservation/createNmemCode',
+                            contentType: 'application/JSON',
+                            data: JSON.stringify(data),
+                            success: function(result) {
+                                memCode = result;
+                                $('#memberCode').val(memCode);
+                                console.log('memberCode: ', $('#memberCode').val());
+                            } 
+                        });
+                        setTimeout(() => {
+                            console.log('memCode before purchase: ',$('#memberCode').val());
+                            if (confirm('위의 내용대로 예약을 진행하시겠습니까?')){
+                                const clientKey = '${key}';
+                                const tossPayments = TossPayments(clientKey);
+                                console.log('비회원예약 멤버코드', memCode);
+                                console.log('비회원예약 이름', memName);
+                                console.log('비회원예약 이메일', memEmail);
+                                console.log('price ', price);
+                                
+                                tossPayments.requestPayment('CARD', {
+                                    amount : price,
+                                    orderId: memCode + new Date().getTime(),
+                                    orderName: roomgrade,
+                                    customerName: memName,
+                                    customerEmail: memEmail,
+                                    successUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/success?memberCode=' + $('#memberCode').val()
+                                    + '&hotelCode=' + '${reservation.hotelCode}'+ '&roomCode=' + '${reservation.code}'+ '&capacity=' + '${reservation.capacity}'
+                                    + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate + '&pointAccumulate=' + accumulatePoint,
+                                    failUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/reservationPage'
+                                });
+                            }
+                            
+                            
+                        }, 500);
+                        
+                    } else {
+                        memCode = '${member}';
+                        $('#memberCode').val(memCode);
+                        console.log(memCode);
+                        $.ajax({
+                            type: 'POST',
+                            url : '${pageContext.request.contextPath}/reservation/getMemberInfo',
+                            contentType: 'application/JSON',
+                            data: memCode,
+                            success: function(info){
+                                memEmail = info.email;
+                                memName = info.name;
+                            },
+                            error: function() {
+                                alert('통신 실패');
+                            }
+                        });
+                        setTimeout(() => {
+                            console.log('memCode before purchase: ',$('#memberCode').val());
+                            console.log('적립 포인트: ', accumulatePoint);
+                            if (confirm('위의 내용대로 예약을 진행하시겠습니까?')){
+                                const clientKey = '${key}';
+                                const tossPayments = TossPayments(clientKey);
+                                console.log('멤버코드 ', memCode);
+                                console.log('이름 ', memName);
+                                console.log('이메일 ', memEmail);
+                                console.log('price ', price);
+
+                                tossPayments.requestPayment('CARD', {
+                                    amount : price,
+                                    orderId: memCode + new Date().getTime(),
+                                    orderName: roomgrade,
+                                    customerName: memName,
+                                    customerEmail: memEmail,
+                                    successUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/success?memberCode=' + $('#memberCode').val()
+                                    + '&hotelCode=' + '${reservation.hotelCode}'+ '&roomCode=' + '${reservation.code}'+ '&capacity=' + '${reservation.capacity}'
+                                    + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate + '&pointAccumulate=' + accumulatePoint,
+                                    failUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/reservationPage'
+                                });
+                            }  
+                            
+                        }, 500);
+                    }
+
+                } else {
+                    console.log('memCode before purchase: ',$('#memberCode').val());
+                    console.log('적립 포인트: ', accumulatePoint);
+                    if (confirm('위의 내용대로 예약을 진행하시겠습니까?')){
+                        const clientKey = '${key}';
+                        const tossPayments = TossPayments(clientKey);
+                        console.log('멤버코드 ', memCode);
+                        console.log('이름 ', memName);
+                        console.log('이메일 ', memEmail);
+                        console.log('price ', price);
+
+                        tossPayments.requestPayment('CARD', {
+                            amount : price,
+                            orderId: memCode + new Date().getTime(),
+                            orderName: roomgrade,
+                            customerName: memName,
+                            customerEmail: memEmail,
+                            successUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/success?memberCode=' + $('#memberCode').val()
+                            + '&hotelCode=' + '${reservation.hotelCode}'+ '&roomCode=' + '${reservation.code}'+ '&capacity=' + '${reservation.capacity}'
+                            + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate + '&pointAccumulate=' + accumulatePoint,
+                            failUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/reservationPage'
+                        });
+                    }
+                            
+                }
+
+
+                
+            }); // 결제 및 예약확정 버튼 클릭이벤트 끝
+
+
+
+
+
+
+        } else {
+            document.getElementById('hotelName').value = 
+            (document.reservForm.hotelCode.value === '10' ? 'WY호텔 서울' : (document.reservForm.hotelCode.value === '20' ? 'WY호텔 부산' : 'WY호텔 제주'));
+            const daterange = '${reservation.daterange}';
+            document.reservForm.strDate.value = daterange;
+
 
         //다이닝 예약확정 버튼 클릭(비회원)
         $('#diningReservBtn').click(function(){
 
-            
+                        
             if (memCode === ''){
                 if ('${member}' === '') {
 
@@ -343,7 +557,8 @@
                                 $('#reservForm').attr('action', '${pageContext.request.contextPath}/reservation/diningReserv');
                                 $('#reservForm').submit();
                             }
-                        } 
+                        }
+
                     });
                     
                 } else {
@@ -357,23 +572,24 @@
                 }
 
 
-            }
-
-            
-        }); // 다이닝 예약확정 종료
-
-        // 결제방식 선택 버튼 클릭이벤트 시작
-        $('#paymentsBtn').click(function(){
-            if ($('#paymentMethod').val() === 'none') {
-                alert('결제방식을 선택하세요');
-                $('#paymentMethod').focus();
-                return;
             } else {
-
+                $('#memberCode').val(memCode);
+                if (confirm('위의 내용대로 예약하시겠습니까?')){
+                    $('#reservForm').attr('action', '${pageContext.request.contextPath}/reservation/roomReserv');
+                    $('#reservForm').submit();
+                }
             }
-        }); // 결제방식 선택 버튼 클릭이벤트 끝
+
+
+
+            }); // 다이닝 예약확정 종료
+            
+        }
+
+
+
         
-    });
+    }); // end jQuery
     
 </script>
 

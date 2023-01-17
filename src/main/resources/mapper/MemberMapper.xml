@@ -9,7 +9,7 @@
    		<insert id="join">
 	  		INSERT INTO members
 	  		VALUES (mem_code_seq.NEXTVAL,#{email},#{password},#{name},#{tel},
-	  		#{zipCode},#{addrBasic},#{addrDetail}, default, default, default, sysdate, default)
+	  		#{zipCode},#{addrBasic},#{addrDetail}, default, null, null, default, default, null, default)
   		</insert>
   	
   		<!-- 이메일 중복 체크 -->
@@ -17,6 +17,12 @@
 		  	SELECT COUNT(*) FROM members
 			WHERE email = #{email} 
 	  	</select>
+
+    	<!-- 전화번호 중복 체크 -->
+    	<select id="telChk" resultType="int">
+    		SELECT COUNT(*) FROM members
+    		WHERE tel = #{tel}
+    	</select>
     	
     	<!-- 로그인 처리 -->
     	<select id="login" resultType="member">
@@ -52,7 +58,8 @@
     	<!-- 비밀번호 수정 -->
     	<update id="pwModify">
     		UPDATE members SET
-    		password = #{password}
+    		password = #{password},
+    		is_reset_password = 0
     		WHERE member_code = #{memberCode}
     	</update>
     	
@@ -89,6 +96,31 @@
     		SELECT * FROM members 
     		WHERE session_id = #{sessionId}
     	</select>
+    	
+    	
+    	<!-- 
+  		/**
+		 *	작 성 자 : 백 건 욱
+		 *	작 성 일 : 2023-01-09
+		 *	내     용 : 멤버십 관련 메소드 추가
+		 * */
+    	-->
+    	<select id="getMembershipInfo" resultType="membership">
+    		SELECT * FROM memberships
+    		WHERE grade = #{grade}
+    	</select>
+    	
+    	<update id="updateMembership">
+    		UPDATE members
+    		SET grade = #{member.grade}, membership_purchase_day = sysdate, membership_payment_key = #{purchaseKey}
+    		WHERE member_code = #{member.memberCode}
+    	</update>
+    	
+    	<update id="accumulatePoint">
+    		UPDATE members
+    		SET point = point + #{pointAccumulate}
+    		WHERE member_code = #{memberCode}
+    	</update>
     	
     </mapper>
     

@@ -9,10 +9,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ictproject.wyhotel.command.MemberVO;
+import com.ictproject.wyhotel.command.MembershipVO;
 import com.ictproject.wyhotel.member.mapper.IMemberMapper;
 
 @Service
-public class MamberServiceImpl implements IMemberService {
+public class MemberServiceImpl implements IMemberService {
 	
 	/*
 	 * 2022.12.29 임영준 작업 
@@ -30,11 +31,9 @@ public class MamberServiceImpl implements IMemberService {
 	public void join(MemberVO vo) {
 		//회원 비밀번호를 암호화 인코딩
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		System.out.println("되기전 비밀번호: " + vo.getPassword());
 		
 		//비밀번호를 암호화 해서 member객체에 다시 저장하기
 		String securPw = encoder.encode(vo.getPassword());
-		System.out.println("변경 후 비밀번호: " + securPw);
 		
 		vo.setPassword(securPw);
 		
@@ -64,17 +63,20 @@ public class MamberServiceImpl implements IMemberService {
 	public void pwModify(MemberVO vo) {
 		//회원 비밀번호를 암호화 인코딩
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		System.out.println("되기전 비밀번호: " + vo.getPassword());
 		
 		//비밀번호를 암호화 해서 member객체에 다시 저장하기
 		String securPw = encoder.encode(vo.getPassword());
-		System.out.println("변경 후 비밀번호: " + securPw);
 		
 		vo.setPassword(securPw);
 		
 		mapper.pwModify(vo);
 	}
-
+	
+	/**
+	 *	작 성 자 : 이 준 희
+	 *	작 성 일 : 2023-01-16
+	 *	내     용 : 회원 삭제 부분 로직 수정(비밀번호 가져와서 암호화 매치 후 비교)
+	 * */
 	@Override
 	public void delete(String memberCode) {
 		mapper.delete(memberCode);
@@ -99,11 +101,9 @@ public class MamberServiceImpl implements IMemberService {
 	public void newPw(String email, String password) {
 		//회원 비밀번호를 암호화 인코딩
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		System.out.println("되기전 비밀번호: " + password);
 		
 		//비밀번호를 암호화 해서 member객체에 다시 저장하기
 		String securPw = encoder.encode(password);
-		System.out.println("변경 후 비밀번호: " + securPw);
 		
 		password = securPw;
 		mapper.newPw(email, password);
@@ -116,6 +116,35 @@ public class MamberServiceImpl implements IMemberService {
 		data.put("limitDate", limitTime);
 		data.put("email", email);
 		mapper.keepLogin(data);
+	}
+	
+	@Override
+	public int telChk(String tel) {
+		return mapper.telChk(tel);
+	}
+	
+	
+	/**
+	 *	작 성 자 : 백 건 욱
+	 *	작 성 일 : 2023-01-09
+	 *	내     용 : 멤버십 관련 메소드 추가
+	 * */
+	@Override
+	public MembershipVO getMembershipInfo(String grade) {
+		
+		return mapper.getMembershipInfo(grade);
+	}
+	
+	@Override
+	public void updateMembership(MemberVO member, String paymentKey) {
+		
+		mapper.updateMembership(member, paymentKey);
+	}
+	
+	@Override
+	public void accumulatePoint(String memberCode, String pointAccumulate) {
+		
+		mapper.accumulatePoint(memberCode, pointAccumulate);
 	}
 	
 }

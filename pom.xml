@@ -218,13 +218,17 @@
 			<artifactId>simplecaptcha</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-
-
-
-
-
-
-
+		<!-- poi / 마이크로소프트 오피스 파일을 자바 언어로 읽고 쓰는 기능을 제공 -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+    		<version>3.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.16</version>
+		</dependency>
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>

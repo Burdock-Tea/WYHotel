@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ictproject.wyhotel.admin.mapper.IAdminMapper">
+
+	<sql id="search">
+		<choose>
+			<when test="category == 'name'">
+				WHERE				
+					name LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="category == 'tel'">
+				WHERE
+					tel LIKE '%' || #{keyword} || '%'
+			</when>		
+		</choose>
+	</sql>
+
+	<select id="getMemberList" resultType="member">
+		SELECT
+		    tbl2.*
+		FROM
+		    (
+		    SELECT
+		        ROWNUM as rn, tbl.*
+		    FROM
+		        (
+		        SELECT
+		            *
+		        FROM
+		            members
+		        <include refid="search"/>
+		        ORDER BY
+		            member_code DESC ) tbl ) tbl2
+		<![CDATA[
+		WHERE		
+		    rn > (#{pageNum}-1) * #{cpp}
+		AND 
+			rn <= #{pageNum} * #{cpp}
+		]]>
+	</select>
+	
+	<select id="getMemberCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			members
+		<include refid="search"/>
+	</select>
+	
+	<select id="getMemberInfo" resultType="member">
+		SELECT
+			*
+		FROM
+			members
+		WHERE
+			member_code = #{memberCode}
+	</select>
+	
+	<update id="updateMember">	
+		UPDATE
+			members
+		SET
+			name = #{name},
+			tel = #{tel},
+			zip_code = #{zipCode},
+			addr_basic = #{addrBasic},
+			addr_detail = #{addrDetail},
+			admin = #{admin},
+			grade = #{grade}
+		WHERE
+			member_code = #{memberCode}	
+	</update>
+	
+	<delete id="deleteMember">
+		DELETE FROM
+			members
+		WHERE
+			member_code = #{memberCode}
+	</delete>
+	
+	<update id="updateTempPassword">
+		UPDATE
+			members
+		SET
+			password = #{password},
+			session_id = 'none',
+			limit_date = null,
+			is_reset_password = 1
+		WHERE
+			member_code = #{memberCode}
+	</update>
+	
+	<select id="getQuestionList" resultType="question">
+	
+		SELECT
+			*
+		FROM
+			question
+		ORDER BY
+			question_code DESC
+	
+	</select>
+	
+	<select id="getQuestion" resultType="question">
+		SELECT
+			*
+		FROM
+			question
+		WHERE
+			question_code = #{questionCode}
+	</select>
+	
+	<update id="updateQuestion">
+	
+		UPDATE
+			question
+		SET
+			question_answer = #{questionAnswer},
+			answer_date = SYSDATE
+		WHERE
+			question_code = #{questionCode}	
+	
+	</update>
+
+</mapper>

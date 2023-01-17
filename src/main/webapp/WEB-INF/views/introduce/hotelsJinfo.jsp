@@ -125,8 +125,8 @@ a {
 <!-- kakao map api-->
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${ kakaoKey }"></script>
-<script src="${pageContext.request.contextPath}/testJson/jejuCafe.json" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/testJson/jeju.json" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/json/jejuCafe.json" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/json/jeju.json" type="text/javascript"></script>
 
 <script>
     	

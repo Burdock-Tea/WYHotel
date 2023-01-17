@@ -31,6 +31,11 @@
 
         <!-- xeicon CDN-->
 	    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+
+        <!-- 로티파이 CDN -->
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+
         
     </head>
     <body>    
@@ -38,7 +43,7 @@
             <div class="header-wrapper">
                 <div class="contatiner" style="text-align: center;">
                     <div class="img-wrapper">
-                        <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/img/em_logo.svg" width="150"></a>
+                        <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/img/logo.svg" width="150"></a>
                     </div>
                 </div>
             </div>        
@@ -55,7 +60,7 @@
                                 호텔소개
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotels">개요</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotels">객실소개</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotelsSinfo">WY호텔 서울</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotelsBinfo">WY호텔 부산</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotelsJinfo">WY호텔 제주</a></li>
@@ -66,7 +71,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                고객관리
+                                고객센터
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/cscenter/faq">FAQ</a></li>
@@ -75,6 +80,9 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                       <li class="nav-item">
+                            <a class="nav-link" href="${ pageContext.request.contextPath }/review/review">후기게시판</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 예약관리
@@ -86,39 +94,40 @@
                         </li>
                         <!-- 비로그인시 띄워줄 드롭다운 메뉴 -->
                         <c:if test="${member == null}">
-	                        <li class="nav-item dropdown">
-	                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-	                                계정관리
-	                            </a>
-	                            <ul class="dropdown-menu">
-	                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/login">로그인</a></li>
-	                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/join">회원가입</a></li>                                
-	                            </ul>
-	                        </li>
+                           <li class="nav-item dropdown">
+                               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                   계정관리
+                               </a>
+                               <ul class="dropdown-menu">
+                                   <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/login">로그인</a></li>
+                                   <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/join">회원가입</a></li>                                
+                               </ul>
+                           </li>
                         </c:if>
                         <!-- 로그인시 띄워줄 드롭다운 메뉴 -->
                         <c:if test="${member != null}">
-	                        <li class="nav-item dropdown">
-	                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-	                                마이페이지
-	                            </a>
-	                            <ul class="dropdown-menu">
-	                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/login">맴버쉽</a></li>
-	                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/pwChk">회원정보수정</a></li>
-	                                <li><a class="dropdown-item" id="logoutBtn" href="${pageContext.request.contextPath}/member/logout">로그아웃</a></li>
-	                            </ul>
-	                        </li>
+                           <li class="nav-item dropdown">
+                               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                   ${memberName}님
+                               </a>
+                               <ul class="dropdown-menu">
+                                   <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberShip">맴버쉽</a></li>
+                                   <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/pwChk">회원정보수정</a></li>
+                                   <li><a class="dropdown-item" id="logoutBtn" href="${pageContext.request.contextPath}/member/logout">로그아웃</a></li>
+                               </ul>
+                           </li>
                         </c:if>
                         <!-- 관리자 로그인시 띄워줄 드롭다운 메뉴 -->
                         <c:if test="${admin == true}">
-	                        <li class="nav-item dropdown">
-	                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-	                                관리자페이지
-	                            </a>
-	                            <ul class="dropdown-menu">
-	                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin/member">회원관리</a></li>	                                
-	                            </ul>
-	                        </li>
+                           <li class="nav-item dropdown">
+                               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                   관리자페이지
+                               </a>
+                               <ul class="dropdown-menu">
+                                   <li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin/member">회원관리</a></li>
+                                   <li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin/question">문의내역</a></li>
+                               </ul>
+                           </li>
                         </c:if>
                     </ul>
                 </div>
@@ -126,12 +135,7 @@
         </nav> <!-- end navbar-->
         
         <script>
-        	
-        	
-        	
+           
+           
+           
         </script>
-        
-        
-        
-        
-        

@@ -39,6 +39,7 @@
                                     <button class="btn btn-dark" type="button"
                                         id="mail-check">인증</button>
                                 </div>
+                                 <span id="mailMsg"></span>
                                 <div id="mailForm">
 	                                <div class="input-group mb-3" style="width: 380px;">
 	                                    <input type="text" id="checkNum" class="form-control" placeholder="인증번호를 입력하세요." aria-label="Recipient's username" aria-describedby="button-addon2">
@@ -50,6 +51,7 @@
 	                                <div class="form-group col-8" style="margin-top: 10px; width: 380px;">
 			                            <label for="inputPassword" class="form-label mt-4">변경 할 비밀번호</label> 
 			                            <input type="password" class="form-control" id="newPw" placeholder="New Password" name="newPw">
+			                            <span id="pwMsg"></span>
 			                        </div>
 			                        <div class="form-group col-8" style="width: 380px;">
 			                            <label for="inputPassword" class="form-label mt-4">비밀번호 확인</label>
@@ -63,7 +65,7 @@
 
                         <div class="joinButton col-12">
                             <button type="button" class="btn btn-light col-6 clearfix" style="float: left;" onclick="${pageContext.request.contextPath}/">취소</button>
-                            <button type="button" id="searchPw" class="btn btn-dark col-6 clearfix" style="float: left;">비밀번호 찾기</button>
+                            <button type="button" id="searchPw" class="btn btn-dark col-6 clearfix" style="float: left;">비밀번호 수정</button>
                         </div>
                     </form>
                 </div>
@@ -76,8 +78,41 @@
     
     
     <script>
-    
+    	
     	$(function() {
+    		
+    		//이메일 양식 유효성 검사.
+    		var id = document.getElementById("inputEmail");
+    		id.onkeyup = function() {
+    			/*자바스크립트의 정규표현식 입니다*/
+    			/*test메서드를 통해 비교하며, 매칭되면 true, 아니면 false반*/
+    			var regex =/[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]$/i;
+    			if (regex.test(document.getElementById("inputEmail").value)) {
+    				document.getElementById("inputEmail").style.borderColor = "black";
+    				$('#mailMsg').html('');
+    				$('#mail-check').attr('disabled', false);
+    			} else {
+    				document.getElementById("inputEmail").style.borderColor = "red";
+    				$('#mailMsg').html('이메일 양식을 확인해 주세요.');
+    				$('#mailMsg').css('color', 'red');
+    				$('#mail-check').attr('disabled', true);
+    			}
+    		}//이메일 양식 유효성 검사 끝
+    		
+    		//비밀번호 양식 유효성 검사
+    		var pw = document.getElementById('newPw');
+    		pw.onkeyup = function() {
+    			var regex = /^[A-Za-z0-9+]{8,16}$/;
+    			if(regex.test(document.getElementById('newPw').value)) {
+    				document.getElementById('newPw').style.borderColor = "black";
+    				$('#pwMsg').html('');
+    			} else {
+    				document.getElementById('newPw').style.borderColor = "red";
+    				$('#pwMsg').html('비밀번호는 영어나 숫자가 8~16자 이어야 합니다.');
+    				$('#pwMsg').css('color', 'red');
+    			}
+
+    		}// 비밀번호 양식 유효성검사 끝
     		
     		//비밀번호 클릭 이벤트 시작
     		$('#searchPw').click(function() {
@@ -88,8 +123,18 @@
     				return;
     			}
     			if($('#newPwChk').val() === '') {
-    				alert('비밀번호 확인을 완료해 주세요.');
+    				alert('비밀번호 확인란을 입력해 주세요.');
     				$('#newPwChk').focus();
+    			}
+    			if($('#pwMsg').html() === '비밀번호는 영어나 숫자가 8~16자 이어야 합니다.') {
+    				alert('비밀번호를 확인해 주세요.');
+    				$('#newPw').focus();
+    				return;
+    			}
+    			if(!$('#mail-check').attr('disabled')) {
+    				alert('이메일 양식을 확인해 주세요.');
+    				$('#email').focus();
+    				return;
     			}
     			if($('#newPw').val() === $('#newPwChk').val()) {
     				$('#searchPwForm').submit();
@@ -151,8 +196,9 @@
 					$resultMsg.html('인증번호가 일치합니다.');
 					$resultMsg.css('color', 'green');
 					$('#mailForm').hide();
+					$('#inputEmail').attr('readonly', true);
+					$('#mail-check').attr('disabled', true);
 					$('#pwChk').show();
-					$('#newPw').focus();
 				} else {
 					$resultMsg.html('계정이 없거나 인증번호가 틀렸습니다.');
 					$resultMsg.css('color', 'red');

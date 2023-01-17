@@ -14,13 +14,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ictproject.wyhotel.command.PromotionReservationVO;
 import com.ictproject.wyhotel.command.PromotionUploadVO;
 import com.ictproject.wyhotel.command.PromotionVO;
+import com.ictproject.wyhotel.command.ReservationVO;
 import com.ictproject.wyhotel.promotion.mapper.IPromotionMapper;
 
 import lombok.extern.log4j.Log4j;
 
 @Service
+@Log4j
 public class PromotionServiceImpl implements IPromotionService {
 
 	@Autowired
@@ -58,6 +61,8 @@ public class PromotionServiceImpl implements IPromotionService {
 
 			// 날짜별로 파일을 저장하기 위해 폴더 형식 세팅 (ex: 20230102)
 			String folderName = new SimpleDateFormat("yyyyMMdd").format(new Date()); // 오늘날짜
+			
+			// AWS EC2로 배포할때는 /var/upload/로 지정
 			String uploadFolder = "C:/test/upload/";
 
 			// 업로드 되는 경로 C:/test/upload/날짜
@@ -88,11 +93,11 @@ public class PromotionServiceImpl implements IPromotionService {
 
 	@Override
 	public List<PromotionVO> getList(String hotelCode, String startDate, String endDate) {
-		List<PromotionVO> list = mapper.getList(hotelCode);
+		List<PromotionVO> list = mapper.getList(hotelCode, startDate, endDate);
 		
 		list.forEach((promotion) -> {
 			String start = promotion.getStartDate().toString();
-			String end = promotion.getEndDate().toString();		
+			String end = promotion.getEndDate().toString();
 		});
 		
 		return list;
@@ -139,6 +144,7 @@ public class PromotionServiceImpl implements IPromotionService {
 				String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."), fileRealName.length());
 				
 				String folderName = new SimpleDateFormat("yyyyMMdd").format(new Date());
+				// AWS EC2로 배포할때는 /var/upload/로 지정
 				String uploadFolder = "C:/test/upload/";
 				
 				File folder = new File(uploadFolder + folderName);
@@ -178,5 +184,25 @@ public class PromotionServiceImpl implements IPromotionService {
 		
 		mapper.delete(promotionCode);
 	}
-
+		
+	@Override
+	public ReservationVO convertReservationData(PromotionReservationVO data) {
+		
+		PromotionVO promotion = mapper.getPromotion(data.getPromotionCodeData());
+		
+		ReservationVO reservation = new ReservationVO();
+		
+		
+		log.info("정제전 dateRange : " + data.getDaterange());
+		
+		reservation.setCapacity(2);
+		reservation.setCategory("hotels");
+		reservation.setCode(promotion.getRoomCode());
+		reservation.setHotelCode(promotion.getHotelCode());
+		reservation.setDaterange(data.getDaterange());
+		
+		
+		return reservation;
+	}
+	
 }

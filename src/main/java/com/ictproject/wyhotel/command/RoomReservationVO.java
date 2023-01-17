@@ -18,7 +18,7 @@ public class RoomReservationVO {
 	private int capacity;
 	private Timestamp checkInDate;
 	private Timestamp checkOutDate;
-	private boolean isDining;
 	private Timestamp chargedDate;
+	private String paymentKey;
 
 }

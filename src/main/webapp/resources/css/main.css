@@ -8,9 +8,10 @@
 
 /* section : video */
 .hero{
-    height: 40vh;
+    height: 100vh;
     position: relative;
     overflow: hidden;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,15 +19,115 @@
 }
 /* using object-fit */
 .hero video{
+    width: 100%;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
+    background-size: cover;
     z-index: -1;
-    width: 100%;
-    height: 100%;
     object-fit: cover;
+    pointer-events: none;
 }
 .hero .heading{color: white;}
+
+/* 메인 */
+#main-introduce {
+    margin: 200px 0;
+    text-align: center;
+    padding: 0;
+}
+
+.main-introduce > p {
+    margin-top: 50px;
+    font-size: 30px;
+    color: #888888;
+}
+
+/* 객실 소개 */
+
+.main-room-content {
+    text-align: center;
+}
+
+.main-room-content > .room {
+    font-size: 20px;
+    margin-top: 60px;
+    color: burlywood;
+}
+
+.main-room-content > .room-name {
+    font-size: 40px;
+    color: #383838;
+}
+
+.main-room-content > .room-content {
+    font-size: 20px;
+}
+
+.main-more {
+    margin-top: 80px;
+}
+
+.main-more > a {
+    color: burlywood;
+}
+
+.guest-room {
+    margin: 60px auto;
+}
+
+.guest-room > img {
+    width: 100%;
+}
+
+/* 다이닝 소개 */
+.main-dining-content {
+    text-align: center;
+}
+
+.main-dining-content > .dining {
+    font-size: 20px;
+    margin-top: 60px;
+    color: burlywood;
+}
+
+.main-dining-content > .dining-name {
+    font-size: 40px;
+    color: #383838;
+}
+
+.main-dining-content > .dining-content {
+    font-size: 20px;
+}
+
+.dining-1 {
+    margin: 50px auto;
+}
+
+.dining-1 > img {
+    width: 100%;
+}
+
+/* 프로모션 */
+.promotion {
+    text-align: center;
+}
+
+.promotion > h3 {
+    font-size: 20px;
+    color: burlywood;
+    padding-top: 60px;
+    padding-bottom: 50px;
+}
+
+.promotion > span {
+    font-size: 20px;
+}
+
+.promotion > .mySwiper {
+    margin-top: 50px;
+}
 
 /* header navlink text-decoration, color*/
 
@@ -99,7 +200,7 @@ footer .footSub .copyright {
 }
 
 footer .footSub .subfont {
-    font-size: 15px; 
+    font-size: 15px;
     color: lightgray;
 }
 
@@ -387,5 +488,193 @@ p>small {
 /* login userLogin-btn */
 .userLogin-btn {
     font-size: 13px;
+}
+
+/* 멤버쉽 */
+.member-ship {
+    border: 1px solid #D9D9D9;
+    width: 80%;
+    margin: 100px auto;
+}
+
+.member-ship > .memShip-information {
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+.member-ship > .memShip-information > span {
+    font-weight: bold;
+    color: #555555;
+}
+
+.member-ship > .memShip-information > .memShip-p {
+    color: #888888;
+    padding-top: 10px;
+}
+
+.member-ship > .memShip-information > .memShip-use {
+    padding-top: 100px;
+    font-size: 20px;
+}
+
+.member-ship > .memShip-information > .memShip-use > p {
+    font-weight: bold;
+}
+
+.member-ship > .memShip-information > .memShip-use > p > a {
+    text-decoration: none;
+    color: black;
+}
+
+.member-ship > .memShip-member {
+    margin-right: 100px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 18px;
+}
+
+.member-ship > .memShip-member > .memShip-grade {
+    text-align: center;
+    border-radius: 50%;
+    margin-top: 50px;
+}
+
+.point > .point-content {
+    font-size: 20px;
+    margin-left: 120px;
+}
+
+.point > .point-content > span {
+    color: #666666;
+    font-weight: bold;
+}
+
+.point > .point-content > p {
+    color: #8f8f8f;
+}
+
+.point-introduce > .point-block {
+    margin-left: 120px;
+    margin-top: 100px;
+}
+
+.point-introduce > .point-block > .point-block-1 {
+    background: #F2F2F2;
+    width: 210px;
+    height: 206px;
+    border-radius: 50%;
+    text-align: center;
+    float: left;
+}
+
+.point-introduce > .point-block > .point-block-2 {
+    background: #F2F2F2;
+    width: 210px;
+    height: 206px;
+    border-radius: 50%;
+    text-align: center;
+    margin-left: 70px;
+}
+
+.point-introduce > .point-block > .point-block-1 > i {
+    font-size: 60px;
+    margin-top: 50px;
+}
+
+.point-introduce > .point-block > .point-block-2 > i {
+    font-size: 60px;
+    margin-top: 50px;
+}
+
+.point-introduce > .point-block > .point-block-1 > p {
+    color: #8f8f8f;
+    font-size: 20px;
+}
+
+.point-introduce > .point-block > .point-block-2 > p {
+    color: #8f8f8f;
+    font-size: 20px;
+}
+
+.memberShip-grades {
+    margin-top: 100px;
+}
+
+.memberShip-grades > .memberShip-member {
+    font-size: 20px;
+    margin-left: 120px;
+}
+
+.memberShip-grades > .memberShip-member > span {
+    color: #666666;
+    font-weight: bold;
+}
+
+.memberShip-grades > .memberShip-member > p {
+    color: #8f8f8f;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block {
+    margin-left: 120px;
+    margin-top: 100px;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block > .memberShip-block-1 {
+    border: 1px solid #D9D9D9;
+    text-align: center;
+    border-radius: 30px;
+    width: 210px;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block > .memberShip-block-1 > img {
+    margin: 42px 0;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block > .memberShip-block-1 > .memberShip-content {
+    color: #8f8f8f;
+    font-size: 18px;
+    margin-bottom: 80px;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block > .memberShip-block-2 {
+    border: 1px solid #D9D9D9;
+    text-align: center;
+    border-radius: 30px;
+    width: 210px;
+    margin-left: 70px;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block > .memberShip-block-2 > img {
+    margin: 43px 0;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block > #bronzeGrade > img {
+	margin: 19px 0 41px;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block > .memberShip-block-2 > .memberShip-content {
+    color: #8f8f8f;
+    font-size: 18px;
+    margin-bottom: 80px;
+}
+
+.brown, .silver, .gold, 
+.diamond, .grade{
+    font-weight: bold;
+    font-size: 20px;
+    color: #D9D9D9;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block small,
+.memberShip-grades > .memberShip-introduce > .memberShip-block b,
+.memberShip-grades > .memberShip-introduce > .memberShip-block i {
+	color: black;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block > div:hover {
+	transform: scale(1.05);
+	transition: 0.5s;
+	
+	cursor: pointer;
 }
 
