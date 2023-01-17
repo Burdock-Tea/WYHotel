@@ -1,6 +1,5 @@
 package com.ictproject.wyhotel.review.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,13 +14,13 @@ public interface IReviewService {
 	List<ReviewVO> getList();
 	
 	/**리뷰 갯수(페이징용)*/
-	int getTotal(int bno);
+//	int getTotal(int bno);
 	
 	/**리뷰 수정*/
 //	void update(ReviewVO vo);
 	
 	/**리뷰 삭제*/
-	void delete (int rno);
+	void delete (int bno);
 	
 	/**리뷰 유저 체크*/
 	List<ReviewVO> regMemberChk(ReviewVO vo);

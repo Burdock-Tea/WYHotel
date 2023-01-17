@@ -1,7 +1,6 @@
 package com.ictproject.wyhotel.review.service;
 
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,10 +29,10 @@ public class ReviewServiceImpl implements IReviewService {
 	}
 	
 	// 리뷰 갯수
-	@Override
-	public int getTotal(int bno){
-		return 0;
-	}
+//	@Override
+//	public int getTotal(int bno){
+//		return 0;
+//	}
 	
 	// 리뷰수정
 //	@Override

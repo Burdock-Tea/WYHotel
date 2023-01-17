@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ictproject.wyhotel.command.ReviewVO;
-import com.ictproject.wyhotel.member.service.IMemberService;
-import com.ictproject.wyhotel.reservation.service.IReservationService;
+import com.ictproject.wyhotel.command.RoomReservationVO;
 import com.ictproject.wyhotel.review.service.IReviewService;
 
 
@@ -35,16 +35,12 @@ public class ReviewController {
 	@Autowired
 	private IReviewService service;
 	
-//	private IMemberService mService;
-	
-//	@Autowired
-//	private IReservationService rService;
-	
+	@GetMapping("/review")
+	public void reviewPage(Model model) {
 //			member = rService.getInfo(memberCode); // 예약한 비회원 정보 조회
 //		} else {
 //			member = mService.getInfo(memberCode); // 회원정보 조회
 //		}
-//		
 //		model.addAttribute("info", member);
 		List<ReviewVO> list = service.getList();
 		model.addAttribute("list", list);
@@ -54,7 +50,6 @@ public class ReviewController {
 	@ResponseBody
 	@PostMapping("/reviewRegist")
  	public String reviewRegist(@RequestBody ReviewVO vo, HttpSession session){
-		
 		
 		List<ReviewVO> list = null;
 		list = service.regMemberChk(vo);
@@ -70,20 +65,18 @@ public class ReviewController {
 			return "regSuccess";
 		}
 		
-		
 	}
-	
 	
 	@PostMapping("/reviewUpdate")
  	public String reviewUpdate(@RequestParam Map<String, Object> prams , 
  			                   RedirectAttributes ra ,
  			                   HttpSession session){
-		
+	
 		String bno = (String) prams.get("bno"); // 수정할 게시글 번호 받아옴
 		String membercode = (String)session.getAttribute("member");  //세션의 멤버코드
 		String memberAuth = service.getUpdateAuthMember(bno); //수정할 게시글의 최초작상자의 멤버코드 가져오기 
 		
-		
+		System.out.println("bno " + bno);
 		System.out.println("잘왔냐고요" + memberAuth);
 		
 		//로그인이 안됐을시
@@ -109,5 +102,18 @@ public class ReviewController {
 		
 	}
 	
+	@PostMapping("/delete")
+	public void delete(@RequestBody int bno) {
+		service.delete(bno);
+	}
+	
+	@PostMapping("/write")
+	public String write(RoomReservationVO room,
+					RedirectAttributes ra) {
+		System.out.println("review: " + room);
+		ra.addFlashAttribute("room", room);
+		return "redirect:/review/review";
+	}
+	
 
-
+}
