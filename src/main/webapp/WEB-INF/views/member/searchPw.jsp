@@ -125,6 +125,7 @@
     			if($('#newPwChk').val() === '') {
     				alert('비밀번호 확인란을 입력해 주세요.');
     				$('#newPwChk').focus();
+    				return;
     			}
     			if($('#pwMsg').html() === '비밀번호는 영어나 숫자가 8~16자 이어야 합니다.') {
     				alert('비밀번호를 확인해 주세요.');
@@ -140,7 +141,9 @@
     				$('#searchPwForm').submit();
     				alert('비밀번호 변경 완료. 로그인 해주세요.');
     			} else {
-    				alert('비밀번호 확인을 확인해 주세요.');
+    				alert('비밀번호 확인란을 확인해 주세요.');
+    				$('#newPwChk').val('');
+    				$('#newPwChk').focus();
     				return;
     			}
 			});//비밀번호  클릭 이벤트 끝

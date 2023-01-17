@@ -6,10 +6,14 @@
 .nav-link{ font-weight: 400;} /* font 활성화시 폰트 두께*/
 .box-shodow{ box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);}
 
+.container {
+	height: 100vh;
+}
+
 /* section : video */
 .hero{
     height: 100vh;
-    position: relative;
+    position: relative; 
     overflow: hidden;
     background-size: cover;
     display: flex;
@@ -173,6 +177,7 @@ footer {
     background: #000;
     box-sizing: border-box;
     color: white;
+    bottom: 0;
 }
 
 footer .innerbox {
