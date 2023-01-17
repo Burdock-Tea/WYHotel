@@ -1,0 +1,67 @@
+jejuCafe = [
+		{
+  "content":'<div class="wrap">' + 
+            '    <div class="info">' + 
+            '        <div class="title">' + 
+            '           <strong> wy cafe </strong>' + 
+            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+            '        </div>' + 
+            '        <div class="body">' + 
+            '            <div class="img">' +
+            '                <img src="/wyhotel/img/cafe.jpg" style="width: 250px; height: 150px">' +
+            '           </div>' + 
+            '            <div class="desc">' + 
+            '                <div class="ellipsis">제주시  특별자치도</div>' + 
+            '                <div><a href="https://map.kakao.com/link/to/wy cafe ,33.510440,126.555283" style="color:blue" target="_blank">길찾기</a></div>' + 
+            '            </div>' + 
+            '        </div>' + 
+            '    </div>' +    
+            '</div>',
+  "latlngX": 33.510440, 
+  "latlngY": 126.555283
+	}
+	,
+	{
+  "content": '<div class="wrap">' + 
+            '    <div class="info">' + 
+            '        <div class="title">' + 
+            '           <strong> wy cafe+ </strong>' + 
+            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+            '        </div>' + 
+            '        <div class="body">' + 
+            '            <div class="img">' +
+            '                <img src="/wyhotel/img/cafe2.jpg"  style="width: 250px; height: 150px" >' +
+            '           </div>' + 
+            '            <div class="desc">' + 
+            '                <div class="ellipsis">제주시 특별자치도/div>' + 
+            '                <div><a href="https://map.kakao.com/link/to/wy cafe+ ,33.508340,126.553283" style="color:blue" target="_blank">길찾기</a></div>' + 
+            '            </div>' + 
+            '        </div>' + 
+            '    </div>' +    
+            '</div>',
+  "latlngX": 33.508340, 
+  "latlngY": 126.553283
+	}
+	,
+	{
+  "content": '<div class="wrap">' + 
+            '    <div class="info">' + 
+            '        <div class="title">' + 
+            '           <strong> wy cafe++ </strong>' + 
+            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+            '        </div>' + 
+            '        <div class="body">' + 
+            '            <div class="img">' +
+            '                <img src="/wyhotel/img/cafe3.jpg"  style="width: 250px; height: 150px" >' +
+            '           </div>' + 
+            '            <div class="desc">' + 
+            '                <div class="ellipsis">제주시 특별자치도 </div>' + 
+            '                <div><a href="https://map.kakao.com/link/to/wy cafe++ , 33.511440,126.551283" style="color:blue" target="_blank">길찾기</a></div>' + 
+            '            </div>' + 
+            '        </div>' + 
+            '    </div>' +    
+            '</div>',
+  "latlngX": 33.511440, 
+  "latlngY": 126.551283
+	}		
+   ]

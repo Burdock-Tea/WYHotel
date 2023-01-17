@@ -39,7 +39,9 @@ public class PromotionController {
 	
 	// 프로모션 리스트 페이지로 이동
 	@GetMapping("/list")
-	public void listPage(Model model, String hotelCode, String startDate, String endDate) {		
+	public void listPage(Model model, String hotelCode, String startDate, String endDate) {
+		log.info("hotelCode is " + hotelCode);
+		log.info("startDate is " + startDate);
 		model.addAttribute("promotionList", service.getList(hotelCode, startDate, endDate));
 	}
 	

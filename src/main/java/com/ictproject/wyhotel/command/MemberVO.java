@@ -42,4 +42,7 @@ public class MemberVO {
 	//자동 로그인 체크 여부
 	private boolean autoLogin;
 	
+	// 비밀번호 초기화 여부 확인 (테이블에도 값을 추가함)
+	private boolean isResetPassword;
+	
 }

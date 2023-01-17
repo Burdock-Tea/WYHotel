@@ -58,7 +58,7 @@ public interface IMemberMapper {
 	
 	//전화번호 중복 체크
 	int telChk(String tel);
-
+	
 	/**
 	 *	작 성 자 : 백 건 욱
 	 *	작 성 일 : 2023-01-09

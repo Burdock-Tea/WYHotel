@@ -33,7 +33,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
-		model.addAttribute("promotionList", promotionService.getList("", "", ""));
+		model.addAttribute("promotionList", promotionService.getList(null, null, null));
 		model.addAttribute("locale", locale);
 		
 		return "home";

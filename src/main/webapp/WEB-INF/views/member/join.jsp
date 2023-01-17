@@ -243,7 +243,7 @@
 		/*test메서드를 통해 비교하며, 매칭되면 true, 아니면 false반*/
 		var regex =/[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]$/i;
 		if (regex.test(document.getElementById("email").value)) {
-			document.getElementById("email").style.borderColor = "green";
+			document.getElementById("email").style.borderColor = "black";
 			$('#emailCheckBtn').attr('disabled', false);
 		} else {
 			document.getElementById("email").style.borderColor = "red";
@@ -256,7 +256,7 @@
 	pw.onkeyup = function() {
 		var regex = /^[A-Za-z0-9+]{8,16}$/;
 		if(regex.test(document.getElementById('inputPassword').value)) {
-			document.getElementById('inputPassword').style.borderColor = "green";
+			document.getElementById('inputPassword').style.borderColor = "black";
 			$('#pwMsg').html('');
 		} else {
 			document.getElementById('inputPassword').style.borderColor = "red";
@@ -271,7 +271,7 @@
 	$('#inputName').keyup(function() {
 		//이름값 유효성 검사
 		if(getNameCheck.test($(this).val())) {
-			$(this).css('borderColor', 'green');
+			$(this).css('borderColor', 'black');
 			$('#nameMsg').html('');
 		} else {
 			$(this).css('borderColor', 'red');
@@ -285,7 +285,7 @@
 	const regTel3 = /^([0-9]{4})$/
 	$('#tel2').keyup(function() {
 		if(regTel2.test($(this).val())) {
-			$(this).css('borderColor', 'green');
+			$(this).css('borderColor', 'black');
 			$('#telChk').html('');
 		} else {
 			$(this).css('borderColor', 'red');
@@ -295,7 +295,7 @@
 	});
 	$('#tel3').keyup(function() {
 		if(regTel3.test($(this).val())) {
-			$(this).css('borderColor', 'green');
+			$(this).css('borderColor', 'black');
 			$('#telChk').html('');
 		} else {
 			$(this).css('borderColor', 'red');
@@ -336,11 +336,11 @@
 					if (data === 'duplicated') {
 						$('#email').val('');
 						$('#email').focus();
-						$('#email').css('background', 'red');
+						$('#email').css('borderColor', 'red');
 						$('#msgId').html('아이디가 중복되었습니다.');
 						$('#msgId').css('color', 'red');
 					} else {
-						$('#email').css('background', 'white');
+						$('#email').css('borderColor', 'black');
 						$('#msgId').css('color', 'green');
 						$('#email').attr('readonly', true);
 						$('#emailCheckBtn').hide();
@@ -361,7 +361,7 @@
 		 * 작성자 : 권우영
 		 * 전화번호 중복 처리 오류 수정
 		 * (keyup이 아닌 blur 이벤트로 교체, data 객체형식이 아닌 String형식으로 전달)
-		 */		
+		 */
 		$('#tel3').blur(function() {
 			const tel = $('#tel').val() + '-' + $('#tel2').val() + '-' + $('#tel3').val();
 			console.log('완성된 전화번호' + tel);
@@ -389,6 +389,11 @@
 		}); //전화번호 중복체크 끝
 
 		// 회원가입 창 유효성 검사.
+		/*
+		 * 수정일 : 23/01/16
+		 * 작성자 : 이준희
+		 * 비밀번호 비교 추가
+		 */
 		$('#joinButton').click(function() {
 
 			if ($('#email').val()==='') {
@@ -426,6 +431,10 @@
 			} else if($('#telMsg').html() === '중복된 전화번호가 있습니다. 다시 확인해 주세요') {
 				alert('전화번호가 중복되었습니다. 다시 작성해주세요.');
 				$('#tel2').focus();
+				return;
+			} else if($('#inputPassword').val() !== $('#inputPasswordChk').val()) {
+				alert('비밀번호를 확인해 주세요.');
+				$('#inputPasswordChk').focus();
 				return;
 			} else {
 				alert('회원가입을 진행합니다.');
@@ -548,11 +557,8 @@
 		$('body').append(mask).append($loadingImg);
 		
 		//mask의 가로, 세로를 지정해주고, 투명도를 조절해 주겠습니다.
-		$('#mask').css({
-			'width' : maskWidth,
-			'height' : maskHeight,
-			'opacity' : '0.5'
-		}) ;
+		//230106 수정 -이준희(그냥지움)
+		
 		
 		// 마스크와 이미지를 화면에 표시
 		$('#mask').show();

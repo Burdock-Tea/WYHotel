@@ -120,6 +120,11 @@
 	<script type="text/javascript">
 	
 		window.onload = function(){
+			
+			if('${msg}' === 'mailSendError') {
+				alert('메일 전송에 실패하였습니다. 관리자에게 문의해주세요');
+			}
+			
 			getImage();	// 이미지 가져오기
 			
 			document.querySelector('#check').addEventListener('click', function(){

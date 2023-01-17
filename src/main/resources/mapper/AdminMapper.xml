@@ -67,7 +67,8 @@
 			zip_code = #{zipCode},
 			addr_basic = #{addrBasic},
 			addr_detail = #{addrDetail},
-			admin = #{admin}
+			admin = #{admin},
+			grade = #{grade}
 		WHERE
 			member_code = #{memberCode}	
 	</update>
@@ -83,9 +84,44 @@
 		UPDATE
 			members
 		SET
-			password = #{password}
+			password = #{password},
+			session_id = 'none',
+			limit_date = null,
+			is_reset_password = 1
 		WHERE
 			member_code = #{memberCode}
+	</update>
+	
+	<select id="getQuestionList" resultType="question">
+	
+		SELECT
+			*
+		FROM
+			question
+		ORDER BY
+			question_code DESC
+	
+	</select>
+	
+	<select id="getQuestion" resultType="question">
+		SELECT
+			*
+		FROM
+			question
+		WHERE
+			question_code = #{questionCode}
+	</select>
+	
+	<update id="updateQuestion">
+	
+		UPDATE
+			question
+		SET
+			question_answer = #{questionAnswer},
+			answer_date = SYSDATE
+		WHERE
+			question_code = #{questionCode}	
+	
 	</update>
 
 </mapper>
