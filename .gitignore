@@ -8,7 +8,7 @@ pom.properties
 MANIFEST.MF
 Email.properties
 Hikari.properties
-
+kakao.properties
 ### Eclipse ###
 .metadata
 bin/

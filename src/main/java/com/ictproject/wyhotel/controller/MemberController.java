@@ -32,6 +32,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class MemberController {
 	
+	
 	@Autowired
 	private IMemberService service;
 	
@@ -284,7 +285,7 @@ public class MemberController {
 		return "redirect:/member/login";
 	}
 	
-	
+
 }
 
 
