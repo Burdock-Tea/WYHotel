@@ -60,6 +60,15 @@
 
 
 	<script>
+	
+		// 초기화된 비밀번호 로그인시 디자인 수정
+		if('${msg}' === 'resetPassword') {
+			$('div[class="col-3"]').css('display', 'none');
+			$('#pwForm').prev().removeClass('col-lg-1');
+			$('#pwForm').prev().addClass('col-lg-3');
+			
+			alert('초기화된 비밀번호입니다. 수정해주세요!');
+		}
 		
 		//비밀번호 양식 유효성 검사
 		var pw = document.getElementById('newPw');

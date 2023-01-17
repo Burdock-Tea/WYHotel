@@ -176,8 +176,18 @@ public class MemberController {
 						//Date 객체의 생성자에 매개값으로 밀리초의 정수를 전달하면 날짜 형태로 변경
 						Date limitDate = new Date(expireDate);
 						
-						service.keepLogin(session.getId(), limitDate, vo.getEmail());
+						service.keepLogin(session.getId(), limitDate, vo.getEmail());				
+					}
 					
+					/*
+					 *  비밀번호 초기화 컬럼 추가 이후 추가 기능 구현
+					 *  작성자 : 권 우 영
+					 *  작성일 : 23/01/16
+					 */
+					
+					if(dbData.isResetPassword()) {
+						ra.addFlashAttribute("msg", "resetPassword");
+						return "redirect:/member/pwModify";
 					}
 				
 					return "redirect:/";

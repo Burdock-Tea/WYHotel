@@ -20,18 +20,37 @@
 	<sql id="hotelCode">
 		<choose>
 			<when test="hotelCode == '10'">
-				WHERE
-					hotel_code = '10'
+				hotel_code = '10'
 			</when>
 			<when test="hotelCode == '20'">
-				WHERE
-					hotel_code = '20'
+				hotel_code = '20'
 			</when>
 			<when test="hotelCode == '30'">
-				WHERE
-					hotel_code = '30'
+				hotel_code = '30'
 			</when>
-			<when test="hotelCode == 'none'">
+			<when test="(hotelCode == 'none') || (hotelCode == null)">
+				hotel_code LIKE '%0'				
+			</when>
+		</choose>
+	</sql>
+	
+	<sql id="searchDate">
+		<choose>
+			<when test="startDate != null">				
+				<![CDATA[
+				AND
+				    (end_date >= #{endDate}
+				AND
+				    start_date <= #{startDate})
+				]]>
+			</when>
+			<when test="startDate == null">
+				<![CDATA[
+				AND
+				    (end_date >= SYSDATE + 1
+				AND
+				    start_date <= SYSDATE) 
+				]]>
 			</when>
 		</choose>
 	</sql>
@@ -48,7 +67,9 @@
 			*
 		FROM
 			promotion
+		WHERE
 		<include refid="hotelCode"/>
+		<include refid="searchDate"/>
 		ORDER BY
 			promotion_code DESC
 	</select>

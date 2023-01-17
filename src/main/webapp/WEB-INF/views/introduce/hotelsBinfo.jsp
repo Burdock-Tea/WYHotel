@@ -32,7 +32,6 @@
             <div class="offcanvas-body">
                 <div>
                     <ul class="hMenu">
-	                    <li class="pb-3 fs-5"><a href="#">개요</a></li> 
 	                    <li class="pb-3 fs-5"><a href="${pageContext.request.contextPath}/introduce/hotels">객실소개</a></li>
 	                    <li class="pb-3 fs-5"><a href="${pageContext.request.contextPath}/introduce/hotelsSinfo">WY 서울 호텔</a></li>
 	                    <li class="pb-3 fs-5"><a href="${pageContext.request.contextPath}/introduce/hotelsBinfo">WY 부산 호텔</a></li>

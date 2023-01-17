@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ictproject.wyhotel.admin.service.IAdminService;
 import com.ictproject.wyhotel.command.MemberVO;
+import com.ictproject.wyhotel.command.QuestionVO;
 import com.ictproject.wyhotel.util.paging.PageVO;
 
 import lombok.extern.log4j.Log4j;
@@ -73,19 +75,44 @@ public class AdminController {
 	
 	// 회원에게 임시비밀번호 발급
 	@PostMapping("/updateTempPassword")
-	public String updateTempPassword(MemberVO member) {
+	public String updateTempPassword(MemberVO member, RedirectAttributes ra) {
 		
 		log.info("updateTempPassword // member is : " + member);
 					
 		service.updateTempPassword(member);
+		ra.addFlashAttribute("msg", "transferEmail");
 		
 		return "redirect:/admin/member";
 	}
 	
 	// 관리자 문의내역 페이지로 이동
 	@GetMapping("/question")
-	public String qusetionPage() {
+	public String qusetionPage(Model model) {
+		
+		model.addAttribute("list", service.getQuestionList());		
+		
 		return "/admin/question";
+	}
+	
+	// 모달창에 띄워줄 문의내역 가져오기 (비동기)
+	@PostMapping("/getQuestion")
+	@ResponseBody
+	public QuestionVO getQuestion(@RequestBody String questionCode) {
+		return service.getQuestion(questionCode);
+	}
+	
+	// 문의내역 답장 보내기
+	@PostMapping("/replyQuestion")
+	@ResponseBody
+	public String replyQuestion(@RequestBody QuestionVO question) {
+		
+		if(service.replyQuestion(question)) {
+			return "success";
+		} else {
+			return "fail";
+		}
+		
+		
 	}
 	
 

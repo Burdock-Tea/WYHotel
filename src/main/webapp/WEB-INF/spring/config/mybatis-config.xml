@@ -29,6 +29,7 @@
  		<typeAlias type="com.ictproject.wyhotel.command.PromotionVO" alias="promotion"/>
  		<typeAlias type="com.ictproject.wyhotel.command.MembershipVO" alias="membership"/>
  		<typeAlias type="com.ictproject.wyhotel.command.ReviewVO" alias="review"/>
+ 		<typeAlias type="com.ictproject.wyhotel.command.QuestionVO" alias="question"/>
  	</typeAliases>
  	
  	<!--

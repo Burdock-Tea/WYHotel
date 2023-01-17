@@ -25,7 +25,7 @@
 				    <option value="30" ${ param.hotelCode == "30" ? "selected" : "" }>제주</option>
 				  </select>
 				  <span class="input-group-text">시작날짜</span>
-                  <input type="date" aria-label="startDate" class="form-control" id="startDate" name="startDate">
+                  <input type="date" aria-label="startDate" class="form-control" id="startDate" name="startDate" value="${ param.startDate }">
                   <span class="input-group-text">마침날짜</span>
                   <input type="date" aria-label="endDate" class="form-control" id="endDate" name="endDate" readonly>
 				  <button id="listBtn" class="btn btn-outline-secondary" type="button">검색</button>
@@ -45,7 +45,7 @@
 	                          <h5 class="card-title">${ list.promotionName }</h5>
 	                          <p class="card-text">${ list.promotionContent }</p>
 	                          <span class="card-date"><fmt:formatDate value="${ list.startDate }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${ list.endDate }" pattern="yyyy-MM-dd"/></span><br>	                          
-	                          <strong class="card-price"><fmt:formatNumber value="${ list.promotionPrice }" type="currency"/></strong>
+	                          <strong class="card-price"><fmt:formatNumber value="${ list.promotionPrice }" currencyCode="KO" />원</strong>
 	                          <input type="hidden" class="geonwookPrice" value="${ list.promotionPrice }">	                          
 	                          <button type="button" class="btn btn-primary modalBtn float-end" data-bs-toggle="modal" data-bs-target="#detailModal" data-promotion-code="${ list.promotionCode }">
                             	상세보기
@@ -183,7 +183,13 @@
     			}
 			});
     		
-    		$('#startDate').val(getDate(false));
+    		if('${param.startDate}' !== '') {
+    			$('#startDate').val('${param.startDate}');
+    		} else {
+    			$('#startDate').val(getDate(false));
+    		}
+    		
+    		
     		$('#endDate').val(getNextDay($('#startDate').val()));
     		
     		
