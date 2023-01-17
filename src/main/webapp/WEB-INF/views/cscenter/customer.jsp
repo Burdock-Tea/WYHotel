@@ -105,7 +105,7 @@
 	                <div class="row">
 	                    <div class="col-5"></div>
 	                    <div class="col-4">
-	                        <button type="submit" class="btn btn-dark">문의하기</button>
+	                        <button type="submit" id="formSubmit" class="btn btn-dark">문의하기</button>
 	                    </div>
 	                </div>
 	            </form>
@@ -248,8 +248,6 @@
 			$('#loadingImg').show();
 			
 		}
-		
-		
 		
 	</script>
 

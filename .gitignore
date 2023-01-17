@@ -10,6 +10,7 @@ Email.properties
 Hikari.properties
 kakao.properties
 toss.properties
+naver.properties
 
 ### Eclipse ###
 .metadata

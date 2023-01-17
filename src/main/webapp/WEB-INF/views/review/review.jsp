@@ -45,25 +45,26 @@
         
         <!-- 댓글 영역 -->
                
+        <c:if test="${room != null}">
         <div class="row mt-3 border">
                 <form name="myform" id="myform" method="post" action="">
 	            <!-- 호텔 후기 부분 -->
 	            <br>
 	              <h4>호텔 후기를 입력해주세요</h4>
 	            <br>           
-	            <select id="r_hotel" class="form-control" name="hotel" >
-				    <option value="10" selected> 호텔 : 서울</option>
-				    <option value="20">호텔 : 부산</option>
-				    <option value="30">호텔 : 제주</option>
+	            <select id="r_hotel" class="form-control" name="hotel"  hidden="true">
+				    <option value="10" ${room.hotelCode == 'WY 호텔 서울' ? 'selected':''}> 호텔 : 서울</option>
+				    <option value="20" ${room.hotelCode == 'WY 호텔 부산' ? 'selected':''}>호텔 : 부산</option>
+				    <option value="30" ${room.hotelCode == 'WY 호텔 제주' ? 'selected':''}>호텔 : 제주</option>
 			    </select>
-			    <select id="r_room" class="form-control" name="room" >
-	                <option value="55">Suite</option>
-	                <option value="44">Business Deluxe</option>
-	                <option value="33">Business</option>
-	                <option value="22">Standard Deluxe</option>
-	                <option value="11" selected>Standard</option>
+			    <select id="r_room" class="form-control" name="room" hidden="true">
+	                <option value="55" ${room.roomCode == 'Suite' ? 'selected':''}>Suite</option>
+	                <option value="44" ${room.roomCode == 'Business Deluxe' ? 'selected':''}>Business Deluxe</option>
+	                <option value="33" ${room.roomCode == 'Business' ? 'selected':''}>Business</option>
+	                <option value="22" ${room.roomCode == 'Standard Deluxe' ? 'selected':''}>Standard Deluxe</option>
+	                <option value="11" ${room.roomCode == 'Standard' ? 'selected':''}>Standard</option>
 			    </select>
-	
+			
 	            <div class="">
                 	별점
                     <fieldset>
@@ -75,27 +76,28 @@
                         <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
                     </fieldset>
 
+      			</div>
+      			<input type="hidden" value="${room.reservationCode}">
                 </form>
-        </div>
 
             <div class="">
-                
                 <input id="content" type="text" class="reviwe" placeholder="여기는 댓글 다는 영역"> 
             
                 <button class="btn btn-dark" id="replyRegist">답변달기</button>
                 
                 <label class="input-file-button" for="input-file"><i class="xi-camera"></i></label>
                 <input type="file" id="input-file" style="display: none;"/>
-
             </div>
             
+        
         </div>
+        </c:if>
         
         <section class="container" id="repliesContainer">
 		<c:forEach var="article" items="${list}">
         
         <!-- 고객 댓글 영역 -->
-        <div class="row border">
+        <div class="row border mt-4">
 		
             <div class="col-3 mt-5">
                 <h5>no : ${article.bno}</h5>
@@ -106,34 +108,27 @@
                 <h5>별점 : ${article.grade}</h5>
             </div>
 
-            <div class="col-9">
+            <div class="col-9 mt-5">
 
+				<!-- 별점 부분 -->
                 <span class="ms-2" id="ratingText"></span>
                 
-                <div class="row mt-3">
-                    <!-- 이미지 -->
-                    <a href="" data-bs-toggle="img-modal" data-bs-target="#imgModal"> 
-                    <img id="getImg" src="${pageContext.request.contextPath}/resources/img/bedroom-g34b59e527_1920.jpg" alt="테스트 이미지" style="width: 200px; padding-bottom: 20px;"></a>
-
-
-                </div>
-
-                <div class="">
-                    <p>${article.content}</p>
-                </div>
+                <!-- 이미지 -->
+                <a href="" data-bs-toggle="img-modal" data-bs-target="#imgModal"> 
+                <img id="getImg" src="${pageContext.request.contextPath}/resources/img/bedroom-g34b59e527_1920.jpg" alt="테스트 이미지" style="width: 200px; padding-bottom: 20px;"></a>
 
                 <div class="row">
                     <div class="col-9">
+                     	<p>${article.content}</p>
                         <!-- 시스템 데이터 넣는곳 수정 됬을 경우에 (수정됨)후 날짜 넣어줌 -->
                         <span id ="date"><fmt:formatDate value="${article.regDate}" pattern="yyyy년 MM월 dd일"/></span>
-                        
                     </div>
 
                     <!-- 고객 수정 삭제 버튼 부분 -->
                     <div class="col-3" id="customerEdit">
                     	<c:if test="${article.memberCode eq member}">
 	                        <!-- 수정 버튼 -->
-	                        <a href="${article.bno}" class="badge rounded-pill bg-dark" data-bs-toggle="modifiy-modal" data-bs-target="#modifyModal" data-title="수정" data-footer="수정하시겠습니까?"> 수정 </a>
+	                        <a href="${article.bno}" data-content="${article.content}" class="badge rounded-pill bg-dark" data-bs-toggle="modifiy-modal" data-bs-target="#modifyModal" data-title="수정" data-footer="수정하시겠습니까?"> 수정 </a>
 	                        <!-- 삭제 버튼 -->
 	                        <a href="${article.bno}" class="badge rounded-pill bg-dark" data-bs-toggle="del-modal" data-bs-target="#delModal" data-title="삭제" data-footer="삭제하시겠습니까?"> 삭제 </a>
                     	</c:if>
@@ -163,74 +158,70 @@
     </div>
 
 
-                    <!-- 이미지 모달 -->
-                    <div class="modal fade" id="imgModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="modifyModaltitle">이미지 타이틀</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <!-- 이미지 부분 -->
-                            <div class="modal-body">
-                              <img src="#" id="getImg" alt="클릭된 이미지 가져옴">
-                            </div>
-                          </div>
+           <!-- 이미지 모달 -->
+           <div class="modal fade" id="imgModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal-dialog">
+                 <div class="modal-content">
+                   <div class="modal-header">
+                     <h5 class="modal-title" id="modifyModaltitle">이미지 타이틀</h5>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                   </div>
+                   <!-- 이미지 부분 -->
+                   <div class="modal-body">
+                     <img src="#" id="getImg" alt="클릭된 이미지 가져옴">
+                   </div>
+                 </div>
+               </div>
+           </div>   
+           
+           
+               <!-- 수정 모달 -->
+               <div class="modal fade" id="modifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                   <div class="modal-dialog">
+                     <div class="modal-content">
+                     
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="modifyModaltitle">후기 수정</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                    </div>   
-                    
-                    
-                        <!-- 수정 모달 -->
-                        <div class="modal fade" id="modifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <!-- angel  -->
-                                
-                                <form name="frmReply">
-	                                <div class="modal-header">
-	                                  <h5 class="modal-title" id="modifyModaltitle">후기 수정</h5>
-	                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	                                </div>
-	                                <div class="modal-body">
-	                                  <!-- 
-					                      수정하시겠습니까? 여기는 수정 내용이 들어갑니다  요기요
-	                                   -->
-	                                   <input type="text" name="updateContent" >
-	                                   <input type="hidden" name="updateBno" value="">
-	                                </div>
-	                                <div class="modal-footer">
-	                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-	                                  <button type="button" onclick="reviewUpdate()" class="btn btn-primary">수정하기</button>
-	                                </div>
-	                             </form>
-                              </div>
-                            </div>
-                        </div>  
-                                                <!-- 삭제 모달 -->
-                        <div class="modal fade" id="delModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">후기 삭제</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                삭제 하시겠습니까?
-                                </div>
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                                <button type="button" class="btn btn-primary">삭제 하기</button>
-                                </div>
-                            </div>
-                            </div>
+        		       <form name="frmReply">
+                        <div class="modal-body">
+                           <input type="text" name="content" id="content" value="">
+                           <input type="hidden" name="bno" value="">
                         </div>
-
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                          <button type="button" onclick="reviewUpdate()" class="btn btn-primary">수정하기</button>
+                        </div>
+		               </form>
+                     </div>
+                   </div>
+               </div>  
+               
+                                       <!-- 삭제 모달 -->
+               <div class="modal fade" id="delModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                   <div class="modal-dialog">
+                   <div class="modal-content">
+                       <div class="modal-header">
+                       <h5 class="modal-title" id="exampleModalLabel">후기 삭제</h5>
+                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                       </div>
+                       <div class="modal-body">
+                       삭제 하시겠습니까?
+                       </div>
+                       <div class="modal-footer">
+                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                       <button type="button" class="btn btn-primary" >삭제 하기</button>
+                       </div>
+                   </div>
+                   </div>
+               </div>
     <script>
     	
     	// 메세지
 	    const msg = '${msg}';
 	    if (msg === ''){
-	    } else{
+	    } else {
 	    	alert(msg);
 	    }
 
@@ -243,18 +234,18 @@
             document.getElementById('ratingText').innerHTML = $rating + "점";
         });
         
-       	const reviewUpdatebno = '';
-        $(document).ready(function(){
+       	$(document).ready(function(){
 	        $('#repliesContainer').on('click', 'a[data-bs-toggle$="-modal"]', function(){
 	            event.preventDefault();
 	            const bno = $(this).attr('href');
 	            const target = $(this).data('bs-target');
 	            console.log($(target));
 	            $(target).modal('show');
-	            alert('게시판번호' + reviewUpdatebno + '타겟' + target );
-	            reviewUpdatebno = bno;
-	           
-	    	});
+	            alert('게시판번호' + bno + '타겟' + target );
+	            
+	            document.frmReply.bno.value = bno; // bno 번호 가져오는 부분
+	            document.frmReply.content.value = $(this).data('content');
+		    });
     	});
         
         // begin jQuery
@@ -262,9 +253,9 @@
             // modal
             
         $(function(){
-            var page = 1; //페이지 번호
-            var strAdd = ''; //화면에 그려넣을 태그를 문자열의 형태로 추가할 변수
-            var member = '${member}';
+            // let page = 1; //페이지 번호
+            // let strAdd = ''; //화면에 그려넣을 태그를 문자열의 형태로 추가할 변수
+            let member = '${member}';
             
             //댓글쓰기 버튼클릭 로직 #replyRegist
             $('#replyRegist').click(function() {
@@ -274,7 +265,7 @@
        	   	  let hotel = $('#r_hotel').val();
        	   	  let room = $('#r_room').val();
               
-              if(member == '' || member == null || member == undefined  )	{
+              if(member == '' || member == null || member == undefined) {
             	  alert('로그인을 해주세요.');
             	  return;
               }
@@ -317,7 +308,6 @@
        	   			}
                       
        	   		  },
-       	   		  
        	   		  error: function() {
        	              alert('리뷰등록중 에러가 발생했습니다. 관리자에게 문의하세요!');
        	          }
@@ -331,9 +321,11 @@
         function reviewUpdate(){
         	$('form[name=frmReply]').attr('action', '${pageContext.request.contextPath}/review/reviewUpdate');
             $('form[name=frmReply]').attr('method' ,'post');
-			$('form[name=frmReply]').append("<input type='hidden' value=" + reviewUpdatebno + " name='bno' readonly>");
+			// $('form[name=frmReply]').append("<input type='hidden' value=" + reviewUpdatebno + " name='bno' readonly>");
+			
 			$('form[name=frmReply]').submit();
         };
+        
 
     </script>
 <%@ include file="../include/footer.jsp" %>

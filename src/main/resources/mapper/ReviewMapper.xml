@@ -18,17 +18,28 @@
 	</resultMap>
 
 	<insert id="replyRegist">
+		<!-- 
 		INSERT INTO review_board(bno, member_code, content, grade, reservation_code) 
 		VALUES(review_board_seq.NEXTVAL, #{memberCode}, #{content}, #{grade}, #{reservationCode})
+		 -->
+		INSERT INTO review_board
+		(bno, member_code, reservation_code, hotel_code, room_code,content, grade)
+		VALUES
+			(REVIEW_BOARD_SEQ.nextval,
+		    #{memberCode},
+		    #{reservationCode},
+		    #{hotelCode},
+		    #{roomCode},
+		    #{content},
+		    #{grade}
+	    )
 	</insert>
 
 	<select id="getList" resultMap="reviewMap">
-        SELECT rb.*, rr.hotel_code, rr.room_code, m.name
+        SELECT rb.*, m.name
         FROM
-        review_board rb LEFT JOIN room_reservation rr 
-        ON rb.reservation_code = rr.reservation_code
-        LEFT JOIN members m
-        ON rr.member_code = m.member_code
+        review_board rb LEFT JOIN members m
+        ON rb.member_code = m.member_code
         ORDER BY rb.bno DESC
 	</select>
 
@@ -40,13 +51,9 @@
 		ORDER BY RESERVATION_CODE DESC 
 	</select>
 
-	<!-- <select id="getTotal" resultType="int">
-
-	</select> -->
-
 	<update id="update">
 		UPDATE review_board SET 
-		content = #{updateContent},
+		content = #{content},
 		modify_date = sysdate
 		WHERE bno = #{bno} 
 	</update>
@@ -55,23 +62,10 @@
 		SELECT MEMBER_CODE FROM review_board 
 		WHERE BNO = #{bno}
 	</select>
-	
-	
 
 	<delete id="delete">
-
+		DELETE FROM review_board
+		WHERE BNO = #{bno} 
 	</delete>
 
 </mapper>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
