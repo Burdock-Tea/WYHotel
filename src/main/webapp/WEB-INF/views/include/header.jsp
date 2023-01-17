@@ -38,7 +38,7 @@
 
         
     </head>
-    <body>    
+    <body class="d-flex flex-column min-vh-100">    
         <header> <!-- start header -->
             <div class="header-wrapper">
                 <div class="contatiner" style="text-align: center;">
