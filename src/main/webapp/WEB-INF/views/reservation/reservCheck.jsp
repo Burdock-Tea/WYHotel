@@ -76,7 +76,7 @@
                             <input type="text" class="form-control" placeholder="예약번호" name="reservationCode" id="reservationCode">
                         </div>
                         <div class="mb-3">
-                            <input type="password" class="form-control" placeholder="이메일" name="email" id="emailNm">
+                            <input type="text" class="form-control" placeholder="이메일" name="email" id="emailNm">
                         </div>
                         <div class="d-grid gap-2 login-btn">
                             <button type="button" id="nmemLogin" class="btn btn-dark userLogin-btn">
@@ -125,9 +125,7 @@
     $(function () {
 
         //로그인 버튼 클릭처리
-        $('#loginBtn').click(
-            login
-        );
+        $('#loginBtn').click(login);
 
         //엔터 이벤트 처리
         $('#login-form').on('keyup', 'input', function (e) {

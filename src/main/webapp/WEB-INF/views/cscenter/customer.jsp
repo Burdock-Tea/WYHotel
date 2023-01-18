@@ -123,6 +123,8 @@
 			
 			if('${msg}' === 'mailSendError') {
 				alert('메일 전송에 실패하였습니다. 관리자에게 문의해주세요');
+			} else if('${msg}' === 'mailSendSuccess') {
+				alert('메일 전송 성공!');
 			}
 			
 			getImage();	// 이미지 가져오기
@@ -213,8 +215,8 @@
 			}
 			
 			if(confirm('관리자에게 이메일을 전송합니다')) {
-				$('#emailForm').submit();
-				alert('발송 성공!');
+				openLoading();
+				$('#emailForm').submit();				
 			} else {
 				return;
 			}

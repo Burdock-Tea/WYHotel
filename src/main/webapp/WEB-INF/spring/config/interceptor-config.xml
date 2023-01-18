@@ -39,8 +39,10 @@
 		
 		<!-- 관리자 권한 인터셉터 -->
 		<mvc:interceptor>
-			<!-- 관리자 페이지 -->
+			<!-- 관리자 회원관리 페이지 -->
 			<mvc:mapping path="/admin/member"/>
+			<!-- 관리자 문의내역 페이지 -->
+			<mvc:mapping path="/admin/question"/>
 			<!-- 프로모션 수정 -->
 			<mvc:mapping path="/promotion/update"/>
 			<!-- 프로모션 insert -->

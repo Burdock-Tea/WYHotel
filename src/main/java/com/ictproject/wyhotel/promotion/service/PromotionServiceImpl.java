@@ -61,9 +61,13 @@ public class PromotionServiceImpl implements IPromotionService {
 
 			// 날짜별로 파일을 저장하기 위해 폴더 형식 세팅 (ex: 20230102)
 			String folderName = new SimpleDateFormat("yyyyMMdd").format(new Date()); // 오늘날짜
-			
-			// AWS EC2로 배포할때는 /var/upload/로 지정
+					
 			String uploadFolder = "C:/test/upload/";
+
+			// AWS EC2로 배포할때는 /var/upload/로 지정
+			if(System.getProperty("os.name").toLowerCase().equals("linux")) {
+				uploadFolder = "/var/upload";
+			}
 
 			// 업로드 되는 경로 C:/test/upload/날짜
 			File folder = new File(uploadFolder + folderName);
@@ -93,12 +97,7 @@ public class PromotionServiceImpl implements IPromotionService {
 
 	@Override
 	public List<PromotionVO> getList(String hotelCode, String startDate, String endDate) {
-		List<PromotionVO> list = mapper.getList(hotelCode, startDate, endDate);
-		
-		list.forEach((promotion) -> {
-			String start = promotion.getStartDate().toString();
-			String end = promotion.getEndDate().toString();
-		});
+		List<PromotionVO> list = mapper.getList(hotelCode, startDate, endDate);		
 		
 		return list;
 	}
@@ -146,6 +145,10 @@ public class PromotionServiceImpl implements IPromotionService {
 				String folderName = new SimpleDateFormat("yyyyMMdd").format(new Date());
 				// AWS EC2로 배포할때는 /var/upload/로 지정
 				String uploadFolder = "C:/test/upload/";
+				
+				if(System.getProperty("os.name").toLowerCase().equals("linux")) {
+					uploadFolder = "/var/upload";
+				}
 				
 				File folder = new File(uploadFolder + folderName);
 				

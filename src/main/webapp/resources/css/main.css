@@ -325,8 +325,6 @@ ul, ol, dl, li {
 /* list font hover*/
 .posi{padding: 80px 0;}
 .text-secondary:hover { font-weight: 400;}
-.row > div:nth-child(1) {padding-left: 50px;}
-.row > div:nth-child(1) > ul li {list-style: none; }
 
 /* acod */
 .list-group-item { border: 0; }

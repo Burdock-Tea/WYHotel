@@ -94,6 +94,7 @@ public class CsController {
 			// 메일 전송 성공시
 			System.out.println("문의내역 메일 전송 성공! DB 값 입력");
 			// TODO: 서비스로 MAP 데이터 주고, 서비스에서 DB값 입력
+			ra.addFlashAttribute("msg", "mailSendSuccess");
 			service.insert(param);
 			
 		} else {

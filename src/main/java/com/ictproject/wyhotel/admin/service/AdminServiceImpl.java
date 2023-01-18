@@ -82,7 +82,7 @@ public class AdminServiceImpl implements IAdminService {
 	// 메일도 보내고, DB에 값 수정 진행해야함!
 	@Override
 	public boolean replyQuestion(QuestionVO question) {
-		// 완전체 VO 세팅 (메일에 필요한 내용이니까 왠만해서는 다 가지자
+		// 완전체 VO 세팅 (메일에 필요한 내용이니까 왠만해서는 다 가져가자)
 		QuestionVO vo = mapper.getQuestion(question.getQuestionCode());
 		vo.setQuestionAnswer(question.getQuestionAnswer());
 		
