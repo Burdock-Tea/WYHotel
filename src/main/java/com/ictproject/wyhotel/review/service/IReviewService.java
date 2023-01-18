@@ -13,12 +13,6 @@ public interface IReviewService {
 	/**리뷰 목록 요청*/
 	List<ReviewVO> getList();
 	
-	/**리뷰 갯수(페이징용)*/
-//	int getTotal(int bno);
-	
-	/**리뷰 수정*/
-//	void update(ReviewVO vo);
-	
 	/**리뷰 삭제*/
 	void delete (int bno);
 	
@@ -30,5 +24,8 @@ public interface IReviewService {
 	
 	/**리뷰 업데이트 권한 체크 */
 	String getUpdateAuthMember(String bno);
+
+	/**예약번호 리뷰가 있니?*/
+	boolean check(String reservationCode);
 	
 }
