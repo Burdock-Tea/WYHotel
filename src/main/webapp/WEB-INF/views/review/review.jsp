@@ -48,21 +48,19 @@
     }
 
     /* reviwe */
-    .reviwe {
-        width: 70%;
-    }
+    .reviwe{ width: 90%;}
 </style>
 
 <div class="container">
 
     <!-- 댓글 영역 -->
+    <section class="container">
     <c:if test="${room != null}">
-        <div class="row mt-3 border">
+        <div class="row mt-3 border rounded-3">
             <form name="myform" id="myform" method="post" action="">
                 <!-- 호텔 후기 부분 -->
-                <br>
-                <h4>호텔 후기를 입력해주세요</h4>
-                <br>
+                <h4 class="mt-3">호텔 후기를 입력해주세요</h4>
+                
                 <select id="r_hotel" class="form-control" name="hotel" hidden="true">
                     <option value="10" ${room.hotelCode=='WY 호텔 서울' ? 'selected' :''}> 호텔 : 서울</option>
                     <option value="20" ${room.hotelCode=='WY 호텔 부산' ? 'selected' :''}>호텔 : 부산</option>
@@ -76,8 +74,8 @@
                     <option value="11" ${room.roomCode=='Standard' ? 'selected' :''}>Standard</option>
                 </select>
 
-                <div class="">
-                    별점
+                <div class="mb-3">
+                    <strong>별점</strong>
                     <fieldset>
                         <span class="ms-2" id="ratingText"></span>
                         <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">⭐</label>
@@ -86,32 +84,43 @@
                         <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
                         <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
                     </fieldset>
-
                 </div>
                 <input type="hidden" id="reservationCode" name="reservationCode" value="${room.reservationCode}">
-            </form>
 
-            <div class="">
-                <input id="content" type="text" class="reviwe" placeholder="여기는 댓글 다는 영역">
+            <div class="w-100">
+                <input id="content" type="text" class="reviwe border rounded p-1" placeholder="여기는 댓글 다는 영역">
 
-                <button class="btn btn-dark" id="replyRegist">답변달기</button>
-
-                <label class="input-file-button" for="input-file"><i class="xi-camera"></i></label>
-                <input type="file" id="input-file" style="display: none;" />
+                <button class="btn btn-dark mb-2 ms-2" id="replyRegist">답변달기</button>
+                <!--<label class="input-file-button" for="input-file"><i class="xi-camera"></i></label>  
+                <input type="file" id="input-file" style="display: none;" /> -->
             </div>
+            </form>
 
         </div>
     </c:if>
+	</section>
 
     <section class="container" id="repliesContainer">
         <c:forEach var="article" items="${list}">
 
             <!-- 고객 댓글 영역 -->
-            <div class="row border mt-4">
+            <div class="row border rounded-3 mt-4">
 
-                <div class="col-3">
-                    <h5>${article.name} 님</h5>
-                    <h5>별점 : ${article.grade == 5 ? '⭐⭐⭐⭐⭐' :  article.grade == 4 ? '⭐⭐⭐⭐' : article.grade == 3 ? '⭐⭐⭐' : article.grade == 2 ? '⭐⭐' : '⭐'}</h5>
+                <div class="col-3 pt-4">
+                    <p>
+                    	<strong>${article.name}</strong>님
+                    </p> 
+                    <!-- 시스템 데이터 넣는곳 수정 됬을 경우에 (수정됨)후 날짜 넣어줌 -->
+                   	<p>
+                   		<c:if test="${article.modifyDate == null}">
+                   			<fmt:formatDate value="${article.regDate}" pattern="yyyy년 MM월 dd일" />
+                   		</c:if>
+                   		<c:if test="${article.modifyDate != null}">
+                   			<fmt:formatDate value="${article.modifyDate}" pattern="yyyy년 MM월 dd일" />(수정됨)
+                   		</c:if>
+                   	</p>
+                    <p><strong> 별점 : </strong>${article.grade == 5 ? '⭐⭐⭐⭐⭐' :  article.grade == 4 ? '⭐⭐⭐⭐' : article.grade == 3 ? '⭐⭐⭐' : article.grade == 2 ? '⭐⭐' : '⭐'}</p>
+
                     <!-- 
                     <h5>no : ${article.bno}</h5>
                     <h5>호텔코드 : ${article.hotelCode}</h5>
@@ -125,15 +134,12 @@
                     <img id="getImg" src="${pageContext.request.contextPath}/resources/img/bedroom-g34b59e527_1920.jpg" alt="테스트 이미지" style="width: 200px; padding-bottom: 20px;"></a>
                     -->
 
-                <div class="col-9">
+                <div class="col-7 pt-4">
                     <p>${article.content}</p>
-                    <!-- 시스템 데이터 넣는곳 수정 됬을 경우에 (수정됨)후 날짜 넣어줌 -->
-                    <span id="date">
-                    <fmt:formatDate value="${article.regDate}" pattern="yyyy년 MM월 dd일" /></span>
-                    
                 </div> 
+                
                 <!-- 고객 수정 삭제 버튼 부분 -->
-                <div id="customerEdit">
+                <div class="col-2 pt-4" id="customerEdit">
                     <c:if test="${article.memberCode eq member}">
                         <!-- 수정 버튼 -->
                         <a href="${article.bno}" data-content="${article.content}"
@@ -144,7 +150,6 @@
                             data-bs-target="#delModal" data-title="삭제" data-footer="삭제하시겠습니까?"> 삭제 </a>
                     </c:if>
                 </div>
-
 
             </div>
 

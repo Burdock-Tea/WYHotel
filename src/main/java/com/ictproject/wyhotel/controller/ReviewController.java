@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,8 +57,6 @@ public class ReviewController {
 				return "regFail";
 			}else {
 				System.out.println("성공");
-//				System.out.println("★★★★★★★★★★★★★★★★★★★★★★★list" + list.get(0).toString()+"★★★★★★★★★★★★★★★★★★★★★★");
-//				vo.setReservationCode(list.get(0).getReservationCode());
 				service.reviewRegist(vo);
 				return "regSuccess";
 			}
