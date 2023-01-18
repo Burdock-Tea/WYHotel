@@ -1,6 +1,5 @@
 package com.ictproject.wyhotel.review.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +20,7 @@ public interface IReviewMapper {
 	void update(ReviewVO vo);
 	
 	// 댓글 삭제
-	void delete(int rno);
+	void delete(int bno);
 	
 	// 리뷰 유저 체크
 	List<ReviewVO> regMemberChk(ReviewVO vo);
@@ -31,6 +30,9 @@ public interface IReviewMapper {
 	
 	//리뷰 업데이트 권한 체크
 	String getUpdateAuthMember(String bno);
+
+	//예약번호 리뷰 있니
+	int check(String reservationCode);
 	
 	
 }
