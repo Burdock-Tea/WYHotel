@@ -482,7 +482,15 @@
                             $('#daterange').val(basicStart + ' - ' + end);
                         }
                         e.preventDefault();
-                    } 
+                    } else if (eDate - sDate == 0) {
+                    	alert('체크아웃 날짜는 체크인 날짜와 같을 수 없습니다.');
+                        if (truncDate - eDate > 0) {
+                            $('#daterange').val(basicStart + ' - ' + basicEnd);
+                        } else {
+                            $('#daterange').val(basicStart + ' - ' + end);
+                        }
+                        e.preventDefault();
+                    }
 
                 } else if ($('#category').val() === 'dinings') {
                     const inpClean = (inp.substring(inp.lastIndexOf('/') + 1) + '/' + inp.substring(0, inp.lastIndexOf('/'))).replaceAll('/', '-');
@@ -493,6 +501,7 @@
                     if (truncDate - iDate > 0) {
                         alert('다이닝은 하루 전에만 예약 가능합니다.');
                         $('#daterange').val(basicDate);
+                        e.preventDefault();
                     }
                 }
             }
@@ -501,6 +510,32 @@
             $('#daterange').change(rangeCheck); 
             
             // dateRange 입력값 검증 끝
+
+            // 지난 날짜 클릭방지
+            function passedDate() {
+                const days = [...document.querySelectorAll('.daterangepicker .left .table-condensed td')];
+                
+                let monthYear = document.querySelector('.daterangepicker .left .table-condensed .month').textContent;
+                let dMonth = monthYear.substring(0, monthYear.indexOf(' '));
+                let dYear = monthYear.substring(monthYear.indexOf(' ') + 1); 
+
+                days.forEach(day => {
+                    const thisday = new Date(dMonth + ' ' + day.textContent + ', ' + dYear);
+                    if (Math.floor((today.getTime()/(1000*60*60*24)) - 1)*(1000*60*60*24) - thisday.getTime() >= 0 || day.classList.contains('off')) {
+                        day.classList.remove('available');
+                        day.style.background = '#ccc';
+                        day.style.color = '#c8c8c8';
+                    }
+                    if (day.dataset.title === 'r0c6' || !day.classList.contains('available')) {
+                        document.querySelector('.daterangepicker .left .table-condensed .prev').classList.remove('available');
+                    }
+                });
+
+            }
+            $('#daterange').click(passedDate);
+            $('.daterangepicker').on('click', '.daterangepicker .left .table-condensed td', passedDate);
+            
+            // 지난 날짜 클릭방지 끝
 
         }); // jQuery 종료
 

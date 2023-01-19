@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,11 +36,6 @@ public class ReviewController {
 	
 	@GetMapping("/review")
 	public void reviewPage(Model model) {
-//			member = rService.getInfo(memberCode); // 예약한 비회원 정보 조회
-//		} else {
-//			member = mService.getInfo(memberCode); // 회원정보 조회
-//		}
-//		model.addAttribute("info", member);
 		List<ReviewVO> list = service.getList();
 		model.addAttribute("list", list);
 		System.out.println("list 값 :"+ list);
@@ -50,19 +44,26 @@ public class ReviewController {
 	@ResponseBody
 	@PostMapping("/reviewRegist")
  	public String reviewRegist(@RequestBody ReviewVO vo, HttpSession session){
+		System.out.println("income vo : " + vo);
+		String reservationCode = vo.getReservationCode();
+		boolean check = service.check(reservationCode);
 		
-		List<ReviewVO> list = null;
-		list = service.regMemberChk(vo);
-		
-		if(list.isEmpty()) {
-			System.out.println("실패");
-			return "regFail";
-		}else {
-			System.out.println("성공");
-			System.out.println("★★★★★★★★★★★★★★★★★★★★★★★list" + list.get(0).toString()+"★★★★★★★★★★★★★★★★★★★★★★");
-			vo.setReservationCode(list.get(0).getReservationCode());
-			service.reviewRegist(vo);
-			return "regSuccess";
+		if (check) {
+			List<ReviewVO> list = null;
+			list = service.regMemberChk(vo);
+			
+			if(list.isEmpty()) {
+				System.out.println("실패");
+				return "regFail";
+			}else {
+				System.out.println("성공");
+//				System.out.println("★★★★★★★★★★★★★★★★★★★★★★★list" + list.get(0).toString()+"★★★★★★★★★★★★★★★★★★★★★★");
+//				vo.setReservationCode(list.get(0).getReservationCode());
+				service.reviewRegist(vo);
+				return "regSuccess";
+			}
+		} else {
+			return "duplicatedErr";
 		}
 		
 	}
@@ -102,9 +103,18 @@ public class ReviewController {
 		
 	}
 	
-	@PostMapping("/delete")
-	public void delete(@RequestBody int bno) {
-		service.delete(bno);
+	@PostMapping("/reviewDelete")
+	public String delete(@RequestParam String bno,
+						RedirectAttributes ra) {
+		
+		System.out.println("delete에서 받은 : " + bno);
+		
+		int bnoNum = Integer.parseInt(bno);
+		
+		service.delete(bnoNum);
+		ra.addFlashAttribute("msg", "삭제되었습니다.");
+		
+		return "redirect:/review/review";
 	}
 	
 	@PostMapping("/write")

@@ -67,5 +67,10 @@
 		DELETE FROM review_board
 		WHERE BNO = #{bno} 
 	</delete>
+	
+	<select id="check" resultType="int">
+		SELECT COUNT(*) FROM review_board
+		WHERE reservation_code = #{reservationCode}
+	</select>
 
 </mapper>

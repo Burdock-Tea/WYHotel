@@ -27,6 +27,7 @@ import com.ictproject.wyhotel.command.RoomReservationVO;
 import com.ictproject.wyhotel.command.RoomVO;
 import com.ictproject.wyhotel.member.service.IMemberService;
 import com.ictproject.wyhotel.reservation.service.IReservationService;
+import com.ictproject.wyhotel.review.service.IReviewService;
 
 @Controller
 @RequestMapping("/reservation")
@@ -37,6 +38,9 @@ public class ReservationController {
 	
 	@Autowired
 	private IMemberService mService;
+	
+	@Autowired
+	private IReviewService rService;
 	
 	/**
 	 * 작 성 일 : 2022/12/29
@@ -196,7 +200,7 @@ public class ReservationController {
 		ra.addFlashAttribute("msg", resvNum);
 		return "redirect:/reservation/myReservations";
 	}
-	
+
 	// member login
 	@PostMapping("/login")
 	public String login(HttpSession session, RedirectAttributes ra, 
@@ -266,6 +270,14 @@ public class ReservationController {
 		service.cancelRoom(resvNum, session);
 		ra.addFlashAttribute("msg", resvNum);
 		return "redirect:/reservation/myReservations";
+	}
+	
+	// review button
+	@PostMapping("/review")
+	@ResponseBody
+	public boolean review(@RequestBody String reservationCode) {
+		
+		return rService.check(reservationCode);
 	}
 
 }

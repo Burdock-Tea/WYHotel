@@ -28,22 +28,10 @@ public class ReviewServiceImpl implements IReviewService {
 		return mapper.getList();
 	}
 	
-	// 리뷰 갯수
-//	@Override
-//	public int getTotal(int bno){
-//		return 0;
-//	}
-	
-	// 리뷰수정
-//	@Override
-//	public void update(ReviewVO vo) {
-//		
-//	}
-	
 	// 리뷰 삭제
 	@Override
-	public void delete(int rno) {
-		
+	public void delete(int bno) {
+		mapper.delete(bno);
 	}
     
 	//리뷰 유저 체크 
@@ -62,6 +50,12 @@ public class ReviewServiceImpl implements IReviewService {
 	@Override
 	public String getUpdateAuthMember(String bno) {
 		return mapper.getUpdateAuthMember(bno);
+	}
+	
+	@Override
+	public boolean check(String reservationCode) {
+		
+		return (mapper.check(reservationCode) == 0 ? true : false);
 	}
 
 	

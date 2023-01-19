@@ -362,11 +362,30 @@
                         }
 
                         if (reviewShow <= 0) {
+                            
                             $('#reviewBtn').addClass('visually-hidden'); 
                             $('#reviewBtn').attr('disabled', true);
                         } else {
-                            $('#reviewBtn').removeClass('visually-hidden'); 
-                            $('#reviewBtn').attr('disabled', false);
+                            $.ajax({
+                                type: 'post',
+                                url : '${pageContext.request.contextPath}/reservation/review',
+                                contentType: 'application/JSON',
+                                data: JSON.stringify(resvNum),
+                                success: function(result){
+                                	console.log(result);
+                                    if(result){
+                                        $('#reviewBtn').removeClass('visually-hidden'); 
+                                        $('#reviewBtn').attr('disabled', false);
+                                    } else {
+                                        $('#reviewBtn').addClass('visually-hidden'); 
+                                        $('#reviewBtn').attr('disabled', true);
+                                    }                                    
+                                },
+                                error: function(){
+                                    alert('통신오류')
+                                }
+                            });
+
                         }
 
 
