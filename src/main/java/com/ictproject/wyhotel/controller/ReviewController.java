@@ -57,8 +57,6 @@ public class ReviewController {
 				return "regFail";
 			}else {
 				System.out.println("성공");
-//				System.out.println("★★★★★★★★★★★★★★★★★★★★★★★list" + list.get(0).toString()+"★★★★★★★★★★★★★★★★★★★★★★");
-//				vo.setReservationCode(list.get(0).getReservationCode());
 				service.reviewRegist(vo);
 				return "regSuccess";
 			}
