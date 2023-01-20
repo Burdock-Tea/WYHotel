@@ -42,12 +42,6 @@
                             <label class="form-check-label" for="flexCheckDefault">
                                 아이디 저장
                             </label>
-                        </div> &nbsp;&nbsp;
-                        <div class="form-check auto-login clearfix">
-                            <input class="form-check-input" type="checkbox" id="auto-login" name="autoLogin">
-                            <label class="form-check-label" for="flexCheckChecked">
-                                자동 로그인
-                            </label>
                         </div>
                         <a href="${pageContext.request.contextPath}/member/searchId" class="id-pw-search">아이디/비밀번호 찾기
                             ▶</a>
@@ -76,7 +70,7 @@
                             <input type="text" class="form-control" placeholder="예약번호" name="reservationCode" id="reservationCode">
                         </div>
                         <div class="mb-3">
-                            <input type="password" class="form-control" placeholder="이메일" name="email" id="emailNm">
+                            <input type="text" class="form-control" placeholder="이메일" name="email" id="emailNm">
                         </div>
                         <div class="d-grid gap-2 login-btn">
                             <button type="button" id="nmemLogin" class="btn btn-dark userLogin-btn">

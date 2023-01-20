@@ -59,7 +59,7 @@
                             <input type="text" class="form-control" placeholder="예약번호" name="reservationCode" id="reservationCode">
                         </div>
                         <div class="mb-3">
-                            <input type="password" class="form-control" placeholder="이메일" name="email" id="emailNm">
+                            <input type="text" class="form-control" placeholder="이메일" name="email" id="emailNm">
                         </div>
                         <div class="d-grid gap-2 login-btn">
                             <button type="button" id="nmemLogin" class="btn btn-dark userLogin-btn">
