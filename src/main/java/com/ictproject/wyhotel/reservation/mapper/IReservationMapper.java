@@ -81,5 +81,14 @@ public interface IReservationMapper {
 	 */
 	// 비회원 예약코드 가지고 오기 (이메일 전송용)
 	String getReservationCode(@Param("memberCode") String memberCode);
+
+	
+	/*
+	 * 	작 성 일 : 23/01/18
+	 *  작 성 자 : 백 건 욱
+	 *  작성내용 : 비회원 예약번호 가지고 오기!
+	 */
+	// 비회원 예약코드 가지고 오기 (이메일 전송용)
+	String getReservationCodeDining(String memberCode);
 	
 }

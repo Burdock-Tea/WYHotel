@@ -147,6 +147,12 @@ public class MemberServiceImpl implements IMemberService {
 		mapper.accumulatePoint(memberCode, pointAccumulate);
 	}
 	
+	@Override
+	public boolean isAdmin(String memberCode) {
+		
+		return mapper.isAdmin(memberCode);
+	}
+	
 }
 
 

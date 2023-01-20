@@ -182,5 +182,32 @@
 		WHERE
 		    rn = 1
 	</select>
+	
+		<!--
+		작 성 일 : 23/01/18
+		작 성 자 : 백 건 욱
+		내     용 : 비회원 예약번호 조회 가지고 오기 
+	 -->
+	<select id="getReservationCodeDining" resultType="String">
+		SELECT
+		    reservation_code
+		FROM
+		    (
+		    SELECT
+		        ROWNUM as RN, tbl.*
+		    FROM
+		        (
+		        SELECT
+		            *
+		        FROM
+		            dining_reservation
+		        WHERE
+		            member_code = #{memberCode}
+		        ORDER BY
+		            reservation_code DESC
+		            ) tbl ) tbl2
+		WHERE
+		    rn = 1
+	</select>
 
 </mapper>

@@ -175,8 +175,20 @@ public class ReservationController {
 		roomReserv.setCheckInDate(Timestamp.valueOf(cInDate + " 00:00:00.0"));
 		roomReserv.setCheckOutDate(Timestamp.valueOf(cOutDate + " 00:00:00.0"));
 		service.reservRoom(roomReserv);
-		mService.accumulatePoint(roomReserv.getMemberCode(), pointAccumulate);
-		session.setAttribute("member", roomReserv.getMemberCode());
+		
+		// get membervo with membercode
+		String memberCode = roomReserv.getMemberCode();
+		MemberVO member;
+		if (memberCode.substring(0,1).equals("1") || memberCode.substring(0,1).equals("2"))
+			session.setAttribute("member", memberCode);
+		else {
+			mService.accumulatePoint(memberCode, pointAccumulate);
+			member = mService.getInfo(memberCode);
+			session.setAttribute("member", memberCode);
+			session.setAttribute("admin", mService.isAdmin(member.getMemberCode()));
+			session.setAttribute("memberName", member.getName());
+		}
+		
 		ra.addFlashAttribute("msg", "reservSuccess");
 		return "redirect:/reservation/myReservations";
 	}
@@ -213,6 +225,7 @@ public class ReservationController {
 				//로그인 성공 회원을 대상으로 세션 정보를 생성
 				session.setAttribute("member", dbData.getMemberCode());
 				session.setAttribute("admin", dbData.isAdmin());
+				session.setAttribute("memberName", dbData.getName());
 				
 				System.out.println(session.getId());
 				long limitTime = 60 * 60 * 24 * 90;

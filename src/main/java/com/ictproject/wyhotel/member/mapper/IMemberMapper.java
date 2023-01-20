@@ -72,6 +72,9 @@ public interface IMemberMapper {
 
 	// 포인트 적립
 	void accumulatePoint(@Param("memberCode") String memberCode, @Param("pointAccumulate") String pointAccumulate);
+
+	// 관리자 여부
+	boolean isAdmin(String memberCode);
 }
 
 

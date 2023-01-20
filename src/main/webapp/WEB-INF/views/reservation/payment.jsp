@@ -75,7 +75,7 @@
         <c:if test="${param.category == 'dinings'}">
             <div class="col-md-3">다이닝선택</div>
             <div class="col-md-5">
-                <select class="form-select" aria-label="Default select example" name="resCode">
+                <select class="form-select" aria-label="Default select example" name="resCode" readonly>
                     <option ${hotelCode == null ? 'selected' : ''}>다이닝 선택</option>
                     <c:forEach var="dining" items="${list}">
                         <option value="${dining.resCode}" ${reservation.code == dining.resCode ? 'selected' : ''}>${dining.resName}</option>
@@ -222,23 +222,23 @@
             switch('${reservation.code}') {
                 case '55' :
                     document.getElementById('roomGrade').value = 'Suite';
-                    basicPrice = 2000000 * nights;
+                    basicPrice = 150000 * nights;
                     break;
                 case '44' :
                     document.getElementById('roomGrade').value = 'Business Deluxe';
-                    basicPrice = 1800000 * nights;
+                    basicPrice = 1000000 * nights;
                     break;
                 case '33' :
                     document.getElementById('roomGrade').value = 'Business';
-                    basicPrice = 1700000 * nights;
+                    basicPrice = 800000 * nights;
                     break;
                 case '22' :
                     document.getElementById('roomGrade').value = 'Standard Deluxe';
-                    basicPrice = 1000000 * nights;
+                    basicPrice = 600000 * nights;
                     break;
                 case '11' :
                     document.getElementById('roomGrade').value = 'Standard';
-                    basicPrice = 800000 * nights;
+                    basicPrice = 500000 * nights;
                     break;
             }
 

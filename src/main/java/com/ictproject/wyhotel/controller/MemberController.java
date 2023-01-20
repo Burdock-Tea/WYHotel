@@ -384,14 +384,20 @@ public class MemberController {
 		return service.getMembershipInfo(grade);
 	}
 	
+	/**
+	 * 수 정 일 : 23/01/20
+	 * 작 성 자 : 백 건 욱
+	 * 내     용 : 세션 데이터 추가
+	 * */
 	// 멤버십 구매
 	@GetMapping("/membershipPurchase")
 	public String membershipPurchase(MemberVO member, String paymentKey, HttpSession session, RedirectAttributes ra) {
 		
 		service.updateMembership(member, paymentKey);
-		
+		member = service.getInfo(member.getMemberCode());
 		session.setAttribute("member", member.getMemberCode());
-		
+		session.setAttribute("admin", member.isAdmin());
+		session.setAttribute("memberName", member.getName());
 		return "redirect:/member/memberShip";
 	}
 	
