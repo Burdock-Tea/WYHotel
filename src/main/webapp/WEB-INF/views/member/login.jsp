@@ -52,25 +52,21 @@
             </div>
             <div class="col-lg-4"></div>
             <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                <!-- 비회원 로그인 -->
-                <div>
-                    <form action="${pageContext.request.contextPath}/reservation/nmemLogin" id="login-form" method="post" name="nMemLoginForm">
+                 <!-- 비회원 로그인 -->
+                 <div>
+                    <form id="nMemLogin-form" method="post" name="nMemLoginForm" action="${pageContext.request.contextPath}/reservation/nmemLogin">
                         <div class="mb-3">
-                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="예약번호">
+                            <input type="text" class="form-control" placeholder="예약번호" name="reservationCode" id="reservationCode">
                         </div>
                         <div class="mb-3">
-                            <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="이메일">
+                            <input type="password" class="form-control" placeholder="이메일" name="email" id="emailNm">
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                            <label class="form-check-label" for="inlineRadio1">객실</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                            <label class="form-check-label" for="inlineRadio2">다이닝</label>
-                          </div>
-                            <div class="d-grid gap-2 login-btn">
-                                <button type="button" class="btn btn-dark userLogin-btn"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">예약확인</font></font></button>
+                        <div class="d-grid gap-2 login-btn">
+                            <button type="button" id="nmemLogin" class="btn btn-dark userLogin-btn">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">예약확인</font>
+                                </font>
+                            </button>
                         </div>
                     </form>
                 </div>

@@ -122,6 +122,11 @@
     		WHERE member_code = #{memberCode}
     	</update>
     	
+    	<select id="isAdmin" resultType="boolean">
+    		SELECT admin FROM members
+    		WHERE member_code = #{memberCode}
+    	</select>
+    	
     </mapper>
     
     

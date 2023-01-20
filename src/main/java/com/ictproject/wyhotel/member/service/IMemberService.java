@@ -70,5 +70,8 @@ public interface IMemberService {
 
 	// 포인트 적립
 	void accumulatePoint(String memberCode, String pointAccumulate);
+
+	// 관리자여부 조회
+	boolean isAdmin(String memberCode);
 	
 }

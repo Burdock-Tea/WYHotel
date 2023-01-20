@@ -260,7 +260,9 @@
         
     </section> <!-- end main -->
 
+    <%@ include file="./roomDetailModal.jsp" %>
     
+    <%@ include file="../include/footer.jsp" %>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script>
         
@@ -281,19 +283,17 @@
                 $('#time').addClass('visually-hidden');
             } else if ('${param.category}' === 'hotels') {
                 $('input[name="daterange"]').daterangepicker({
-                    opens: 'left'
-                }, function(start, end, label) {
-                    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+                    opens: 'left',
+                    minDate: today,
+                    maxDate: new Date(Math.floor(today.getTime()/(1000*60*60*24) + 30) * (1000*60*60*24))
                 });
                 $('#time').addClass('visually-hidden');
             } else if ('${param.category}' === 'dinings') {
             	$('input[name="daterange"]').daterangepicker({
                     singleDatePicker: true,
                     showDropdowns: true,
-                    minYear: today.getFullYear(),
-                    maxYear: today.getFullYear() + 1
-                }, function(start, end, label) {
-                    console.log("Picked date is " + start.format('YYYY-MM-DD'));
+                    minDate: new Date(Math.floor(today.getTime()/(1000*60*60*24) + 1) * (1000*60*60*24)),
+                    maxDate: new Date(Math.floor(today.getTime()/(1000*60*60*24) + 30) * (1000*60*60*24))
                 });
                 $('#time').removeClass('visually-hidden');
             }
@@ -356,19 +356,17 @@
                     $('input[name="daterange"]').daterangepicker({
                         singleDatePicker: true,
                         showDropdowns: true,
-                        minYear: today.getFullYear(),
-                        maxYear: today.getFullYear() + 1
-                    }, function(start, end, label) {
-                        console.log("Picked date is " + start.format('YYYY-MM-DD'));
+                        minDate: new Date(Math.floor(today.getTime()/(1000*60*60*24) + 1) * (1000*60*60*24)),
+                        maxDate: new Date(Math.floor(today.getTime()/(1000*60*60*24) + 30) * (1000*60*60*24))
                     });
                     $('#time').removeClass('visually-hidden');
                 } else if($(this).val() === 'hotels') {
                     $('input[name="daterange"]').attr('readonly', false);
                     $('input[name="daterange"]').val(month.toString() + '/' + day.toString() + '/' + year.toString() + ' - ' + endMonth.toString() + '/' + endDay.toString() + '/' + endYear.toString());
                     $('input[name="daterange"]').daterangepicker({
-                        opens: 'left'
-                    }, function(start, end, label) {
-                        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+                        opens: 'left',
+                        minDate: today,
+                        maxDate: new Date(Math.floor(today.getTime()/(1000*60*60*24) + 30) * (1000*60*60*24))
                     });
                     $('#time').addClass('visually-hidden');
                 } else {
@@ -382,7 +380,6 @@
             // reservBtn 클릭 이벤트
             $('#reservBtn').click(function(e){
                 // 입력값 검증
-                rangeCheck(e);
                 if (document.reservForm.category.value === '호텔 / 다이닝 선택') {
                     alert('호텔 또는 다이닝을 선택해주세요');
                     document.reservForm.category.focus();
@@ -457,91 +454,111 @@
                 alert('달력을 통해 날짜를 선택 해주세요');
             });
 
-            function rangeCheck(e){
-                const inp = $('#daterange').val();
-                if ($('#category').val() === 'hotels') {
-                    const start = inp.substring(0, inp.indexOf('-') - 1);
-                    const end = inp.substring(inp.indexOf('-') + 1);
-                    const startClean = (start.substring(start.lastIndexOf('/') + 1) + '/' + start.substring(0, start.lastIndexOf('/'))).replaceAll('/', '-');
-                    const endClean = (end.substring(end.lastIndexOf('/') + 1) + '/' + end.substring(0, end.lastIndexOf('/'))).replaceAll('/', '-');
+            // function rangeCheck(e){
+            //     const inp = $('#daterange').val();
+            //     if ($('#category').val() === 'hotels') {
+            //         const start = inp.substring(0, inp.indexOf('-') - 1);
+            //         const end = inp.substring(inp.indexOf('-') + 1);
+            //         const startClean = (start.substring(start.lastIndexOf('/') + 1) + '/' + start.substring(0, start.lastIndexOf('/'))).replaceAll('/', '-');
+            //         const endClean = (end.substring(end.lastIndexOf('/') + 1) + '/' + end.substring(0, end.lastIndexOf('/'))).replaceAll('/', '-');
 
-                    const sDate = new Date(startClean);
-                    const eDate = new Date(endClean);
-                    const truncDate = new Date(Math.trunc(today/(1000*60*60*24)) * (1000*60*60*24));
-                    let basicStart = truncDate.toISOString().substring(0, 10);
-                    let basicEnd = (new Date(truncDate.getTime() + (1000*60*60*24))).toISOString().substring(0, 10);
+            //         const sDate = new Date(startClean);
+            //         const eDate = new Date(endClean);
+            //         const truncDate = new Date(Math.trunc(today/(1000*60*60*24)) * (1000*60*60*24));
+            //         let basicStart = truncDate.toISOString().substring(0, 10);
+            //         let basicEnd = (new Date(truncDate.getTime() + (1000*60*60*24))).toISOString().substring(0, 10);
 
-                    basicStart = (basicStart.substring(basicStart.indexOf('-') + 1) + '-' + basicStart.substring(0, basicStart.indexOf('-'))).replaceAll('-', '/');
-                    basicEnd = (basicEnd.substring(basicEnd.indexOf('-') + 1) + '-' + basicEnd.substring(0, basicEnd.indexOf('-'))).replaceAll('-', '/');
+            //         basicStart = (basicStart.substring(basicStart.indexOf('-') + 1) + '-' + basicStart.substring(0, basicStart.indexOf('-'))).replaceAll('-', '/');
+            //         basicEnd = (basicEnd.substring(basicEnd.indexOf('-') + 1) + '-' + basicEnd.substring(0, basicEnd.indexOf('-'))).replaceAll('-', '/');
 
-                    if (truncDate - sDate > 0) {
-                        alert('오늘 이후 날짜만 선택 가능합니다.');
-                        if (truncDate - eDate > 0) {
-                            $('#daterange').val(basicStart + ' - ' + basicEnd);
-                        } else {
-                            $('#daterange').val(basicStart + ' - ' + end);
-                        }
-                        e.preventDefault();
-                    } else if (eDate - sDate == 0) {
-                    	alert('체크아웃 날짜는 체크인 날짜와 같을 수 없습니다.');
-                        if (truncDate - eDate > 0) {
-                            $('#daterange').val(basicStart + ' - ' + basicEnd);
-                        } else {
-                            $('#daterange').val(basicStart + ' - ' + end);
-                        }
-                        e.preventDefault();
-                    }
+            //         if (truncDate - sDate > 0) {
+            //             alert('오늘 이후 날짜만 선택 가능합니다.');
+            //             if (truncDate - eDate > 0) {
+            //                 $('#daterange').val(basicStart + ' - ' + basicEnd);
+            //             } else {
+            //                 $('#daterange').val(basicStart + ' - ' + end);
+            //             }
+            //             e.preventDefault();
+            //         } else if (eDate - sDate == 0) {
+            //         	alert('체크아웃 날짜는 체크인 날짜와 같을 수 없습니다.');
+            //             if (truncDate - eDate > 0) {
+            //                 $('#daterange').val(basicStart + ' - ' + basicEnd);
+            //             } else {
+            //                 $('#daterange').val(basicStart + ' - ' + end);
+            //             }
+            //             e.preventDefault();
+            //         }
 
-                } else if ($('#category').val() === 'dinings') {
-                    const inpClean = (inp.substring(inp.lastIndexOf('/') + 1) + '/' + inp.substring(0, inp.lastIndexOf('/'))).replaceAll('/', '-');
-                    const iDate = new Date(inpClean);
-                    const truncDate = new Date(Math.trunc(today/(1000*60*60*24)) * (1000*60*60*24) + (1000*60*60*24));
-                    let basicDate = truncDate.toISOString().substring(0, 10);
-                    basicDate = (basicDate.substring(basicDate.indexOf('-') + 1) + '-' + basicDate.substring(0, basicDate.indexOf('-'))).replaceAll('-', '/');
-                    if (truncDate - iDate > 0) {
-                        alert('다이닝은 하루 전에만 예약 가능합니다.');
-                        $('#daterange').val(basicDate);
-                        e.preventDefault();
-                    }
-                }
-            }
+            //     } else if ($('#category').val() === 'dinings') {
+            //         const inpClean = (inp.substring(inp.lastIndexOf('/') + 1) + '/' + inp.substring(0, inp.lastIndexOf('/'))).replaceAll('/', '-');
+            //         const iDate = new Date(inpClean);
+            //         const truncDate = new Date(Math.trunc(today/(1000*60*60*24)) * (1000*60*60*24) + (1000*60*60*24));
+            //         let basicDate = truncDate.toISOString().substring(0, 10);
+            //         basicDate = (basicDate.substring(basicDate.indexOf('-') + 1) + '-' + basicDate.substring(0, basicDate.indexOf('-'))).replaceAll('-', '/');
+            //         if (truncDate - iDate > 0) {
+            //             alert('다이닝은 하루 전에만 예약 가능합니다.');
+            //             $('#daterange').val(basicDate);
+            //             e.preventDefault();
+            //         }
+            //     }
+            // }
 
 
-            $('#daterange').change(rangeCheck); 
+            // $('#daterange').change(rangeCheck); 
             
             // dateRange 입력값 검증 끝
 
-            // 지난 날짜 클릭방지
-            function passedDate() {
-                const days = [...document.querySelectorAll('.daterangepicker .left .table-condensed td')];
+            // // 지난 날짜 클릭방지
+            // function passedDate() {
+            //     const days = [...document.querySelectorAll('.daterangepicker .left .table-condensed td')];
                 
-                let monthYear = document.querySelector('.daterangepicker .left .table-condensed .month').textContent;
-                let dMonth = monthYear.substring(0, monthYear.indexOf(' '));
-                let dYear = monthYear.substring(monthYear.indexOf(' ') + 1); 
+            //     let monthYear = document.querySelector('.daterangepicker .left .table-condensed .month').textContent;
+            //     let dMonth = monthYear.substring(0, monthYear.indexOf(' '));
+            //     let dYear = monthYear.substring(monthYear.indexOf(' ') + 1); 
 
-                days.forEach(day => {
-                    const thisday = new Date(dMonth + ' ' + day.textContent + ', ' + dYear);
-                    if (Math.floor((today.getTime()/(1000*60*60*24)) - 1)*(1000*60*60*24) - thisday.getTime() >= 0 || day.classList.contains('off')) {
-                        day.classList.remove('available');
-                        day.style.background = '#ccc';
-                        day.style.color = '#c8c8c8';
-                    }
-                    if (day.dataset.title === 'r0c6' || !day.classList.contains('available')) {
-                        document.querySelector('.daterangepicker .left .table-condensed .prev').classList.remove('available');
-                    }
-                });
+            //     days.forEach(day => {
+            //         const thisday = new Date(dMonth + ' ' + day.textContent + ', ' + dYear);
+                    
+            //         if (day.classList.contains('off')) {
+            //             day.classList.remove('available');
+            //         } if (Math.floor((today.getTime()/(1000*60*60*24)) - 1)*(1000*60*60*24) - thisday.getTime() >= 0) {
+            //             day.classList.remove('available');
+            //             day.classList.add('off');
+            //         } if (day.dataset.title === 'r0c6' || !day.classList.contains('available')) {
+            //             document.querySelector('.daterangepicker .left .table-condensed th:nth-of-type(1)').classList.remove('prev');
+            //         }
+            //     });
 
-            }
-            $('#daterange').click(passedDate);
-            $('.daterangepicker').on('click', '.daterangepicker .left .table-condensed td', passedDate);
-            
+            // }
+            // $('#daterange').click(passedDate);
+            // $('.daterangepicker').click(function(e){
+            // 	e.preventDefault();
+            //     console.log('target: ', e.target);
+            // });
+            // $('.daterangepicker').on('click', '.daterangepicker .left .table-condensed td', function(e){
+            //     e.preventDefault();
+            //     console.log('click');
+            //     passedDate();
+            //     if (e.target.classList.contains('off')) {
+            //         e.preventDefault();
+            //         return;
+            //     }
+            // });
+
+            // $('.daterangepicker').on('click', '.daterangepicker .left .table-condensed th:nth-of-type(1)', function(e){
+            //     passedDate();
+            //     console.log(e.target);
+            //     if (!e.target.classList.contains('available')) {
+            //         e.preventDefault();
+            //         return;
+            //     }
+            // });
+
             // 지난 날짜 클릭방지 끝
 
         }); // jQuery 종료
 
 
         </script>    
-    <%@ include file="./roomDetailModal.jsp" %>
-    
-    <%@ include file="../include/footer.jsp" %>
+
     

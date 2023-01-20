@@ -17,6 +17,7 @@ import com.ictproject.wyhotel.command.NotMemberVO;
 import com.ictproject.wyhotel.command.ReservationVO;
 import com.ictproject.wyhotel.command.RoomReservationVO;
 import com.ictproject.wyhotel.command.RoomVO;
+import com.ictproject.wyhotel.member.mapper.IMemberMapper;
 import com.ictproject.wyhotel.reservation.mapper.IReservationMapper;
 import com.ictproject.wyhotel.util.MailSendService;
 
@@ -25,6 +26,9 @@ public class ReservationServiceImpl implements IReservationService {
 
 	@Autowired
 	private IReservationMapper mapper;
+	
+	@Autowired
+	private IMemberMapper mMapper;
 	
 	@Autowired
 	private MailSendService mailSender;
@@ -145,7 +149,27 @@ public class ReservationServiceImpl implements IReservationService {
 		diningReserv.setReservationCode(reservCode);
 		System.out.println("diningReserv: " + diningReserv);
 		
+		
+		
+		/* 비회원 일시 이메일을 보냅시다 */
+		String memberCode = diningReserv.getMemberCode();
+		MemberVO member = null;
+		// 이 회원이 비회원일시?
+		if (memberCode.substring(0,1).equals("1") || memberCode.substring(0,1).equals("2"))
+			member = mapper.getInfo(memberCode);
+		else
+			member = mMapper.getInfo(memberCode);
+		// 이메일 추출 완료
+		String email = member.getEmail();
+		
+		// 맵퍼에게 예약하라고 전달
 		mapper.reservDining(diningReserv);
+		
+		String newReservCode = mapper.getReservationCodeDining(diningReserv.getMemberCode());
+		
+		// 이메일 전송
+		mailSender.sendReservationInfo(newReservCode, email);
+	
 	}
 	
 	@Override
@@ -251,24 +275,23 @@ public class ReservationServiceImpl implements IReservationService {
 		
 		
 		/* 비회원 일시 이메일을 보냅시다 */
-		int memberCode = Integer.parseInt(roomReserv.getMemberCode());
+		String memberCode = roomReserv.getMemberCode();
+		MemberVO member = null;
+		// 이 회원이 비회원일시?
+		if (memberCode.substring(0,1).equals("1") || memberCode.substring(0,1).equals("2"))
+			member = mapper.getInfo(memberCode);
+		else
+			member = mMapper.getInfo(memberCode);
+		// 이메일 추출 완료
+		String email = member.getEmail();
 		
-		if((memberCode >= 1000) && (memberCode < 3000)) { 
-			// 이 회원이 비회원일시?
-			MemberVO notMember = mapper.getInfo(roomReserv.getMemberCode());
-			// 이메일 추출 완료
-			String email = notMember.getEmail();
-			
-			// 맵퍼에게 예약하라고 전달
-			mapper.reservRoom(roomReserv);
-			
-			String newReservCode = mapper.getReservationCode(roomReserv.getMemberCode());
-			
-			// 이메일 전송
-			mailSender.sendReservationInfo(newReservCode, email);
-		} else {
-			mapper.reservRoom(roomReserv);
-		}		
+		// 맵퍼에게 예약하라고 전달
+		mapper.reservRoom(roomReserv);
+		
+		String newReservCode = mapper.getReservationCode(memberCode);
+		
+		// 이메일 전송
+		mailSender.sendReservationInfo(newReservCode, email);
 	}
 	
 	@Override
