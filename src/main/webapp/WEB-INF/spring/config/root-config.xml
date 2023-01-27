@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- 
 		JDBC 관련 빈 등록, 설정 등을 관리하는 파일.
@@ -9,5 +11,7 @@
 		설정 등을 담당하는 파일입니다.
 		지금은 초반부이기 때문에 여기를 당장 쓸 일은 없어요~
 	 -->
+	 <!-- 웹 소켓핸들러 -->
+
 		
 </beans>
