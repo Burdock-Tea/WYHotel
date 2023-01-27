@@ -129,6 +129,22 @@
         }
 
         #imgWrapper {width: 85%;}
+
+        #resultTable #imgWrapper img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+		.detail-imgs .imgWrapper {padding: 0;}
+
+        .detail-imgs .imgWrapper img {
+            width: 100%;
+            height: 70px;
+            object-fit: cover;
+        }
+
+        #img00 {height: 200px;}
         
     </style>
 
@@ -208,7 +224,12 @@
                 <div class="row mt-5">
                     <div class="col-md-4">
                         <div class="my-0 mx-auto" id="imgWrapper">
-                            <img src="${pageContext.request.contextPath}/img/bedroom-g34b59e527_1920.jpg" alt="">
+                            <c:if test="${param.category == 'hotels'}">
+                                <img src="${pageContext.request.contextPath}/img/${result.roomGrade}01.jpg" alt="">
+                            </c:if>
+                            <c:if test="${param.category == 'dinings'}">
+                                <img src="${pageContext.request.contextPath}/img/bedroom-g34b59e527_1920.jpg" alt="">
+                            </c:if>
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -409,6 +430,10 @@
                 $.getJSON(
                     '${pageContext.request.contextPath}/reservation/roomDetail?roomCode=' + roomCode,
                     function(roomDetail){
+                        $('#img00').attr('src', '${pageContext.request.contextPath}/resources/img/' + roomDetail.roomGrade + '01.jpg');
+                        $('#img01').attr('src', '${pageContext.request.contextPath}/resources/img/' + roomDetail.roomGrade + '01.jpg');
+                        $('#img02').attr('src', '${pageContext.request.contextPath}/resources/img/' + roomDetail.roomGrade + '02.jpg');
+                        $('#img03').attr('src', '${pageContext.request.contextPath}/resources/img/' + roomDetail.roomGrade + '03.jpg');
                         $('#modalRoomGrade').text(roomDetail.roomGrade);
                         $('#modalRoomInfo').text(roomDetail.roomInfo);
                         $('#modalRoomPrice').text(roomDetail.roomPrice + ' KRW / night');

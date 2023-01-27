@@ -43,9 +43,9 @@
                         <option>018</option>
                     </select>
                     <span class="mt-2 px-2"> - </span>
-                    <input type="tel" id="phone2" class="form-control" name="phone2" maxlength="4" placeholder="0000" id="inputDefault"> 
+                    <input type="tel" id="phone2" class="form-control" name="phone2" maxlength="4" placeholder="0000" id="inputDefault" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"> 
                     <span class="mt-2 px-2"> - </span>
-                    <input type="tel" id="phone3" class="form-control" name="phone3" maxlength="4" placeholder="0000" id="inputDefault"> 
+                    <input type="tel" id="phone3" class="form-control" name="phone3" maxlength="4" placeholder="0000" id="inputDefault" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"> 
                 </div>
             </div>
             <div class="col-md-2"></div>
@@ -372,11 +372,10 @@
                                     orderName: roomgrade,
                                     customerName: memName,
                                     customerEmail: memEmail,
-                                    successUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/success?memberCode=' + $('#memberCode').val()
+                                    successUrl: 'http://localhost/wyhotel/reservation/success?memberCode='/*'http://wyhotel.site/reservation/success?memberCode='*/ + $('#memberCode').val()
                                     + '&hotelCode=' + '${reservation.hotelCode}'+ '&roomCode=' + '${reservation.code}'+ '&capacity=' + '${reservation.capacity}'
                                     + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate + '&pointAccumulate=' + accumulatePoint,
-                                    failUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/reservationPage'
-                                });
+                                    failUrl: 'http://localhost/wyhotel/reservation/reservationPage'/*'http://wyhotel.site/reservation/reservationPage'*/                                });
                             }
                             
                             
@@ -416,11 +415,10 @@
                                     orderName: roomgrade,
                                     customerName: memName,
                                     customerEmail: memEmail,
-                                    successUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/success?memberCode=' + $('#memberCode').val()
+                                    successUrl: 'http://localhost/wyhotel/reservation/success?memberCode='/*'http://wyhotel.site/reservation/success?memberCode='*/ + $('#memberCode').val()
                                     + '&hotelCode=' + '${reservation.hotelCode}'+ '&roomCode=' + '${reservation.code}'+ '&capacity=' + '${reservation.capacity}'
                                     + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate + '&pointAccumulate=' + accumulatePoint,
-                                    failUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/reservationPage'
-                                });
+                                    failUrl: 'http://localhost/wyhotel/reservation/reservationPage'/*'http://wyhotel.site/reservation/reservationPage'*/                                });
                             }  
                             
                         }, 500);
@@ -443,10 +441,10 @@
                             orderName: roomgrade,
                             customerName: memName,
                             customerEmail: memEmail,
-                            successUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/success?memberCode=' + $('#memberCode').val()
+                            successUrl: 'http://localhost/wyhotel/reservation/success?memberCode='/*'http://wyhotel.site/reservation/success?memberCode='*/ + $('#memberCode').val()
                             + '&hotelCode=' + '${reservation.hotelCode}'+ '&roomCode=' + '${reservation.code}'+ '&capacity=' + '${reservation.capacity}'
                             + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate + '&pointAccumulate=' + accumulatePoint,
-                            failUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/reservationPage'
+                            failUrl: 'http://localhost/wyhotel/reservation/reservationPage'/*'http://wyhotel.site/reservation/reservationPage'*/
                         });
                     }
                             
