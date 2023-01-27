@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
     <style>
 footer {
     margin-top: 50px;
@@ -81,6 +81,10 @@ footer .footer-div {
     width: 20%;
     float: right;
 }
+.chat-img{
+	 display:inline-block;
+	
+}
     </style>
 	<!-- footer-->
     <footer class="sticky-bottom">
@@ -144,10 +148,27 @@ footer .footer-div {
                             (주)나는우영 | 대표자: 권우영 | E-mail: info@info.com
                            	 사업자번호: 123-45-67890 | 개인정보보호책임자: 권우영
                         </div>
-                        <div class="subfont">
+                        <div class="subfont"   style="display:inline-block;">
                             Tel. 1888-8888, E-mail : wy-hotely@gmail.com, Copyright © WYHOTEL SEGASAMMY Co. Ltd. All rights reserved.
                         </div>
+                        <div class="chat-img col-4 clearfix">
+                    	<c:choose>
+                    		<c:when test="${email = admin}">
+                    			<a  href="#" onclick="window.open('${pageContext.request.contextPath}/chat/userchat','chating','width=620, height=500')">
+								<img src="${pageContext.request.contextPath}/img/socketimg.png"
+									width="100" height="50">
+								</a>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<a  href="#" onclick="window.open('${pageContext.request.contextPath}/chat/userchat','chating','width=620, height=500')">
+								<img src="${pageContext.request.contextPath}/img/socketimg.png"
+									width="100" height="50">
+								</a>	
+                    		</c:otherwise>
+                    	</c:choose>
+						</div>
                     </div>
+                    	
                         <div class="logo-img col-4 clearfix">
                             <a href="${pageContext.request.contextPath}/"><img src="./img/logo.svg" width="150"></a>
                         </div>

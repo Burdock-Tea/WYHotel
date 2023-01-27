@@ -2,39 +2,33 @@
 	pageEncoding="UTF-8"%>
 <html>
 <head>
-<title>wy hotel chat</title>
+<title>wy hotel user chat</title>
 <style>
-/*	#textMessage{
-        width: 300px;
-        height: 40px;
-        position: absolute;
-		top: 505px;
-		left: 3px;      
+	#textMessage{
+        width: 80%;
+        height: 5%;
+        
+        float: left;
 	}
 	
 	#sendButton{
-        width: 100px;
-        height: 40px;
+        width: 20%;
+        height: 5%;
+        float: left;
         background-color: white;
         border : 1px solid black;
-        position: absolute;
-		top: 505px;
-		left: 305px;
 	}
 	
 	#messageTextArea{
 		background-color:#acc2d2;
-        
-		width : 400px;
-		height : 500px;
+        float: left;
+		width : 100%;
+		height : 95%;
 		resize : none;
-		position:absolute;
-		left: 3px;
-		top: 2px;	
-	} */
+	}
 </style>
 </head>
-<body>
+<body onresize="parent.resizeTo(700,700)" onload="parent.resizeTo(700,700)">
 	
 	<!-- 채팅 영역 -->
 	<form>
@@ -59,7 +53,7 @@
 		// 접속이 완료되면
 		webSocket.onopen = function(message) {
 			// 콘솔에 메시지를 남긴다.
-			messageTextArea.value += "서버에 연결되었습니다....\n";
+			messageTextArea.value += "안녕하세요 WY HOTEL 실시간 채팅입니다.\n응답이 없을경우 전화번호를 남겨주시면 확인후 처리해드리겠습니다.\n";
 		};
 		// 접속이 끝기는 경우는 브라우저를 닫는 경우이기 떄문에 이 이벤트는 의미가 없음.
 		webSocket.onclose = function(message) {

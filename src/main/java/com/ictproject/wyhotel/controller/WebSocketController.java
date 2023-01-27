@@ -34,8 +34,8 @@ public class WebSocketController {
 	public String admin(HttpSession session , Model model) {
 		
 		
-		 /* String member = (String)session.getAttribute("member");
-		  model.addAttribute("id" , service.getEmail(member)); */
+		  String member = (String)session.getAttribute("member");
+		  model.addAttribute("id" , service.getEmail(member)); 
 		 
 		
 		return "chat/adminchat";
