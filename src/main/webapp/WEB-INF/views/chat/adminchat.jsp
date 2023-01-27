@@ -2,51 +2,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Web Socket Example</title>
+<title>wy hotel admin chat</title>
 <style>
-/*
+	.template{
+            display: inline-block;
+            margin: 5px;
+            width : 230px;
+     } 
 	#textMessage{
-        width: 300px;
-        height: 40px;
-        position: absolute;
-		top: 510px;
-		left: 3px;      
+        width: 145px;
+        height: 0.9rem;
+        
+        float: left;
 	}
 	
 	#sendButton{
-        width: 95px;
-        height: 45px;
+        width: 75px;
+        height: 1.3rem;
+        float: left;
         background-color: white;
         border : 1px solid black;
-        position: absolute;
-		top: 510px;
-		left: 315px;
+	}
+	#endButton{
+        width: 75px;
+        height: 1.3rem;
+        float: left;
+        background-color: white;
+        border : 1px solid black;
 	}
 	
 	#messageTextArea{
 		background-color:#acc2d2;
-        
-		width : 400px;
-		height : 500px;
+        float: left;
+		width : 221px;
+		height : 10rem;
 		resize : none;
-		position:absolute;
-		left: 3px;
-		top: 2px;	
-	} */
+	}
+	 .clearfix:before, .clearfix:after {
+    display: block;
+    content: '';
+    line-height: 0;
+	}
 </style>
 </head>
-<body>
+<body onresize="parent.resizeTo(630,700)" onload="parent.resizeTo(630,700)">
   <!-- 유저가 접속할 때마다 이 템플릿으로 채팅창을 생성한다. -->
   <div class="template" style="display:none">
-    <form>
+   	<form class="why">
       <!-- 메시지 텍스트 박스 -->
       <input type="text" id="textMessage" class="message" onkeydown="if(event.keyCode === 13) return false;">
       <!-- 전송 버튼 -->
-      <input value="Send" id="sendButton" type="button" class="sendBtn">
+      <input value="보내기" id="sendButton" type="button" class="sendBtn">
+      <input value="종료" id="endButton" type="button" class="endBtn" style="display:none;">
+      
+    <textarea  id="messageTextArea" rows="10" cols="50" class="console" disabled="disabled"></textarea>
     </form>
     <br />
     <!-- 서버와 메시지를 주고 받는 콘솔 텍스트 영역 -->
-    <textarea  id="messageTextArea" rows="10" cols="50" class="console" disabled="disabled"></textarea>
   </div>
   
   
@@ -69,7 +81,7 @@
         // 위 템플릿 div를 취득한다.
         let form = $(".template").html();
         // div를 감싸고 속성 data-key에 unique키를 넣는다.
-        form = $("<div class='float-left'></div>").attr("data-key",node.key).append(form); 
+        form = $("<div class='float-left'></div>").attr("data-key",node.key).css('display' ,'inline-block').css('width','230px').append(form); 
         // body에 추가한다.
         $("body").append(form);
       // message는 유저가 메시지를 보낼 때 알려주는 메시지이다.
@@ -82,12 +94,28 @@
         if('${id}' !== ''){
         $div.find(".console").val(log + '${id}' +" => " +node.message + "\n");
         }else{
-        	$div.find(".console").val(log + "(user) => " +node.message + "\n");
+        	$div.find(".console").val(log + "비회원 고객님 => " +node.message + "\n");
         }    
       // bye는 유저가 접속을 끊었을 때 알려주는 메시지이다.
       } else if(node.status === "bye") {
-        // 해당 키로 div를 찾아서 dom을 제거한다.
-        $("[data-key='"+node.key+"']").remove();
+    	  // 해당 키로 div를 찾아서 dom을 제거한다.\
+          let $div = $("[data-key='"+node.key+"']");
+           let log = $div.find(".sendBtn").val();
+          // 종료 버튼 변수 선언
+          let $sendBtn = $div.find(".sendBtn");
+          let $whyForm = $div.find(".why");
+        
+          
+          if(log === '보내기'){
+          	$sendBtn.attr('class' , '.endBtn');
+          	$sendBtn.val('종료');
+          	
+          	$sendBtn.click(function() {
+          		// 접속 유저 세션 삭제
+          		$("[data-key='"+node.key+"']").remove();
+       		});
+          }
+         
       }
     };
     // 전송 버튼을 클릭하면 발생하는 이벤트

@@ -34,13 +34,13 @@ jeju = [
             '           </div>' + 
             '            <div class="desc">' + 
             '                <div class="ellipsis">제주시  특별자치도</div>' + 
-            '                <div><a href="https://map.kakao.com/link/to/wy wedding ,33.510440,126.548283" style="color:blue" target="_blank">길찾기</a></div>' + 
+            '                <div><a href="https://map.kakao.com/link/to/wy wedding ,33.502340,126.548283" style="color:blue" target="_blank">길찾기</a></div>' + 
             '            </div>' + 
             '        </div>' + 
             '    </div>' +    
             '</div>',
-  "latlngX": 33.502340, 
-  "latlngY": 126.548283
+  "latlngX": 33.507440, 
+  "latlngY": 126.551283
 	}
 
    ]

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 @ServerEndpoint(value = "/chat/boardsocket")
-public class BoardSocket {
+public class UserChat {
 
 	// 유저와 서버간의 접속 리스트
 	 private interface SearchExpression {
