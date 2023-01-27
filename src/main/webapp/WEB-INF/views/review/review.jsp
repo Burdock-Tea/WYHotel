@@ -78,11 +78,11 @@
                     <strong>별점</strong>
                     <fieldset>
                         <span class="ms-2" id="ratingText"></span>
-                        <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">⭐</label>
-                        <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">⭐</label>
-                        <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">⭐</label>
-                        <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
-                        <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
+                        <input type="radio" class ="rate" name="rating" value="5" id="rate1"><label for="rate1">⭐</label>
+                        <input type="radio" class ="rate" name="rating" value="4" id="rate2"><label for="rate2">⭐</label>
+                        <input type="radio" class ="rate" name="rating" value="3" id="rate3"><label for="rate3">⭐</label>
+                        <input type="radio" class ="rate" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
+                        <input type="radio" class ="rate" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
                     </fieldset>
                 </div>
                 <input type="hidden" id="reservationCode" name="reservationCode" value="${room.reservationCode}">
@@ -90,7 +90,7 @@
             <div class="w-100">
                 <input id="content" type="text" class="reviwe border rounded p-1" placeholder="여기는 댓글 다는 영역">
 
-                <button class="btn btn-dark mb-2 ms-2" id="replyRegist">답변달기</button>
+                <button type="button" class="btn btn-dark mb-2 ms-2" id="replyRegist">답변달기</button>
                 <!--<label class="input-file-button" for="input-file"><i class="xi-camera"></i></label>  
                 <input type="file" id="input-file" style="display: none;" /> -->
             </div>
@@ -211,7 +211,7 @@
     }
 
     // 점수 띄우는 함수
-    $('#myform').on('click', 'input', function (e) {
+    $('#myform').on('click', '.rate', function (e) {
         let $rating = $(this).val();
         console.log($rating);
         document.getElementById('ratingText').innerHTML = $rating + "점";
@@ -283,12 +283,9 @@
                 contentType: 'application/json',
 
                 success: function (data) {
-
                     if (data === 'regSuccess') {
                         alert('리뷰등록성공!!!');
-                        $(location).attr('href',
-                            '${pageContext.request.contextPath}/review/review');
-
+                        location.href='${pageContext.request.contextPath}/';
                     } else if (data === 'regFail') {
                         alert('해당 호텔/룸 이용했던 고객만 리뷰등록 가능합니다.');
                     } else {
