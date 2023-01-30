@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ include file="../include/header.jsp" %>
 <spring:eval expression="@tossProperties['toss.key']" var="key" />
@@ -222,7 +223,7 @@
             switch('${reservation.code}') {
                 case '55' :
                     document.getElementById('roomGrade').value = 'Suite';
-                    basicPrice = 150000 * nights;
+                    basicPrice = 1500000 * nights;
                     break;
                 case '44' :
                     document.getElementById('roomGrade').value = 'Business Deluxe';
@@ -264,9 +265,11 @@
                                 	if('${param.price}' !== '') {
                                    		price = '${param.price}';	
                                 	}
-                                    document.reservForm.roomPrice.value = price;
-                                    accumulatePoint = price * membership.pointAccumulate;                                    
+                                    accumulatePoint = price * membership.pointAccumulate;
                                     console.log('적립 포인트: ', accumulatePoint);
+                                	console.log(price);
+                                	const priceDisplay = price.toLocaleString();
+                                    document.reservForm.roomPrice.value = priceDisplay;
                                 },
                                 error: function(){
                                     alert('멤버십 통신 실패');
@@ -283,14 +286,16 @@
                 	if('${param.price}' !== '') {
                    		price = '${param.price}';	
                 	}
-                    document.reservForm.roomPrice.value = price;                       
+                    const priceDisplay = price.toLocaleString();
+                    document.reservForm.roomPrice.value = priceDisplay;                    
                 }
             } else {
             	price = Math.floor(basicPrice * 1.1);
             	if('${param.price}' !== '') {
                		price = '${param.price}';	
             	}
-                document.reservForm.roomPrice.value = price;
+                const priceDisplay = price.toLocaleString();
+                document.reservForm.roomPrice.value = priceDisplay;
             }            
 
             document.getElementById('hotelName').value = 

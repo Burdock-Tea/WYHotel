@@ -323,71 +323,99 @@
             $('select[name="category"]').change(function(){
 
 
-                let endDay;
-                let endMoth;
-                let endYear;
-                let isLeapYear = false;
+                // let endDay;
+                // let endMoth;
+                // let endYear;
+                // let isLeapYear = false;
 
-                // 윤년 판별
-                if ((year%4 === 0 && year%100 !== 0) || year%400 === 0)
-                    isLeapYear = true;
+                // // 윤년 판별
+                // if ((year%4 === 0 && year%100 !== 0) || year%400 === 0)
+                //     isLeapYear = true;
 
-                switch (month + 1) {
-                    case 2 :
-                        endDay = (day + 1 > (isLeapYear ? 29 : 28) ? 1 : day + 1);
-                        if (endDay > day){
-                            endMonth = month;
-                            endYear = year;
-                        } else {
-                            endMonth = (month + 1 > 12 ? 1 : month + 1);
-                            if (endMonth < month) endYear = year + 1;
-                            else endYear = year;
-                        }
-                        break;
-                    case 4, 6, 9, 11 :
-                        endDay = (day + 1 > 30 ? 1 : day + 1);
-                        if (endDay > day){
-                            endMonth = month;
-                            endYear = year;
-                        } else {
-                            endMonth = (month + 1 > 12 ? 1 : month + 1);
-                            if (endMonth < month) endYear = year + 1;
-                            else endYear = year;
-                        }
-                        break;
-                    default :
-                        endDay = (day + 1 > 31 ? 1 : day + 1);
-                        if (endDay > day){
-                            endMonth = month;
-                            endYear = year;
-                        } else {
-                            endMonth = (month + 1 > 12 ? 1 : month + 1);
-                            if (endMonth < month) endYear = year + 1;
-                            else endYear = year;
-                        }
-                        break;
-                }
+                // switch (month + 1) {
+                //     case 2 :
+                //         endDay = (day + 1 > (isLeapYear ? 29 : 28) ? 1 : day + 1);
+                //         if (endDay > day){
+                //             endMonth = month;
+                //             endYear = year;
+                //         } else {
+                //             endMonth = (month + 1 > 12 ? 1 : month + 1);
+                //             if (endMonth < month) endYear = year + 1;
+                //             else endYear = year;
+                //         }
+                //         break;
+                //     case 4, 6, 9, 11 :
+                //         endDay = (day + 1 > 30 ? 1 : day + 1);
+                //         if (endDay > day){
+                //             endMonth = month;
+                //             endYear = year;
+                //         } else {
+                //             endMonth = (month + 1 > 12 ? 1 : month + 1);
+                //             if (endMonth < month) endYear = year + 1;
+                //             else endYear = year;
+                //         }
+                //         break;
+                //     default :
+                //         endDay = (day + 1 > 31 ? 1 : day + 1);
+                //         if (endDay > day){
+                //             endMonth = month;
+                //             endYear = year;
+                //         } else {
+                //             endMonth = (month + 1 > 12 ? 1 : month + 1);
+                //             if (endMonth < month) endYear = year + 1;
+                //             else endYear = year;
+                //         }
+                //         break;
+                // }
                 
+
+
+                // // 선언한 변수로 데이터레인지피커 밸류 수정
+                // if ($(this).val() === 'dinings') {
+                //     $('input[name="daterange"]').attr('readonly', false);
+                //     $('input[name="daterange"]').val(endMonth.toString() + '/' + endDay.toString() + '/' + endYear.toString());
+                //     $('input[name="daterange"]').daterangepicker({
+                //         singleDatePicker: true,
+                //         showDropdowns: true,
+                //         minDate: new Date(Math.floor(today.getTime()/(1000*60*60*24) + 1) * (1000*60*60*24)),
+                //         maxDate: new Date(Math.floor(today.getTime()/(1000*60*60*24) + 30) * (1000*60*60*24))
+                //     });
+                //     $('#time').removeClass('visually-hidden');
+                // } else if($(this).val() === 'hotels') {
+                //     $('input[name="daterange"]').attr('readonly', false);
+                //     $('input[name="daterange"]').val(month.toString() + '/' + day.toString() + '/' + year.toString() + ' - ' + endMonth.toString() + '/' + endDay.toString() + '/' + endYear.toString());
+                //     $('input[name="daterange"]').daterangepicker({
+                //         opens: 'left',
+                //         minDate: today,
+                //         maxDate: new Date(Math.floor(today.getTime()/(1000*60*60*24) + 30) * (1000*60*60*24))
+                //     });
+                //     $('#time').addClass('visually-hidden');
+                // } else {
+                //     $('input[name="daterange"]').attr('readonly', true);
+                //     $('input[name="daterange"]').val('카테고리를 먼저 선택하세요');
+                //     $('#time').addClass('visually-hidden');
+                // }
 
 
                 // 선언한 변수로 데이터레인지피커 밸류 수정
                 if ($(this).val() === 'dinings') {
                     $('input[name="daterange"]').attr('readonly', false);
-                    $('input[name="daterange"]').val(endMonth.toString() + '/' + endDay.toString() + '/' + endYear.toString());
                     $('input[name="daterange"]').daterangepicker({
                         singleDatePicker: true,
                         showDropdowns: true,
                         minDate: new Date(Math.floor(today.getTime()/(1000*60*60*24) + 1) * (1000*60*60*24)),
-                        maxDate: new Date(Math.floor(today.getTime()/(1000*60*60*24) + 30) * (1000*60*60*24))
+                        maxDate: new Date(Math.floor(today.getTime()/(1000*60*60*24) + 30) * (1000*60*60*24)),
+                        startDate: today
                     });
                     $('#time').removeClass('visually-hidden');
                 } else if($(this).val() === 'hotels') {
                     $('input[name="daterange"]').attr('readonly', false);
-                    $('input[name="daterange"]').val(month.toString() + '/' + day.toString() + '/' + year.toString() + ' - ' + endMonth.toString() + '/' + endDay.toString() + '/' + endYear.toString());
                     $('input[name="daterange"]').daterangepicker({
                         opens: 'left',
                         minDate: today,
-                        maxDate: new Date(Math.floor(today.getTime()/(1000*60*60*24) + 30) * (1000*60*60*24))
+                        maxDate: new Date(Math.floor(today.getTime()/(1000*60*60*24) + 30) * (1000*60*60*24)),
+                        startDate: today,
+                        endDate: new Date(Math.floor(today.getTime()/(1000*60*60*24) + 1) * (1000*60*60*24))
                     });
                     $('#time').addClass('visually-hidden');
                 } else {
