@@ -42,7 +42,7 @@
                     </span>
 
                     <div class="main-more">
-                        <a href="#">Show More</a>
+                        <a href="${ pageContext.request.contextPath }/introduce/hotels">Show More</a>
                     </div>
                 </div>
                 <div class="guest-room">
@@ -59,7 +59,7 @@
                        	 오늘의 미식가들을 만족시킬 새롭고 독창적인 파인 다이닝 문화가 펼쳐집니다.
                     </span>
                     <div class="main-more">
-                        <a href="#">Show More</a>
+                        <a href="${ pageContext.request.contextPath }/reservation/reservationPage">Show More</a>
                     </div>
                 </div>
                 <div class="dining-1">
