@@ -314,7 +314,7 @@
                     $('input[name="daterange"]').daterangepicker({
                         opens: 'left',
                         minDate: today,
-                        maxDate: new Date(Math.floor(today.getTime()/(1000*60*60*24) + 30) * (1000*60*60*24))    passedDate();
+                        maxDate: new Date(Math.floor(today.getTime()/(1000*60*60*24) + 30) * (1000*60*60*24))
                     });
                     $('#time').addClass('visually-hidden');
                 } else {

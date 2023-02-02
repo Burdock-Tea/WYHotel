@@ -34,6 +34,8 @@
 			<mvc:mapping path="/member/delete"/>
 			<!-- 프로모션 예약 -->
 			<mvc:mapping path="/promotion/payment"/>
+			<!-- 실시간 채팅 웹소켓 (회원) -->
+			<mvc:mapping path="/chat/userchat"/>
 			<ref bean="userAuthHandler"/>
 		</mvc:interceptor>
 		
@@ -43,10 +45,14 @@
 			<mvc:mapping path="/admin/member"/>
 			<!-- 관리자 문의내역 페이지 -->
 			<mvc:mapping path="/admin/question"/>
+			<!-- 관리자 예약확인 페이지 -->
+			<mvc:mapping path="/admin/reservation"/>
 			<!-- 프로모션 수정 -->
 			<mvc:mapping path="/promotion/update"/>
 			<!-- 프로모션 insert -->
 			<mvc:mapping path="/promotion/insert"/>
+			<!-- 실시간 채팅 웹소켓 (관리자) -->
+			<mvc:mapping path="/chat/adminchat"/>
 			<ref bean="adminAuthHandler" />
 		</mvc:interceptor>
 		

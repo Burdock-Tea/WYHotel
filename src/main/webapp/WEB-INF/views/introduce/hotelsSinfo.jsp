@@ -156,11 +156,11 @@ a {
         
 		let i = 0;
 		let t = 0;
-		
+		var closeWindow = [];
 		var markers = [];
 		
         $('#cafeBtn').click(function() {
-		
+        	closeInfoWindow();
         	hideMarkers();
 			var showMaker = setInterval(() => {
 			var positions = [ {
@@ -182,6 +182,7 @@ a {
 		        content: testData[i].content,
 		        removable : iwRemoveable
 		    });
+			closeWindow.push(infowindow);
 			
 			kakao.maps.event.addListener(marker, 'click', function() {
 			      infowindow.open(map, marker);  
@@ -204,7 +205,8 @@ a {
       	}	 
 
       	
-		$('#tourBtn').click(function() {        	
+		$('#tourBtn').click(function() {  
+        	closeInfoWindow();
 			hideMarkers();
 			var showMake = setInterval(() => {
 			var tourPoint = [{
@@ -226,6 +228,7 @@ a {
 		        content: tourData[t].content,
 		        removable : iwRemoveable
 		    });
+			closeWindow.push(infowindow);
 			
 			kakao.maps.event.addListener(marker, 'click', function() {
 			      infowindow.open(map, marker);  
@@ -250,6 +253,12 @@ a {
         
         function hideMarkers() {
         	 setMarkers(null);  
+        }
+        
+        function closeInfoWindow() {
+            for(var idx=0; idx < closeWindow.length; idx++){
+            	closeWindow[idx].close();
+            }
         }
 
  </script>

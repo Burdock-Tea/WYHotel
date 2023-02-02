@@ -16,6 +16,66 @@
 			</when>		
 		</choose>
 	</sql>
+		
+	<sql id="memberOrNotRoom">
+		<choose>
+			<when test="isMem == 'member' and category == 'email'">
+				SELECT
+					reservation_code, hotel_code, room_code, member_code, capacity, check_in_date, check_out_date, charged_date, payment_key
+		        FROM
+		        	member_reservation_list
+		        WHERE
+		        	email = #{keyword}
+			</when>
+			<when test="isMem == 'notMember' and category == 'email'">
+				SELECT
+					reservation_code, hotel_code, room_code, member_code, capacity, check_in_date, check_out_date, charged_date, payment_key
+				FROM
+					notmember_reservation_list
+				WHERE
+		        	email = #{keyword}
+			</when>
+			<otherwise>
+				SELECT
+					reservation_code, hotel_code, room_code, member_code, capacity, check_in_date, check_out_date, charged_date, payment_key
+				FROM
+					member_reservation_list
+				WHERE
+					reservation_code = #{reservationCode}
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<sql id="memberOrNotDining">
+		<choose>
+			<when test="isMem == 'member' and category == 'email'">
+				WHERE
+		    		member_code = (SELECT member_code FROM members WHERE email = #{keyword})
+			</when>
+			<when test="isMem == 'notMember' and category == 'email'">
+				WHERE
+		    		member_code = (SELECT member_code FROM not_members WHERE email = #{keyword})
+			</when>
+			<otherwise>
+				WHERE
+		    		reservation_code = #{reservationCode}
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<sql id="locals">
+		<choose>
+			<when test="hotelCode == '10'">
+				dining_seoul
+			</when>
+			<when test="hotelCode == '20'">
+				dining_busan
+			</when>
+			<otherwise>
+				dining_jeju
+			</otherwise>
+		</choose>
+	</sql>
 
 	<select id="getMemberList" resultType="member">
 		SELECT
@@ -123,5 +183,64 @@
 			question_code = #{questionCode}	
 	
 	</update>
+	
+	<select id="getRoomReservList" resultType="roomReserv">
+		
+		<include refid="memberOrNotRoom" />
+		
+	</select>
+	
+	<select id="getRooms" resultType="String">
+		SELECT room_grade FROM rooms
+	</select>
+	
+	<select id="getDiningReservList" resultType="diningReserv">
+		
+		SELECT
+		    d.*
+		FROM
+		    dining_reservation d
+		INNER JOIN
+		    dining_busan jointable1 on d.res_code = jointable1.res_code
+		INNER JOIN
+		    dining_seoul jointable2 on d.res_code = jointable2.res_code
+		INNER JOIN
+		    dining_jeju jointable3 on d.res_code = jointable3.res_code
+		<include refid="memberOrNotDining" />
+		
+	</select>
+	
+	<select id="getDinings" resultType="String">
+		SELECT res_name FROM
+		<choose>
+			<when test="hotelCode == '10'">
+				dining_seoul
+			</when>
+			<when test="hotelCode == '20'">
+				dining_busan
+			</when>
+			<otherwise>
+				dining_jeju
+			</otherwise>
+		</choose>
+	</select>
+	
+	<delete id="cancelRoomReservation">
+	
+		DELETE FROM
+			room_reservation
+		WHERE
+			reservation_code = #{reservationCode}
+	
+	</delete>
+	
+	<delete id="cancelDiningReservation">
+	
+		DELETE FROM
+			dining_reservation
+		WHERE
+			reservation_code = #{reservationCode}
+	
+	</delete>
 
 </mapper>

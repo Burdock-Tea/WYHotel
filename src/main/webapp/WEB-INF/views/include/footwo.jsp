@@ -151,22 +151,20 @@ footer .footer-div {
                         <div class="subfont"   style="display:inline-block;">
                             Tel. 1888-8888, E-mail : wy-hotely@gmail.com, Copyright © WYHOTEL SEGASAMMY Co. Ltd. All rights reserved.
                         </div>
-                        <div class="chat-img col-4 clearfix">
-                    	<c:choose>
-                    		<c:when test="${email = admin}">
-                    			<a  href="#" onclick="window.open('${pageContext.request.contextPath}/chat/userchat','chating','width=620, height=500')">
-								<img src="${pageContext.request.contextPath}/img/socketimg.png"
-									width="100" height="50">
-								</a>
-                    		</c:when>
-                    		<c:otherwise>
-                    			<a  href="#" onclick="window.open('${pageContext.request.contextPath}/chat/userchat','chating','width=620, height=500')">
-								<img src="${pageContext.request.contextPath}/img/socketimg.png"
-									width="100" height="50">
-								</a>	
-                    		</c:otherwise>
-                    	</c:choose>
-						</div>
+                         <div class="chat-img position-fixed bottom-0 end-0 mb-5 mx-5">
+                            <a  href="#" onclick="window.open('${pageContext.request.contextPath}/chat/userchat','chating','dialog=yes, resizable=no, toolbar=no, menubar=no, width=620, height=500, left=250, top=200')">
+                             <div style="border-radius: 50%; background : black; width: 40px; height:40px; text-align: center; line-height: 50px; margin-bottom: 20px;">
+                             	<i class="xi-message" style="font-size: 30px;"></i>
+                             </div>
+                             </a>
+                        </div>
+                        <div class=" position-fixed bottom-0 end-0 mx-5 my-2">
+                            <a href="${pageContext.request.contextPath}/eshop/productList">
+                             <div style="border-radius: 50%; background : black; width: 40px; height:40px; text-align: center; line-height: 50px; margin-bottom: 10px;">
+                             <i class="xi-market" style="font-size: 30px;"></i>
+                             </div>
+                              </a>
+                        </div>
                     </div>
                     	
                         <div class="logo-img col-4 clearfix">

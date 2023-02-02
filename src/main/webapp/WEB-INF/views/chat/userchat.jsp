@@ -20,11 +20,18 @@
 	}
 	
 	#messageTextArea{
-		background-color:#acc2d2;
+		background-color:white;
         float: left;
 		width : 100%;
 		height : 95%;
 		resize : none;
+	}
+	img {
+		position: absolute;
+		left : 50%;
+		top : 50%;
+		transform: translate(-50%, -50%);
+		opacity : 0.2;
 	}
 </style>
 </head>
@@ -43,8 +50,10 @@
 	<br />
 	
 	<!-- 서버와 메시지를 주고 받는 콘솔 텍스트 영역 -->
-	<textarea id="messageTextArea" rows="10" cols="50" disabled="disabled"></textarea>
-	
+	<div>
+		<img alt="" src="${pageContext.request.contextPath}/img/logo.svg">
+		<textarea id="messageTextArea" rows="10" cols="50" disabled="disabled"></textarea>
+	</div>
 	<script type="text/javascript">
 		// 서버의 broadsocket의 서블릿으로 웹 소켓을 한다.
 		var webSocket = new WebSocket("ws://localhost/wyhotel/chat/boardsocket");
