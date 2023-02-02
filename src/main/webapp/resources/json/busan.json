@@ -8,7 +8,7 @@ busan = [
             '        </div>' + 
             '        <div class="body">' + 
             '            <div class="img">' +
-            '                <img src="/wyhotel/img/golf.jpg" style="width: 250px; height: 150px">' +
+            '                <img src="http://wyhotel.site/img/golf.jpg" style="width: 250px; height: 150px">' +
             '           </div>' + 
             '            <div class="desc">' + 
             '                <div class="ellipsis">부산광역시 수영구</div>' + 
@@ -31,7 +31,7 @@ busan = [
             '        </div>' + 
             '        <div class="body">' + 
             '            <div class="img">' +
-            '                <img src="/wyhotel/img/wed.jpg"  style="width: 250px; height: 150px" >' +
+            '                <img src="http://wyhotel.site/img/wed.jpg"  style="width: 250px; height: 150px" >' +
             '           </div>' + 
             '            <div class="desc">' + 
             '                <div class="ellipsis">부산광역시 수영구 </div>' + 

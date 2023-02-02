@@ -8,7 +8,7 @@ jeju = [
             '        </div>' + 
             '        <div class="body">' + 
             '            <div class="img">' +
-            '                <img src="/wyhotel/img/golf.jpg" style="width: 250px; height: 150px">' +
+            '                <img src="http:/http://wyhotel.site.site/img/golf.jpg" style="width: 250px; height: 150px">' +
             '           </div>' + 
             '            <div class="desc">' + 
             '                <div class="ellipsis">제주시  특별자치도</div>' + 
@@ -30,7 +30,7 @@ jeju = [
             '        </div>' + 
             '        <div class="body">' + 
             '            <div class="img">' +
-            '                <img src="/wyhotel/img/wed.jpg"  style="width: 250px; height: 150px" >' +
+            '                <img src="http://wyhotel.site/img/wed.jpg"  style="width: 250px; height: 150px" >' +
             '           </div>' + 
             '            <div class="desc">' + 
             '                <div class="ellipsis">제주시  특별자치도</div>' + 
