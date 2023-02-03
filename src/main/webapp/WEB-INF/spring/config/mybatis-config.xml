@@ -30,6 +30,10 @@
  		<typeAlias type="com.ictproject.wyhotel.command.MembershipVO" alias="membership"/>
  		<typeAlias type="com.ictproject.wyhotel.command.ReviewVO" alias="review"/>
  		<typeAlias type="com.ictproject.wyhotel.command.QuestionVO" alias="question"/>
+ 		<typeAlias type="com.ictproject.wyhotel.command.EshopProductVO" alias="eshop"/>
+ 		<typeAlias type="com.ictproject.wyhotel.command.CartListVO" alias="cart"/>
+ 		<typeAlias type="com.ictproject.wyhotel.command.EshopOrderCartVO" alias="Ocart"/>
+ 		<typeAlias type="com.ictproject.wyhotel.command.EshopOrderVO" alias="eOrder"/>
  	</typeAliases>
  	
  	<!--
