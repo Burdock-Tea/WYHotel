@@ -252,7 +252,7 @@ public class MemberController {
 		vo.setTel(vo.getTel() + "-" + tel2 + "-" + tel3);
 		service.modify(vo);
 		session.removeAttribute("member");
-		return "redirect:/member/modify";
+		return "redirect:/member/login";
 	}
 	
 	// 비밀번호 수정 페이지 이동

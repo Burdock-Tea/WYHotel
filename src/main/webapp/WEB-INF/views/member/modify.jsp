@@ -48,7 +48,7 @@
                      value="${member.name}">
                   <span id="nameMsg"></span>
                </div>
-               <input type="hidden" value="${member.memberCode}" name="memberCode">
+
                <label class="col-form-label mt-4" for="inputDefault">전화번호</label>
                <p id="telMsg"></p>
                    <div class="form-group">
@@ -236,95 +236,7 @@
          
          //이메일 인증 숨김
          $('#mailForm').hide();
-         
-         //인증번호 이메일 전송
-         $('#mail-check').click(function() {
-            if($('#inputEmail').val() === '') {
-               alert('이메일은 필수사항 입니다.');
-               return;
-            }
-            openLoading();
-            const email = $('#inputEmail').val();
-            console.log('완성된 이메일: ' + email);
-            
-            $.ajax({
-               type: 'post',
-               url: '<c:url value="/member/mailCheck"/>', 
-               contentType : 'application/json',
-               data : email,
-               success: function(data) {
-                  console.log('컨트롤러가 전달한 인증번호: ' + data);
-                  closeLoading();
-                  code = data; //인증 번호를 전역변수에 저장.
-                  alert('인증번호가 전송 되었습니다. 확인 후 입력란에 정확하게 입력하세요!');
-                  $('#mailForm').show();
-               }
-            });
-            
-         }); //이메일 전송 끝
-         
-         //인증번호 비교
-         $('#mail-check-btn').click(function() {
-            const inputCode = $('#checkNum').val(); //사용자가 입력한 인증번호
-            const $resultMsg = $('#mail-check-warn'); //span
-            
-            if(inputCode === code) {
-               $('#mailForm').hide();
-               $resultMsg.html('인증번호가 일치합니다.');
-               $resultMsg.css('color', 'green');
-               $('#checkNum').css('display', 'none');
-            } else {
-               $resultMsg.html('계정이 없거나 인증번호가 틀렸습니다.');
-               $resultMsg.css('color', 'red');
-               $(this).val('');
-               $(this).focus();
-            }
-            
-         }); //인증번호 이벤트 끝
-         
-         //인증번호 인풋창 엔터키 이벤트
-         $('#checkNum').keyup(function(e) {
-            if(e.key === 'Enter') {
-               $('#mail-check-btn').click();
-            }
-         });
-         
-         //로딩창 보여주는 함수
-           function openLoading() {
-            //화면의 가로, 세로길이 구해서 저장.
-            const maskWidth = window.document.body.cliendWidth; //바닐라
-            const maskHeight = $(document).height(); //jQuery
-            
-            //mask(로딩창이 화면에 드러날 때 주변을 어둡게 지정하기 위한 틀) 요소를 생성하고
-            //간단한 디자인을 지정한다.
-            const $mask = '<div id="mask" style="position: fixed; left: 0; top: 0; z-index: 9999; background: #000000; display: none;"></div>';
-         
-            //로딩 이미지 요소 생성 및 속성 지정
-            let $loadingImg = '';
-            $loadingImg += '<div id="loadingImg" style="position: absolute; top: 50%; width: 100%; z-index: 99999; ">';
-    		$loadingImg += `<img src="<c:url value='/img/loading.gif' />" style="position: relative; display: block; margin: 0 auto;" />`;
-    		$loadingImg += '</div>';
-            
-            //위에 준비한 mask와 loading이미지를 배치.
-            $('body').append($mask).append($loadingImg);
-            
-            //mask의 가로, 세로를 지정해주고, 투명도를 조절해 주겠다.
-            $('#mask').css({
-               'with': maskWidth,
-               'height': maskHeight,
-               'opacity': '0.5'
-            });
-            
-            //mask와 이미지를 화면에 표시
-            $('#mask').show();
-            $('#loadingImg').show();
-         }
-         
-       //로딩창 숨겨주는 함수
-       function closeLoading() {
-        	$('#maxk, #loadingImg').remove();
-       }
-         
+       
       }); //end jquery
    
    </script>

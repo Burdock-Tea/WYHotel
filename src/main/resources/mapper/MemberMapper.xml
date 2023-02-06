@@ -9,7 +9,7 @@
    		<insert id="join">
 	  		INSERT INTO members
 	  		VALUES (mem_code_seq.NEXTVAL,#{email},#{password},#{name},#{tel},
-	  		#{zipCode},#{addrBasic},#{addrDetail}, default, null, null, default, default, null, default, default)
+	  		#{zipCode},#{addrBasic},#{addrDetail}, default, null, null, default, default, null, default)
   		</insert>
   	
   		<!-- 이메일 중복 체크 -->

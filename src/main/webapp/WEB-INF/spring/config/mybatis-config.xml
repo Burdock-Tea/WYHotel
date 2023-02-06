@@ -30,6 +30,8 @@
  		<typeAlias type="com.ictproject.wyhotel.command.MembershipVO" alias="membership"/>
  		<typeAlias type="com.ictproject.wyhotel.command.ReviewVO" alias="review"/>
  		<typeAlias type="com.ictproject.wyhotel.command.QuestionVO" alias="question"/>
+ 		<typeAlias type="com.ictproject.wyhotel.command.InstagramVO" alias="instagram"/>
+ 		<typeAlias type="com.ictproject.wyhotel.command.ReplyVO" alias="reply"/>
  	</typeAliases>
  	
  	<!--

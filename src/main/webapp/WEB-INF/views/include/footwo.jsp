@@ -129,7 +129,7 @@ footer .footer-div {
                                 <a href="https://www.facebook.com/people/WYHotel/100088680776393/" target="_blank"><i class="bi bi-facebook"></i></a>
                             </li>
                             <li class="social">
-                                <a href="https://www.instagram.com/wy_hotel/" target="_blank"><i class="bi bi-instagram"></i></a>
+                                <a href="${pageContext.request.contextPath}/instagram/instagram"><i class="bi bi-instagram"></i></a>
                             </li>
                             <li class="social social-kakao">
                                 <a href="#" class="kakao"><i class="xi-kakaotalk"></i></a>

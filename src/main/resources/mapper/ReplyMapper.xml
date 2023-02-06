@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.ictproject.wyhotel.reply.mapper.IReplyMapper">
+  	
+  	<!-- 댓글 등록 -->
+  	<insert id="replyRegist">
+  		INSERT INTO instagram_reply(rno, bno, reply_email, reply_content, reply_writer) 
+  		VALUES(insta_reply_seq.NEXTVAL, #{bno}, #{replyEmail}, #{replyContent}, #{replyWriter})
+  	</insert>
+  	
+  	<!-- 댓글리스트 -->
+  	 <select id="getList" resultType="reply">
+ 	 	SELECT * FROM
+ 	 		(
+	 	 	SELECT ROWNUM AS rn, tbl.*FROM
+		 	 	(
+		 	 	SELECT * FROM instagram_reply
+		 	 	WHERE bno = #{bno}
+		 	 	ORDER BY rno DESC
+		 	 	) tbl
+	 	 	)
+	 	 <![CDATA[
+	 	 WHERE rn > (#{paging.pageNum}-1) * #{paging.cpp}
+	 	 AND rn <= #{paging.pageNum} * #{paging.cpp}
+	 	 ]]>
+ 	 </select>
+ 	 
+ 	 <!-- 총댓글수 -->
+ 	 <select id="getTotal" resultType="int">
+ 	 	SELECT COUNT(*) 
+ 	 	FROM instagram_reply 
+ 	 	WHERE bno = #{bno}
+ 	 </select>
+ 	 
+ 	 <!-- 댓글 수정 -->
+ 	 <update id="update">
+ 	 	UPDATE instagram_reply SET
+		reply_content = #{replyContent}  
+		WHERE rno = #{rno}
+ 	 </update>
+ 	 
+ 	 <!-- 이메일 체크 -->
+ 	 <select id="emailCheck" resultType="int">
+ 	 	SELECT COUNT(*) 
+ 	 	FROM instagram_reply 
+ 	 	WHERE rno = #{rno} AND reply_email = #{replyEmail}
+ 	 </select>
+ 	 
+ 	 <!-- 삭제 -->
+  	<delete id="delete">
+  		DELETE FROM instagram_reply 
+  		WHERE rno = #{rno}
+  	</delete>
+  	
+  </mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

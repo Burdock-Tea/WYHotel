@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="com.ictproject.wyhotel.instagram.mapper.IInstagramMapper">
+    	
+    	<!-- 글 등록 -->
+    	<insert id="insert">
+    		INSERT INTO instagram(bno, email, upload_path, file_loca, file_name, 
+    		file_real_name, content)
+    		VALUES
+    		(instagram_seq.NEXTVAL, #{email}, #{uploadPath}, #{fileLoca}, #{fileName}, #{fileRealName},
+			#{content})
+    	</insert>
+    	
+    	<!-- 글 목록 요청 -->
+    	<select id="getList" resultType="instagram">
+    		SELECT * FROM
+    			(
+    				SELECT ROWNUM AS rn, tbl.*
+    				FROM
+    				(
+    					SELECT i.*,
+    					(SELECT COUNT(i.bno)
+    					FROM instagramlike l
+    					WHERE l.bno = i.bno) AS likeCnt
+    					FROM instagram i
+    					ORDER BY bno DESC
+    				) tbl
+    				
+    			)
+    			<![CDATA[
+		 		WHERE rn > (#{pageNum}-1) * #{cpp} 
+		 		AND rn <= #{pageNum} * #{cpp}
+		 		]]>
+    	</select>
+    	
+    	<!-- 상세보기 -->
+    	<select id="getDetail" resultType="instagram">
+    		SELECT * FROM instagram
+    		WHERE bno = #{bno}
+    	</select>
+    	
+    	<!-- 수정 -->
+    	<update id="modify">
+    		UPDATE instagram SET
+    		content = #{content}
+    		WHERE bno = #{bno}
+    	</update>
+    	
+    	<!-- 삭제 -->
+    	<delete id="delete">
+    		DELETE FROM instagram 
+    		WHERE bno = #{bno}
+    	</delete>
+    	
+    	
+    </mapper>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

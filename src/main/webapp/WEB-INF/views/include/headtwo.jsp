@@ -139,7 +139,6 @@
 	            </section> 
 	        </div>
 	    </div> <!-- end video -->
-       
         
         <script>
         	
