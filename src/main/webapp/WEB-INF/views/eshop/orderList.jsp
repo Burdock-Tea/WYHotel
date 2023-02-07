@@ -205,42 +205,58 @@
 		
 		
 	 $('.left').on('change', '.sameChk', function() {
-		
-		if($(this).is(":checked")){	
-		 $('#takeUser').val('${member.name}');
-		 $('#takeUserPhone').val('${member.tel}');
-		 $('#zipCode').val('${member.zipCode}');
-		 $('#addrBasic').val('${member.addrBasic}');
-		 $('#addrDetail').val('${member.addrDetail}');
 		 
+		if($(this).is(":checked")){
+			if($('#takeUser').val() !==''){
+				return;	
+			}else if( $('#takeUserPhone').val()!==''){
+				return;			
+			}else if($('#zipCode').val()!==''){
+				return;			
+			}else if($('#addrBasic').val()!==''){
+				return;
+			}else if($('#addrDetail').val()!==''){
+				return;
+			}else{
+				$('#takeUser').val('${member.name}');
+		 		$('#takeUserPhone').val('${member.tel}');
+				$('#zipCode').val('${member.zipCode}');
+		 		$('#addrBasic').val('${member.addrBasic}');
+		 		$('#addrDetail').val('${member.addrDetail}');
+			}
 		 }else{
-			 $('#takeUser').val(''); 
-			 $('#takeUserPhone').val('');
-			 $('#zipCode').val('');
-			 $('#addrBasic').val('');
-			 $('#addrDetail').val('');
+				/* $('#takeUser').val(''); 
+				 $('#takeUserPhone').val('');
+				 $('#zipCode').val('');
+				 $('#addrBasic').val('');
+				 $('#addrDetail').val('');*/ 
 		 }
      });
 	 
 	 $('.buyBtn').click(function() {
 			if($('#takeUser').val()===''){
-				alert('입력하세요!');
+				alert('받으시는 분 성함을 입력해주세요!');
+				$('#takeUser').focus();
 				return;
 				
 			}else if($('#takeUserPhone').val() === ''){
-				alert('입력하세요!');
+				alert('받으시는 분 전화번호를 입력해주세요!');
+				$('#takeUserPhone').focus();
 				return;
 				
 			}else if($('#zipCode').val() === ''){
-				alert('입력하세요!');
+				alert('받으시는 분 우편번호를 정확하게 입력해주세요!');
+				$('#zipCode').focus();
 				return;
 				
 			}else if( $('#addrBasic').val() === ''){
-				alert('입력하세요!');
+				alert('받으시는 분 주소를 정확하게 입력해주세요!');
+				$('#addrBasic').focus();
 				return;
 				
 			}else if( $('#addrDetail').val() === ''){
-				alert('입력하세요!');
+				alert('받으시는 분 상세주소를 정확하게 입력해주세요!');
+				$('#addrDetail').focus();
 				return;
 			}else{
 				alert('결재 진행!');
@@ -280,21 +296,6 @@
                 }
             }).open();
         }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	</script>
 </body>

@@ -5,9 +5,8 @@
 
 
 <%@ include file="../include/header.jsp"%>
-
-<!-- 메인영역 각자 할꺼 여기서 부터 적으세용 -->
 <body style="overflow-x: hidden"></body>
+<!-- 메인영역 각자 할꺼 여기서 부터 적으세용 -->
 <section>
 	<div class="container">
 		<div class="row">
@@ -246,9 +245,12 @@
 		if (regex.test(document.getElementById("email").value)) {
 			document.getElementById("email").style.borderColor = "black";
 			$('#emailCheckBtn').attr('disabled', false);
+			$('#msgId').html('');
 		} else {
 			document.getElementById("email").style.borderColor = "red";
 			$('#emailCheckBtn').attr('disabled', true);
+			$('#msgId').html('이메일을 정확하게 입력해주세요');
+
 		}
 	}//이메일 양식 유효성 검사 끝
 	
@@ -261,7 +263,7 @@
 			$('#pwMsg').html('');
 		} else {
 			document.getElementById('inputPassword').style.borderColor = "red";
-			$('#pwMsg').html('비밀번호는 영어나 숫자가 8~16자 이어야 합니다.');
+			$('#pwMsg').html('비밀번호는 영문 대소문자나 숫자가 8~16자 이어야 합니다.');
 			$('#pwMsg').css('color', 'red');
 		}
 
@@ -413,8 +415,16 @@
 				alert('전화번호를 입력해 주세요.')
 				$('#tel2').focus();
 				return;
-			} else if ($('#addrDetail').val() === '') {
+			}else if ($('#zipCode').val() === '') {
+				alert('우편번호를 입력해 주세요.');
+				$('#addrDetail').focus();
+				return;
+			}else if ($('#addrBasic').val() === '') {
 				alert('주소를 입력해 주세요.');
+				$('#addrDetail').focus();
+				return;
+			} else if ($('#addrDetail').val() === '') {
+				alert('상세 주소를 입력해 주세요.');
 				$('#addrDetail').focus();
 				return;
 			} else if($('#nameMsg').html() === '이름은 한글로만 작성하세요.') {
