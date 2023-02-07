@@ -1,0 +1,575 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+
+<%@ include file="../include/header.jsp"%>
+
+<!-- 메인영역 각자 할꺼 여기서 부터 적으세용 -->
+<body style="overflow-x: hidden"></body>
+<section>
+	<div class="container">
+		<div class="row">
+			<div>
+				<h3>약관동의 및 회원정보 입력</h3>
+				<br>
+				<p>홈페이지 이용 약관</p>
+			</div>
+			<div class="">
+				<div class="join-in form-label">
+					<p>
+						제 1조 목적<br> 제 2조 정의<br> 제 3조 약관 등의 명시와 설명 및 개정<br>
+						제 4조 서비스의 제공 및 변경<br> 제 5조 서비스의 중단<br> 제 6조 회원가입<br>
+						제 7조 회원 탈퇴 및 자격 상실 등<br> 제 8조 회원에 대한 통지<br> 제 9조 구매신청 및
+						개인정보 제공 동의 등<br> 제 10조 계약의 성립<br> 제 11조 지급방법<br> 제
+						12조 수신확인통지, 구매신청 변경 및 취소<br> 제 13조 재화 등의 공급<br> 제 14조 환급<br>
+						제 15조 청약철회<br> 제 16조 청약철회 등의 효과<br> 제 17조 개인정보보호<br>
+						제 18조 "WYHotel 홈페이지"의 의무<br> 제 19조 회원의 ID 및 비밀번호에 대한 의무<br>
+						제 20조 이용자의 의무<br> 제 21조 연결 몰 과 피연결 몰 간의 관계<br> 제 22조
+						저작권의 귀속 및 이용제한<br> 제 23조 분쟁해결<br> 제 24조 재판권 및 준거법<br>
+						<br> 제1조 목 적<br> 본 이용 약관은 ㈜나는우영 세가사미가 운영하는 홈페이지 (이하
+						"WYHotel 홈페이지"라 한다)에서 제공하는 인터넷 관련 서비스(이하 "서비스"라 한다)를 이용함에 있어 사이버
+						몰과 이용자의 권리의무 및 책임사항을 규정함을 목적으로 합니다.<br> <br> 제2조 정 의<br>
+						1. "WYHotel 홈페이지"란 ㈜나는우영 세가사미가 재화 또는 용역(이하 "재화 등"이라 함)을 이용자에게 제공하기
+						위하여 컴퓨터 등 정보통신설비를 이용하여 재화 또는 용역 등을 거래할 수 있도록 설정한 가상의 영업장을 말하며, 아울러
+						사이버 몰을 운영하는 사업자의 의미로도 사용됩니다.<br> 2. "이용자"란 "WYHotel 홈페이지"에
+						접속하여 이 약관에 따라 "WYHotel 홈페이지"가 제공하는 서비스를 받는 회원 및 비회원을 말합니다.<br>
+						3. '회원'이라 함은 ‘WYHotel 리워즈 회원’으로 'WYHotel 홈페이지'에 개인정보를 제공하여 회원등록을 한
+						자로서, 'WYHotel 홈페이지'의 정보를 지속적으로 제공받으며, 'WYHotel 홈페이지'가 제공하는 서비스를
+						계속적으로 이용할 수 있는 자를 말합니다.<br> 4. "비회원’이라 함은 회원에 가입하지 않고
+						"WYHotel 홈페이지"가 제공하는 서비스를 이용하는 자를 말합니다.<br> <br> 제3조 약관
+						등의 명시와 설명 및 개정<br> 1. "WYHotel 홈페이지"는 이 약관의 내용과 상호 및 대표자 성명,
+						영업장 소재지 주소(소비자의 불만을 처리할 수 있는 곳의 주소를 포함), 전화번호, 모사전송번호, 전자우편주소,
+						사업자등록번호, 통신판매업신고번호, 개인정보관리 책임자 등을 이용자가 쉽게 알 수 있도록 "WYHotel시티
+						홈페이지"의 초기 서비스화면(전면)에 게시합니다. 다만, 약관의 내용은 이용자가 연결화면을 통하여 볼 수 있도록 할 수
+						있습니다.<br> 2. "WYHotel 홈페이지"는 이용자가 약관에 동의하기에 앞서 약관에 정하여져 있는 내용
+						중 청약철회, 배송책임, 환불조건 등과 같은 중요한 내용을 이용자가 이해할 수 있도록 별도의 연결화면 또는 팝업화면
+						등을 제공하여 이용자의 확인을 구하여야 합니다.<br> 3. "WYHotel 홈페이지"는 전자상거래 등에서의
+						소비자보호에 관한 법률, 약관의 규제에 관한 법률, 전자상거래기본법, 전자서명법, 정보통신망이용촉진등에 관한 법률,
+						방문판매 등에 관한 법률, 소비자보호법, 관세법 등 관련법을 위배하지 않는 범위에서 이 약관을 개정할 수 있습니다.<br>
+						4. "WYHotel 홈페이지"는 약관을 개정할 경우에는 적용일자 및 개정사유를 명시하여 현행약관과 함께
+						"WYHotel시티 홈페이지" 초기 화면에 그 적용일자 7일 이전부터 적용일자 전일까지 공지합니다. 다만, 이용자에게
+						불리하게 약관내용을 변경하는 경우에는 최소한 30일 이상의 사전 유예기간을 두고 공지합니다. 이 경우 "WYHotel
+						홈페이지"는 개정 전 내용과 개정 후 내용을 명확하게 비교하여 이용자가 알기 쉽도록 표시합니다.<br> 5.
+						"WYHotel 홈페이지"가 약관을 개정할 경우에는 그 개정약관은 그 적용일자 이후에 체결되는 계약에만 적용되고, 그
+						이전에 이미 체결된 계약에 대해서는 개정전의 약관조항이 그대로 적용됩니다. 다만 이미 계약을 체결한 이용자가 개정약관
+						조항의 적용을 받기를 원하는 뜻을 제 3항에 의한 개정약관의 공지 기간 내에 "WYHotel 홈페이지"에 송신하여
+						"WYHotel 홈페이지"의 동의를 받은 경우에는 개정약관 조항이 적용됩니다.<br> 6. 이 약관에서 정하지
+						아니한 사항과 이 약관의 해석에 관여하는 전자상거래 등에서의 소비자 보호에 관한 법률, 약관의 규제 등에 관한 법률,
+						공정거래위원회가 정하는 전자상거래 등에서의 소비자 보호 지침 및 관계법령 또는 상 관례에 따릅니다.<br> <br>
+						제4조 서비스의 제공 및 변경<br> 1. "WYHotel 홈페이지"는 다음과 같은 업무를 수행합니다.<br>
+						1) 재화 또는 용역에 대한 정보 제공 및 구매계약의 체결<br> 2) 기타 "WYHotel 홈페이지"가
+						정하는 업무<br> 2. "WYHotel 홈페이지"는 재화 또는 용역의 품절 또는 기술적 사양의 변경 등의
+						경우에는 장차 체결되는 계약에 의해 제공할 재화 또는 용역의 내용을 변경할 수 있습니다. 이 경우에는 변경된 재화 또는
+						용역의 내용 및 제공일자를 명시하여 현재의 재화 또는 용역의 내용을 게시한 곳에 즉시 공지합니다.<br> 3.
+						"WYHotel 홈페이지"가 제공하기로 이용자와 계약을 체결한 서비스의 내용을 재화 등의 품절 또는 기술적 사양의 변경
+						등의 사유로 변경할 경우에는 그 사유를 이용자에게 통지 가능한 주소로 즉시 통지합니다.<br> 4. 전항의
+						경우 "WYHotel 홈페이지"는 이로 인하여 이용자가 입은 손해를 배상합니다. 다만, "WYHotel 홈페이지"가
+						고의 또는 과실이 없음을 입증하는 경우에는 그러하지 아니합니다.<br> <br> 제5조 서비스의 중단<br>
+						1. "WYHotel 홈페이지"는 컴퓨터 등 정보통신설비의 보수점검, 교체 및 고장, 통신 두절 등의 사유가 발생한
+						경우에는 서비스의 제공을 일시적으로 중단할 수 있습니다.<br> 2. "WYHotel 홈페이지"는 제1항의
+						사유로 서비스의 제공이 일시적으로 중단됨으로 인하여 이용자 또는 제3자가 입은 손해에 대하여 배상합니다. 단,
+						"WYHotel 홈페이지"가 고의 또는 과실이 없음을 입증하는 경우에는 그러하지 아니합니다.<br> 3.
+						사업종목의 전환, 사업의 포기, 업체간의 통합 등의 이유로 서비스를 제공할 수 없게 되는 경우에는 "WYHotel
+						홈페이지" 제8조에 정한 방법으로 이용자에게 통지하고 당초 "WYHotel 홈페이지"에서 제시한 조건에 따라 소비자에게
+						보상합니다. 다만, "WYHotel 홈페이지"가 보상기준 등을 고지하지 아니한 경우에는 이용자들의 포인트 또는 적립금
+						등을 "WYHotel 홈페이지"에서 통용되는 통화가치에 상응하는 현물 또는 현금으로 이용자에게 지급합니다.<br>
+						<br> 제6조 회원가입<br> 1. 이용자는 무료로 "회원"에 가입할 수 있으며, "WYHotel
+						홈페이지"가 정한 가입 양식에 회원정보를 기입한 후 이 약관에 동의한다는 의사표시를 함으로서 회원가입을 신청합니다.<br>
+						2. "WYHotel 홈페이지"는 제1항에 따라 회원가입을 신청한 이용자 중 다음 각 호에 해당하지 않는 한
+						"회원"으로 등록합니다. 1) 가입신청자가 이 약관 제7조 제3항에 의하여 이전에 회원자격을 상실한 적이 있는 경우,
+						다만 제7조 제3항에 의한 회원자격 상실 후 3년이 경과한 자로서 "WYHotel 홈페이지"가 회원 재가입을 승낙한
+						경우는 예외로 합니다.<br> 2) 등록 내용에 허위, 기재누락, 오기가 있는 경우<br> 3) 기타
+						회원으로 등록하는 것이 "WYHotel 홈페이지"의 기술상 현저히 지장이 있다고 판단되는 경우<br> 3.
+						WYHotel 홈페이지 회원 등록은 WYHotel의 WY 리워즈에 동시 가입됨을 의미하며 멤버십 포인트의 적립 및
+						멤버십 등급에 따른 혜택은 WYHotel의 WY 리워즈 멤버십 약관에 의거하여 제공됩니다.<br> 4.
+						회원가입은 만 19세 이상인자에 한하며(만 19세 미만의 아동일 경우 가입 및 상품 주문 시 소비자 보호지침 제4조
+						3항 다에 의해 법정대리인의 사전동의서를 받아야 함), "WYHotel 홈페이지"에서는 만 19세 이상인 회원에 한하여
+						구매가 가능합니다.<br> 5. 회원가입은 "WYHotel 홈페이지"의 승낙이 가입 신청한 이용자에게 도달한
+						때에 완료됩니다.<br> 6. "회원"은 "WYHotel 홈페이지"에 등록한 회원정보에 변경이 있는 경우,
+						즉시 "WYHotel 홈페이지"에서 정하는 방법에 따라 해당 변경사항을 "WYHotel 홈페이지"에게 통지하거나
+						수정하여야 합니다.<br> <br> 제7조 회원 탈퇴 및 자격 상실 등<br> 1.
+						"회원"은 "WYHotel 홈페이지"에 언제든지 탈퇴를 요청할 수 있으며, "회원"이 탈퇴 요청을 하는 경우에는
+						"WYHotel 홈페이지"는 즉시 회원 탈퇴에 필요한 조치를 취합니다.<br> 2. "회원"이 다음 각 호의
+						사유에 해당하는 경우, "WYHotel 홈페이지"는 회원에 대하여 일정한 서비스의 이용을 제한하거나 일정기간 회원자격을
+						정시시킬 수 있습니다.<br> 1) 가입 신청 시에 허위 내용을 등록한 경우<br> 2)
+						"WYHotel 홈페이지"를 이용하여 구입한 재화 등의 대금과 관련하여 회원이 부담하는 채무를 기일에 이행하지 않는
+						경우<br> 3) 타인의 ID와 비밀번호 또는 그 개인정보를 도용한 경우<br> 4) "WYHotel
+						홈페이지"의 화면에서 타인의 명예를 손상시키거나 불이익을 주는 행위를 한 경우<br> 5) 제3자의
+						"WYHotel 홈페이지" 이용을 방해하는 등 전자상거래질서를 위협하는 경우<br> 6) "WYHotel
+						홈페이지" 화면에 음란물을 게재하거나 음란사이트를 링크시키는 경우<br> 7) "WYHotel 홈페이지"를
+						이용하여 법령 또는 이 약관이 금지하거나 공서양속에 반하는 행위를 하는 경우<br> 8) 기타 서비스 운영을
+						고의로 방해하는 행위를 하는 경우<br> 3. ‘WYHotel 홈페이지’가 회원 자격을 제한/정지 시킨 후,
+						제 2항의 행위가 2회 이상 반복되거나 30일 이내에 그 사유가 시정되지 아니하는 경우 ‘WYHotel 홈페이지’는
+						회원자격을 상실 시킬 수 있습니다.<br> 4. ‘WYHotel 홈페이지’가 회원자격을 상실 시키는 경우에는
+						회원등록을 말소합니다. 이 경우 회원에게 이를 통지하고, 회원등록 말소 전에 최소한 30일 이상의 기간을 정하여 소명할
+						기회를 부여합니다.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="checkbox">
+					<input class="form-check-input" type="checkbox"
+						id="flexSwitchCheckChecked"> 
+						<label class="form-check-label" for="flexSwitchCheckChecked"> 약관동의 </label>
+				</div>
+				<!-- 로그인 시작 -->
+				<form action="<c:url value='/member/join'/>" id="loginForm" method="post">
+					<div class="form-group">
+						<label for="inputEmail" class="form-label mt-4">이메일을 입력하세요</label>
+						<div class="input-group mb-3 w-50">
+							<input type="text" class="form-control" placeholder="이메일을 입력하세요."
+								aria-label="Recipient's username"
+								aria-describedby="button-addon2" name="email" id="email">
+							<button class="btn btn-dark" type="button" id="emailCheckBtn" disabled>중복체크</button>
+							<button class="btn btn-dark" type="button" id="button-addon2">인증</button>
+						</div>
+						<span id="msgId"></span>
+						<input id="mail-check-input" type="text" class="form-control" 
+							placeholder="인증번호를 6자리를 입력해 주세요." 
+							style="display: inline-block; width: 300px;" readonly>
+						<button type="button" id="number-check" class="btn btn-dark">확인</button>
+						<span id="mail-check-warn"></span>
+					</div>
+					<span></span>
+					<div class="hideForm">
+						<div class="form-group passwordForm"> 
+							<label for="inputPassword" class="form-label mt-4">Password</label>
+							<input type="password" class="form-control w-50"
+								id="inputPassword" placeholder="Password" name="password">
+							<span id="pwMsg"></span>
+						</div>
+						<div class="form-group passwordForm"> 
+							<label for="inputPassword" class="form-label mt-4">PasswordCheck</label>
+							<input type="password" class="form-control w-50"
+								id="inputPasswordChk" placeholder="PasswordCheck">
+						</div>
+						<span id="pwChkMsg" style="margin-top: 10px;"></span>
+					<div class="form-group nameForm">
+						<label for="inputName" class="form-label mt-4">이름</label> 
+						<input type="text" class="form-control w-50" 
+							id="inputName" placeholder="이름을 입력해주세요." name="name">
+						<span id="nameMsg"></span>
+					</div>
+
+					<!-- https://juein.tistory.com/43 << 이런 방식도 있던데 이건 어때요? -->
+					
+					<label class="col-form-label mt-4" for="inputDefault">전화번호</label>
+					<div class="form-group">
+						<div class="d-inline-flex">
+							<select class="form-select select" name="tel" id="tel">
+								<option>010</option>
+								<option>011</option>
+								<option>018</option>
+							</select> 
+							<span style="padding: 5px"><strong> - </strong></span> 
+								<input type="text" class="form-control" size="6" maxlength="4" placeholder="0000" id="tel2" name="tel2"> 
+							<span style="padding: 5px"><strong>- </strong></span> 
+								<input type="text" class="form-control" size="6" maxlength="4" placeholder="0000" id="tel3" name="tel3">
+						</div>
+					&nbsp;&nbsp;&nbsp;
+					<span id="telMsg"></span>
+					</div>
+					<span id="telChk"></span>
+					
+				<div class="addrForm">
+					<div class="form-group">
+						<label for="inputPhoneNumber" class="form-label mt-4">주소</label>
+						<div class="input-group" id="addrForm">
+							<input type="text" name="zipCode" id="zipCode"
+								class="form-control w-50"  placeholder="우편번호"
+								 readonly>
+							<div class="input-group-addon">
+								<button type="button" id="addrBtn" class="btn btn-primary" onclick="searchAddress()">주소찾기</button>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="text" name="addrBasic" id="addrBasic"
+							class="form-control w-50" id="addrBasic" placeholder="기본주소">
+					</div>
+					<div class="form-group">
+						<input type="text" name="addrDetail" id="addrDetail"
+							class="form-control w-50" id="addrDetail" placeholder="상세주소">
+					</div>
+				</div>
+			</div>
+
+				</form>
+				<div class="joinButton">
+					<button type="button" id="cancleButton" class="btn btn-light">취소</button>
+					&nbsp;&nbsp;&nbsp;
+					<button type="button" id="joinButton" class="btn btn-dark">회원가입</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<%@ include file="../include/footer.jsp"%>
+
+<!-- 다음 api 주소 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	
+	const msg = '${msg}';
+	if(msg === 'telFail') {
+		alert('전화번호 중복입니다.');
+	}
+
+	//취소 버튼 
+	$('#cancleButton').click(function() {
+		location.href='${pageContext.request.contextPath}/';	
+	});
+	
+	
+	// 약관동의시 로그인 폼 나오게 설정
+	$('#loginForm').hide();
+	$('.hideForm').hide();
+	$(document).ready(function(){
+	    $(".form-check-input").change(function(){
+	        if($(".form-check-input").is(":checked")){
+	           $('#loginForm').show();
+	        }else{
+			   $('#loginForm').hide();
+	        }
+	    });
+	});
+
+	//이메일 양식 유효성 검사.
+	var id = document.getElementById("email");
+	id.onkeyup = function() {
+		/*자바스크립트의 정규표현식 입니다*/
+		/*test메서드를 통해 비교하며, 매칭되면 true, 아니면 false반*/
+		var regex =/[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]$/i;
+		if (regex.test(document.getElementById("email").value)) {
+			document.getElementById("email").style.borderColor = "black";
+			$('#emailCheckBtn').attr('disabled', false);
+		} else {
+			document.getElementById("email").style.borderColor = "red";
+			$('#emailCheckBtn').attr('disabled', true);
+		}
+	}//이메일 양식 유효성 검사 끝
+	
+	//비밀번호 양식 유효성 검사
+	var pw = document.getElementById('inputPassword');
+	pw.onkeyup = function() {
+		var regex = /^[A-Za-z0-9+]{8,16}$/;
+		if(regex.test(document.getElementById('inputPassword').value)) {
+			document.getElementById('inputPassword').style.borderColor = "black";
+			$('#pwMsg').html('');
+		} else {
+			document.getElementById('inputPassword').style.borderColor = "red";
+			$('#pwMsg').html('비밀번호는 영어나 숫자가 8~16자 이어야 합니다.');
+			$('#pwMsg').css('color', 'red');
+		}
+
+	}// 비밀번호 양식 유효성검사 끝
+
+	// 이름 입력값 검증
+	const getNameCheck = RegExp(/^[가-힣]+$/);
+	$('#inputName').keyup(function() {
+		//이름값 유효성 검사
+		if(getNameCheck.test($(this).val())) {
+			$(this).css('borderColor', 'black');
+			$('#nameMsg').html('');
+		} else {
+			$(this).css('borderColor', 'red');
+			$('#nameMsg').html('이름은 한글로만 작성하세요.');
+			$('#nameMsg').css('color', 'red');
+		}
+	}); //이름 입력 검증 끝
+			
+	//전화번호 입력값 검증
+	const regTel2 = /^([0-9]{3,4})$/
+	const regTel3 = /^([0-9]{4})$/
+	$('#tel2').keyup(function() {
+		if(regTel2.test($(this).val())) {
+			$(this).css('borderColor', 'black');
+			$('#telChk').html('');
+		} else {
+			$(this).css('borderColor', 'red');
+			$('#telChk').html('3~4글자, 숫자로만 입력하세요.');
+			$('#telChk').css('color', 'red');
+		}
+	});
+	$('#tel3').keyup(function() {
+		if(regTel3.test($(this).val())) {
+			$(this).css('borderColor', 'black');
+			$('#telChk').html('');
+		} else {
+			$(this).css('borderColor', 'red');
+			$('#telChk').html('4글자, 숫자로만 입력하세요.');
+			$('#telChk').css('color', 'red');
+		}
+	}); //전화번호 입력값 검증 끝
+	
+	$(function() {
+		
+		//전역 변수 버튼 숨겨놓기
+		let code = '';
+		$('#button-addon2').hide();
+		$('#mail-check-input').hide();
+		$('#mail-check-input').next().hide();
+		//
+		
+		//아이디 중복 체크
+		$('#emailCheckBtn').click(function() {
+			
+			const email = $('#email').val();
+			
+			if (email === '') {
+				alert('이메일은 필수값입니다');
+				return;
+			}
+			
+			$.ajax({
+				type : 'post',
+				url : '${pageContext.request.contextPath}/member/idCheck',
+				data : JSON.stringify({
+					'email' : email
+
+				}),
+				dataType : 'text',
+				contentType : 'application/json',
+				success : function(data) {
+					if (data === 'duplicated') {
+						$('#email').val('');
+						$('#email').focus();
+						$('#email').css('borderColor', 'red');
+						$('#msgId').html('아이디가 중복되었습니다.');
+						$('#msgId').css('color', 'red');
+					} else {
+						$('#email').css('borderColor', 'black');
+						$('#msgId').css('color', 'green');
+						$('#email').attr('readonly', true);
+						$('#emailCheckBtn').hide();
+						$('#button-addon2').show();
+						// $('#emailCheckBtn').attr('id', 'button-addon2');
+						$('#msgId').html('사용가능한 아이디 입니다.');
+					}
+				},
+				error : function() {
+					alert('등록에 실패했습니다.');
+				}
+			});
+		}); // 아이디 중복체크 끝
+		
+		//전화번호 중복체크
+		/*
+		 * 수정일 : 23/01/09
+		 * 작성자 : 권우영
+		 * 전화번호 중복 처리 오류 수정
+		 * (keyup이 아닌 blur 이벤트로 교체, data 객체형식이 아닌 String형식으로 전달)
+		 */
+		$('#tel3').blur(function() {
+			const tel = $('#tel').val() + '-' + $('#tel2').val() + '-' + $('#tel3').val();
+			console.log('완성된 전화번호' + tel);
+			
+			$.ajax({
+				type: 'post',
+				url : '${pageContext.request.contextPath}/member/telCheck',
+				data : tel,
+				dataType : 'text',
+				contentType : 'application/json',
+				success: function(result) {
+					console.log(result);
+					if(result === 'telFail') {
+						$('#telMsg').html('중복된 전화번호가 있습니다. 다시 확인해 주세요');
+						$('#telMsg').css('color', 'red');
+					} else {
+						$('#telMsg').html('중복된 전화번호가 없습니다.');
+						$('#telMsg').css('color', 'green');
+					}
+				},
+				error: function() {
+					alert('일시적인 오류 발생. 관리자에게 문의해 주세요.');
+				}
+			});//비동기통신 끝
+		}); //전화번호 중복체크 끝
+
+		// 회원가입 창 유효성 검사.
+		/*
+		 * 수정일 : 23/01/16
+		 * 작성자 : 이준희
+		 * 비밀번호 비교 추가
+		 */
+		$('#joinButton').click(function() {
+
+			if ($('#email').val()==='') {
+				alert('이메일 입력은 필수입니다.');
+				$('#email').focus();
+				return;
+			} else if ($('#inputPassword').val() === '') {
+				alert('비밀번호를 작성하세요.');
+				$('#inputPassword').focus();
+				return;
+			}else if($('#inputName').val() === ''){
+				alert('이름을 입력해 주세요.');
+				$('#inputName').focus();
+				return;
+			}else if($('#tel2').val()==='' || $('#tel3').val()===''){
+				alert('전화번호를 입력해 주세요.')
+				$('#tel2').focus();
+				return;
+			} else if ($('#addrDetail').val() === '') {
+				alert('주소를 입력해 주세요.');
+				$('#addrDetail').focus();
+				return;
+			} else if($('#nameMsg').html() === '이름은 한글로만 작성하세요.') {
+				alert('이름을 확인해 주세요.');
+				$('#inputName').focus();
+				return;
+			} else if($('#pwMsg').html() === '비밀번호는 영어나 숫자가 8~16자 이어야 합니다.') {
+				alert('비밀번호를 확인해 주세요.');
+				$('#inputPassword').focus();
+				return;
+			} else if($('#emailCheckBtn').attr('disabled')) {
+				alert('이메일 양식을 확인해 주세요.');
+				$('#email').focus();
+				return;
+			} else if($('#telMsg').html() === '중복된 전화번호가 있습니다. 다시 확인해 주세요') {
+				alert('전화번호가 중복되었습니다. 다시 작성해주세요.');
+				$('#tel2').focus();
+				return;
+			} else if($('#inputPassword').val() !== $('#inputPasswordChk').val()) {
+				alert('비밀번호를 확인해 주세요.');
+				$('#inputPasswordChk').focus();
+				return;
+			} else {
+				alert('회원가입을 진행합니다.');
+				$('#loginForm').submit();
+			}
+		}); // end joinQuery
+		
+		//인증번호 이메일 전송
+		$('#button-addon2').click(function() {
+			const email = $('#email').val();
+			openLoading();
+			console.log('완성된 이메일: ' + email);
+			$.ajax({
+				type : 'post',
+				url : '<c:url value="/member/mailCheck"/>',
+				contentType : 'application/json',
+				data : email,
+				success : function(data) {
+					$('#msgId').hide();
+					console.log('컨트롤러가 전달한 인증번호: ' + data);
+					$('#mail-check-input').attr('readonly', false); //비활성된 인증번호 입력창을 활성화.
+					code = data;
+					$('#mail-check-input').show();
+					$('#mail-check-input').next().show();
+					alert('인증번호가 전송되었습니다. 확인 후 입력란에 정확하게 입력하세요!');
+					closeLoading();
+				}
+			});
+			
+		}); //이메일 전송 끝.
+		
+		// 이메일 인증번호 확인
+		 $('#number-check').click(
+
+				function() {
+					const inputCode = $('#mail-check-input').val(); // 사용자가 입력한 인증번호
+					const $resultMsg = $('#mail-check-warn'); // span
+
+					if (inputCode === code) {
+						$resultMsg.html('인증번호가 일치합니다.');
+						$resultMsg.css('color', 'green');
+						$('#email').next().hide();
+						$(this).css('display', 'none');
+						$('#mail-check-input').hide();
+						$('#button-addon2').css('display', 'none');
+						$('.hideForm').show();
+						$('#email').attr('readonly', true);			
+						
+					} else { 
+						$resultMsg.html('인증번호를 다시 확인해 주세요.');
+						$resultMsg.css('color', 'red');
+						$(this).focus();
+					}
+					
+				}); //인증번호 이벤트 끝.	
+				
+				
+				
+		//비밀번호 확인 input키업 이벤트 시작
+		$('#inputPasswordChk').keyup(function() {
+			if($('#inputPassword').val() === $('#inputPasswordChk').val()) {
+				$('#pwChkMsg').html('비밀번호가 일치합니다.');
+				$('#pwChkMsg').css('color', 'green');
+			} else {
+				$('#pwChkMsg').html('비밀번호가 일치하지 않습니다.');
+				$('#pwChkMsg').css('color', 'red');
+			}
+		});
+				
+	}); //end Query
+	
+	//다음 주소 API 사용해 보기
+   function searchAddress() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분..
+                    var extraAddr = ''; // 참고항목 변수
+                    
+        	        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+
+					// 사용자가 선택한 값 해당 요소에 입력해주기.
+                    $('#addrBasic').val(data.roadAddress);
+					$('#zipCode').val(data.zonecode);
+					$('#addrDetail').focus();
+    				
+                }
+            }).open();
+        }
+	
+	// 로딩창 보여주는 함수
+	function openLoading() {
+		
+		const maskWidth = window.document.body.clientWidth;
+		const maskHeight = $(window).height();
+		
+		//mask 로딩창이 화면에 드러날 때 주변을 어둡게 지정하기 위한 틀 / 요소를 생성하고
+		// 간단한 디자인을 지정합니다.
+		
+		const mask = '<div id="mask" style="position: absolute; left:0; top: 0; z-index:99999;  background:#000000; display: none;"></div>'
+		
+		//로딩 이미지
+		let $loadingImg = '';
+		$loadingImg += '<div id="loadingImg" style="position: absolute; top: 50%; width: 100%; z-index: 99999; ">';
+		$loadingImg += `<img src="<c:url value='/img/loading.gif' />" style="position: relative; display: block; margin: 0 auto;" />`;
+		$loadingImg += '</div>';
+		
+		//위에 준비한 mask와 loading 이미지를 배치.
+		$('body').append(mask).append($loadingImg);
+		
+		//mask의 가로, 세로를 지정해주고, 투명도를 조절해 주겠습니다.
+		//230106 수정 -이준희(그냥지움)
+		
+		
+		// 마스크와 이미지를 화면에 표시
+		$('#mask').show();
+		$('#loadingImg').show();
+		
+	}
+	
+	//로딩창 숨겨주는 함수
+	function closeLoading() {
+		$('#mask, #loadingImg').remove();
+	}
+	
+</script>

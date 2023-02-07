@@ -1,0 +1,67 @@
+positions = [
+	{
+  "content":'<div class="wrap">' + 
+            '    <div class="info">' + 
+            '        <div class="title">' + 
+            '           <strong> wy cafe </strong>' + 
+            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+            '        </div>' + 
+            '        <div class="body">' + 
+            '            <div class="img">' +
+            '                <img src="http://wyhotel.site/img/cafe.jpg" style="width: 250px; height: 150px">' +
+            '           </div>' + 
+            '            <div class="desc">' + 
+            '                <div class="ellipsis">서울특별시 용산구 </div>' + 
+            '                <div><a href="https://map.kakao.com/link/to/wy cafe ,37.542763,126.993873" style="color:blue" target="_blank">길찾기</a></div>' + 
+            '            </div>' + 
+            '        </div>' + 
+            '    </div>' +    
+            '</div>',
+  "latlngX": 37.542763, 
+  "latlngY": 126.993873
+	}
+	,
+	{
+  "content": '<div class="wrap">' + 
+            '    <div class="info">' + 
+            '        <div class="title">' + 
+            '           <strong> wy cafe+ </strong>' + 
+            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+            '        </div>' + 
+            '        <div class="body">' + 
+            '            <div class="img">' +
+            '                <img src="http://wyhotel.site/img/cafe2.jpg" style="width: 250px; height: 150px">' +
+            '           </div>' + 
+            '            <div class="desc">' + 
+            '                <div class="ellipsis">서울특별시 용산구 </div>' + 
+            '                <div><a href="https://map.kakao.com/link/to/wy cafe+,37.542533,126.997177" style="color:blue" target="_blank">길찾기</a></div>' + 
+            '            </div>' + 
+            '        </div>' + 
+            '    </div>' +    
+            '</div>',
+  "latlngX": 37.542533, 
+  "latlngY": 126.997177
+	}
+	,
+	{
+  "content": '<div class="wrap">' + 
+            '    <div class="info">' + 
+            '        <div class="title">' + 
+            '           <strong> wy cafe++ </strong>' + 
+            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+            '        </div>' + 
+            '        <div class="body">' + 
+            '            <div class="img">' +
+            '                <img src="http://wyhotel.site/img/cafe3.jpg"  style="width: 250px; height: 150px" >' +
+            '           </div>' + 
+            '            <div class="desc">' + 
+            '                <div class="ellipsis">서울특별시 용산구 </div>' + 
+            '                <div><a href="https://map.kakao.com/link/to/wy cafe++ ,37.541722,126.998621" style="color:blue" target="_blank">길찾기</a></div>' + 
+            '            </div>' + 
+            '        </div>' + 
+            '    </div>' +    
+            '</div>',
+  "latlngX": 37.541722, 
+  "latlngY": 126.998621
+	}	
+   ]

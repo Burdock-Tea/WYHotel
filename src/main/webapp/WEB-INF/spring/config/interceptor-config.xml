@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 
+	Namespaces 탭에서 mvc 기능 추가
+	web.xml에 초기 설정 파일로 이 파일을 추가 
+	-->
+	
+	<bean id="MemberAutoLogin" class="com.ictproject.wyhotel.member.commons.AutoLoginInterceptor" />
+	<bean id="userAuthHandler" class="com.ictproject.wyhotel.util.interceptor.MemberAuthHandler" />
+	<bean id="adminAuthHandler" class="com.ictproject.wyhotel.util.interceptor.AdminAuthHandler" />
+	
+	<mvc:interceptors>
+		
+		<!-- 자동 로그인 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/member/login"/>
+			<ref bean="MemberAutoLogin" />		
+		</mvc:interceptor>
+		
+		<!-- 회원 권한 인터셉터 -->
+		<mvc:interceptor>
+			<!-- 정보수정 -->
+			<mvc:mapping path="/member/modify"/>
+			<!-- 비밀번호 확인 -->
+			<mvc:mapping path="/member/pwChk"/>
+			<!-- 비밀번호 수정 -->
+			<mvc:mapping path="/member/pwModify"/>
+			<!-- 삭제처리 -->
+			<mvc:mapping path="/member/delete"/>
+			<!-- 프로모션 예약 -->
+			<mvc:mapping path="/promotion/payment"/>
+			<!-- 실시간 채팅 웹소켓 (회원) -->
+			<mvc:mapping path="/chat/userchat"/>
+			<!-- 쇼핑몰 관련 -->
+			<mvc:mapping path="/eshop/*"/>
+			<ref bean="userAuthHandler"/>
+		</mvc:interceptor>
+		
+		<!-- 관리자 권한 인터셉터 -->
+		<mvc:interceptor>
+			<!-- 관리자 회원관리 페이지 -->
+			<mvc:mapping path="/admin/member"/>
+			<!-- 관리자 문의내역 페이지 -->
+			<mvc:mapping path="/admin/question"/>
+			<!-- 관리자 예약확인 페이지 -->
+			<mvc:mapping path="/admin/reservation"/>
+			<!-- 프로모션 수정 -->
+			<mvc:mapping path="/promotion/update"/>
+			<!-- 프로모션 insert -->
+			<mvc:mapping path="/promotion/insert"/>
+			<!-- 실시간 채팅 웹소켓 (관리자) -->
+			<mvc:mapping path="/chat/adminchat"/>
+			<ref bean="adminAuthHandler" />
+		</mvc:interceptor>
+		
+	</mvc:interceptors>
+
+	
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,678 @@
+/* 로고 이미지 */
+#logo{width: 70px; height: 70px; margin-left: 20px;}
+
+/* font setting */
+*{ font-family: 'Noto Sans KR', sans-serif; font-weight: 300;}
+.nav-link{ font-weight: 400;} /* font 활성화시 폰트 두께*/
+.box-shodow{ box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);}
+
+/* section : video */
+.hero{
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to left,black,transparent);
+}
+/* using object-fit */
+.hero video{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    z-index: -1;
+    object-fit: cover;
+    pointer-events: none;
+}
+.hero .heading{color: white;}
+
+/* 메인 */
+#main-introduce {
+    margin: 200px 0;
+    text-align: center;
+    padding: 0;
+}
+
+.main-introduce > p {
+    margin-top: 50px;
+    font-size: 30px;
+    color: #888888;
+}
+
+/* 객실 소개 */
+
+.main-room-content {
+    text-align: center;
+}
+
+.main-room-content > .room {
+    font-size: 20px;
+    margin-top: 60px;
+    color: burlywood;
+}
+
+.main-room-content > .room-name {
+    font-size: 40px;
+    color: #383838;
+}
+
+.main-room-content > .room-content {
+    font-size: 20px;
+}
+
+.main-more {
+    margin-top: 80px;
+}
+
+.main-more > a {
+    color: burlywood;
+}
+
+.guest-room {
+    margin: 60px auto;
+}
+
+.guest-room > img {
+    width: 100%;
+}
+
+/* 다이닝 소개 */
+.main-dining-content {
+    text-align: center;
+}
+
+.main-dining-content > .dining {
+    font-size: 20px;
+    margin-top: 60px;
+    color: burlywood;
+}
+
+.main-dining-content > .dining-name {
+    font-size: 40px;
+    color: #383838;
+}
+
+.main-dining-content > .dining-content {
+    font-size: 20px;
+}
+
+.dining-1 {
+    margin: 50px auto;
+}
+
+.dining-1 > img {
+    width: 100%;
+}
+
+/* 프로모션 */
+.promotion {
+    text-align: center;
+}
+
+.promotion > h3 {
+    font-size: 20px;
+    color: burlywood;
+    padding-top: 60px;
+    padding-bottom: 50px;
+}
+
+.promotion > span {
+    font-size: 20px;
+}
+
+.promotion > .mySwiper {
+    margin-top: 50px;
+}
+
+/* header navlink text-decoration, color*/
+
+.nav-item .nav-link {
+    color: #000;
+}
+      
+/* content */
+.intro{ padding: 80px 0;}
+.list {
+    padding: 1rem 0;
+    width: 100%;
+    display: flex;
+    transform: translate(0, 0);
+}
+
+.item {
+    padding-right: 1rem;
+    list-style: none;
+    user-select: none;
+}
+
+.item:first-child {
+    padding-left: 1rem;
+}
+
+/* header */
+header {
+    padding: 10px 0;
+}
+
+/* main */
+.wrapper {
+    margin-top: 20px;
+}
+
+/* footer */
+
+footer {
+    margin-top: 50px;
+    padding: 30px 0 15px;
+    position: relative;
+    background: #000;
+    box-sizing: border-box;
+    color: white;
+}
+
+footer .innerbox {
+    width: 1280px;
+    padding: 0 80px;
+    margin: 0 auto;
+    border-bottom: 1px solid gray;
+}
+
+footer .footerBox {
+    float: left;
+}
+
+footer .footerBox h1 {
+    font-size: 18px;
+    color: #9c836a;
+}
+
+footer .footer-service {
+    padding-left: 150px;
+}
+
+footer .footSub .copyright {
+    margin-top: 50px;
+}
+
+footer .footSub .subfont {
+    font-size: 15px;
+    color: lightgray;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer .footer-service .social a {
+    font-size: 30px;
+    line-height: 40px;
+}
+
+footer .footer-service .social .kakao {
+    font-size: 38px;
+}
+
+footer a:hover {
+    color:lightgray;
+}
+
+footer .footer-service .social {
+    float: left;
+    padding: 0 20px;
+}
+
+footer .copyright {
+    font-size: 15px;
+    color: lightgray;
+    line-height: 20px;
+}
+
+footer .logo-img {
+    width: 20%;
+    float: right;
+    filter: invert(100%);
+    padding-bottom: 30px;
+    
+}
+
+footer .footer-div {
+    width: 20%;
+    float: right;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+input, textarea, button, select {
+    border: none;
+
+    -webkit-appearance: none;
+    -moz-appearance: none; 
+    appearance: none;   
+}
+
+ul, ol, dl, li {
+    list-style: none;
+}
+
+.clearfix::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* swiper */
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.mySwiper { padding :20px; }
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* member_delete */
+/* detail titlebox */
+.titlebox {
+    margin: 50px 0;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #999999;
+    padding-bottom: 50px;
+}
+
+/* detail joinButton */
+.joinButton {
+    margin-top: 50px;
+}
+
+/* list font hover*/
+.posi{padding: 80px 0;}
+.text-secondary:hover { font-weight: 400;}
+
+/* acod */
+.list-group-item { border: 0; }
+.text-secondary { text-decoration: none;}
+
+/* deleteBtn */
+.deleteBtn {color: white;}
+
+/* member_join */
+/* 여기부터 */
+.join-in {
+    width: 88%;
+    height: 180px;
+    border-top: 2px solid lightgray;
+    border-bottom: 2px solid lightgray;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: left;
+    overflow: auto;
+
+}
+
+.titlebbox {
+    margin-left: 50px;
+}
+
+.titlebbox1 {
+    margin-left: 85px;
+}
+
+
+/* section {
+    padding: 70px;
+}
+
+section h3 {
+    margin-left: 70px;
+}
+
+section p {
+    margin-left: 70px;
+} */
+
+.join-in button {
+    border-radius: 3px;
+    width: 17%;
+    height: 25%;
+}
+
+.checkbox {
+    padding: 10px;
+    margin-left: 88%;
+}
+
+.join-in p {
+    margin-left: 15px;
+}
+
+#loginForm {
+    margin-left: 100px;
+    line-height: 20px;
+}
+
+#loginForm input {
+    width: 60%;
+    text-align: left;
+
+}
+
+.joinButton {
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 30px;
+    margin-top: 50px;
+}
+
+.joinButton button {
+    width: 30%;
+    border: 1px solid black;
+}
+
+#addrForm {
+    width: 30%;
+}
+
+#addrForm button {
+    background-color: black;
+}
+
+.select {
+    width: 200px;
+}
+
+p>small {
+    color: red;
+}
+
+/* member_login */
+
+/* login titlebox */
+#titlebox1{ 
+    padding-left: 10px;
+    margin-top: 80px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+/* login titlebox2 */
+.titlebox2 {
+    margin-bottom: 30px;
+    font-size: 12px;
+}
+
+/* login login-content */
+.login-content {
+    margin: 80px 0;
+}
+
+/* login id-pw-search */
+.id-pw-search {
+    color: black;
+    float: right;
+    font-size: 13px;
+    line-height: 30px;
+}
+
+.id-pw-search:hover {
+    text-decoration: underline;
+    color: black;
+}
+
+/* login login-btn */
+.login-btn {
+    margin: 20px 0;
+}
+
+/* login check-login */
+.check-login {
+    background: #F1F1F1;
+    border: 1px solid #888888;
+}
+
+/* login check-btn */
+.check-btn {
+    color: #999999;
+}
+
+/* login check-btn hover */
+.check-btn:hover {
+    color: #555555;
+}
+
+/* login form-check */
+.form-check {
+    font-size: 13px;
+    display: inline-block;
+}
+
+/* login userLogin-btn */
+.userLogin-btn {
+    font-size: 13px;
+}
+
+/* 멤버쉽 */
+.member-ship {
+    border: 1px solid #D9D9D9;
+    width: 80%;
+    margin: 100px auto;
+}
+
+.member-ship > .memShip-information {
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+.member-ship > .memShip-information > span {
+    font-weight: bold;
+    color: #555555;
+}
+
+.member-ship > .memShip-information > .memShip-p {
+    color: #888888;
+    padding-top: 10px;
+}
+
+.member-ship > .memShip-information > .memShip-use {
+    padding-top: 100px;
+    font-size: 20px;
+}
+
+.member-ship > .memShip-information > .memShip-use > p {
+    font-weight: bold;
+}
+
+.member-ship > .memShip-information > .memShip-use > p > a {
+    text-decoration: none;
+    color: black;
+}
+
+.member-ship > .memShip-member {
+    margin-right: 100px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 18px;
+}
+
+.member-ship > .memShip-member > .memShip-grade {
+    text-align: center;
+    border-radius: 50%;
+    margin-top: 50px;
+}
+
+.point > .point-content {
+    font-size: 20px;
+    margin-left: 120px;
+}
+
+.point > .point-content > span {
+    color: #666666;
+    font-weight: bold;
+}
+
+.point > .point-content > p {
+    color: #8f8f8f;
+}
+
+.point-introduce > .point-block {
+    margin-left: 120px;
+    margin-top: 100px;
+}
+
+.point-introduce > .point-block > .point-block-1 {
+    background: #F2F2F2;
+    width: 210px;
+    height: 206px;
+    border-radius: 50%;
+    text-align: center;
+    float: left;
+}
+
+.point-introduce > .point-block > .point-block-2 {
+    background: #F2F2F2;
+    width: 210px;
+    height: 206px;
+    border-radius: 50%;
+    text-align: center;
+    margin-left: 70px;
+}
+
+.point-introduce > .point-block > .point-block-1 > i {
+    font-size: 60px;
+    margin-top: 50px;
+}
+
+.point-introduce > .point-block > .point-block-2 > i {
+    font-size: 60px;
+    margin-top: 50px;
+}
+
+.point-introduce > .point-block > .point-block-1 > p {
+    color: #8f8f8f;
+    font-size: 20px;
+}
+
+.point-introduce > .point-block > .point-block-2 > p {
+    color: #8f8f8f;
+    font-size: 20px;
+}
+
+.memberShip-grades {
+    margin-top: 100px;
+}
+
+.memberShip-grades > .memberShip-member {
+    font-size: 20px;
+    margin-left: 120px;
+}
+
+.memberShip-grades > .memberShip-member > span {
+    color: #666666;
+    font-weight: bold;
+}
+
+.memberShip-grades > .memberShip-member > p {
+    color: #8f8f8f;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block {
+    margin-left: 120px;
+    margin-top: 100px;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block > .memberShip-block-1 {
+    border: 1px solid #D9D9D9;
+    text-align: center;
+    border-radius: 30px;
+    width: 210px;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block > .memberShip-block-1 > img {
+    margin: 42px 0;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block > .memberShip-block-1 > .memberShip-content {
+    color: #8f8f8f;
+    font-size: 18px;
+    margin-bottom: 80px;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block > .memberShip-block-2 {
+    border: 1px solid #D9D9D9;
+    text-align: center;
+    border-radius: 30px;
+    width: 210px;
+    margin-left: 70px;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block > .memberShip-block-2 > img {
+    margin: 43px 0;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block > #bronzeGrade > img {
+	margin: 19px 0 41px;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block > .memberShip-block-2 > .memberShip-content {
+    color: #8f8f8f;
+    font-size: 18px;
+    margin-bottom: 80px;
+}
+
+.brown, .silver, .gold, 
+.diamond, .grade{
+    font-weight: bold;
+    font-size: 20px;
+    color: #D9D9D9;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block small,
+.memberShip-grades > .memberShip-introduce > .memberShip-block b,
+.memberShip-grades > .memberShip-introduce > .memberShip-block i {
+	color: black;
+}
+
+.memberShip-grades > .memberShip-introduce > .memberShip-block > div:hover {
+	transform: scale(1.05);
+	transition: 0.5s;
+	
+	cursor: pointer;
+}
+

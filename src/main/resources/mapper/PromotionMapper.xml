@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ictproject.wyhotel.promotion.mapper.IPromotionMapper">
+
+	<sql id="imageUpdate">
+		<choose>
+			<when test="imageUpdate == 'on'">
+				,upload_path =    #{vo.uploadPath},
+				 file_location =  #{vo.fileLocation},
+				 file_name =      #{vo.fileName},
+				 file_real_name = #{vo.fileRealName}
+			</when>
+			<when test="imageUpdate == null">				
+			</when>			
+		</choose>
+	</sql>
+	
+	<sql id="hotelCode">
+		<choose>
+			<when test="hotelCode == '10'">
+				hotel_code = '10'
+			</when>
+			<when test="hotelCode == '20'">
+				hotel_code = '20'
+			</when>
+			<when test="hotelCode == '30'">
+				hotel_code = '30'
+			</when>
+			<when test="(hotelCode == 'none') || (hotelCode == null)">
+				hotel_code LIKE '%0'				
+			</when>
+		</choose>
+	</sql>
+	
+	<sql id="searchDate">
+		<choose>
+			<when test="startDate != null">				
+				<![CDATA[
+				AND
+				    (end_date >= #{endDate}
+				AND
+				    start_date <= #{startDate})
+				]]>
+			</when>
+			<when test="startDate == null">
+				<![CDATA[
+				AND
+				    (end_date >= SYSDATE + 1
+				AND
+				    start_date <= SYSDATE) 
+				]]>
+			</when>
+		</choose>
+	</sql>
+
+	<insert id="insert">
+		INSERT INTO
+    		promotion
+		VALUES
+    		( 'p' || promotion_code_seq.NEXTVAL, #{hotelCode}, #{roomCode}, #{promotionName}, #{startDate}, #{endDate}, #{promotionPrice}, #{promotionContent}, #{uploadPath}, #{fileLocation}, #{fileName}, #{fileRealName})
+	</insert>
+	
+	<select id="getList" resultType="promotion">
+		SELECT
+			*
+		FROM
+			promotion
+		WHERE
+		<include refid="hotelCode"/>
+		<include refid="searchDate"/>
+		ORDER BY
+			promotion_code DESC
+	</select>
+	
+	<select id="getPromotion" resultType="promotion">
+		SELECT
+			*
+		FROM
+			promotion
+		WHERE
+			promotion_code = #{promotionCode}
+	</select>
+	
+	<update id="update">
+		UPDATE
+			promotion
+		SET
+			hotel_code =        #{vo.hotelCode},
+			room_code =         #{vo.roomCode},
+			promotion_name =    #{vo.promotionName},
+			start_date =        #{vo.startDate},
+			end_date =          #{vo.endDate},
+			promotion_price =   #{vo.promotionPrice},
+			promotion_content = #{vo.promotionContent}
+			<include refid="imageUpdate"/>
+		WHERE
+			promotion_code =    #{vo.promotionCode}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM
+			promotion
+		WHERE
+			promotion_code = #{promotionCodeData}
+	</delete>
+
+</mapper>

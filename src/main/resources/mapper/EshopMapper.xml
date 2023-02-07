@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper	namespace="com.ictproject.wyhotel.eshop.mapper.IEshopMapper">
+	
+	<sql id="sort">
+		<if test="condition == 'reg'">
+			order by regdate desc
+		</if>
+		<if test="condition == 'low'">
+			order by price asc
+		</if>
+		<if test="condition == 'high'">
+			order by price desc
+		</if>
+	</sql>
+	
+	<select id="getList" resultType="eshop">
+		SELECT * FROM eshop_product
+		WHERE kind = '1'
+		<include refid="sort"/>
+	</select>
+	
+	<select id="getFoodList" resultType="eshop">
+		SELECT * FROM eshop_product
+		WHERE kind = '2'
+		<include refid="sort"/>
+	</select>
+	
+	
+	<select id="getDetail" resultType="eshop">
+		SELECT * FROM eshop_product
+		WHERE prodnum = #{prodnum}
+	</select>	
+	
+	<insert id="addCart">
+		INSERT INTO eshop_cart
+		VALUES (cart_seq.NEXTVAL, #{memberCode} , #{prodnum} , #{quantity} , #{totalPrice}, sysdate)
+	</insert>
+	
+	<select id="addCartCheck" resultType="int">
+		SELECT COUNT(*)
+		FROM eshop_cart
+		WHERE prodnum = #{prodnum} AND member_code = #{memberCode}
+	</select>
+	
+	<select id="getCartList" resultType="cart">
+		SELECT p.prodnum , p.name , p.price , p.image, c.cartnum , c.total_price , c.member_code , c.quantity ,c.indate 
+		FROM eshop_cart c
+		FULL OUTER JOIN  eshop_product p
+		ON c.prodnum = p.prodnum
+		WHERE c.member_code = #{memberCode}
+		ORDER BY c.cartnum asc
+	</select>
+	
+	<delete id="delCartList">
+		DELETE FROM eshop_cart
+		WHERE cartnum = #{cartnum}
+	</delete>
+	
+	<update id="updateList">
+		UPDATE eshop_cart
+		SET quantity = #{quantity} 
+		WHERE cartnum = #{cartnum}
+	</update>
+	
+	<insert id="insertOrder">
+		INSERT
+		INTO eshop_order
+		VALUES (orders_seq.NEXTVAL, #{memberCode} , #{takeUserName} , #{takeUserPhone} , #{takeUserZipnum},  #{takeUserAddrB},  #{takeUserAddrD},  #{totalPrice},sysdate)		
+	</insert>
+	
+	<insert id="insertCartOrder">
+		INSERT
+		INTO order_cart VALUES 
+		((SELECT tbl2.ordernum FROM (SELECT ROWNUM AS rn, tbl.* FROM (SELECT o.ordernum FROM eshop_order o WHERE member_code = #{memberCode} ORDER BY indate DESC) tbl) tbl2 WHERE rn = 1), #{prodnum} , #{quantity})
+	</insert>
+	
+	
+	<delete id="delCartPostOrder">
+		DELETE FROM eshop_cart
+		WHERE member_code = #{memberCode}
+	</delete>
+	
+	<select id="getOrderList" resultType="Ocart">
+		SELECT o.*, p.name, p.price, p.image 
+		FROM order_cart o JOIN eshop_product p ON o.prodnum = p.prodnum
+		WHERE
+		o.ordernum = (SELECT tbl2.ordernum FROM (SELECT ROWNUM AS rn, tbl.* FROM (SELECT o.ordernum FROM eshop_order o WHERE member_code = #{memberCode} ORDER BY indate DESC) tbl) tbl2 WHERE rn = 1)
+	</select>
+	
+	<select id="getOrderLists" resultType="eOrder">
+		SELECT * 
+		FROM eshop_order
+		WHERE member_code = #{memberCode}
+	</select>
+	
+	<select id="getProdList" resultType="Ocart">
+		SELECT o.*, p.name, p.price, p.image 
+		FROM order_cart o JOIN eshop_product p ON o.prodnum = p.prodnum
+		WHERE o.ordernum = #{ordernum}
+	</select>
+</mapper>

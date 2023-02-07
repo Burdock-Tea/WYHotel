@@ -1,0 +1,46 @@
+busan = [
+	{
+  "content":'<div class="wrap">' + 
+            '    <div class="info">' + 
+            '        <div class="title">' + 
+            '           <strong> wy golf </strong>' + 
+            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+            '        </div>' + 
+            '        <div class="body">' + 
+            '            <div class="img">' +
+            '                <img src="http://wyhotel.site/img/golf.jpg" style="width: 250px; height: 150px">' +
+            '           </div>' + 
+            '            <div class="desc">' + 
+            '                <div class="ellipsis">부산광역시 수영구</div>' + 
+            '                <div><a href="https://map.kakao.com/link/to/wy golf ,35.1575250,129.131189" style="color:blue" target="_blank">길찾기</a></div>' + 
+            '            </div>' + 
+            '        </div>' + 
+            '    </div>' +    
+            '</div>',
+  "latlngX": 35.1575250, 
+  "latlngY": 129.131189
+	}
+	,
+	
+	{
+  "content": '<div class="wrap">' + 
+            '    <div class="info">' + 
+            '        <div class="title">' + 
+            '           <strong> wy wedding </strong>' + 
+            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+            '        </div>' + 
+            '        <div class="body">' + 
+            '            <div class="img">' +
+            '                <img src="http://wyhotel.site/img/wed.jpg"  style="width: 250px; height: 150px" >' +
+            '           </div>' + 
+            '            <div class="desc">' + 
+            '                <div class="ellipsis">부산광역시 수영구 </div>' + 
+            '                <div><a href="https://map.kakao.com/link/to/wy wedding ,35.1575250,129.129189" style="color:blue" target="_blank">길찾기</a></div>' + 
+            '            </div>' + 
+            '        </div>' + 
+            '    </div>' +    
+            '</div>',
+  "latlngX": 35.1575250, 
+  "latlngY": 129.129189
+	}	
+   ]

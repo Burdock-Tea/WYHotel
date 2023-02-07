@@ -1,0 +1,67 @@
+busanCafe = [
+		{
+  "content":'<div class="wrap">' + 
+            '    <div class="info">' + 
+            '        <div class="title">' + 
+            '           <strong> wy cafe </strong>' + 
+            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+            '        </div>' + 
+            '        <div class="body">' + 
+            '            <div class="img">' +
+            '                <img src="http://wyhotel.site/img/cafe.jpg" style="width: 250px; height: 150px">' +
+            '           </div>' + 
+            '            <div class="desc">' + 
+            '                <div class="ellipsis">부산광역시 수영구</div>' + 
+            '                <div><a href="https://map.kakao.com/link/to/wy cafe ,35.1575250,129.133189" style="color:blue" target="_blank">길찾기</a></div>' + 
+            '            </div>' + 
+            '        </div>' + 
+            '    </div>' +    
+            '</div>',
+  "latlngX": 35.1575250, 
+  "latlngY": 129.133189
+	}
+	,
+	{
+  "content": '<div class="wrap">' + 
+            '    <div class="info">' + 
+            '        <div class="title">' + 
+            '           <strong> wy cafe+ </strong>' + 
+            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+            '        </div>' + 
+            '        <div class="body">' + 
+            '            <div class="img">' +
+            '                <img src="http://wyhotel.site/img/cafe2.jpg"  style="width: 250px; height: 150px" >' +
+            '           </div>' + 
+            '            <div class="desc">' + 
+            '                <div class="ellipsis">부산광역시  수영구</div>' + 
+            '                <div><a href="https://map.kakao.com/link/to/wy cafe+ ,35.1555250,129.129189" style="color:blue" target="_blank">길찾기</a></div>' + 
+            '            </div>' + 
+            '        </div>' + 
+            '    </div>' +    
+            '</div>',
+  "latlngX": 35.1555250, 
+  "latlngY": 129.129189
+	}
+	,
+	{
+  "content": '<div class="wrap">' + 
+            '    <div class="info">' + 
+            '        <div class="title">' + 
+            '           <strong> wy cafe++ </strong>' + 
+            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+            '        </div>' + 
+            '        <div class="body">' + 
+            '            <div class="img">' +
+            '                <img src="http://wyhotel.site/img/cafe3.jpg"  style="width: 250px; height: 150px" >' +
+            '           </div>' + 
+            '            <div class="desc">' + 
+            '                <div class="ellipsis">부산광역시 수영구 </div>' + 
+            '                <div><a href="https://map.kakao.com/link/to/wy cafe++ , 35.1555250,129.131189" style="color:blue" target="_blank">길찾기</a></div>' + 
+            '            </div>' + 
+            '        </div>' + 
+            '    </div>' +    
+            '</div>',
+  "latlngX": 35.1555250, 
+  "latlngY": 129.131189
+	}		
+   ]
