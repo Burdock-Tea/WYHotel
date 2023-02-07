@@ -64,7 +64,7 @@
                         </div>
 
                         <div class="joinButton col-12">
-                            <button type="button" class="btn btn-light col-6 clearfix" style="float: left;" onclick="${pageContext.request.contextPath}/">취소</button>
+                            <button type="button" class="btn btn-secondary col-6 clearfix" style="float: left;" onclick="${pageContext.request.contextPath}/">취소</button>
                             <button type="button" id="searchPw" class="btn btn-dark col-6 clearfix" style="float: left;">비밀번호 수정</button>
                         </div>
                     </form>

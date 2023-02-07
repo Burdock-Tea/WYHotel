@@ -48,10 +48,11 @@
     		WHERE member_code = #{memberCode}
     	</select>
     	
-    	<!-- 이메일, 이름, 번호 수정 -->
+    	<!-- 이메일, 이름, 번호, 주소 수정 -->
     	<update id="modify">
     		UPDATE members SET
-	  		email = #{email}, name = #{name}, tel = #{tel}
+	  		email = #{email}, name = #{name}, tel = #{tel}, 
+	  		zip_code = #{zipCode}, addr_basic = #{addrBasic}, addr_detail = #{addrDetail} 
 	  		WHERE member_code = #{memberCode}
     	</update>
     	

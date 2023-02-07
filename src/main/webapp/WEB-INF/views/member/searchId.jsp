@@ -53,7 +53,7 @@
 						</div>
 						
                         <div class="joinButton col-12">
-                            <button type="button" class="btn btn-light col-6 clearfix" onclick="${pageContext.request.contextPath}/"
+                            <button type="button" class="btn btn-secondary col-6 clearfix" onclick="${pageContext.request.contextPath}/"
                                 style="float: left;">취소</button>
                                 <button type="button" class="btn btn-dark col-6 clearfix" id="searchIdBtn" style="float: left;">아이디 찾기</button>
                         </div>

@@ -62,10 +62,10 @@
 						contentType: 'application/JSON',
 						data: JSON.stringify(data),
 						success: function(result){
-							if (confirm('삭제하시겠습니까?')){
+							if (confirm('탈퇴하시겠습니까?')){
 								if(result === 'success') {
 									$('#delForm').submit();
-									alert('삭제 성공.');	
+									alert('탈퇴 성공.');	
 								} else {
 									alert('비밀번호 확인해 주세요');
 									$('#pwInput').val('');

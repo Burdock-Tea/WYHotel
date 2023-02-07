@@ -64,6 +64,28 @@
                          <input type="text" class="form-control" name="tel3" size="6" maxlength="4" placeholder="0000" id="tel3">
                          <input type="hidden" name="memberCode" value="${member.memberCode}">
                        </div>
+                       
+                       	<div class="addrForm">
+					<div class="form-group">
+						<label for="inputPhoneNumber" class="form-label mt-4">주소</label>
+						<div class="input-group" id="addrForm">
+							<input type="text" name="zipCode" id="zipCode" value="${member.zipCode}"
+								class="form-control w-50"  placeholder="우편번호"
+								 readonly>
+							<div class="input-group-addon">
+								<button type="button" id="addrBtn" class="btn btn-primary" onclick="searchAddress()">주소찾기</button>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="text" name="addrBasic" id="addrBasic" value="${member.addrBasic}"
+							class="form-control" id="addrBasic" placeholder="기본주소">
+					</div>
+					<div class="form-group">
+						<input type="text" name="addrDetail" id="addrDetail" value="${member.addrDetail}"
+							class="form-control" id="addrDetail" placeholder="상세주소">
+					</div>
+				</div>
                    
                    </div>
 				<span id="telChk"></span>
@@ -81,7 +103,8 @@
 
 <%@ include file="../include/footer.jsp"%>
 
-
+<!-- 다음 api 주소 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
    <script>
    		//전화번호 값 넣기
@@ -225,7 +248,7 @@
                   && chk4 === true && chk5 === true && chk6 === true && chk7 === true) {
                if(confirm('정보 수정 하시겠습니까?')) {
                   
-                  alert('수정 완료!');
+                  alert('수정 완료! 다시 로그인 해주세요.');
                   $('#modifyForm').submit();
                } else {
                   return;
@@ -238,6 +261,36 @@
          $('#mailForm').hide();
        
       }); //end jquery
+      
+    //다음 주소 API 사용해 보기
+      function searchAddress() {
+               new daum.Postcode({
+                   oncomplete: function(data) {
+                       // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분..
+                       var extraAddr = ''; // 참고항목 변수
+                       
+           	        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                       // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                       if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                           extraAddr += data.bname;
+                       }
+                       // 건물명이 있고, 공동주택일 경우 추가한다.
+                       if(data.buildingName !== '' && data.apartment === 'Y'){
+                           extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                       }
+                       // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                       if(extraAddr !== ''){
+                           extraAddr = ' (' + extraAddr + ')';
+                       }
+
+   					// 사용자가 선택한 값 해당 요소에 입력해주기.
+                       $('#addrBasic').val(data.roadAddress);
+   					$('#zipCode').val(data.zonecode);
+   					$('#addrDetail').focus();
+       				
+                   }
+               }).open();
+           }
    
    </script>
 

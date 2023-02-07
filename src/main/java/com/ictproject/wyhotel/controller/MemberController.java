@@ -252,6 +252,7 @@ public class MemberController {
 		vo.setTel(vo.getTel() + "-" + tel2 + "-" + tel3);
 		service.modify(vo);
 		session.removeAttribute("member");
+		session.removeAttribute("admin");
 		return "redirect:/member/login";
 	}
 	
@@ -269,7 +270,7 @@ public class MemberController {
 		vo.setPassword(newPw);
 		service.pwModify(vo);
 		session.removeAttribute("member");
-		
+		session.removeAttribute("admin");
 		return "redirect:/member/login";
 	}
 	
@@ -287,7 +288,7 @@ public class MemberController {
 	public String delete(String memberCode, HttpSession session) {
 		service.delete(memberCode);
 		session.removeAttribute("member");
-		
+		session.removeAttribute("admin");
 		return "redirect:/";
 	}
 	
