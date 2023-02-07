@@ -65,8 +65,9 @@ public class PromotionServiceImpl implements IPromotionService {
 			String uploadFolder = "C:/test/upload/";
 
 			// AWS EC2로 배포할때는 /var/upload/로 지정
-			if(System.getProperty("os.name").toLowerCase().equals("linux")) {
-				uploadFolder = "/var/upload";
+			String osName = System.getProperty("os.name").toLowerCase();
+			if(osName.equals("linux")) {
+				uploadFolder = "/var/upload/";
 			}
 
 			// 업로드 되는 경로 C:/test/upload/날짜
@@ -146,8 +147,9 @@ public class PromotionServiceImpl implements IPromotionService {
 				// AWS EC2로 배포할때는 /var/upload/로 지정
 				String uploadFolder = "C:/test/upload/";
 				
-				if(System.getProperty("os.name").toLowerCase().equals("linux")) {
-					uploadFolder = "/var/upload";
+				String osName = System.getProperty("os.name").toLowerCase();
+				if(osName.equals("linux")) {
+					uploadFolder = "/var/upload/";
 				}
 				
 				File folder = new File(uploadFolder + folderName);

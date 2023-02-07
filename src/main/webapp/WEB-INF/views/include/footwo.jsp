@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
     <style>
 footer {
     margin-top: 50px;
@@ -81,6 +81,10 @@ footer .footer-div {
     width: 20%;
     float: right;
 }
+.chat-img{
+	 display:inline-block;
+	
+}
     </style>
 	<!-- footer-->
     <footer class="sticky-bottom">
@@ -144,10 +148,25 @@ footer .footer-div {
                             (주)나는우영 | 대표자: 권우영 | E-mail: info@info.com
                            	 사업자번호: 123-45-67890 | 개인정보보호책임자: 권우영
                         </div>
-                        <div class="subfont">
+                        <div class="subfont"   style="display:inline-block;">
                             Tel. 1888-8888, E-mail : wy-hotely@gmail.com, Copyright © WYHOTEL SEGASAMMY Co. Ltd. All rights reserved.
                         </div>
+                         <div class="chat-img position-fixed bottom-0 end-0 mb-5 mx-5">
+                            <a  href="#" onclick="window.open('${pageContext.request.contextPath}/chat/userchat','chating','dialog=yes, resizable=no, toolbar=no, menubar=no, width=620, height=500, left=250, top=200')">
+                             <div style="border-radius: 50%; background : black; width: 40px; height:40px; text-align: center; line-height: 50px; margin-bottom: 20px;">
+                             	<i class="xi-message" style="font-size: 30px;"></i>
+                             </div>
+                             </a>
+                        </div>
+                        <div class=" position-fixed bottom-0 end-0 mx-5 my-2">
+                            <a href="${pageContext.request.contextPath}/eshop/productList">
+                             <div style="border-radius: 50%; background : black; width: 40px; height:40px; text-align: center; line-height: 50px; margin-bottom: 10px;">
+                             <i class="xi-market" style="font-size: 30px;"></i>
+                             </div>
+                              </a>
+                        </div>
                     </div>
+                    	
                         <div class="logo-img col-4 clearfix">
                             <a href="${pageContext.request.contextPath}/"><img src="./img/logo.svg" width="150"></a>
                         </div>
@@ -161,4 +180,5 @@ footer .footer-div {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>    
 
 </body>
+
 </html>

@@ -19,19 +19,19 @@
 
                                 <div class="row detail-imgs">
 
-                                    <div class="col-md-12 detail-main-img">
-                                        <img src="${pageContext.request.contextPath}/resources/img/hotel-room-gb5a07122f_1920.jpg" alt="">
+                                    <div class="col-md-12 detail-main-img imgWrapper" style="padding: 0;">
+                                        <img id="img00" src="${pageContext.request.contextPath}/resources/img/hotel-room-gb5a07122f_1920.jpg" alt="">
                                     </div>
-                                    <div class="col-md-3">
-                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/hotel-room-gb5a07122f_1920.jpg" alt=""></a>
+                                    <div class="col-md-3 imgWrapper">
+                                        <a href="#"><img id="img01" src="${pageContext.request.contextPath}/resources/img/hotel-room-gb5a07122f_1920.jpg" alt=""></a>
                                     </div>
-                                    <div class="col-md-3">
-                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/bedroom-g34b59e527_1920.jpg" alt=""></a>
+                                    <div class="col-md-3 imgWrapper">
+                                        <a href="#"><img id="img02" src="${pageContext.request.contextPath}/resources/img/bedroom-g34b59e527_1920.jpg" alt=""></a>
                                     </div>
-                                    <div class="col-md-3">
-                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/bedroom-g8b239c219_1920.jpg" alt=""></a>
+                                    <div class="col-md-3 imgWrapper">
+                                        <a href="#"><img id="img03" src="${pageContext.request.contextPath}/resources/img/bedroom-g8b239c219_1920.jpg" alt=""></a>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 imgWrapper">
                                         <a href="#"><img src="${pageContext.request.contextPath}/resources/img/bathroom-g00e6db399_1920.jpg" alt=""></a>
                                     </div>
                                     

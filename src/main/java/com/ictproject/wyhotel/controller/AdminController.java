@@ -1,5 +1,9 @@
 package com.ictproject.wyhotel.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ictproject.wyhotel.admin.service.IAdminService;
+import com.ictproject.wyhotel.command.DiningReservationVO;
 import com.ictproject.wyhotel.command.MemberVO;
 import com.ictproject.wyhotel.command.QuestionVO;
+import com.ictproject.wyhotel.command.RoomReservationVO;
 import com.ictproject.wyhotel.util.paging.PageVO;
 
 import lombok.extern.log4j.Log4j;
@@ -115,5 +121,73 @@ public class AdminController {
 		
 	}
 	
+	// 관리자 예약페이지 이동
+	@GetMapping("/reservation")
+	public String moveReservationPage() {
+		return "/admin/reservation";
+	}
+	
+	// 관리자 예약확인
+	@PostMapping("/reservation")
+	public String moveReservationPage(String category, String isMem, String keyword, Model model) {
+
+		/*
+		 *  예약번호면 -> 바로 검색
+		 *  이름 -> 회원 / 비회원 체크 -> 검색어
+		 */
+		
+		System.out.println(category + ' ' + isMem + ' ' + keyword);
+		
+		Map<String, String> data = new HashMap<>();
+		
+		data.put("category", category);
+		data.put("isMem", isMem);
+		data.put("keyword", keyword);		
+		
+		List<RoomReservationVO> roomReservList = service.getRoomReservList(data);
+		List<DiningReservationVO> diningReservList = service.getDiningReservList(data);
+		
+		model.addAttribute("roomList", roomReservList);
+		model.addAttribute("diningList", diningReservList);
+		
+		log.info(roomReservList);
+		log.info(diningReservList);
+		
+		return "/admin/reservation";
+	}
+	
+	@PostMapping("/cancelRoomReservation")
+	@ResponseBody
+	public String cancelRoomReservation(@RequestBody String reservationCode) {
+		System.out.println(reservationCode);
+	
+		
+		int flag = service.cancelRoomReservation(reservationCode);
+		
+		if (flag == 1) {
+			System.out.println("DB 정상 삭제 완료");
+			return "success";
+		} else {
+			return "fail";
+		}
+		
+		
+	}
+	
+	@PostMapping("/cancelDiningReservation")
+	@ResponseBody
+	public String cancelDiningReservation(@RequestBody String reservationCode) {
+		System.out.println(reservationCode);
+
+		
+		int flag = service.cancelDiningReservation(reservationCode);
+		
+		if (flag == 1) {
+			return "success";
+		} else {
+			return "fail";
+		}
+		
+	}
 
 }

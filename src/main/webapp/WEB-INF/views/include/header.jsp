@@ -126,6 +126,8 @@
                                <ul class="dropdown-menu">
                                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin/member">회원관리</a></li>
                                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin/question">문의내역</a></li>
+                                   <li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin/reservation">예약확인</a></li>
+                                   <li><a id="adminPopup" class="dropdown-item" href="${pageContext.request.contextPath}/chat/adminchat">실시간 채팅(관리자)</a></li>
                                </ul>
                            </li>
                         </c:if>
@@ -136,6 +138,14 @@
         
         <script>
            
-           
+           $(function() {
+        	   
+        	   // 관리자 팝업 채팅
+        	   $('#adminPopup').click(function(e) {
+        		   e.preventDefault();
+        		   window.open('${pageContext.request.contextPath}/chat/adminchat', 'chat');        		   
+        	   });       	   
+        	   
+           }); // end jQuery
            
         </script>

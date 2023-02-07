@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ include file="../include/header.jsp" %>
 <spring:eval expression="@tossProperties['toss.key']" var="key" />
@@ -22,9 +23,30 @@
             <div class="col-md-2"></div>
             <div class="col-md-3">이메일</div>
             <div class="col-md-5">
+                <div class="input-group">
                 <input type="text" id="email" class="form-control" name="email" placeholder="example@example.com">
+                <div class="input-group-append">
+                    <button class="btn btn-dark" type="button" id="button-addon" disabled>인증</button>
+                </div>
+                </div>
             </div>
             <div class="col-md-2"></div>
+
+            <div class="col-md-2"></div>
+            <div class="col-md-3"><div class="check-label">인증번호</div></div>
+            <div class="col-md-5">
+                <div class="input-group">
+                <input id="mail-check-input" type="text" class="form-control" 
+                    placeholder="인증번호를 6자리를 입력해 주세요." 
+                    style="display: inline-block; width: 300px;" readonly>
+                <div class="input-group-append">
+                    <button type="button" id="number-check" class="btn btn-dark">확인</button>
+                </div>
+                <span id="mail-check-warn"></span>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+            
 
             <div class="col-md-2"></div>
             <div class="col-md-3">이름</div>
@@ -43,9 +65,9 @@
                         <option>018</option>
                     </select>
                     <span class="mt-2 px-2"> - </span>
-                    <input type="tel" id="phone2" class="form-control" name="phone2" maxlength="4" placeholder="0000" id="inputDefault"> 
+                    <input type="tel" id="phone2" class="form-control" name="phone2" maxlength="4" placeholder="0000" id="inputDefault" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"> 
                     <span class="mt-2 px-2"> - </span>
-                    <input type="tel" id="phone3" class="form-control" name="phone3" maxlength="4" placeholder="0000" id="inputDefault"> 
+                    <input type="tel" id="phone3" class="form-control" name="phone3" maxlength="4" placeholder="0000" id="inputDefault" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"> 
                 </div>
             </div>
             <div class="col-md-2"></div>
@@ -201,7 +223,75 @@
         let memEmail = '';
         let price;
   
+        let code = '';
+		$('#mail-check-input').hide();
+		$('#mail-check-input').next().hide();
+        $('.check-label').hide();
+        // 약관동의시 로그인 폼 나오게 설정
 
+	    //이메일 양식 유효성 검사.
+	    var id = document.getElementById("email");
+	    id.onkeyup = function() {
+	    	/*자바스크립트의 정규표현식 입니다*/
+	    	/*test메서드를 통해 비교하며, 매칭되면 true, 아니면 false반*/
+	    	var regex =/[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]$/i;
+	    	if (regex.test(document.getElementById("email").value)) {
+	    		document.getElementById("email").style.borderColor = "black";
+	    		$('#button-addon').attr('disabled', false);
+	    	} else {
+	    		document.getElementById("email").style.borderColor = "red";
+	    		$('#button-addon').attr('disabled', true);
+	    	}
+	    }//이메일 양식 유효성 검사 끝
+
+    	//인증번호 이메일 전송
+		$('#button-addon').click(function() {
+            const email = $('#email').val();
+			console.log('완성된 이메일: ' + email);
+			$.ajax({
+				type : 'post',
+				url : '<c:url value="/member/mailCheck"/>',
+				contentType : 'application/json',
+				data : email,
+				success : function(data) {
+					$('#msgId').hide();
+					console.log('컨트롤러가 전달한 인증번호: ' + data);
+					$('#mail-check-input').attr('readonly', false); //비활성된 인증번호 입력창을 활성화.
+					code = data;
+					$('#mail-check-input').show();
+					$('#mail-check-input').next().show();
+                    $('.check-label').show();
+					alert('인증번호가 전송되었습니다. 확인 후 입력란에 정확하게 입력하세요!');
+				}
+			});
+			
+		}); //이메일 전송 끝.
+		
+		// 이메일 인증번호 확인
+		 $('#number-check').click(
+
+				function() {
+					const inputCode = $('#mail-check-input').val(); // 사용자가 입력한 인증번호
+					const $resultMsg = $('#mail-check-warn'); // span
+
+					if (inputCode === code) {
+						$resultMsg.html('인증되었습니다');
+						$resultMsg.css('color', 'green');
+						$('#email').next().hide();
+						$(this).css('display', 'none');
+						$('#mail-check-input').hide();
+						$('#button-addon').css('display', 'none');
+                        $('.check-label').hide();
+						$('.hideForm').show();
+						$('#email').attr('readonly', true);
+						
+					} else { 
+						$resultMsg.html('인증번호를 다시 확인해 주세요.');
+						$resultMsg.css('color', 'red');
+						$(this).focus();
+					}
+					
+				}); //인증번호 이벤트 끝.	
 
 
         if ('${reservation.category}' === 'hotels') {
@@ -222,7 +312,7 @@
             switch('${reservation.code}') {
                 case '55' :
                     document.getElementById('roomGrade').value = 'Suite';
-                    basicPrice = 150000 * nights;
+                    basicPrice = 1500000 * nights;
                     break;
                 case '44' :
                     document.getElementById('roomGrade').value = 'Business Deluxe';
@@ -264,9 +354,11 @@
                                 	if('${param.price}' !== '') {
                                    		price = '${param.price}';	
                                 	}
-                                    document.reservForm.roomPrice.value = price;
-                                    accumulatePoint = price * membership.pointAccumulate;                                    
+                                    accumulatePoint = price * membership.pointAccumulate;
                                     console.log('적립 포인트: ', accumulatePoint);
+                                	console.log(price);
+                                	const priceDisplay = price.toLocaleString();
+                                    document.reservForm.roomPrice.value = priceDisplay;
                                 },
                                 error: function(){
                                     alert('멤버십 통신 실패');
@@ -283,14 +375,16 @@
                 	if('${param.price}' !== '') {
                    		price = '${param.price}';	
                 	}
-                    document.reservForm.roomPrice.value = price;                       
+                    const priceDisplay = price.toLocaleString();
+                    document.reservForm.roomPrice.value = priceDisplay;                    
                 }
             } else {
             	price = Math.floor(basicPrice * 1.1);
             	if('${param.price}' !== '') {
                		price = '${param.price}';	
             	}
-                document.reservForm.roomPrice.value = price;
+                const priceDisplay = price.toLocaleString();
+                document.reservForm.roomPrice.value = priceDisplay;
             }            
 
             document.getElementById('hotelName').value = 
@@ -316,6 +410,10 @@
                         if ($('#email').val().trim() === '') {
                             alert('이메일을 입력하세요');
                             $('#email').val('');
+                            $('#email').focus();
+                            return;
+                        } else if ($('#mail-check-warn').html() !== '인증되었습니다') {
+                            alert('이메일 인증을 먼저 진행해주세요');
                             $('#email').focus();
                             return;
                         } else if ($('#name').val().trim() === '') {
@@ -372,11 +470,11 @@
                                     orderName: roomgrade,
                                     customerName: memName,
                                     customerEmail: memEmail,
-                                    successUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/success?memberCode=' + $('#memberCode').val()
+                                    successUrl: 'http://wyhotel.site/reservation/success?memberCode=' + $('#memberCode').val()
                                     + '&hotelCode=' + '${reservation.hotelCode}'+ '&roomCode=' + '${reservation.code}'+ '&capacity=' + '${reservation.capacity}'
                                     + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate + '&pointAccumulate=' + accumulatePoint,
-                                    failUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/reservationPage'
-                                });
+                                    failUrl: 'http://wyhotel.site/reservation/reservationPage'
+                                    });
                             }
                             
                             
@@ -416,11 +514,10 @@
                                     orderName: roomgrade,
                                     customerName: memName,
                                     customerEmail: memEmail,
-                                    successUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/success?memberCode=' + $('#memberCode').val()
+                                    successUrl: 'http://wyhotel.site/reservation/success?memberCode=' + $('#memberCode').val()
                                     + '&hotelCode=' + '${reservation.hotelCode}'+ '&roomCode=' + '${reservation.code}'+ '&capacity=' + '${reservation.capacity}'
                                     + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate + '&pointAccumulate=' + accumulatePoint,
-                                    failUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/reservationPage'
-                                });
+                                    failUrl: 'http://wyhotel.site/reservation/reservationPage'                                });
                             }  
                             
                         }, 500);
@@ -443,10 +540,10 @@
                             orderName: roomgrade,
                             customerName: memName,
                             customerEmail: memEmail,
-                            successUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/success?memberCode=' + $('#memberCode').val()
+                            successUrl: 'http://wyhotel.site/reservation/success?memberCode=' + $('#memberCode').val()
                             + '&hotelCode=' + '${reservation.hotelCode}'+ '&roomCode=' + '${reservation.code}'+ '&capacity=' + '${reservation.capacity}'
                             + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate + '&pointAccumulate=' + accumulatePoint,
-                            failUrl: 'http://localhost/${pageContext.request.contextPath}/reservation/reservationPage'
+                            failUrl: 'http://wyhotel.site/reservation/reservationPage'
                         });
                     }
                             
@@ -478,6 +575,10 @@
                     if ($('#email').val().trim() === '') {
                         alert('이메일을 입력하세요');
                         $('#email').val('');
+                        $('#email').focus();
+                        return;
+                    } else if ($('#mail-check-warn').html() !== '인증되었습니다') {
+                        alert('이메일 인증을 먼저 진행해주세요');
                         $('#email').focus();
                         return;
                     } else if ($('#name').val().trim() === '') {

@@ -19,8 +19,8 @@ public class AdminAuthHandler implements HandlerInterceptor {
 		//세션에서 로그인 데이터를 얻은 후 확인을 해 주자.
 		HttpSession session = request.getSession();
 		
-		//관리자 권한 없는사람
-		if(session.getAttribute("admin") == null) {
+		//관리자 권한 없는사람 (admin 세션이 없거나, 불러왔는데 false인 경우)
+		if((session.getAttribute("admin") == null) || (!(Boolean)session.getAttribute("admin"))) {
 			
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();

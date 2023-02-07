@@ -1,9 +1,12 @@
 package com.ictproject.wyhotel.admin.service;
 
 import java.util.List;
+import java.util.Map;
 
+import com.ictproject.wyhotel.command.DiningReservationVO;
 import com.ictproject.wyhotel.command.MemberVO;
 import com.ictproject.wyhotel.command.QuestionVO;
+import com.ictproject.wyhotel.command.RoomReservationVO;
 import com.ictproject.wyhotel.util.paging.PageCreator;
 import com.ictproject.wyhotel.util.paging.PageVO;
 
@@ -35,5 +38,19 @@ public interface IAdminService {
 
 	// 문의내역 답변 서비스 (메일도 보내고, DB에 업데이트 예정)
 	public boolean replyQuestion(QuestionVO question);
+
+	// 호텔 예약 목록 가져오기
+	public List<RoomReservationVO> getRoomReservList(Map<String, String> data);
+	
+	// 다이닝 예약 목록 가져오기
+	public List<DiningReservationVO> getDiningReservList(Map<String, String> data);
+
+	// 호텔 예약 취소
+	public int cancelRoomReservation(String reservationCode);
+
+	// 다이닝 예약 취소
+	public int cancelDiningReservation(String reservationCode);
+	
+
 
 }

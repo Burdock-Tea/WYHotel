@@ -50,7 +50,15 @@ public class PromotionController {
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String fileLocation, String fileName) {
 		
-		File file = new File("C:/test/upload/" + fileLocation + "/" + fileName);
+		String osName = System.getProperty("os.name").toLowerCase();
+		
+		String uploadFolder = "C:/test/upload/";
+		
+		if(osName.equals("linux")) {
+			uploadFolder = "/var/upload/";
+		}
+		
+		File file = new File(uploadFolder + fileLocation + "/" + fileName);
 		
 		ResponseEntity<byte[]> result = null;
 		HttpHeaders headers = new HttpHeaders();
