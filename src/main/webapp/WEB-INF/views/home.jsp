@@ -98,11 +98,7 @@
                 	<!-- swiper 내 프로모션 배치 시작 -->
                 	<c:forEach items="${ promotionList }" var="list">
                     <div class="swiper-slide">
-<<<<<<< HEAD
                         <div class="card" style="width: 22rem;" data-promotion-code="${ list.promotionCode }">
-=======
-                        <div class="card" style="width: 22rem;">
->>>>>>> 06cb26c48408d6a4da419e554568fcc5be432b48
                             <img src="${pageContext.request.contextPath}/promotion/display?fileLocation=${ list.fileLocation }&fileName=${ list.fileName }" class="card-img-top" alt="...">
                             <div class="card-body">
                               <h5 class="card-title">${ list.promotionName }</h5>
