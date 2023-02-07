@@ -35,8 +35,6 @@
         <!-- 로티파이 CDN -->
         <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
-
-        
     </head>
     <body>    
         <header> <!-- start header -->
@@ -60,7 +58,7 @@
                                 호텔소개
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotels">객실소개</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotels">호텔 스토리</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotelsSinfo">WY호텔 서울</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotelsBinfo">WY호텔 부산</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/hotelsJinfo">WY호텔 제주</a></li>

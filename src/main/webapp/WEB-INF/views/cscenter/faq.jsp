@@ -6,16 +6,13 @@
 	<style>
         /* font setting */
         *{ font-family: 'Noto Sans KR', sans-serif; font-weight: 300;}
-        .nav-link{ font-weight: 400;} /* font 활성화시 폰트 두께*/
         a{ text-decoration: none; color: silver;}
 
         /* acod */
         .posi{padding: 80px 0;}
-        .row > div:nth-child(1) {padding-left: 50px;}
-        .row > div:nth-child(1) > ul li {list-style: none; }
         .list-group-item { border: 0; }
         .text-secondary { text-decoration: none;}
-        .text-secondary:hover { font-weight: 400;}
+        .text-secondary:hover { font-weight: 500;}
     </style>
 
 <!-- nav-->
@@ -26,16 +23,19 @@
 	        <!-- Content here -->
 	        <div class="row">
 	            <!-- 목록 -->
-	            <div class="col-3">
+	            <div class="col-3 me-5">
 	                <ul class="list-group">
-	                    <li class="list-group"><h4>고객센터</h4></li>
+	                    <li class="list-group mb-1"><h4>고객센터</h4></li>
 	                    <hr>
 	                    <li class="list-group-item"> <a href="${pageContext.request.contextPath}/cscenter/faq" class="text-secondary">FAQ</a></li>
-	                    <li class="list-group-item"> <a href="${pageContext.request.contextPath}/cscenter/customer" class="text-secondary">문의 하기</a></li>
+	                    <li class="list-group-item"> <a href="${pageContext.request.contextPath}/cscenter/customer" class="text-secondary">문의하기</a></li>
 	                </ul>
 	            </div>
 	
 	            <div class="col-6">
+	            
+	            	<h3 class="mb-5 text-center">FAQ</h3>
+	            
 	                <!-- 키워드 부분 -->
 	                <section class="keyword">
 	                    <div class="pb-3 text-white">

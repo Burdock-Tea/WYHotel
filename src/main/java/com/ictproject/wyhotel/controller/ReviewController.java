@@ -75,8 +75,8 @@ public class ReviewController {
 		String membercode = (String)session.getAttribute("member");  //세션의 멤버코드
 		String memberAuth = service.getUpdateAuthMember(bno); //수정할 게시글의 최초작상자의 멤버코드 가져오기 
 		
-		System.out.println("bno " + bno);
-		System.out.println("잘왔냐고요" + memberAuth);
+//		System.out.println("bno " + bno);
+//		System.out.println("잘왔냐고요" + memberAuth);
 		
 		//로그인이 안됐을시
 		if(membercode == null) { 
@@ -105,7 +105,7 @@ public class ReviewController {
 	public String delete(@RequestParam String bno,
 						RedirectAttributes ra) {
 		
-		System.out.println("delete에서 받은 : " + bno);
+//		System.out.println("delete에서 받은 : " + bno);
 		
 		int bnoNum = Integer.parseInt(bno);
 		

@@ -17,6 +17,7 @@
     align-items: center;
     background: linear-gradient(to left,black,transparent);
 }
+
 /* using object-fit */
 .hero video{
     width: 100%;

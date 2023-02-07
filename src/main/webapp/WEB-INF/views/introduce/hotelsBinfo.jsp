@@ -35,53 +35,20 @@ a {
 }
 </style>
 
-
-
 <section>
 	<div class="container posi">
-
-		<!-- 오프 캔버스 메뉴 -->
-		<div class="offcanvas offcanvas-start" tabindex="-1"
-			id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-			<div class="offcanvas-header">
-				<h5 class="offcanvas-title mt-3 ms-2" id="offcanvasExampleLabel">호텔
-					소개</h5>
-				<button type="button" class="btn-close text-reset"
-					data-bs-dismiss="offcanvas" aria-label="Close"></button>
-			</div>
-			<div class="offcanvas-body">
-				<div>
-					<ul class="hMenu">
-						<li class="pb-3 fs-5"><a href="#">개요</a></li>
-						<li class="pb-3 fs-5"><a
-							href="${pageContext.request.contextPath}/introduce/hotels">객실소개</a></li>
-						<li class="pb-3 fs-5"><a
-							href="${pageContext.request.contextPath}/introduce/hotelsSinfo">WY
-								서울 호텔</a></li>
-						<li class="pb-3 fs-5"><a
-							href="${pageContext.request.contextPath}/introduce/hotelsBinfo">WY
-								부산 호텔</a></li>
-						<li class="pb-3 fs-5"><a
-							href="${pageContext.request.contextPath}/introduce/hotelsJinfo">WY
-								제주 호텔</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-
-		<!-- 오프캔버스 버튼 -->
-		<a class="btn btn btn-dark mb-3" data-bs-toggle="offcanvas"
-			href="#offcanvasExample" role="button"
-			aria-controls="offcanvasExample"> <i class="xi-hamburger-out"></i>
-		</a>
 
 		<div class="row">
 			<div class="col-12">
 				<!-- 여기는 지도 api가 들어가는 장소입니다 -->
 				<h3>Location</h3>
 				<br>
-				<button type="button" id="cafeBtn" class="btn btn-outline-danger">카페</button>
-			<button type="button" id="tourBtn" class="btn btn btn-outline-success">라운지</button>
+
+				<!-- location button -->
+				<div class="mb-3">
+					<button type="button" id="cafeBtn" class="btn btn-outline-danger">카페</button>
+					<button type="button" id="tourBtn" class="btn btn-outline-success">라운지</button>
+				</div>
 				<div id="map" class="mapSize text-bg-danger"
 					style="width: 1200px; height: 500px; background: silver;"></div>
 
@@ -98,8 +65,8 @@ a {
 					즐거움이 될 것입니다. 탁 트인 바다와 항구의 낭만이 있는 도시, 부산에서 성공적인 비즈니스와 여행을 즐기십시오.</p>
 			</div>
 			<!-- 공간부분 -->
-			<div class="col-2"></div>
-			<div class="col-4 fs-5">
+			<div class="col-1"></div>
+			<div class="col-5 fs-5">
 				<hr>
 				<!-- 양끝정렬 맞추기 -->
 				<p>
@@ -117,9 +84,12 @@ a {
 </section>
 
 <!-- kakao map api-->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${ kakaoKey }"></script>
-<script src="${pageContext.request.contextPath}/json/busanCafe.json" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/json/busan.json" type="text/javascript"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${ kakaoKey }"></script>
+<script src="${pageContext.request.contextPath}/json/busanCafe.json"
+	type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/json/busan.json"
+	type="text/javascript"></script>
 
 <script>
     	
