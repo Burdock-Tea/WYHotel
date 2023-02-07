@@ -54,7 +54,6 @@ public class ReviewServiceImpl implements IReviewService {
 	
 	@Override
 	public boolean check(String reservationCode) {
-		
 		return (mapper.check(reservationCode) == 0 ? true : false);
 	}
 
