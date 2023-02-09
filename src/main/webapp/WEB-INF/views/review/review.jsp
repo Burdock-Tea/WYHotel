@@ -264,7 +264,7 @@
                 return;
             } else {
                 alert(grade + '점을 주었습니다.');
-                alert('댓글내용 : ' + content);
+                // alert('댓글내용 : ' + content);
             }
 
             $.ajax({

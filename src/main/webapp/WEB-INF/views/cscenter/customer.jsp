@@ -18,19 +18,19 @@
         <!-- Content here -->
         <div class="row">
             <!-- 목록 -->
-            <div class="col-3">
+            <div class="col-3 me-5">
                 <ul class="list-group">
-                    <li class="list-group"><h4>고객센터</h4></li>
+                    <li class="list-group mb-1"><h4>고객센터</h4></li>
                     <hr>
                     <li class="list-group-item"> <a href="${pageContext.request.contextPath}/cscenter/faq" class="text-secondary">FAQ</a></li>
-                    <li class="list-group-item"> <a href="${pageContext.request.contextPath}/cscenter/customer" class="text-secondary">문의 하기</a></li>
+                    <li class="list-group-item"> <a href="${pageContext.request.contextPath}/cscenter/customer" class="text-secondary">문의하기</a></li>
                 </ul>
             </div>
-
-            <div class="col-1"></div>
              
             <div class="col-5">
              	
+				<h3 class="mb-3 text-center">문의하기</h3>
+				             	
                 <form action="${pageContext.request.contextPath}/cscenter/mailSend" method="post" id="emailForm">
                     <div class="form-group">
                         <label for="exampleSelect1" class="form-label mt-4">호텔 선택</label>
@@ -52,12 +52,12 @@
                     
                     <!-- 이메일 로그인시 비활성화 하면 될덧 -->
                     <div class="form-group">
-                        <label for="exampleInputEmail1" class="form-label mt-4">이메일</label>
-                        <input type="email" name="email" class="form-control"  id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                        <label for="exampleInputEmail1" class="form-label mt-4">* 이메일</label>
+                        <input type="email" name="email" class="form-control"  id="email" aria-describedby="emailHelp" placeholder="Email@gmail.com">
                     </div>
                     
                     <!-- 전화번호 -->
-                    <label class="col-form-label mt-4" for="inputDefault">전화번호</label>
+                    <label class="col-form-label mt-4" for="inputDefault">* 전화번호</label>
                     <div class="form-group">
                         <div class="d-inline-flex">
                             <select class="form-select" name="phone1">
@@ -68,7 +68,7 @@
                             <span class="mt-2 px-2"> - </span>
                             <input type="tel" class="form-control" name="phone2" maxlength="4" placeholder="0000" id="phone2" > 
                             <span class="mt-2 px-2"> - </span>
-                            <input type="tel" class="form-control" name="phone3" maxlength="4" placeholder="0000" id="phone3"> 
+                            <input type="tel" class="form-control" name="phone3" maxlength="4" placeholder="0000" id="phone3" > 
                         </div>
                 	</div> 
                 	
@@ -197,10 +197,12 @@
 				alert('이메일은 필수값 입니다');
 				return;
 			}
+
 			if($('#phone2').val() === '' && $('#phone3').val() === '') {
 				alert('핸드폰 번호를 입력해 주세요');
 				return;
 			}
+			
 			if($('#title').val() === '') {
 				alert('제목을 입력해 주세요');
 				return;
@@ -220,8 +222,9 @@
 			} else {
 				return;
 			}
-			
-		});
+		}
+		
+		);
 		
 
 		/* 이메일 전송시 로딩처리*/
