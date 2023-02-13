@@ -34,6 +34,7 @@ public class InstagramVO {
 	private String content; //글 내용
 	private Timestamp regDate; //글 작성 시간
 	
+	private int total; // 댓글 갯수
 	private List<ReplyVO> replyList; //댓글 리스트
 	
 }

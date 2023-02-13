@@ -23,16 +23,15 @@ public class ReplyServiceImpl implements IReplyService {
 	}
 
 	@Override
-	public List<ReplyVO> getList(int bno, int pageNum) {
-		PageVO vo = new PageVO();
-		vo.setPageNum(pageNum); //화면에서 전달한 페이지 번호
-		vo.setCpp(mapper.getTotal(bno)); //댓글은 한 화면에 총 댓글 수 개수
-		
-		Map<String, Object> data = new HashMap<>();
-		data.put("paging", vo); //페이징 쿼리를 위한 pageNum과 cpp
-		data.put("bno", bno); //몇번 글의 댓글 목록
-		
-		return mapper.getList(data);
+	public List<ReplyVO> getList(int bno) {
+		/*
+		 * PageVO vo = new PageVO(); vo.setPageNum(pageNum); //화면에서 전달한 페이지 번호
+		 * vo.setCpp(mapper.getTotal(bno)); //댓글은 한 화면에 총 댓글 수
+		 * 
+		 * Map<String, Object> data = new HashMap<>(); data.put("paging", vo); //페이징 쿼리를
+		 * 위한 pageNum과 cpp data.put("bno", bno); //몇번 글의 댓글 목록
+		 */		
+		return mapper.getList(bno);
 	}
 
 	@Override
@@ -55,6 +54,9 @@ public class ReplyServiceImpl implements IReplyService {
 		mapper.delete(rno);
 	}
 	
-	
+	@Override
+	public int getBno(int rno) {
+		return mapper.getBno(rno);
+	}
 	
 }

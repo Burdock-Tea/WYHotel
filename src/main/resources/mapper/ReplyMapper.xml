@@ -14,7 +14,7 @@
   	
   	<!-- 댓글리스트 -->
   	 <select id="getList" resultType="reply">
- 	 	SELECT * FROM
+ 	 	<!-- SELECT * FROM
  	 		(
 	 	 	SELECT ROWNUM AS rn, tbl.*FROM
 		 	 	(
@@ -26,7 +26,10 @@
 	 	 <![CDATA[
 	 	 WHERE rn > (#{paging.pageNum}-1) * #{paging.cpp}
 	 	 AND rn <= #{paging.pageNum} * #{paging.cpp}
-	 	 ]]>
+	 	 ]]> -->
+	 	 SELECT * FROM instagram_reply
+ 	 	 WHERE bno = #{bno}
+ 	 	 ORDER BY rno DESC
  	 </select>
  	 
  	 <!-- 총댓글수 -->
@@ -56,6 +59,14 @@
   		WHERE rno = #{rno}
   	</delete>
   	
+  	<!-- bno 얻어오기 -->
+  	<select id="getBno" resultType="int">
+  		SELECT bno
+  		FROM instagram_reply
+  		WHERE rno = #{rno}
+  	</select>
+  	
+  
   </mapper>
   
   

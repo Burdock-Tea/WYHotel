@@ -36,6 +36,7 @@
                                     <input type="text" class="form-control" placeholder="등록된 이메일을 입력하세요."
                                         aria-label="Recipient's username" id="inputEmail"
                                         aria-describedby="button-addon2" name="email">
+                                        <button class="btn btn-dark" type="button" id="emailCheckBtn">중복체크</button>
                                     <button class="btn btn-dark" type="button"
                                         id="mail-check">인증</button>
                                 </div>
@@ -80,7 +81,7 @@
     <script>
     	
     	$(function() {
-    		
+    		$('#mail-check').hide();
     		//이메일 양식 유효성 검사.
     		var id = document.getElementById("inputEmail");
     		id.onkeyup = function() {
@@ -113,6 +114,43 @@
     			}
 
     		}// 비밀번호 양식 유효성검사 끝
+    		
+    		//아이디 중복 체크
+    		$('#emailCheckBtn').click(function() {
+    			
+    			const email = $('#inputEmail').val();
+    			
+    			if (email === '') {
+    				alert('이메일은 필수값입니다');
+    				return;
+    			}
+    			
+    			$.ajax({
+    				type : 'post',
+    				url : '${pageContext.request.contextPath}/member/idCheck',
+    				data : JSON.stringify({
+    					'email' : email
+    				}),
+    				dataType : 'text',
+    				contentType : 'application/json',
+    				success : function(data) {
+    					if (data === 'ok') {
+    						alert('작성한 이메일이 없습니다.');
+    						$('#email').val('');
+    						$('#email').focus();
+    					} else {
+    						alert('이메일 인증을 해주세요.');
+    						$('#inputEmail').attr('readonly', true);
+    						$('#emailCheckBtn').hide();
+    						$('#mail-check').show();
+    					}
+    				},
+    				error : function() {
+    					alert('등록에 실패했습니다.');
+    				}
+    			});
+    		}); // 아이디 중복체크 끝
+    		
     		
     		//비밀번호 클릭 이벤트 시작
     		$('#searchPw').click(function() {
@@ -172,7 +210,6 @@
 				}
 				openLoading();
 				const email = $('#inputEmail').val();
-				console.log('완성된 이메일: ' + email);
 				
 				$.ajax({
 					type: 'post',

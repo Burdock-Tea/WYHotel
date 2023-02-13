@@ -62,7 +62,7 @@ public class MemberController {
 		}else {
 			return "ok";
 		}
-			
+		
 		
 	}
 	/*
@@ -333,21 +333,29 @@ public class MemberController {
 			ra.addFlashAttribute("msg", "success");
 			ra.addFlashAttribute("email", service.searchId(name, phoneNum));
 		}
-				
-		
 		
 		return "redirect:/member/searchId";
 	}
 	
 	//비밀번호 찾기 페이지 이동(비로그인)
 	@GetMapping("/searchPw")
-	public void searchPw() {}
+	public void searchPw(HttpSession session, Model model) {
+		String memberCode = (String) session.getAttribute("member");
+		model.addAttribute("member", service.getInfo(memberCode));
+	}
 	
 	//비밀번호 변경 처리(비로그인)
 	@PostMapping("/searchPw")
-	public String searchPw(String newPw, String email) {
-		service.newPw(email, newPw);
-		return "redirect:/member/login";
+	public String searchPw(String newPw, String email, RedirectAttributes ra) {
+		
+		if(service.idcheck(email) == 0) {
+			ra.addFlashAttribute("msg", "fail");
+			return "redirect:/member/searchPw";
+		} else {
+			service.newPw(email, newPw);
+			return "redirect:/member/login";
+		}
+		
 	}
 	
 	/**

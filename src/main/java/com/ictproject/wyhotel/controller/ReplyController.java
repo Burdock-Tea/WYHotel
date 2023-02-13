@@ -32,19 +32,18 @@ public class ReplyController {
 	}
 	
 	//댓글 목록
-	@GetMapping("/replyList/{bnos}/{pageNum}")
-	public Map<String, Object> replyList(@PathVariable int bnos, @PathVariable int pageNum, HttpSession session) {
+	@GetMapping("/replyList/{bnos}")
+	public List<ReplyVO> replyList(@PathVariable int bnos) {
 
-		List<ReplyVO> list = service.getList(bnos, pageNum); //댓글 목록 데이터
-		int total = service.getTotal(bnos); // 전체 댓글 개수
-
-		session.setAttribute("total", total);
+		// List<ReplyVO> list = service.getList(bnos, pageNum); //댓글 목록 데이터
+		// int total = service.getTotal(bnos); // 전체 댓글 개수
+		// System.out.println("댓글목록: " + list);
 		
-		Map<String, Object> map = new HashMap<>();
-		map.put("list", list);
-		map.put("total", total);
+		// Map<String, Object> map = new HashMap<>();
+		// map.put("list", list);
+		// map.put("total", total);
 		
-		return map;
+		return service.getList(bnos);
 	}
 	
 	@PostMapping("/update")
@@ -69,6 +68,18 @@ public class ReplyController {
 		}
 	}
 	
+	@PostMapping("/getBno")
+	public int getBno(@RequestBody int rno) {
+		System.out.println(service.getBno(rno));
+		return service.getBno(rno);
+	}
+	
+	@PostMapping("/getTotal")
+	public int getTotal(@RequestBody int bno) {
+		System.out.println("bno: " + bno);
+		
+		return service.getTotal(bno);
+	}
 }
 
 

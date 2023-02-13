@@ -253,7 +253,6 @@
 		let isFinish = false;
     	
     	getList();
-    	setTimeout(() => getReplyList(0, 0), 200);
     	
     	$('#loginBtn').click(function() {
 			location.href="${pageContext.request.contextPath}/member/login";
@@ -292,9 +291,6 @@
 
 			const formData = new FormData();
 			const data = $('#file'); //이미지 첨부 input
-			
-			console.log('폼 데이터: ' + formData);
-			console.log('data: ' + data);
 
 			//FormData 객체에 사용자가 업로드한 파일의 정보가 들어있는 객체를 전달.
 			formData.append('file', data[0].files[0]);
@@ -325,7 +321,7 @@
 		}; //end regist()
 		
 		
-		
+		let bnoList = 0;
 		
 		//게시글 list 뽑기
         function getList(pageNum, reset) {
@@ -333,6 +329,7 @@
 			$.getJSON(
 				'<c:url value="/instagram/getList?pageNum=' + page + '" />',
 				function(list) {
+					bnoList = list;
 					if(list.length === 0) isFinish = true;
 					for(let i=0; i<list.length; i++) {
 						str +=
@@ -371,10 +368,11 @@
 					              <div class="feed_article_box">
 					                <div class="comments_container">
 					                  <div class="comments">` + list[i].email + `&nbsp;&nbsp;` + list[i].content + ` </div>
-					                  <div class="feed_like float-end" data-show="true">댓글 ` + '${total}' + `개 더보기</div>
+					                  <div class="feed_like float-end" data-show="false" data-bno="` + list[i].bno + `">댓글 ` + list[i].total + `  개 더보기</div>
 					                </div>
 					                <div class="comments1_box" id="replys">
 					                	 
+					                
 						            </div>
 						            
 					                <div class="new_comments">
@@ -391,7 +389,7 @@
 						              </span>
 						            </div>
 					            </c:if>
-					            <button class="buttonBox" id="replyRegist" type="button" data-bno="` + list[i].bno + `" style="display:none;">게시</button>
+					            <button class="buttonBox replyRegist" type="button" data-bno="` + list[i].bno + `" style="display: none;">게시</button>
 						            `;
 					}
 					
@@ -508,11 +506,15 @@
     	});
         
       	///////////////////////////댓글///////////////////////////////////
-      	//댓글 등록 이벤트 끝
+      	//댓글 등록 이벤트 시작
+      	
+      	//글번호
+      	let bno = 0;
       	$('#contentDiv').on('click', '#replyRegist', function(e) {
       		e.preventDefault();
       		//글번호
-      		const bno = $(this).data('bno');
+      		bno = e.currentTarget.dataset.bno;
+      		console.log(bno);
       		//댓글 내용
       		const replyContent = $(this)[0].parentNode.parentNode.firstElementChild.firstElementChild.value;
       		//작성자
@@ -538,9 +540,10 @@
       			contentType: 'application/json',
       			success: function(result) {
 					$('#reply').val('');
-					getReplyList(1, true);
+					getReplyList(1, true, bno);
 					strs = '';
-					
+					getList(1, true);
+					str = '';
 				},
 				error: function() {
 					alert('등록 실패 관리자 문의');
@@ -551,16 +554,25 @@
 		}); //댓글 등록 이벤트 끝
 		
 		let rno = 0;
+		let bnoM = 0;
 		let email = '';
+		let replys = null;
 		
 		//댓글 목록 이벤트
-      	function getReplyList(pageNum, reset) {
-			
+      	function getReplyList(pageNum, reset, bno) {
+			console.log('bno: ' + bno);
 			//게시글 번호
-			const bnos = $('#replyRegist').data('bno');
+			let bnos = null;
+			if (typeof(bno) !== 'undefined'){
+				console.log(typeof(bno));
+				bnos = bno;
+			} else {
+				bnos = $('.replyRegist').data('bno');
+			}
 			
+			console.log(bnos);
 			$.getJSON(
-				'<c:url value="/reply/replyList/" />' + bnos + "/" + page,
+				'<c:url value="/reply/replyList/" />' + bnos,
 				function(data) {
 					//총 댓글 수
 					let total = data.total;
@@ -568,14 +580,14 @@
 					//rno = data.rno;
 					
 					//댓글  리스트
-					let replyList = data.list;
+					let replyList = data;
 					
 					//페이지 번호 * 이번 요청으로 받은 댓글 수보다 전체 댓글 개수가 작으면 더보기 버튼은 없어도 된다.
-					if(total <= page * 3) {
+					/* if(total <= page * 3) {
 						$('#moreReplys').css('display', 'none');
 					} else {
 						$('#moreReplys').css('display', 'block');
-					}
+					} */
 					
 					//응답 데이터의 길이가 0과 같거나 더 작으면 함수를 종료하자
 					if(replyList.length <= 0) return;//끝
@@ -590,16 +602,15 @@
 					} // end for
 					
 					if (reset === true) {
-						$('#replys').html('');
+						replys.html('');
 					}
 					
-					$('#replys').append(strs);
+					replys.append(strs);
 					strs = '';
 					
 				}// end function
 				
 			) // end getJSON
-			
 		};//리스트 요청 끝
       	
         //댓글 전체내용 띄우기(모두보기 버튼 눌렀을때 사용)
@@ -612,15 +623,33 @@
 		//댓글 보여주기
 		$('#contentDiv').on('click', '.feed_like', function(e) {
 			/* console.log($(this).data('show')); */
-			if($(this).data('show') === 'true') {
-				$('#replys').show();
-				$(this).data('show', 'false');
+			
+			console.log($(this).data('show'));
+			
+			if($(this).data('show') === false) {
+				replys = $(this).parent().next();
+				getReplyList(1, true, $(this).data('bno'));
+				$(this).parent().next().show();
+				$(this).data('show', true);
 				$(this).html('▲ 댓글 접기');
-			/* 	console.log($('#replys')); */
 			} else {
+				bno = $(this).data('bno');
+				const feedLike = $(this);
 				$('#replys').hide();
-				$(this).data('show', 'true');
-				$(this).html('댓글 ${total}개 더보기');
+				$(this).data('show', false);
+				$(this).parent().next().hide();
+				console.log('bno', bno);
+				$.ajax({
+					type: 'post',
+					url : '${pageContext.request.contextPath}/reply/getTotal',
+					contentType: 'application/json; charset=utf-8',
+					data: JSON.stringify(bno),
+					success: function(result) {
+						console.log(result);
+						feedLike.html('댓글 ' + result + ' 개 더보기');
+					} 
+				});
+				
 			}
 			
 			
@@ -631,12 +660,20 @@
 			e.preventDefault();
 			rno = e.currentTarget.dataset.rno; //댓글 번호
 			email = e.currentTarget.dataset.email; //작성자 이메일
-			console.log(e.currentTarget.dataset.rno);
-			console.log(email);
-			if(email !== '${mem.email}' || '${mem == null}') {
+			if(email !== '${mem.email}' && '${mem == null}') {
 				alert('수정 권한이 없습니다.');
 				return;
 			} else {
+				$.ajax({
+					type: 'post',
+					url : '${pageContext.request.contextPath}/reply/getBno',
+					contentType: 'application/json',
+					data: rno,
+					success: function(result) {
+						bnoM = result;
+						console.log(bnoM);
+					}
+				});
 				$('#replyModal').modal('show');
 			}
 		});
@@ -666,10 +703,10 @@
 				success: function(result) {
 					if(result === 'success') {
 						alert('수정성공');
-						getReplyList(1, true);
+						getReplyList(1, true, bnoM);
 						$('#replyModal').modal('hide');
 					} else {
-						alert('수정 실패');
+						alert('수정 실패.');
 					}
 				},
 				error: function() {

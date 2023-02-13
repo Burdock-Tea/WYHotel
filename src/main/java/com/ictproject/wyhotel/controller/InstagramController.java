@@ -45,7 +45,6 @@ public class InstagramController {
 		String memberCode = (String) session.getAttribute("member");
 		
 		model.addAttribute("mem", member.getInfo(memberCode));
-		model.addAttribute("total", session.getAttribute("total"));
 		
 	}
 	

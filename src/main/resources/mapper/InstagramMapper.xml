@@ -22,9 +22,9 @@
     				FROM
     				(
     					SELECT i.*,
-    					(SELECT COUNT(i.bno)
-    					FROM instagramlike l
-    					WHERE l.bno = i.bno) AS likeCnt
+    					(SELECT COUNT(l.bno)
+    					FROM instagram_reply l
+    					WHERE l.bno = i.bno) AS total
     					FROM instagram i
     					ORDER BY bno DESC
     				) tbl
