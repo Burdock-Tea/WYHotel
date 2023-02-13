@@ -36,6 +36,7 @@
                                     <input type="text" class="form-control" placeholder="등록된 이메일을 입력하세요."
                                         aria-label="Recipient's username" id="inputEmail"
                                         aria-describedby="button-addon2" name="email">
+                                        <button class="btn btn-dark" type="button" id="emailCheckBtn">중복체크</button>
                                     <button class="btn btn-dark" type="button"
                                         id="mail-check">인증</button>
                                 </div>
@@ -64,7 +65,7 @@
                         </div>
 
                         <div class="joinButton col-12">
-                            <button type="button" class="btn btn-light col-6 clearfix" style="float: left;" onclick="${pageContext.request.contextPath}/">취소</button>
+                            <button type="button" class="btn btn-secondary col-6 clearfix" style="float: left;" onclick="${pageContext.request.contextPath}/">취소</button>
                             <button type="button" id="searchPw" class="btn btn-dark col-6 clearfix" style="float: left;">비밀번호 수정</button>
                         </div>
                     </form>
@@ -80,7 +81,7 @@
     <script>
     	
     	$(function() {
-    		
+    		$('#mail-check').hide();
     		//이메일 양식 유효성 검사.
     		var id = document.getElementById("inputEmail");
     		id.onkeyup = function() {
@@ -114,6 +115,43 @@
 
     		}// 비밀번호 양식 유효성검사 끝
     		
+    		//아이디 중복 체크
+    		$('#emailCheckBtn').click(function() {
+    			
+    			const email = $('#inputEmail').val();
+    			
+    			if (email === '') {
+    				alert('이메일은 필수값입니다');
+    				return;
+    			}
+    			
+    			$.ajax({
+    				type : 'post',
+    				url : '${pageContext.request.contextPath}/member/idCheck',
+    				data : JSON.stringify({
+    					'email' : email
+    				}),
+    				dataType : 'text',
+    				contentType : 'application/json',
+    				success : function(data) {
+    					if (data === 'ok') {
+    						alert('작성한 이메일이 없습니다.');
+    						$('#email').val('');
+    						$('#email').focus();
+    					} else {
+    						alert('이메일 인증을 해주세요.');
+    						$('#inputEmail').attr('readonly', true);
+    						$('#emailCheckBtn').hide();
+    						$('#mail-check').show();
+    					}
+    				},
+    				error : function() {
+    					alert('등록에 실패했습니다.');
+    				}
+    			});
+    		}); // 아이디 중복체크 끝
+    		
+    		
     		//비밀번호 클릭 이벤트 시작
     		$('#searchPw').click(function() {
 				
@@ -125,6 +163,7 @@
     			if($('#newPwChk').val() === '') {
     				alert('비밀번호 확인란을 입력해 주세요.');
     				$('#newPwChk').focus();
+    				return;
     			}
     			if($('#pwMsg').html() === '비밀번호는 영어나 숫자가 8~16자 이어야 합니다.') {
     				alert('비밀번호를 확인해 주세요.');
@@ -140,7 +179,9 @@
     				$('#searchPwForm').submit();
     				alert('비밀번호 변경 완료. 로그인 해주세요.');
     			} else {
-    				alert('비밀번호 확인을 확인해 주세요.');
+    				alert('비밀번호 확인란을 확인해 주세요.');
+    				$('#newPwChk').val('');
+    				$('#newPwChk').focus();
     				return;
     			}
 			});//비밀번호  클릭 이벤트 끝
@@ -169,7 +210,6 @@
 				}
 				openLoading();
 				const email = $('#inputEmail').val();
-				console.log('완성된 이메일: ' + email);
 				
 				$.ajax({
 					type: 'post',

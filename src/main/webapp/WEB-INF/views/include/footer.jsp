@@ -6,8 +6,7 @@
 <!-- footer.jsp 파일 시작 부분-->
 <!-- footer-->
 <div id="body-wrapper">
-	<div id="body-content"></div>
-	<footer>
+	<footer class="sticky-bottom">
 		<div class="container">
 			<div class="row">
 				<div class="col-8">

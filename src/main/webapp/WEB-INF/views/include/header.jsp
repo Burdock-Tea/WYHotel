@@ -36,7 +36,7 @@
         <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
     </head>
-    <body>    
+    <body class="d-flex flex-column min-vh-100">    
         <header> <!-- start header -->
             <div class="header-wrapper">
                 <div class="contatiner" style="text-align: center;">

@@ -48,7 +48,7 @@
                      value="${member.name}">
                   <span id="nameMsg"></span>
                </div>
-               <input type="hidden" value="${member.memberCode}" name="memberCode">
+
                <label class="col-form-label mt-4" for="inputDefault">전화번호</label>
                <p id="telMsg"></p>
                    <div class="form-group">
@@ -64,6 +64,28 @@
                          <input type="text" class="form-control" name="tel3" size="6" maxlength="4" placeholder="0000" id="tel3">
                          <input type="hidden" name="memberCode" value="${member.memberCode}">
                        </div>
+                       
+                       	<div class="addrForm">
+					<div class="form-group">
+						<label for="inputPhoneNumber" class="form-label mt-4">주소</label>
+						<div class="input-group" id="addrForm">
+							<input type="text" name="zipCode" id="zipCode" value="${member.zipCode}"
+								class="form-control w-50"  placeholder="우편번호"
+								 readonly>
+							<div class="input-group-addon">
+								<button type="button" id="addrBtn" class="btn btn-primary" onclick="searchAddress()">주소찾기</button>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="text" name="addrBasic" id="addrBasic" value="${member.addrBasic}"
+							class="form-control" id="addrBasic" placeholder="기본주소">
+					</div>
+					<div class="form-group">
+						<input type="text" name="addrDetail" id="addrDetail" value="${member.addrDetail}"
+							class="form-control" id="addrDetail" placeholder="상세주소">
+					</div>
+				</div>
                    
                    </div>
 				<span id="telChk"></span>
@@ -81,7 +103,8 @@
 
 <%@ include file="../include/footer.jsp"%>
 
-
+<!-- 다음 api 주소 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
    <script>
    		//전화번호 값 넣기
@@ -225,7 +248,7 @@
                   && chk4 === true && chk5 === true && chk6 === true && chk7 === true) {
                if(confirm('정보 수정 하시겠습니까?')) {
                   
-                  alert('수정 완료!');
+                  alert('수정 완료! 다시 로그인 해주세요.');
                   $('#modifyForm').submit();
                } else {
                   return;
@@ -236,96 +259,38 @@
          
          //이메일 인증 숨김
          $('#mailForm').hide();
-         
-         //인증번호 이메일 전송
-         $('#mail-check').click(function() {
-            if($('#inputEmail').val() === '') {
-               alert('이메일은 필수사항 입니다.');
-               return;
-            }
-            openLoading();
-            const email = $('#inputEmail').val();
-            console.log('완성된 이메일: ' + email);
-            
-            $.ajax({
-               type: 'post',
-               url: '<c:url value="/member/mailCheck"/>', 
-               contentType : 'application/json',
-               data : email,
-               success: function(data) {
-                  console.log('컨트롤러가 전달한 인증번호: ' + data);
-                  closeLoading();
-                  code = data; //인증 번호를 전역변수에 저장.
-                  alert('인증번호가 전송 되었습니다. 확인 후 입력란에 정확하게 입력하세요!');
-                  $('#mailForm').show();
-               }
-            });
-            
-         }); //이메일 전송 끝
-         
-         //인증번호 비교
-         $('#mail-check-btn').click(function() {
-            const inputCode = $('#checkNum').val(); //사용자가 입력한 인증번호
-            const $resultMsg = $('#mail-check-warn'); //span
-            
-            if(inputCode === code) {
-               $('#mailForm').hide();
-               $resultMsg.html('인증번호가 일치합니다.');
-               $resultMsg.css('color', 'green');
-               $('#checkNum').css('display', 'none');
-            } else {
-               $resultMsg.html('계정이 없거나 인증번호가 틀렸습니다.');
-               $resultMsg.css('color', 'red');
-               $(this).val('');
-               $(this).focus();
-            }
-            
-         }); //인증번호 이벤트 끝
-         
-         //인증번호 인풋창 엔터키 이벤트
-         $('#checkNum').keyup(function(e) {
-            if(e.key === 'Enter') {
-               $('#mail-check-btn').click();
-            }
-         });
-         
-         //로딩창 보여주는 함수
-           function openLoading() {
-            //화면의 가로, 세로길이 구해서 저장.
-            const maskWidth = window.document.body.cliendWidth; //바닐라
-            const maskHeight = $(document).height(); //jQuery
-            
-            //mask(로딩창이 화면에 드러날 때 주변을 어둡게 지정하기 위한 틀) 요소를 생성하고
-            //간단한 디자인을 지정한다.
-            const $mask = '<div id="mask" style="position: fixed; left: 0; top: 0; z-index: 9999; background: #000000; display: none;"></div>';
-         
-            //로딩 이미지 요소 생성 및 속성 지정
-            let $loadingImg = '';
-            $loadingImg += '<div id="loadingImg" style="position: absolute; top: 50%; width: 100%; z-index: 99999; ">';
-    		$loadingImg += `<img src="<c:url value='/img/loading.gif' />" style="position: relative; display: block; margin: 0 auto;" />`;
-    		$loadingImg += '</div>';
-            
-            //위에 준비한 mask와 loading이미지를 배치.
-            $('body').append($mask).append($loadingImg);
-            
-            //mask의 가로, 세로를 지정해주고, 투명도를 조절해 주겠다.
-            $('#mask').css({
-               'with': maskWidth,
-               'height': maskHeight,
-               'opacity': '0.5'
-            });
-            
-            //mask와 이미지를 화면에 표시
-            $('#mask').show();
-            $('#loadingImg').show();
-         }
-         
-       //로딩창 숨겨주는 함수
-       function closeLoading() {
-        	$('#maxk, #loadingImg').remove();
-       }
-         
+       
       }); //end jquery
+      
+    //다음 주소 API 사용해 보기
+      function searchAddress() {
+               new daum.Postcode({
+                   oncomplete: function(data) {
+                       // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분..
+                       var extraAddr = ''; // 참고항목 변수
+                       
+           	        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                       // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                       if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                           extraAddr += data.bname;
+                       }
+                       // 건물명이 있고, 공동주택일 경우 추가한다.
+                       if(data.buildingName !== '' && data.apartment === 'Y'){
+                           extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                       }
+                       // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                       if(extraAddr !== ''){
+                           extraAddr = ' (' + extraAddr + ')';
+                       }
+
+   					// 사용자가 선택한 값 해당 요소에 입력해주기.
+                       $('#addrBasic').val(data.roadAddress);
+   					$('#zipCode').val(data.zonecode);
+   					$('#addrDetail').focus();
+       				
+                   }
+               }).open();
+           }
    
    </script>
 

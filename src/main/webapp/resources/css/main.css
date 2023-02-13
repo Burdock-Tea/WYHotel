@@ -9,7 +9,7 @@
 /* section : video */
 .hero{
     height: 100vh;
-    position: relative;
+    position: relative; 
     overflow: hidden;
     background-size: cover;
     display: flex;
