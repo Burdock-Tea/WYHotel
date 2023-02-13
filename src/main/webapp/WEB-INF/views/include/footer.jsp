@@ -7,7 +7,7 @@
 <!-- footer-->
 <div id="body-wrapper">
 	<div id="body-content"></div>
-	<footer class="sticky-bottom">
+	<footer>
 		<div class="container">
 			<div class="row">
 				<div class="col-8">

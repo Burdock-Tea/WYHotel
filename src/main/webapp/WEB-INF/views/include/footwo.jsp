@@ -3,12 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
     <style>
 footer {
-    margin-top: 50px;
-    padding: 30px 0 15px;
-    position: relative;
-    background: #000;
+	margin-top: 50px;
+	background: #000;
     box-sizing: border-box;
     color: white;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
 footer .innerbox {
@@ -87,7 +88,7 @@ footer .footer-div {
 }
     </style>
 	<!-- footer-->
-    <footer class="sticky-bottom">
+    <footer>
 
         <div class="container">
             <div class="row">

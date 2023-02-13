@@ -156,14 +156,14 @@
                 <table class="reservation-table table">
                     <thead>
                         <tr>
-                            <td>
+                            <td class="pe-2">
                                 <select class="form-select" aria-label="Default select example" name="category" id="category">
                                     <option ${reservation.category == null ? 'selected' : '' }>호텔 / 다이닝 선택</option>
                                     <option value="hotels" ${reservation.category == 'hotels' ? 'selected' : ''}>호텔</option>
                                     <option value="dinings" ${reservation.category == 'dinings' ? 'selected' : ''}>다이닝</option>
                                 </select>
                             </td>
-                            <td>
+                            <td class="pe-2">
                                 <select class="form-select" aria-label="Default select example" name="hotelCode">
                                     <option ${hotelCode == null ? 'selected' : ''}>지점선택</option>
                                     <option value="10" ${reservation.hotelCode == '10' ? 'selected' : ''}>서울WY호텔</option>
@@ -171,7 +171,7 @@
                                     <option value="30" ${reservation.hotelCode == '30' ? 'selected' : ''}>제주WY호텔</option>
                                 </select>
                             </td>
-                            <td>
+                            <td class="pe-2">
                                 <select class="form-select" aria-label="Default select example" name="capacity">
                                     <option>인원수</option>
                                     <option value="1" ${reservation.capacity == '1' ? 'selected' : ''}>1</option>
@@ -181,7 +181,7 @@
                                 </select>
                             </td>
                             <!-- 연령대 삭제, 다이닝 예약 선택시 시간대로 변경  22/12/30 -->
-                            <td class="" id="time">
+                            <td class="pe-2" id="time">
                                 <select class="form-select" aria-label="Default select example" name="reservationTime">
                                     <option>시간선택</option>
                                     <optgroup label="Lunch">
@@ -201,10 +201,10 @@
                                     </optgroup>
                                 </select>
                             </td>
-                            <td>
+                            <td class="pe-2">
                                 <input type="text" id="daterange" name="daterange" value="${reservation.daterange == null ? '카테고리를 먼저 선택하세요' : reservation.daterange}" class="form-control" autocomplete="off"/>
                             </td>
-                            <td>
+                            <td class="pe-2">
                                 <button type="button" class="btn btn-dark" id="reservBtn">검색</button>
                             </td>
                             <td>

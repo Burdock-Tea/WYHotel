@@ -27,7 +27,7 @@ public class WebSocketController {
 		 
 		
 		
-		return "chat/userchat";
+		return "/chat/userchat";
 	}
 	
 	@GetMapping("/adminchat")
@@ -38,6 +38,6 @@ public class WebSocketController {
 		  model.addAttribute("id" , service.getEmail(member)); 
 		 
 		
-		return "chat/adminchat";
+		return "/chat/adminchat";
 	}
 }

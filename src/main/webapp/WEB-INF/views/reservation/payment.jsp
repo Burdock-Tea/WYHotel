@@ -13,7 +13,7 @@
 
 <section class="container posi">
 
-<h2 id="reservTitle" class="text-center"><span id="reservTitleSpan"></span><small id="isMember"></small></h2>
+<h2 id="reservTitle" class="text-center mb-5"><span id="reservTitleSpan"></span><small id="isMember"></small></h2>
 <form action="#" method="post" id="reservForm" name="reservForm" class="hotelForm">
     
     <div class="row">
@@ -22,7 +22,7 @@
         <c:if test="${member == null}">
             <div class="col-md-2"></div>
             <div class="col-md-3">이메일</div>
-            <div class="col-md-5">
+            <div class="col-md-5 mb-3">
                 <div class="input-group">
                 <input type="text" id="email" class="form-control" name="email" placeholder="example@example.com">
                 <div class="input-group-append">
@@ -34,7 +34,7 @@
 
             <div class="col-md-2"></div>
             <div class="col-md-3"><div class="check-label">인증번호</div></div>
-            <div class="col-md-5">
+            <div class="col-md-5 mb-3">
                 <div class="input-group">
                 <input id="mail-check-input" type="text" class="form-control" 
                     placeholder="인증번호를 6자리를 입력해 주세요." 
@@ -50,14 +50,14 @@
 
             <div class="col-md-2"></div>
             <div class="col-md-3">이름</div>
-            <div class="col-md-5">
+            <div class="col-md-5 mb-3">
                 <input type="text" id="name" class="form-control" name="name" placeholder="홍길동">
             </div>
             <div class="col-md-2"></div>
 
             <div class="col-md-2"></div>
             <div class="col-md-3">전화번호</div>
-            <div class="col-md-5">
+            <div class="col-md-5 mb-3">
                 <div class="d-inline-flex">
                     <select id="phone1" class="form-select" name="phone1">
                         <option>010</option>
@@ -78,7 +78,7 @@
         <!-- 1그룹 -->
         <div class="col-md-2"></div>
         <div class="col-md-3">예약지점</div>
-        <div class="col-md-5">
+        <div class="col-md-5 mb-3">
             <input type="hidden" value="${reservation.hotelCode}" name="hotelCode" id="hotelCode" readonly>
             <input type="text" class="form-control" id="hotelName" value="" readonly>
         </div>
@@ -89,14 +89,14 @@
         <div class="col-md-2"></div>
         <c:if test="${param.category == 'hotels'}">
             <div class="col-md-3">객실</div>
-            <div class="col-md-5">
+            <div class="col-md-5 mb-3">
                 <input type="hidden" value="${reservation.code}" name="roomCode" id="roomCode" readonly>
                 <input type="text" class="form-control" id="roomGrade" value="" readonly>
             </div>
         </c:if>
         <c:if test="${param.category == 'dinings'}">
             <div class="col-md-3">다이닝선택</div>
-            <div class="col-md-5">
+            <div class="col-md-5 mb-3">
                 <select class="form-select" aria-label="Default select example" name="resCode" readonly>
                     <option ${hotelCode == null ? 'selected' : ''}>다이닝 선택</option>
                     <c:forEach var="dining" items="${list}">
@@ -113,13 +113,13 @@
         <div class="col-md-2"></div>
         <c:if test="${param.category == 'hotels'}">
             <div class="col-md-3">인원</div>
-            <div class="col-md-5">
+            <div class="col-md-5 mb-3">
                 <input type="text" class="form-control" name="capacity" value="${reservation.capacity}" readonly>
             </div>
         </c:if>
         <c:if test="${param.category == 'dinings'}">
             <div class="col-md-3">인원</div>
-            <div class="col-md-5">
+            <div class="col-md-5 mb-3">
                 <input type="text" class="form-control" name="reservationAmount" value="${reservation.capacity}" readonly>
             </div>
         </c:if>
@@ -130,13 +130,13 @@
         <div class="col-md-2"></div>
         <c:if test="${param.category == 'hotels'}">
             <div class="col-md-3">체크인</div>
-            <div class="col-md-5">
+            <div class="col-md-5 mb-3">
                 <input type="date" value="" class="form-control" name="checkInDate" readonly>
             </div>
         </c:if>
         <c:if test="${param.category == 'dinings'}">
             <div class="col-md-3">예약일</div>
-            <div class="col-md-5">
+            <div class="col-md-5 mb-3">
                 <input type="text" value="" class="form-control" name="strDate" readonly>
             </div>
         </c:if>
@@ -147,13 +147,13 @@
         <div class="col-md-2"></div>
         <c:if test="${param.category == 'hotels'}">
             <div class="col-md-3">체크아웃</div>
-            <div class="col-md-5">
+            <div class="col-md-5 mb-3">
                 <input type="text" value="" class="form-control" name="checkOutDate" readonly>
             </div>
         </c:if>
         <c:if test="${param.category == 'dinings'}">
             <div class="col-md-3">예약시간</div>
-            <div class="col-md-5">
+            <div class="col-md-5 mb-3">
                 <input type="text" value="${reservation.reservationTime}" class="form-control" name="reservationTime" readonly>
             </div>
         </c:if>
@@ -164,13 +164,13 @@
         <div class="col-md-2"></div>
         <c:if test="${param.category == 'hotels'}">
             <div class="col-md-3">투숙일</div>
-            <div class="col-md-5">
+            <div class="col-md-5 mb-3">
                 <input type="text" value="" class="form-control" name="nights" readonly>
             </div>
         </c:if>
         <c:if test="${param.category == 'dinings'}">
             <div class="col-md-3">요청사항</div>
-            <div class="col-md-5">
+            <div class="col-md-5 mb-3">
                 <textarea name="reservationRequest" class="form-control"></textarea>
             </div>
         </c:if>
@@ -181,7 +181,7 @@
             <!-- 6그룹 -->
             <div class="col-md-2"></div>
             <div class="col-md-3">가격<small>(* VAT를 포함한 가격입니다.)</small></div>
-            <div class="col-md-5">
+            <div class="col-md-5 mb-3">
                 <input type="text" value="" class="form-control" name="roomPrice" id="roomPrice" readonly>
             </div>
             <div class="col-md-2"></div>

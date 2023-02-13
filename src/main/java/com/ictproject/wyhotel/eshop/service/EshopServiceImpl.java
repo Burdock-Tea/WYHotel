@@ -29,7 +29,7 @@ public class EshopServiceImpl implements IEshopService {
 	
 	@Override
 	public EshopProductVO getDetail(int prodnum) {
-	
+		
 		return mapper.getDetail(prodnum);
 	}
 	

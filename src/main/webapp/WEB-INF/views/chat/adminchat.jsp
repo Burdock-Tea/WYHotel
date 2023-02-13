@@ -66,7 +66,7 @@
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script type="text/javascript">
     // 서버의 admin의 서블릿으로 웹 소켓을 한다.
-    var webSocket = new WebSocket("ws://wyhotel.site/adminc");
+    var webSocket = new WebSocket("ws://wyhotel.site:9053/adminc");
     // 운영자에서의 open, close, error는 의미가 없어서 형태만 선언
     webSocket.onopen = function(message) { };
     webSocket.onclose = function(message) { };
