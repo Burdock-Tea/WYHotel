@@ -135,7 +135,9 @@
     			$('#modalPrice').text($(promotionCode + ' .card-body .card-price').html());
     			$('input[name="price"]').val($(this).prev().val());
     			
-    			$('input[name="daterange"]').val($('#startDate').val() + ' / ' + $('#endDate').val());    			
+    			$('input[name="daterange"]').val($('#startDate').val() + ' / ' + $('#endDate').val());
+    			
+    			paramPromotionCode = '';
     			
     		});
     		
