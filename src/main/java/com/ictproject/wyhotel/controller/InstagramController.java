@@ -80,6 +80,11 @@ public class InstagramController {
 		
 		File file = new File("C:/test/upload/" + fileLoca + "/" + fileName);
 		
+		String osName = System.getProperty("os.name").toLowerCase();
+		if(osName.equals("linux")) {
+			file = new File("/var/upload/" + fileLoca + "/" + fileName);
+		}
+		
 		ResponseEntity<byte[]> result = null;
 		HttpHeaders headers = new HttpHeaders();
 		try {

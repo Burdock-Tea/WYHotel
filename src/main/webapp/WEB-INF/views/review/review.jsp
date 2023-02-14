@@ -121,12 +121,9 @@
                    	</p>
                     <p><strong> 별점 : </strong>${article.grade == 5 ? '⭐⭐⭐⭐⭐' :  article.grade == 4 ? '⭐⭐⭐⭐' : article.grade == 3 ? '⭐⭐⭐' : article.grade == 2 ? '⭐⭐' : '⭐'}</p>
 
-                    <!-- 
-                    <h5>no : ${article.bno}</h5>
-                    <h5>호텔코드 : ${article.hotelCode}</h5>
-                    <h5>룸코드 : ${article.roomCode}</h5>
-                    <h5>예약코드 : ${article.reservationCode}</h5>
-                    -->
+                    <h5>지점 : ${article.hotelCode}</h5>
+                    <h5>객실 : ${article.roomCode}</h5>
+                    
                 </div>
 
                     <!-- 이미지 
@@ -253,7 +250,6 @@
                 alert('로그인을 해주세요.');
                 return;
             }
-            alert('ok');
 
             if (grade === undefined) // 선택을 하지 않았을 경우
             {
@@ -263,7 +259,7 @@
                 alert('댓글내용을 적어주세요');
                 return;
             } else {
-                alert(grade + '점을 주었습니다.');
+                // alert(grade + '점을 주었습니다.');
                 // alert('댓글내용 : ' + content);
             }
 
@@ -284,8 +280,8 @@
 
                 success: function (data) {
                     if (data === 'regSuccess') {
-                        alert('리뷰등록성공!!!');
-                        location.href='${pageContext.request.contextPath}/';
+                        alert('정상적으로 리뷰가 등록되었습니다.');
+                        location.href='${pageContext.request.contextPath}/review/review';
                     } else if (data === 'regFail') {
                         alert('해당 호텔/룸 이용했던 고객만 리뷰등록 가능합니다.');
                     } else {

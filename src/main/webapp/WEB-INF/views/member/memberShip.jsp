@@ -193,8 +193,8 @@
                             orderName: grade.toUpperCase(),
                             customerName: '${info.name}',
                             customerEmail: '${info.email}',
-                            successUrl: 'http://localhost/${pageContext.request.contextPath}/member/membershipPurchase?memberCode=' + '${info.memberCode}' + '&grade=' + grade,
-                            failUrl: 'http://localhost/${pageContext.request.contextPath}/member/memberShip'
+                            successUrl: 'http://wyhotel.site:9053/${pageContext.request.contextPath}/member/membershipPurchase?memberCode=' + '${info.memberCode}' + '&grade=' + grade,
+                            failUrl: 'http://wyhotel.site:9053/${pageContext.request.contextPath}/member/memberShip'
                         });
                     }
                 }

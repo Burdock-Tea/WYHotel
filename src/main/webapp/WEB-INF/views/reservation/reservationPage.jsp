@@ -228,7 +228,7 @@
                                 <img src="${pageContext.request.contextPath}/img/${result.roomGrade}01.jpg" alt="">
                             </c:if>
                             <c:if test="${param.category == 'dinings'}">
-                                <img src="${pageContext.request.contextPath}/img/bedroom-g34b59e527_1920.jpg" alt="">
+                                <img src="${pageContext.request.contextPath}/img/din.jpg" alt="">
                             </c:if>
                         </div>
                     </div>

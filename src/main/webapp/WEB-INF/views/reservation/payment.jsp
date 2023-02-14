@@ -475,7 +475,7 @@
                                     orderName: roomgrade,
                                     customerName: memName,
                                     customerEmail: memEmail,
-                                    successUrl: 'http://wyhotel.site/reservation/success?memberCode=' + $('#memberCode').val()
+                                    successUrl: 'http://wyhotel.site:9053/reservation/success?memberCode=' + $('#memberCode').val()
                                     + '&hotelCode=' + '${reservation.hotelCode}'+ '&roomCode=' + '${reservation.code}'+ '&capacity=' + '${reservation.capacity}'
                                     + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate + '&pointAccumulate=' + accumulatePoint,
                                     failUrl: 'http://wyhotel.site/reservation/reservationPage'
@@ -519,7 +519,7 @@
                                     orderName: roomgrade,
                                     customerName: memName,
                                     customerEmail: memEmail,
-                                    successUrl: 'http://wyhotel.site/reservation/success?memberCode=' + $('#memberCode').val()
+                                    successUrl: 'http://wyhotel.site:9053/reservation/success?memberCode=' + $('#memberCode').val()
                                     + '&hotelCode=' + '${reservation.hotelCode}'+ '&roomCode=' + '${reservation.code}'+ '&capacity=' + '${reservation.capacity}'
                                     + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate + '&pointAccumulate=' + accumulatePoint,
                                     failUrl: 'http://wyhotel.site/reservation/reservationPage'                                });
@@ -545,7 +545,7 @@
                             orderName: roomgrade,
                             customerName: memName,
                             customerEmail: memEmail,
-                            successUrl: 'http://wyhotel.site/reservation/success?memberCode=' + $('#memberCode').val()
+                            successUrl: 'http://wyhotel.site:9053/reservation/success?memberCode=' + $('#memberCode').val()
                             + '&hotelCode=' + '${reservation.hotelCode}'+ '&roomCode=' + '${reservation.code}'+ '&capacity=' + '${reservation.capacity}'
                             + '&cInDate=' + checkInDate + '&cOutDate=' + checkOutDate + '&pointAccumulate=' + accumulatePoint,
                             failUrl: 'http://wyhotel.site/reservation/reservationPage'

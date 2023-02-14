@@ -37,6 +37,32 @@ public class ReviewController {
 	@GetMapping("/review")
 	public void reviewPage(Model model) {
 		List<ReviewVO> list = service.getList();
+		list.forEach(vo -> {
+			if (vo.getHotelCode().equals("10")) {
+				vo.setHotelCode("서울 지점");
+			} else if (vo.getHotelCode().equals("20")) {
+				vo.setHotelCode("부산 지점");
+			} else {
+				vo.setHotelCode("제주 지점");
+			}
+			String roomCode = vo.getRoomCode();
+			switch (roomCode) {
+				case "55":
+					vo.setRoomCode("Suite");
+					break;
+				case "44":
+					vo.setRoomCode("Business Deluxe");
+					break;
+				case "33":
+					vo.setRoomCode("Business");
+					break;
+				case "22":
+					vo.setRoomCode("Standard Deluxe");
+					break;
+				default:
+					vo.setRoomCode("Suite");
+			}
+		});
 		model.addAttribute("list", list);
 		System.out.println("list 값 :"+ list);
 	}

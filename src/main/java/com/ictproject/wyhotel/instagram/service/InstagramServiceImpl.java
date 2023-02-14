@@ -23,12 +23,19 @@ public class InstagramServiceImpl implements IInstagramService {
 	@Override
 	public void insert(InstagramVO vo, MultipartFile file) {
 		//날짜별 폴더 생성 후 관리
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyMMdd");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 		String strDate = dateFormat.format(new Date());
 		
 		//기본 경로는 C:/test/upload
 		String uploadFolder = "C:/test/upload/" + strDate;
 		String uploadPath = "C:/test/upload/";
+		
+		// AWS EC2로 배포할때는 /var/upload/로 지정
+		String osName = System.getProperty("os.name").toLowerCase();
+		if(osName.equals("linux")) {
+			uploadFolder = "/var/upload/" + strDate;
+			uploadPath = "/var/upload/";
+		}
 		
 		//폴더 없으면 새로 생성
 		File folder = new File(uploadFolder);

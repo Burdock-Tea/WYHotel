@@ -51,7 +51,7 @@
                 <hr>
                 <div class="main-dining-content">
                     <p class="dining">dining</p>
-                    <p class="dining-name">존맛탱 다이닝</p>
+                    <p class="dining-name">품격있는 WYHOTEL의 다이닝</p>
                     <span class="dining-content">
                         WYHOTEL은, 시대를 대표하는 예술가들과 정치, 경제, 문화적 소양가들은<br>
                         WYHOTEL의 다이닝 공간에서 품격있는 모임과 휴식을 누려왔습니다. WYHOTEL은 우아한<br>

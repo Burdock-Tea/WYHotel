@@ -92,7 +92,7 @@
         let log = $div.find(".console").val();
         // 아래에 메시지를 추가한다.
         if('${id}' !== ''){
-        $div.find(".console").val(log + '${id}' +" => " +node.message + "\n");
+        $div.find(".console").val(log + '고객님' +" => " +node.message + "\n");
         }else{
         	$div.find(".console").val(log + "비회원 고객님 => " +node.message + "\n");
         }    
